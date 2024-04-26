@@ -6,13 +6,15 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('My Music'),
-      ),
+      backgroundColor: Colors.transparent,
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      //   title: const Text('My Music'),
+      // ),
       body: SafeArea(
-          child: Container(
-        child: Text('hiii'),
-      )),
+        top: false,
+        child: Text('Hiiiiiiii'),
+      ),
     );
   }
 }
