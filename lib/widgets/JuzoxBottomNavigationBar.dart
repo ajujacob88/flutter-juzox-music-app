@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:juzox_music_app/screens/home_screen.dart';
-import 'package:juzox_music_app/screens/search_screen.dart';
-import 'package:juzox_music_app/screens/library_screen.dart';
 
 class JuzoxBottomNavigationBar extends StatefulWidget {
   const JuzoxBottomNavigationBar(

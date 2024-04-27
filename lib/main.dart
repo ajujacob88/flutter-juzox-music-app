@@ -1,7 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:juzox_music_app/screens/home_screen.dart';
+import 'package:juzox_music_app/screens/tabs_screen.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(255, 104, 58, 183),
@@ -54,7 +52,7 @@ class MyApp extends StatelessWidget {
         child: child, // Pass the MaterialApp widget as child
       ),
 
-      home: const HomeScreen(),
+      home: const TabsScreen(),
       // home: Container(
       //   decoration: const BoxDecoration(
       //     gradient: LinearGradient(
