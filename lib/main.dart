@@ -36,6 +36,9 @@ class MyApp extends StatelessWidget {
               bodyMedium: TextStyle(color: kColorScheme.background),
               bodySmall: TextStyle(color: kColorScheme.background),
             ),
+        // navigationBarTheme: ThemeData()
+        //     .navigationBarTheme
+        //     .copyWith(backgroundColor: kColorScheme.onPrimaryContainer),
       ),
       //Wrap MaterialApp with Container for gradient
       builder: (context, child) => Container(

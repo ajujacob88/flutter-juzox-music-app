@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class JuzoxBottomNavigationBar extends StatefulWidget {
   const JuzoxBottomNavigationBar(
@@ -15,32 +16,42 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return NavigationBar(
-      onDestinationSelected: (index) {
-        setState(() {
-          currentPageIndex = index;
-          widget.onCurrentPageChanged(currentPageIndex);
-        });
-      },
-      indicatorColor: Colors.amber,
-      selectedIndex: currentPageIndex,
-      destinations: const [
-        NavigationDestination(
-          selectedIcon: Icon(Icons.home),
-          icon: Icon(Icons.home_outlined),
-          label: 'Home',
-        ),
-        NavigationDestination(
-          // selectedIcon: Icon(Icons.search),
-          icon: Icon(Icons.search_outlined),
-          label: 'Search',
-        ),
-        NavigationDestination(
-          // selectedIcon: Icon(Icons.library_music),
-          icon: Icon(Icons.library_music),
-          label: 'Library',
-        ),
-      ],
+    return Material(
+      color: Color.fromARGB(223, 2, 133, 98),
+      elevation: 0.0,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(50))),
+      child: NavigationBar(
+        onDestinationSelected: (index) {
+          setState(() {
+            currentPageIndex = index;
+            widget.onCurrentPageChanged(currentPageIndex);
+          });
+        },
+        // labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        backgroundColor: Colors.transparent,
+        // indicatorColor: Colors.amber,
+        //height: 70,
+        elevation: 0,
+        selectedIndex: currentPageIndex,
+        destinations: const [
+          NavigationDestination(
+            selectedIcon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
+          ),
+          NavigationDestination(
+            // selectedIcon: Icon(Icons.search),
+            icon: Icon(Icons.search_outlined),
+            label: 'Search',
+          ),
+          NavigationDestination(
+            // selectedIcon: Icon(Icons.library_music),
+            icon: Icon(Icons.library_music),
+            label: 'Library',
+          ),
+        ],
+      ),
     );
   }
 }
