@@ -12,6 +12,7 @@ class LibraryScreen extends StatelessWidget {
       body: Center(
         child: Text('Library Screen'),
       ),
+      extendBody: true,
     );
   }
 }
