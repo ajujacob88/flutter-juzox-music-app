@@ -51,9 +51,8 @@ class _HomeScreenState extends State<HomeScreen> {
     //   // This is optional but can be helpful to explain why the permission is needed
     //   print(
     //       'debug check 66 rationele ${Permission.storage.shouldShowRequestRationale}');
-    // } else {
-    //   print('deug check 7 else option');
     // }
+
     var status = await Permission.storage.request();
     // var status = await Permission.camera.status;
     print('debug check6 request storage permission status $status');
