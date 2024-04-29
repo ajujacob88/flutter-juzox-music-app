@@ -24,7 +24,10 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.juzox_music_app"
-    compileSdk flutter.compileSdkVersion
+  
+    compileSdk flutter.compileSdkVersion  //automatically set by flutter which will be the latest,, no need to setup explicitly, in my case it will be 34,,In a Flutter project, the compileSdkVersion is managed by the Flutter framework itself and is not explicitly set in your project's build.gradle file. Instead, Flutter uses its own SDK version, which is determined by the Flutter SDK you have installed. In a Flutter project, you can check the current compileSdkVersion indirectly by checking the corresponding Android SDK version used by Flutter. Flutter uses the Android SDK internally for compiling Android apps, so the Android SDK version used by Flutter is equivalent to the compileSdkVersion for your project.To check the Android SDK version used by Flutter, you can run the following command in your terminal: flutter doctor -v
+ 
+   // compileSdkVersion 34 
     ndkVersion flutter.ndkVersion
 
     compileOptions {
