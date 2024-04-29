@@ -56,6 +56,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: const Text('Home'),
+      // ),
+      backgroundColor: Colors.transparent,
+      body: player.playing
+          ? buildNowPlaying()
+          : const Center(child: Text('No song playing')),
+    );
+  }
+
+  Widget buildNowPlaying() {
     // return const Scaffold(
     //   backgroundColor: Colors.transparent,
     //   // appBar: AppBar(
