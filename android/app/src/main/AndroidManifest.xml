@@ -3,6 +3,15 @@
 <!-- Read storage permission for Android 12 and lower -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> 
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
+
+      <!-- Permissions options for the `manage external storage` group -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
     <!--
       Granular media permissions for Android 13 and newer.
       See https://developer.android.com/about/versions/13/behavior-changes-13#granular-media-permissions
@@ -10,7 +19,15 @@
     -->
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
+
+<!--
+      me put this android:requestLegacyExternalStorage="true" />
+    -->
     <application
+
+        android:requestLegacyExternalStorage="true" 
+
+
         android:label="juzox_music_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">        

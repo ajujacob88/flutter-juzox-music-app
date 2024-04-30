@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:permission_handler/permission_handler.dart';
-//import 'dart:io'; // Import dart:io for file system access
+import 'dart:io'; // Import dart:io for file system access
 import 'package:path_provider/path_provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,6 +18,8 @@ class _HomeScreenState extends State<HomeScreen> {
   String currentSongTitle = "";
   String currentSongArtwork = ""; // Optional for displaying artwork
 
+  List<String> musicFiles = [];
+
   @override
   void initState() {
     super.initState();
@@ -33,16 +35,60 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> getAudioFiles() async {
     print('debug check 5 getaudiofiles');
     // Get external storage directory (replace with specific directory if needed)
-    final directory = await getExternalStorageDirectory();
-    if (directory != null) {
-      // List all files within the directory
-      final files = await directory.listSync(recursive: true);
-      audioFiles = files
-          .where((file) => file.path.endsWith('.mp3')) // Filter for MP3 files
-          .map((file) => file.path)
-          .toList();
-      setState(() {}); // Update UI after getting audio files
-    }
+    // final directory = await getExternalStorageDirectory();
+    //final directory = await getExternalStorageDirectories();
+
+    //final directory = await getDownloadsDirectory();
+    //final directory = Directory('/storage/emulated/0/Download');
+
+    // Directory tempDir = await getApplicationDocumentsDirectory();
+    // var temp_Path = tempDir.path;
+    // print("debug 20 check temp_path: $temp_Path");
+
+    // final directory = await getExternalStorageDirectory();
+
+    // final dir = await getExternalStorageDirectory();
+    // final directory = Directory(dir!.path.toString().substring(0, 20));
+
+    final Directory directory = Directory((await getExternalStorageDirectory())!
+        .path
+        .toString()
+        .substring(0, 20));
+
+    directory.list(recursive: true).listen(
+      (FileSystemEntity entity) {
+        if (entity.path.contains('.mp3')) {
+          audioFiles.add(entity.path);
+        }
+
+        print('debug 55 music files is $musicFiles');
+
+        setState(() {});
+      },
+    );
+
+    // final directory = await getExternalStorageDirectories();
+
+    // final directory = await Directory.getExternalStoragePublicDirectory(
+    //     Directory.externalMusicDirectory);
+
+    //final directory = await Directory.systemTemp;
+
+    // final Directory directory = Directory((await getExternalStorageDirectory())!
+    //     .path
+    //     .toString()
+    //     .substring(0, 20));
+
+    print('debug checkkk 10 directoris is $directory');
+    // if (directory != null) {
+    //   // List all files within the directory
+    //   final files = await directory.listSync(recursive: true);
+    //   audioFiles = files
+    //       .where((file) => file.path.endsWith('.mp3')) // Filter for MP3 files
+    //       .map((file) => file.path)
+    //       .toList();
+    //   setState(() {}); // Update UI after getting audio files
+    // }
   }
 
   Future<bool> requestStoragePermission() async {
@@ -53,11 +99,21 @@ class _HomeScreenState extends State<HomeScreen> {
     //       'debug check 66 rationele ${Permission.storage.shouldShowRequestRationale}');
     // }
 
-    var status = await Permission.storage.request();
+    //var status = await Permission.storage.request();
     // var status = await Permission.camera.status;
-    print('debug check6 request storage permission status $status');
+    //var status1 = await Permission.accessMediaLocation.request();
 
-    return status == PermissionStatus.granted;
+    // var status = await Permission.manageExternalStorage.request();
+
+    // print('debug check6 request storage permission status $status ');
+
+    // return status == PermissionStatus.granted;
+
+    final storageStatus = await Permission.storage.request();
+    final manageExternalStorageStatus =
+        await Permission.manageExternalStorage.request();
+    return storageStatus == PermissionStatus.granted &&
+        manageExternalStorageStatus == PermissionStatus.granted;
   }
 
   Future<void> loadAndPlayAudio(

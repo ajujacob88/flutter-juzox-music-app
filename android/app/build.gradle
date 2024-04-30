@@ -49,13 +49,13 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
 
-        //minSdkVersion 22 //if this is greater than 21, then multidexenabled will be automatically true - aju
-        //targetSdkVersion 33
-        minSdkVersion flutter.minSdkVersion    //but in my project it is 19 which is kitkat(i think it is set using android studio in my case), so multidexenabled need to enabled true, update it into 22 for next project onwards
+        minSdkVersion 22 //if this is greater than 21, then multidexenabled will be automatically true - aju
+        //targetSdkVersion 30
+      //  minSdkVersion flutter.minSdkVersion    //but in my project it is 19 which is kitkat(i think it is set using android studio in my case), so multidexenabled need to enabled true, update it into 22 for next project onwards
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        multiDexEnabled true
+      //  multiDexEnabled true
     }
 
     buildTypes {
