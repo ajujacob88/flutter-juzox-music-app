@@ -4,6 +4,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'dart:io'; // Import dart:io for file system access
 import 'package:path_provider/path_provider.dart';
 
+//import 'package:flutter/services.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -19,6 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
   String currentSongArtwork = ""; // Optional for displaying artwork
 
   List<String> musicFiles = [];
+
+  // static const MethodChannel audioChannel = MethodChannel('audio');
 
   @override
   void initState() {
@@ -50,10 +54,14 @@ class _HomeScreenState extends State<HomeScreen> {
     // final dir = await getExternalStorageDirectory();
     // final directory = Directory(dir!.path.toString().substring(0, 20));
 
-    final Directory directory = Directory((await getExternalStorageDirectory())!
-        .path
-        .toString()
-        .substring(0, 20));
+    // final Directory directory = Directory((await getExternalStorageDirectory())!
+    //     .path
+    //     .toString()
+    //     .substring(0, 20));
+
+    Directory directory = Directory('/storage/emulated/0/');
+
+    //final directory = await getExternalStorageDirectory();
 
     directory.list(recursive: true).listen(
       (FileSystemEntity entity) {
@@ -61,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
           audioFiles.add(entity.path);
         }
 
-        print('debug 55 music files is $musicFiles');
+        print('debug 555 music files is $musicFiles');
 
         setState(() {});
       },
@@ -78,17 +86,71 @@ class _HomeScreenState extends State<HomeScreen> {
     //     .path
     //     .toString()
     //     .substring(0, 20));
+    // final directory = await getExternalStorageDirectory();
+    // final directory =
+    //     await getExternalStorageDirectories(type: StorageDirectory.downloads);
 
-    print('debug checkkk 10 directoris is $directory');
+    //  final directory = await getApplicationDocumentsDirectory();
+
+    //  Directory directory = Directory('/storage/emulated/0/');
+
+    // final directory = await getExternalStorageDirectories(
+    //   type: StorageDirectory.music,
+    // );
+
+    // final directory = await getExternalStorageDirectory();
+
+    // List<FileSystemEntity> _files;
+    // _files = directory!.listSync(recursive: true, followLinks: false);
+    // print('debug files is $_files');
+
     // if (directory != null) {
     //   // List all files within the directory
-    //   final files = await directory.listSync(recursive: true);
+
+    //   final files =
+    //       await directory.listSync(recursive: true, followLinks: false);
+    //   print('debug check files is $files');
     //   audioFiles = files
     //       .where((file) => file.path.endsWith('.mp3')) // Filter for MP3 files
     //       .map((file) => file.path)
     //       .toList();
     //   setState(() {}); // Update UI after getting audio files
     // }
+
+    // final directory = await getExternalStorageDirectory();
+    print('debug checkkk 10 directoriees is $directory');
+    // if (directory != null) {
+    //   // List all files within the directory
+    //   final files =
+    //       await directory.listSync(recursive: true, followLinks: false);
+    //   print('debug check files is $files');
+    //   audioFiles = files
+    //       .where((file) => file.path.endsWith('.mp3')) // Filter for MP3 files
+    //       .map((file) => file.path)
+    //       .toList();
+    //   setState(() {}); // Update UI after getting audio files
+    // }
+
+    // now checking again
+
+    // List<FileSystemEntity> _files = [];
+
+    // final directory = await getExternalStorageDirectory();
+    // print('debug check 10 directoriees is $directory');
+
+    // List<FileSystemEntity> files = directory!
+    //     .listSync()
+    //     .where((entity) => entity.path.endsWith('.mp3'))
+    //     .toList();
+    // setState(() {
+    //   _files = files;
+    // });
+    // print('debug checkkk 11 files is $_files');
+
+    // print('audios is before');
+    // final List<Object?>? audios =
+    //     await audioChannel.invokeMethod<List<Object?>>('getAudios');
+    // print('audios is $audios');
   }
 
   Future<bool> requestStoragePermission() async {
@@ -110,10 +172,18 @@ class _HomeScreenState extends State<HomeScreen> {
     // return status == PermissionStatus.granted;
 
     final storageStatus = await Permission.storage.request();
-    final manageExternalStorageStatus =
-        await Permission.manageExternalStorage.request();
-    return storageStatus == PermissionStatus.granted &&
-        manageExternalStorageStatus == PermissionStatus.granted;
+    // final manageExternalStorageStatus =
+    //     await Permission.manageExternalStorage.request();
+
+    final mediastatus = await Permission.mediaLibrary.request();
+    Permission.manageExternalStorage;
+    Permission.storage.request();
+    Permission.storage;
+
+    // return storageStatus == PermissionStatus.granted &&
+    //     manageExternalStorageStatus == PermissionStatus.granted;
+
+    return storageStatus == PermissionStatus.granted;
   }
 
   Future<void> loadAndPlayAudio(

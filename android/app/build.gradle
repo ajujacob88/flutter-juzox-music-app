@@ -50,9 +50,9 @@ android {
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
 
         minSdkVersion 22 //if this is greater than 21, then multidexenabled will be automatically true - aju
-        //targetSdkVersion 30
+        targetSdkVersion 33   //Meet Google Play's target API level requirement Starting on August 31, 2023: New apps must target Android 13 (API level 33) or higher; When you upload an APK, it must meet Google Play’s target API level requirements.
       //  minSdkVersion flutter.minSdkVersion    //but in my project it is 19 which is kitkat(i think it is set using android studio in my case), so multidexenabled need to enabled true, update it into 22 for next project onwards
-        targetSdkVersion flutter.targetSdkVersion
+      //  targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
       //  multiDexEnabled true
