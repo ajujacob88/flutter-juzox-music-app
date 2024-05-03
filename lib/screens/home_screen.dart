@@ -3,6 +3,9 @@ import 'package:just_audio/just_audio.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:io'; // Import dart:io for file system access
 import 'package:path_provider/path_provider.dart';
+import 'package:on_audio_query/on_audio_query.dart';
+import 'package:juzox_music_app/models/song_model.dart'
+    as MySongModel; // Assuming you save this class in a file named song_model.dart
 
 //import 'package:flutter/services.dart';
 
@@ -14,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // final OnAudioQuery _audioQuery = OnAudioQuery();
   final player = AudioPlayer();
   List<String> audioFiles = []; // List to store audio file paths
 
@@ -37,7 +41,36 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> getAudioFiles() async {
-    print('debug check 5 getaudiofiles');
+    // // Query Audios
+    // List<AudioModel> audios = await _audioQuery.queryAudios();
+    // // OnAudioQuery _audioQuery = OnAudioQuery();
+    // File file = File('path');
+    // try {
+    //   if (file.existsSync()) {
+    //     file.deleteSync();
+    //     _audioQuery.scanMedia(file.path); // Scan the media 'path'
+    //   }
+    // } catch (e) {
+    //   debugPrint('$e');
+    // }
+
+    final audioQuery = OnAudioQuery();
+    final songs = await audioQuery.querySongs();
+
+    final songModels = songs
+        .map((songInfo) => MySongModel.SongModel.fromSongInfo(songInfo))
+        .toList();
+
+    print('debug songModels is $songModels');
+
+    // final mp3Songs =
+    //     songs.where((song) => song.fileExtension.endsWith('.mp3')).toList();
+
+    // setState(() {
+    //   audioFiles = mp3Songs.map((song) => song.fileExtension).toList();
+    // });
+
+    // print('debug check 5 audio files is, $mp3Songs');
     // Get external storage directory (replace with specific directory if needed)
     // final directory = await getExternalStorageDirectory();
     //final directory = await getExternalStorageDirectories();
@@ -58,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //     .path
     //     .toString()
     //     .substring(0, 20));
-
+/*
     Directory directory = Directory('/storage/emulated/0/');
 
     //final directory = await getExternalStorageDirectory();
@@ -74,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {});
       },
     );
-
+*/
     // final directory = await getExternalStorageDirectories();
 
     // final directory = await Directory.getExternalStoragePublicDirectory(
@@ -118,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // }
 
     // final directory = await getExternalStorageDirectory();
-    print('debug checkkk 10 directoriees is $directory');
+    //  print('debug checkkk 10 directoriees is $directory');
     // if (directory != null) {
     //   // List all files within the directory
     //   final files =
