@@ -51,7 +51,21 @@ class _HomeScreenState extends State<HomeScreen> {
     var audioFiles2 = audioFilesthis.elementAt(32);
     var audioFiles3 = audioFilesthis.elementAt(18);
 
-    audioFiles = [audioFiles2.data, audioFiles3.data];
+    // audioFilesthis.forEach((element) {
+    //   if (element.fileExtension == 'mp3') {
+    //     audioFiles.add(element.data);
+    //   }
+    // });
+
+    for (var element in audioFilesthis) {
+      if (element.fileExtension == 'mp3') {
+        audioFiles.add(element.data);
+      }
+    }
+
+    //audioFiles = [audioFiles2.data, audioFiles3.data];
+
+    setState(() {});
 
     print(
         'debug check 222 ${audioFilesthis.length}, one song album ${audioFiles3.fileExtension}');
