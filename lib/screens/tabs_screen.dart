@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:juzox_music_app/screens/library_screen.dart';
 import 'package:juzox_music_app/screens/home_screen.dart';
-import 'package:juzox_music_app/screens/search_screen.dart';
+import 'package:juzox_music_app/screens/music_screen.dart';
 import 'package:juzox_music_app/widgets/juzox_bottom_navigation_bar.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -35,7 +35,7 @@ class _HomeScreenState extends State<TabsScreen> {
       ),
       body: [
         HomeScreen(),
-        SearchScreen(),
+        MusicScreen(),
         LibraryScreen(),
       ][currentPageIndex],
     );

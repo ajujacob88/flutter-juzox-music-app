@@ -40,9 +40,9 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
             label: 'Home',
           ),
           NavigationDestination(
-            // selectedIcon: Icon(Icons.search),
-            icon: Icon(Icons.search_outlined),
-            label: 'Search',
+            selectedIcon: Icon(Icons.music_note),
+            icon: Icon(Icons.music_note_outlined),
+            label: 'Music',
           ),
           NavigationDestination(
             // selectedIcon: Icon(Icons.library_music),

@@ -4,7 +4,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'dart:io'; // Import dart:io for file system access
 import 'package:path_provider/path_provider.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:juzox_music_app/models/song_model.dart'
+import 'package:juzox_music_app/models/music_model.dart'
     as MySongModel; // Assuming you save this class in a file named song_model.dart
 
 //import 'package:flutter/services.dart';
@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final OnAudioQuery _audioQuery = OnAudioQuery();
-  final player = AudioPlayer();
+  final _audioPlayer = AudioPlayer();
   List<String> audioFiles = []; // List to store audio file paths
 
   String currentSongTitle = "";
@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> getAudioFiles() async {
     var audioFilesthis = await _audioQuery.querySongs(
-      sortType: null,
+      sortType: SongSortType.DATE_ADDED,
       orderType: OrderType.ASC_OR_SMALLER,
       uriType: UriType.EXTERNAL,
       ignoreCase: true,
@@ -237,7 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //     await Permission.manageExternalStorage.request();
 
     final mediastatus = await Permission.mediaLibrary.request();
-    Permission.manageExternalStorage;
+    //  Permission.manageExternalStorage;
     Permission.storage.request();
     Permission.storage;
 
@@ -249,8 +249,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> loadAndPlayAudio(
       String filePath, String songTitle, String artwork) async {
-    await player.setAudioSource(AudioSource.uri(Uri.parse(filePath)));
-    await player.play();
+    await _audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(filePath)));
+    await _audioPlayer.play();
     setState(() {
       currentSongTitle = songTitle;
       currentSongArtwork = artwork;
@@ -258,16 +258,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void playPause() {
-    if (player.playing) {
-      player.pause();
+    if (_audioPlayer.playing) {
+      _audioPlayer.pause();
     } else {
-      player.play();
+      _audioPlayer.play();
     }
     setState(() {}); // Update UI based on playing state
   }
 
   void seekTo(Duration position) {
-    player.seek(position);
+    _audioPlayer.seek(position);
   }
 
   @override
@@ -277,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
       //   title: const Text('Home'),
       // ),
       backgroundColor: Colors.transparent,
-      body: player.playing ? buildNowPlaying() : buildBrowsePage(),
+      body: _audioPlayer.playing ? buildNowPlaying() : buildBrowsePage(),
     );
   }
 
@@ -304,14 +304,16 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             IconButton(
               onPressed: playPause,
-              icon: player.playing ? Icon(Icons.pause) : Icon(Icons.play_arrow),
+              icon: _audioPlayer.playing
+                  ? Icon(Icons.pause)
+                  : Icon(Icons.play_arrow),
             ),
             IconButton(
               onPressed: () => seekTo(Duration.zero), // Seek to beginning
               icon: Icon(Icons.skip_previous),
             ),
             IconButton(
-              onPressed: () => seekTo(player.duration!), // Seek to end
+              onPressed: () => seekTo(_audioPlayer.duration!), // Seek to end
               icon: Icon(Icons.skip_next),
             ),
           ],
