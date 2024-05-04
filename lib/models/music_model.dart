@@ -1,29 +1,31 @@
 class MusicModel {
-  final String id;
-  final String title;
-  final String artist;
-  final String duration;
+  final int? id;
+  final String? title;
+  final String? artist;
+  final int? duration;
   final String filePath;
-//  final String album;
+  final String? album;
+  final String? fileExtension;
 
-  MusicModel({
-    required this.id,
-    required this.title,
-    required this.artist,
-    required this.duration,
-    required this.filePath,
-    //   required this.album,
-  });
+  MusicModel(
+      {this.id,
+      this.title,
+      this.artist,
+      this.duration,
+      required this.filePath,
+      this.album,
+      this.fileExtension});
 
   // Factory constructor to create a SongModel from a SongInfo object
   factory MusicModel.fromSongInfo(songInfo) {
     return MusicModel(
-      id: songInfo.id.toString(), // Convert ID to String
+      id: songInfo.id,
       title: songInfo.title,
       artist: songInfo.artist,
-      duration: songInfo.duration.toString(),
-      filePath: songInfo.filePath,
-      //  album: songInfo.album,
+      duration: songInfo.duration,
+      filePath: songInfo.data,
+      album: songInfo.album,
+      fileExtension: songInfo.fileExtension,
     );
   }
 }
