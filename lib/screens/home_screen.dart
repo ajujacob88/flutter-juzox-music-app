@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // final OnAudioQuery _audioQuery = OnAudioQuery();
+  final OnAudioQuery _audioQuery = OnAudioQuery();
   final player = AudioPlayer();
   List<String> audioFiles = []; // List to store audio file paths
 
@@ -41,6 +41,20 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> getAudioFiles() async {
+    var audioFilesthis = await _audioQuery.querySongs(
+      sortType: null,
+      orderType: OrderType.ASC_OR_SMALLER,
+      uriType: UriType.EXTERNAL,
+      ignoreCase: true,
+    );
+
+    var audioFiles2 = audioFilesthis.elementAt(32);
+    var audioFiles3 = audioFilesthis.elementAt(18);
+
+    audioFiles = [audioFiles2.data, audioFiles3.data];
+
+    print(
+        'debug check 222 ${audioFilesthis.length}, one song album ${audioFiles3.fileExtension}');
     // // Query Audios
     // List<AudioModel> audios = await _audioQuery.queryAudios();
     // // OnAudioQuery _audioQuery = OnAudioQuery();
@@ -54,14 +68,14 @@ class _HomeScreenState extends State<HomeScreen> {
     //   debugPrint('$e');
     // }
 
-    final audioQuery = OnAudioQuery();
-    final songs = await audioQuery.querySongs();
+    // final audioQuery = OnAudioQuery();
+    // final songs = await audioQuery.querySongs();
 
-    final songModels = songs
-        .map((songInfo) => MySongModel.SongModel.fromSongInfo(songInfo))
-        .toList();
+    // final songModels = songs
+    //     .map((songInfo) => MySongModel.SongModel.fromSongInfo(songInfo))
+    //     .toList();
 
-    print('debug songModels is $songModels');
+    // print('debug songModels is $songModels');
 
     // final mp3Songs =
     //     songs.where((song) => song.fileExtension.endsWith('.mp3')).toList();
