@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:juzox_music_app/models/music_model.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'dart:io';
+//import 'dart:io';
 
 class MusicScreen extends StatefulWidget {
   const MusicScreen({super.key});
@@ -79,11 +79,15 @@ class _MusicScreenState extends State<MusicScreen> {
           itemBuilder: (context, index) {
             final song = _songs[index];
             return ListTile(
+              // isThreeLine: true,
               title: Text(song.title!),
+              //  titleTextStyle: TextStyle(color: Colors.white),
+              //   titleTextStyle: Theme.of(context).textTheme.titleMedium,
               subtitle: Text(song.artist!),
               // This Widget will query/load image.
               // You can use/create your own widget/method using [queryArtwork].
               leading: QueryArtworkWidget(
+                artworkClipBehavior: Clip.none,
                 controller: _audioQuery,
                 id: song.id!,
                 type: ArtworkType.AUDIO,

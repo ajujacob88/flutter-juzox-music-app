@@ -5,12 +5,21 @@ var kColorScheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(255, 104, 58, 183),
 );
 
-const myGradient = LinearGradient(
+// const myGradient = LinearGradient(
+//   begin: Alignment.topCenter,
+//   end: Alignment.bottomCenter,
+//   colors: [
+//     Color(0xFF243B55),
+//     Color(0xFF141E30),
+//   ],
+// );
+
+const kGradient = LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
   colors: [
-    Color(0xFF243B55),
-    Color(0xFF141E30),
+    Color.fromARGB(255, 5, 37, 73),
+    Color.fromARGB(255, 6, 73, 28),
   ],
 );
 void main() {
@@ -25,32 +34,48 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Juzox Music App',
       theme: ThemeData().copyWith(
-        colorScheme: kColorScheme,
-        appBarTheme: const AppBarTheme().copyWith(
-          backgroundColor: kColorScheme.onPrimaryContainer,
-          foregroundColor: kColorScheme.primaryContainer,
-        ),
-        scaffoldBackgroundColor: kColorScheme.onPrimaryContainer,
-        textTheme: ThemeData().textTheme.copyWith(
-              bodyLarge: TextStyle(color: kColorScheme.background),
-              bodyMedium: TextStyle(color: kColorScheme.background),
-              bodySmall: TextStyle(color: kColorScheme.background),
-            ),
-        // navigationBarTheme: ThemeData()
-        //     .navigationBarTheme
-        //     .copyWith(backgroundColor: kColorScheme.onPrimaryContainer),
-      ),
+          colorScheme: kColorScheme,
+          appBarTheme: const AppBarTheme().copyWith(
+            backgroundColor: kColorScheme.onPrimaryContainer,
+            foregroundColor: kColorScheme.primaryContainer,
+          ),
+          scaffoldBackgroundColor: kColorScheme.onPrimaryContainer,
+          textTheme: ThemeData().textTheme.copyWith(
+                bodyLarge: TextStyle(color: kColorScheme.background),
+                bodyMedium: TextStyle(color: kColorScheme.background),
+                bodySmall: TextStyle(color: kColorScheme.background),
+                titleMedium: TextStyle(color: kColorScheme.background),
+                titleSmall: TextStyle(color: kColorScheme.background),
+                titleLarge: TextStyle(color: kColorScheme.background),
+                displayLarge: TextStyle(color: kColorScheme.background),
+                displaySmall: TextStyle(color: kColorScheme.background),
+                displayMedium: TextStyle(color: kColorScheme.background),
+                headlineLarge: TextStyle(color: kColorScheme.background),
+                headlineMedium: TextStyle(color: kColorScheme.background),
+                headlineSmall: TextStyle(color: kColorScheme.background),
+                labelLarge: TextStyle(color: kColorScheme.background),
+                labelMedium: TextStyle(color: kColorScheme.background),
+                labelSmall: TextStyle(color: kColorScheme.background),
+              ),
+          listTileTheme: const ListTileThemeData().copyWith(
+            titleTextStyle: TextStyle(color: kColorScheme.inversePrimary),
+          )
+          // navigationBarTheme: ThemeData()
+          //     .navigationBarTheme
+          //     .copyWith(backgroundColor: kColorScheme.onPrimaryContainer),
+          ),
       //Wrap MaterialApp with Container for gradient
       builder: (context, child) => Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color.fromARGB(255, 5, 37, 73),
-              Color.fromARGB(255, 6, 73, 28),
-            ],
-          ),
+          gradient: kGradient,
+          // gradient: LinearGradient(
+          //   begin: Alignment.topCenter,
+          //   end: Alignment.bottomCenter,
+          //   colors: [
+          //     Color.fromARGB(255, 5, 37, 73),
+          //     Color.fromARGB(255, 6, 73, 28),
+          //   ],
+          // ),
         ),
         child: child, // Pass the MaterialApp widget as child
       ),
