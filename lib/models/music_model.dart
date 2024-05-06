@@ -1,4 +1,4 @@
-class MusicModel {
+class JuzoxMusicModel {
   final int? id;
   final String? title;
   final String? artist;
@@ -7,7 +7,7 @@ class MusicModel {
   final String? album;
   final String? fileExtension;
 
-  MusicModel(
+  JuzoxMusicModel(
       {this.id,
       this.title,
       this.artist,
@@ -17,8 +17,8 @@ class MusicModel {
       this.fileExtension});
 
   // Factory constructor to create a SongModel from a SongInfo object
-  factory MusicModel.fromSongInfo(songInfo) {
-    return MusicModel(
+  factory JuzoxMusicModel.fromSongInfo(songInfo) {
+    return JuzoxMusicModel(
       id: songInfo.id,
       title: songInfo.title,
       artist: songInfo.artist,

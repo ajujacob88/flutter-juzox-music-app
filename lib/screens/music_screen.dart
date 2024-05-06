@@ -12,17 +12,8 @@ class MusicScreen extends StatefulWidget {
 }
 
 class _MusicScreenState extends State<MusicScreen> {
-  // List<MusicModel> _songs = [];
-
   final OnAudioQuery _audioQuery = OnAudioQuery();
-  // List<SongModel> _songs = [];
-  List<MusicModel> _songs = [];
-  //List<String> _songs = [];
-
-  // final List<String> songs = [
-  //   'Galatta 1',
-  //   'Omane 2',
-  // ];
+  List<JuzoxMusicModel> _songs = [];
 
   @override
   void initState() {
@@ -30,7 +21,6 @@ class _MusicScreenState extends State<MusicScreen> {
     // Request storage permission on initialization
     requestStoragePermission().then((granted) {
       if (granted) {
-        // Load audio files here (explained later)
         getAudioFiles(); // Call function to get audio files on permission grant
       }
     });
@@ -51,11 +41,6 @@ class _MusicScreenState extends State<MusicScreen> {
 
     final videosPermission = await Permission.videos.request();
 
-    // return (storageStatus == PermissionStatus.granted) &&
-    //     (audiosPermission == PermissionStatus.granted) &&
-    //     (photosPermission == PermissionStatus.granted) &&
-    //     (videosPermission == PermissionStatus.granted);
-
     print(
         'debug storagepermission this stor $storageStatus, audio $audiosPermission, pho $photosPermission, vid $videosPermission');
     return ((storageStatus == PermissionStatus.granted) ||
@@ -65,22 +50,17 @@ class _MusicScreenState extends State<MusicScreen> {
   }
 
   Future<void> getAudioFiles() async {
-    final songs = await _audioQuery.querySongs();
-    // for (var element in songs) {
-    //   if (element.fileExtension == 'mp3') {
-    //     _songs =
-    //         songs.map((songInfo) => MusicModel.fromSongInfo(songInfo)).toList();
-    //   }
-    // }
-    // setState(() {
-    // });
-    // print('debugggggg ${songs[0].fileExtension}');
+    final songs = await _audioQuery.querySongs(
+      sortType: SongSortType.DATE_ADDED,
+      orderType: OrderType.DESC_OR_GREATER,
+      uriType: UriType.EXTERNAL,
+      ignoreCase: true,
+    );
 
     _songs = songs
-        // .where((songInfo) => songInfo.fileExtension.contains('mp3'))
         .where((songInfo) =>
             songInfo.fileExtension == 'mp3' || songInfo.fileExtension == 'm4a')
-        .map((songInfo) => MusicModel.fromSongInfo(songInfo))
+        .map((songInfo) => JuzoxMusicModel.fromSongInfo(songInfo))
         .toList();
 
     setState(() {});
@@ -94,99 +74,25 @@ class _MusicScreenState extends State<MusicScreen> {
       //   title: Text('Songs'),
       // ),
       backgroundColor: Colors.transparent,
-      // appBar: AppBar(
-      //   title: const Text('Search'),
-      // ),
       body: ListView.builder(
           itemCount: _songs.length,
           itemBuilder: (context, index) {
             final song = _songs[index];
             return ListTile(
-              // leading: QueryThumbnail(
-              //   song: song,
-              //   quality: ThumbnailQuality.HIGH, // Adjust quality as needed
-              // ), // Replace with your album art retrieval method (if needed)
-              leading: Text(song.fileExtension!),
               title: Text(song.title!),
               subtitle: Text(song.artist!),
+              // This Widget will query/load image.
+              // You can use/create your own widget/method using [queryArtwork].
+              leading: QueryArtworkWidget(
+                controller: _audioQuery,
+                id: song.id!,
+                type: ArtworkType.AUDIO,
+                nullArtworkWidget: const Icon(
+                  Icons.music_note_rounded,
+                ),
+              ),
             );
           }),
     );
   }
 }
-
-// class SongModel {
-//   final int id;
-//   final String title;
-//   final String artist;
-//   final String duration;
-//   final String uri;
-//   final String album;
-
-//   SongModel({
-//     required this.id,
-//     required this.title,
-//     required this.artist,
-//     required this.duration,
-//     required this.uri,
-//     required this.album,
-//   });
-
-//   factory SongModel.fromMap(map) {
-//     return SongModel(
-//       id: map['id'] as int,
-//       title: map['title'] as String,
-//       artist: map['artist'] as String,
-//       duration: map['duration'] as String,
-//       uri: map['uri'] as String,
-//       album: map['album'] as String,
-//     );
-//   }
-// }
-
-/*
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Songs'),
-      // ),
-      backgroundColor: Colors.transparent,
-      // appBar: AppBar(
-      //   title: const Text('Search'),
-      // ),
-      body: ListView.builder(
-          itemCount: songs.length,
-          itemBuilder: (context, index) {
-            return ListTile(title: Text(songs[index]), onTap: () {});
-          }),
-    );
-  }
-  */
-
-
-// class SongModel {
-//   final int id;
-//   final String title;
-//   final String artist;
-//   final String duration;
-//   final String filePath;
-
-//   SongModel({
-//     required this.id,
-//     required this.title,
-//     required this.artist,
-//     required this.duration,
-//     required this.filePath,
-//   });
-
-//   factory SongModel.fromSongInfo(songInfo) {
-//     return SongModel(
-//       id: songInfo.id,
-//       title: songInfo.title,
-//       artist: songInfo.artist ?? '',
-//       duration: songInfo.duration,
-//       filePath: songInfo.uri,
-//     );
-//   }
-// }
