@@ -3,6 +3,7 @@ import 'package:juzox_music_app/screens/tabs_screen.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(255, 104, 58, 183),
+  // seedColor: Color.fromARGB(71, 112, 207, 4),
 );
 
 // const myGradient = LinearGradient(
@@ -34,36 +35,41 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Juzox Music App',
       theme: ThemeData().copyWith(
-          colorScheme: kColorScheme,
-          appBarTheme: const AppBarTheme().copyWith(
-            backgroundColor: kColorScheme.onPrimaryContainer,
-            foregroundColor: kColorScheme.primaryContainer,
-          ),
-          scaffoldBackgroundColor: kColorScheme.onPrimaryContainer,
-          textTheme: ThemeData().textTheme.copyWith(
-                bodyLarge: TextStyle(color: kColorScheme.background),
-                bodyMedium: TextStyle(color: kColorScheme.background),
-                bodySmall: TextStyle(color: kColorScheme.background),
-                titleMedium: TextStyle(color: kColorScheme.background),
-                titleSmall: TextStyle(color: kColorScheme.background),
-                titleLarge: TextStyle(color: kColorScheme.background),
-                displayLarge: TextStyle(color: kColorScheme.background),
-                displaySmall: TextStyle(color: kColorScheme.background),
-                displayMedium: TextStyle(color: kColorScheme.background),
-                headlineLarge: TextStyle(color: kColorScheme.background),
-                headlineMedium: TextStyle(color: kColorScheme.background),
-                headlineSmall: TextStyle(color: kColorScheme.background),
-                labelLarge: TextStyle(color: kColorScheme.background),
-                labelMedium: TextStyle(color: kColorScheme.background),
-                labelSmall: TextStyle(color: kColorScheme.background),
-              ),
-          listTileTheme: const ListTileThemeData().copyWith(
-            titleTextStyle: TextStyle(color: kColorScheme.inversePrimary),
-          )
-          // navigationBarTheme: ThemeData()
-          //     .navigationBarTheme
-          //     .copyWith(backgroundColor: kColorScheme.onPrimaryContainer),
-          ),
+        colorScheme: kColorScheme,
+        appBarTheme: const AppBarTheme().copyWith(
+          backgroundColor: kColorScheme.onPrimaryContainer,
+          foregroundColor: kColorScheme.primaryContainer,
+        ),
+        scaffoldBackgroundColor: kColorScheme.onPrimaryContainer,
+        textTheme: ThemeData().textTheme.copyWith(
+              bodyLarge: TextStyle(color: kColorScheme.background),
+              bodyMedium: TextStyle(color: kColorScheme.background),
+              bodySmall: TextStyle(color: kColorScheme.background),
+              titleMedium: TextStyle(color: kColorScheme.background),
+              titleSmall: TextStyle(color: kColorScheme.background),
+              titleLarge: TextStyle(color: kColorScheme.background),
+              displayLarge: TextStyle(color: kColorScheme.background),
+              displaySmall: TextStyle(color: kColorScheme.background),
+              displayMedium: TextStyle(color: kColorScheme.background),
+              headlineLarge: TextStyle(color: kColorScheme.background),
+              headlineMedium: TextStyle(color: kColorScheme.background),
+              headlineSmall: TextStyle(color: kColorScheme.background),
+              labelLarge: TextStyle(color: kColorScheme.background),
+              labelMedium: TextStyle(color: kColorScheme.background),
+              labelSmall: TextStyle(color: kColorScheme.background),
+            ),
+        listTileTheme: const ListTileThemeData().copyWith(
+          titleTextStyle:
+              TextStyle(color: kColorScheme.onSecondary, fontSize: 14),
+          subtitleTextStyle: const TextStyle(color: Colors.grey),
+        ),
+        // navigationBarTheme: ThemeData()
+        //     .navigationBarTheme
+        //     .copyWith(backgroundColor: kColorScheme.onPrimaryContainer),
+
+        elevatedButtonTheme:
+            ElevatedButtonThemeData(style: ElevatedButton.styleFrom()),
+      ),
       //Wrap MaterialApp with Container for gradient
       builder: (context, child) => Container(
         decoration: const BoxDecoration(

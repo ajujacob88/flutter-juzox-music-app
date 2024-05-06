@@ -80,9 +80,15 @@ class _MusicScreenState extends State<MusicScreen> {
             final song = _songs[index];
             return ListTile(
               // isThreeLine: true,
-              title: Text(song.title!),
+              title: Text(
+                song.title!,
+                overflow: TextOverflow.ellipsis,
+              ), // Truncate if too long),
               //  titleTextStyle: TextStyle(color: Colors.white),
-              //   titleTextStyle: Theme.of(context).textTheme.titleMedium,
+              // titleTextStyle: Theme.of(context)
+              //     .textTheme
+              //     .titleMedium!
+              //     .copyWith(color: Colors.red),
               subtitle: Text(song.artist!),
               // This Widget will query/load image.
               // You can use/create your own widget/method using [queryArtwork].
