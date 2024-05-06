@@ -109,18 +109,48 @@ class _MusicScreenState extends State<MusicScreen> {
                   Icons.music_note_rounded,
                 ),
               ),
-              //  trailing: MusicBarsAnimation2() //Icon(Icons.rectangle_rounded),
+
+              // trailing: Row(
+              //   mainAxisSize: MainAxisSize.min,
+              //   children: [
+              //     Icon(Icons.abc),
+              //   ],
+              // ),
+
               trailing: _tappedSongId == song.id
-                  ? const AnimatedMusicIndicator(
-                      color: Color.fromARGB(128, 4, 190, 94),
-                      barStyle: BarStyle.solid,
-                      //  numberOfBars: 5,
-                      size: .06,
+                  ? Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const AnimatedMusicIndicator(
+                          color: Color.fromARGB(128, 4, 190, 94),
+                          barStyle: BarStyle.solid,
+                          //  numberOfBars: 5,
+                          size: .06,
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.more_vert),
+                          color: Colors.white,
+                          onPressed: () {
+                            // Add logic to handle settings button tap
+                          },
+                        ),
+                      ],
                     )
-                  : AnimatedMusicIndicator(
-                      animate: false,
+                  : Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const AnimatedMusicIndicator(
+                          animate: false,
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.more_vert),
+                          color: Colors.white,
+                          onPressed: () {
+                            // Add logic to handle settings button tap
+                          },
+                        ),
+                      ],
                     ),
-              // : const SizedBox(width: 50.0),
 
               onTap: () {
                 setState(() {
@@ -132,130 +162,45 @@ class _MusicScreenState extends State<MusicScreen> {
     );
   }
 }
+
+
+
 /*
-class MusicBarsAnimation2 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-        width: 22, // Adjust the size as needed
-        height: 24,
-        child: EqualizerAnimation() // Your animation widget here
-        );
-  }
-}
-*/
-// class MusicBarsAnimation extends StatefulWidget {
-//   @override
-//   _MusicBarsAnimationState createState() => _MusicBarsAnimationState();
-// }
+  trailing: _tappedSongId == song.id
+                  ? Expanded(
+                      child: Row(
+                        children: [
+                          const AnimatedMusicIndicator(
+                            color: Color.fromARGB(128, 4, 190, 94),
+                            barStyle: BarStyle.solid,
+                            //  numberOfBars: 5,
+                            size: .06,
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.settings),
+                            color: Colors.white,
+                            onPressed: () {
+                              // Add logic to handle settings button tap
+                            },
+                          ),
+                        ],
+                      ),
+                    )
+                  : Expanded(
+                      child: Row(
+                        children: [
+                          const AnimatedMusicIndicator(
+                            animate: false,
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.settings),
+                            color: Colors.white,
+                            onPressed: () {
+                              // Add logic to handle settings button tap
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
 
-// class _MusicBarsAnimationState extends State<MusicBarsAnimation>
-//     with SingleTickerProviderStateMixin {
-//   late AnimationController _controller;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _controller = AnimationController(
-//       vsync: this,
-//       duration: Duration(seconds: 1),
-//     )..repeat(reverse: true);
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return AnimatedBuilder(
-//       animation: _controller,
-//       builder: (context, child) {
-//         return Container(
-//           width: 24,
-//           height: 24,
-//           decoration: BoxDecoration(
-//             gradient: LinearGradient(
-//               begin: Alignment.centerLeft,
-//               end: Alignment.centerRight,
-//               colors: [
-//                 Colors.white.withOpacity(0.6),
-//                 Colors.white.withOpacity(0.3),
-//                 Colors.white.withOpacity(0.6),
-//               ],
-//               stops: [
-//                 0.0,
-//                 0.5,
-//                 1.0,
-//               ],
-//             ),
-//             borderRadius: BorderRadius.circular(8),
-//           ),
-//           transform: Matrix4.translationValues(
-//             _controller.value * 12,
-//             0.0,
-//             0.0,
-//           ),
-//         );
-//       },
-//     );
-//   }
-
-//   @override
-//   void dispose() {
-//     _controller.dispose();
-//     super.dispose();
-//   }
-// }
-/*
-class EqualizerAnimation extends StatefulWidget {
-  @override
-  _EqualizerAnimationState createState() => _EqualizerAnimationState();
-}
-
-class _EqualizerAnimationState extends State<EqualizerAnimation>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-    )..repeat(reverse: true);
-
-    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (context, child) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-            5,
-            (index) {
-              final height = 50.0 * (index + 1) * _animation.value;
-              return Container(
-                width: 4.0,
-                height: height,
-                margin: EdgeInsets.symmetric(horizontal: 2.0),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 210, 13, 13),
-                  borderRadius: BorderRadius.circular(2.0),
-                ),
-              );
-            },
-          ),
-        );
-      },
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-}
-*/
+                    */
