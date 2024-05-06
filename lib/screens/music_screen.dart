@@ -66,20 +66,20 @@ class _MusicScreenState extends State<MusicScreen> {
 
   Future<void> getAudioFiles() async {
     final songs = await _audioQuery.querySongs();
-    //for (var element in songs) {
-    //  if (element.fileExtension == 'mp3') {
-    // _songs =
-    //     songs.map((songInfo) => MusicModel.fromSongInfo(songInfo)).toList();
-    //  }
+    // for (var element in songs) {
+    //   if (element.fileExtension == 'mp3') {
+    //     _songs =
+    //         songs.map((songInfo) => MusicModel.fromSongInfo(songInfo)).toList();
+    //   }
     // }
     // setState(() {
-    //   _songs = songs.map((songInfo) => SongModel.fromMap(songInfo)).toList();
     // });
-    print('debugggggg ${songs[0].fileExtension}');
+    // print('debugggggg ${songs[0].fileExtension}');
 
     _songs = songs
-        .where((songInfo) => songInfo.fileExtension.contains('mp3'))
-        //  songInfo.uri!.endsWith('mp3')) // Filter by extension
+        // .where((songInfo) => songInfo.fileExtension.contains('mp3'))
+        .where((songInfo) =>
+            songInfo.fileExtension == 'mp3' || songInfo.fileExtension == 'm4a')
         .map((songInfo) => MusicModel.fromSongInfo(songInfo))
         .toList();
 
