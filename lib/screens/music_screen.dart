@@ -83,12 +83,13 @@ class _MusicScreenState extends State<MusicScreen> {
           itemBuilder: (context, index) {
             final song = _songs[index];
             return ListTile(
+              contentPadding: const EdgeInsets.only(left: 18, right: 4),
               // isThreeLine: true,
               title: Text(
                 song.title!,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-              ), // Truncate if too long),
+              ),
               //  titleTextStyle: TextStyle(color: Colors.white),
               // titleTextStyle: Theme.of(context)
               //     .textTheme
@@ -110,11 +111,11 @@ class _MusicScreenState extends State<MusicScreen> {
                 ),
               ),
 
-              // trailing: Row(
-              //   mainAxisSize: MainAxisSize.min,
-              //   children: [
-              //     Icon(Icons.abc),
-              //   ],
+              // trailing: const AnimatedMusicIndicator(
+              //   color: Color.fromARGB(128, 4, 190, 94),
+              //   barStyle: BarStyle.solid,
+              //   //  numberOfBars: 5,
+              //   size: .06,
               // ),
 
               trailing: _tappedSongId == song.id
