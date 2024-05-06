@@ -79,30 +79,167 @@ class _MusicScreenState extends State<MusicScreen> {
           itemBuilder: (context, index) {
             final song = _songs[index];
             return ListTile(
-              // isThreeLine: true,
-              title: Text(
-                song.title!,
-                overflow: TextOverflow.ellipsis,
-              ), // Truncate if too long),
-              //  titleTextStyle: TextStyle(color: Colors.white),
-              // titleTextStyle: Theme.of(context)
-              //     .textTheme
-              //     .titleMedium!
-              //     .copyWith(color: Colors.red),
-              subtitle: Text(song.artist!),
-              // This Widget will query/load image.
-              // You can use/create your own widget/method using [queryArtwork].
-              leading: QueryArtworkWidget(
-                artworkClipBehavior: Clip.none,
-                controller: _audioQuery,
-                id: song.id!,
-                type: ArtworkType.AUDIO,
-                nullArtworkWidget: const Icon(
-                  Icons.music_note_rounded,
+                // isThreeLine: true,
+                title: Text(
+                  song.title!,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ), // Truncate if too long),
+                //  titleTextStyle: TextStyle(color: Colors.white),
+                // titleTextStyle: Theme.of(context)
+                //     .textTheme
+                //     .titleMedium!
+                //     .copyWith(color: Colors.red),
+                subtitle: Text(
+                  '${song.artist!} - ${song.album}',
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-            );
+                // This Widget will query/load image.
+                // You can use/create your own widget/method using [queryArtwork].
+                leading: QueryArtworkWidget(
+                  artworkClipBehavior: Clip.none,
+                  controller: _audioQuery,
+                  id: song.id!,
+                  type: ArtworkType.AUDIO,
+                  nullArtworkWidget: const Icon(
+                    Icons.music_note_rounded,
+                  ),
+                ),
+                trailing: MusicBarsAnimation2() //Icon(Icons.rectangle_rounded),
+                );
           }),
     );
+  }
+}
+
+class MusicBarsAnimation2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        width: 22, // Adjust the size as needed
+        height: 24,
+        child: EqualizerAnimation() // Your animation widget here
+        );
+  }
+}
+
+// class MusicBarsAnimation extends StatefulWidget {
+//   @override
+//   _MusicBarsAnimationState createState() => _MusicBarsAnimationState();
+// }
+
+// class _MusicBarsAnimationState extends State<MusicBarsAnimation>
+//     with SingleTickerProviderStateMixin {
+//   late AnimationController _controller;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _controller = AnimationController(
+//       vsync: this,
+//       duration: Duration(seconds: 1),
+//     )..repeat(reverse: true);
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return AnimatedBuilder(
+//       animation: _controller,
+//       builder: (context, child) {
+//         return Container(
+//           width: 24,
+//           height: 24,
+//           decoration: BoxDecoration(
+//             gradient: LinearGradient(
+//               begin: Alignment.centerLeft,
+//               end: Alignment.centerRight,
+//               colors: [
+//                 Colors.white.withOpacity(0.6),
+//                 Colors.white.withOpacity(0.3),
+//                 Colors.white.withOpacity(0.6),
+//               ],
+//               stops: [
+//                 0.0,
+//                 0.5,
+//                 1.0,
+//               ],
+//             ),
+//             borderRadius: BorderRadius.circular(8),
+//           ),
+//           transform: Matrix4.translationValues(
+//             _controller.value * 12,
+//             0.0,
+//             0.0,
+//           ),
+//         );
+//       },
+//     );
+//   }
+
+//   @override
+//   void dispose() {
+//     _controller.dispose();
+//     super.dispose();
+//   }
+// }
+
+class EqualizerAnimation extends StatefulWidget {
+  @override
+  _EqualizerAnimationState createState() => _EqualizerAnimationState();
+}
+
+class _EqualizerAnimationState extends State<EqualizerAnimation>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    )..repeat(reverse: true);
+
+    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
+  }
+
+  double? height;
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
+            5,
+            (index) {
+              if (index / 2 == 0) {
+                height = 50.0 * (index + 1) * _animation.value;
+              } else {
+                height = 50.0 * (index * 5 - 1) * _animation.value;
+              }
+
+              return Container(
+                width: 4.0,
+                height: height,
+                margin: EdgeInsets.symmetric(horizontal: 2.0),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 210, 13, 13),
+                  borderRadius: BorderRadius.circular(2.0),
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
