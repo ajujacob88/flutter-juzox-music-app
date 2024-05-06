@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:juzox_music_app/models/music_model.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 //import 'dart:io';
+import 'package:animated_music_indicator/animated_music_indicator.dart';
 
 class MusicScreen extends StatefulWidget {
   const MusicScreen({super.key});
@@ -79,39 +81,45 @@ class _MusicScreenState extends State<MusicScreen> {
           itemBuilder: (context, index) {
             final song = _songs[index];
             return ListTile(
-                // isThreeLine: true,
-                title: Text(
-                  song.title!,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ), // Truncate if too long),
-                //  titleTextStyle: TextStyle(color: Colors.white),
-                // titleTextStyle: Theme.of(context)
-                //     .textTheme
-                //     .titleMedium!
-                //     .copyWith(color: Colors.red),
-                subtitle: Text(
-                  '${song.artist!} - ${song.album}',
-                  overflow: TextOverflow.ellipsis,
+              // isThreeLine: true,
+              title: Text(
+                song.title!,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ), // Truncate if too long),
+              //  titleTextStyle: TextStyle(color: Colors.white),
+              // titleTextStyle: Theme.of(context)
+              //     .textTheme
+              //     .titleMedium!
+              //     .copyWith(color: Colors.red),
+              subtitle: Text(
+                '${song.artist!} - ${song.album}',
+                overflow: TextOverflow.ellipsis,
+              ),
+              // This Widget will query/load image.
+              // You can use/create your own widget/method using [queryArtwork].
+              leading: QueryArtworkWidget(
+                artworkClipBehavior: Clip.none,
+                controller: _audioQuery,
+                id: song.id!,
+                type: ArtworkType.AUDIO,
+                nullArtworkWidget: const Icon(
+                  Icons.music_note_rounded,
                 ),
-                // This Widget will query/load image.
-                // You can use/create your own widget/method using [queryArtwork].
-                leading: QueryArtworkWidget(
-                  artworkClipBehavior: Clip.none,
-                  controller: _audioQuery,
-                  id: song.id!,
-                  type: ArtworkType.AUDIO,
-                  nullArtworkWidget: const Icon(
-                    Icons.music_note_rounded,
-                  ),
-                ),
-                trailing: MusicBarsAnimation2() //Icon(Icons.rectangle_rounded),
-                );
+              ),
+              //  trailing: MusicBarsAnimation2() //Icon(Icons.rectangle_rounded),
+              trailing: const AnimatedMusicIndicator(
+                color: Color.fromARGB(128, 4, 190, 94),
+                barStyle: BarStyle.solid,
+                //  numberOfBars: 5,
+                size: .06,
+              ),
+            );
           }),
     );
   }
 }
-
+/*
 class MusicBarsAnimation2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -122,7 +130,7 @@ class MusicBarsAnimation2 extends StatelessWidget {
         );
   }
 }
-
+*/
 // class MusicBarsAnimation extends StatefulWidget {
 //   @override
 //   _MusicBarsAnimationState createState() => _MusicBarsAnimationState();
@@ -182,7 +190,7 @@ class MusicBarsAnimation2 extends StatelessWidget {
 //     super.dispose();
 //   }
 // }
-
+/*
 class EqualizerAnimation extends StatefulWidget {
   @override
   _EqualizerAnimationState createState() => _EqualizerAnimationState();
@@ -204,7 +212,6 @@ class _EqualizerAnimationState extends State<EqualizerAnimation>
     _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
   }
 
-  double? height;
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -215,12 +222,7 @@ class _EqualizerAnimationState extends State<EqualizerAnimation>
           children: List.generate(
             5,
             (index) {
-              if (index / 2 == 0) {
-                height = 50.0 * (index + 1) * _animation.value;
-              } else {
-                height = 50.0 * (index * 5 - 1) * _animation.value;
-              }
-
+              final height = 50.0 * (index + 1) * _animation.value;
               return Container(
                 width: 4.0,
                 height: height,
@@ -243,3 +245,4 @@ class _EqualizerAnimationState extends State<EqualizerAnimation>
     super.dispose();
   }
 }
+*/
