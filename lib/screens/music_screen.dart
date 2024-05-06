@@ -17,6 +17,8 @@ class _MusicScreenState extends State<MusicScreen> {
   final OnAudioQuery _audioQuery = OnAudioQuery();
   List<JuzoxMusicModel> _songs = [];
 
+  int? _tappedSongId;
+
   @override
   void initState() {
     super.initState();
@@ -108,12 +110,23 @@ class _MusicScreenState extends State<MusicScreen> {
                 ),
               ),
               //  trailing: MusicBarsAnimation2() //Icon(Icons.rectangle_rounded),
-              trailing: const AnimatedMusicIndicator(
-                color: Color.fromARGB(128, 4, 190, 94),
-                barStyle: BarStyle.solid,
-                //  numberOfBars: 5,
-                size: .06,
-              ),
+              trailing: _tappedSongId == song.id
+                  ? const AnimatedMusicIndicator(
+                      color: Color.fromARGB(128, 4, 190, 94),
+                      barStyle: BarStyle.solid,
+                      //  numberOfBars: 5,
+                      size: .06,
+                    )
+                  : AnimatedMusicIndicator(
+                      animate: false,
+                    ),
+              // : const SizedBox(width: 50.0),
+
+              onTap: () {
+                setState(() {
+                  _tappedSongId = song.id;
+                });
+              },
             );
           }),
     );
