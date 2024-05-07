@@ -34,17 +34,12 @@ class _MusicScreenState extends State<MusicScreen> {
 
   Future<bool> requestStoragePermission() async {
     // <!-- Android 12 or below  --> need to check the os condition and the version here
-
     //if (Platform.isAndroid)
-
     final storageStatus = await Permission.storage.request();
 
     // <!-- applicable for Android 13 or greater  -->
-
     final audiosPermission = await Permission.audio.request();
-
     final photosPermission = await Permission.photos.request();
-
     final videosPermission = await Permission.videos.request();
 
     print(
