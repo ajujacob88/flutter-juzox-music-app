@@ -20,7 +20,10 @@ const kGradient = LinearGradient(
   end: Alignment.bottomCenter,
   colors: [
     Color.fromARGB(255, 5, 37, 73),
-    Color.fromARGB(255, 6, 73, 28),
+    //Color.fromARGB(255, 6, 73, 28),
+    // Color.fromARGB(143, 6, 12, 73),
+    // Color.fromARGB(143, 18, 2, 28),
+    Color.fromARGB(163, 1, 0, 6),
   ],
 );
 void main() {
@@ -67,8 +70,8 @@ class MyApp extends StatelessWidget {
         //     .navigationBarTheme
         //     .copyWith(backgroundColor: kColorScheme.onPrimaryContainer),
 
-        elevatedButtonTheme:
-            ElevatedButtonThemeData(style: ElevatedButton.styleFrom()),
+        // elevatedButtonTheme:
+        //     ElevatedButtonThemeData(style: ElevatedButton.styleFrom()),
       ),
       //Wrap MaterialApp with Container for gradient
       builder: (context, child) => Container(

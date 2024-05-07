@@ -92,58 +92,65 @@ class _MusicScreenState extends State<MusicScreen> {
           titleSpacing: 0,
           title: Row(
             children: [
-              // IconButton(
-              //   icon: Icon(
-              //     Icons.menu,
-              //     size: 30,
-              //   ),
-              //   onPressed: () {
-              //     // Add logic to handle settings button tap
-              //   },
-              // ),
-              // Text('Juzox'),
-
-              // Image.asset(
-              //   'assets/images/juzox-logo.png',
-              //   width: 70,
-              //   height: 50,
-              //   color: Color.fromARGB(158, 105, 240, 175),
-              //   // color: const Color.fromARGB(168, 255, 255, 255),
-              // ),
-
               Image.asset(
                 'assets/images/juzox-logo2.png',
                 width: 70,
-                height: 40,
-                color: Color.fromARGB(158, 105, 240, 175),
+                // height: 40,
+                height: 30,
+                //color: const Color.fromARGB(158, 105, 240, 175),
+                color: Color.fromARGB(158, 64, 195, 255),
               ),
-
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                // child: Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Container(
+                  height: 30,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(18.0),
+                    gradient: const LinearGradient(
+                      colors: [
+                        // Color.fromARGB(158, 105, 240, 175),
+
+                        Color.fromARGB(127, 5, 37, 73),
+                        Color.fromARGB(129, 64, 195, 255),
+                      ], // Adjust colors as needed
+                      begin: Alignment.topLeft,
+                      end: Alignment
+                          .bottomRight, // Adjust gradient direction as needed
+                    ),
+                  ),
                   child: ElevatedButton(
                     onPressed: () {
                       // Add logic to handle search button tap
                     },
-                    child: Text('Search'),
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(double.infinity, 30.0),
+                      backgroundColor: Colors.transparent,
+                      foregroundColor: Color.fromARGB(118, 255, 255, 255),
+                    ),
+                    child: const Row(
+                      children: [
+                        Icon(
+                          Icons.search,
+                          size: 20,
+                        ),
+                        SizedBox(width: 10.0),
+                        Text('Search Music'),
+                      ],
+                    ),
                   ),
                 ),
               ),
-
+              //   ),
               InkWell(
                 child: const Padding(
                   padding: EdgeInsets.all(18.0),
-                  // child: RotatedBox(
-                  //   quarterTurns: 1,
                   child: Icon(
                     Icons.menu_outlined,
                     size: 30,
                   ),
-                  // ),
                 ),
-                onTap: () {
-                  // Add logic to handle settings button tap
-                },
+                onTap: () {},
               ),
             ],
           ),
@@ -201,14 +208,15 @@ class _MusicScreenState extends State<MusicScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         const AnimatedMusicIndicator(
-                          color: Color.fromARGB(218, 4, 190, 94),
+                          //color: Color.fromARGB(218, 4, 190, 94),
+                          color: Colors.lightBlueAccent,
                           barStyle: BarStyle.solid,
                           //  numberOfBars: 5,
                           size: .06,
                         ),
                         IconButton(
                           icon: const Icon(Icons.more_vert),
-                          color: Colors.white,
+                          color: const Color.fromARGB(130, 255, 255, 255),
                           onPressed: () {
                             // Add logic to handle settings button tap
                           },
@@ -224,7 +232,7 @@ class _MusicScreenState extends State<MusicScreen> {
                         ),
                         IconButton(
                           icon: const Icon(Icons.more_vert),
-                          color: Colors.white,
+                          color: Color.fromARGB(130, 255, 255, 255),
                           onPressed: () {
                             // Add logic to handle settings button tap
                           },
