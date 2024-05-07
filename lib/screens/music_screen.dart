@@ -75,6 +75,13 @@ class _MusicScreenState extends State<MusicScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Get the width of the screen
+    //final screenWidth = MediaQuery.of(context).size.width;
+
+    // Calculate padding as a percentage of the screen width
+    // final double leftPadding = screenWidth * 0.05; // 5% of screen width
+    // final double rightPadding = screenWidth * 0.01; // 1% of screen width
+
     return Scaffold(
       // appBar: AppBar(
       //   title: Text('Songs'),
@@ -86,6 +93,9 @@ class _MusicScreenState extends State<MusicScreen> {
             final song = _songs[index];
             return ListTile(
               contentPadding: const EdgeInsets.only(left: 18, right: 4),
+
+              // contentPadding:
+              //     EdgeInsets.only(left: leftPadding, right: rightPadding),
 
               title: Text(
                 song.title!,
@@ -159,45 +169,3 @@ class _MusicScreenState extends State<MusicScreen> {
     );
   }
 }
-
-
-
-/*
-  trailing: _tappedSongId == song.id
-                  ? Expanded(
-                      child: Row(
-                        children: [
-                          const AnimatedMusicIndicator(
-                            color: Color.fromARGB(128, 4, 190, 94),
-                            barStyle: BarStyle.solid,
-                            //  numberOfBars: 5,
-                            size: .06,
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.settings),
-                            color: Colors.white,
-                            onPressed: () {
-                              // Add logic to handle settings button tap
-                            },
-                          ),
-                        ],
-                      ),
-                    )
-                  : Expanded(
-                      child: Row(
-                        children: [
-                          const AnimatedMusicIndicator(
-                            animate: false,
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.settings),
-                            color: Colors.white,
-                            onPressed: () {
-                              // Add logic to handle settings button tap
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    */
