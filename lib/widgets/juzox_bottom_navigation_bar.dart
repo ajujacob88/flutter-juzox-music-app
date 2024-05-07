@@ -20,36 +20,57 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
         topLeft: Radius.circular(75),
         topRight: Radius.circular(75),
       ),
-      child: NavigationBar(
-        onDestinationSelected: (index) {
-          setState(() {
-            currentPageIndex = index;
-            widget.onCurrentPageChanged(currentPageIndex);
-          });
-        },
-        // labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-        backgroundColor: const Color.fromARGB(44, 0, 0, 0),
-        // indicatorColor: Colors.amber,
-        //height: 70,
-        elevation: 0,
-        selectedIndex: currentPageIndex,
-        destinations: const [
-          NavigationDestination(
-            selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
+      child: Container(
+        height: 70,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              // Color.fromARGB(158, 105, 240, 175),
+
+              Color.fromARGB(127, 5, 37, 73),
+              Color.fromARGB(129, 64, 195, 255),
+            ], // Adjust colors as needed
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight, // Adjust gradient direction as needed
           ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.music_note),
-            icon: Icon(Icons.music_note_outlined),
-            label: 'Music',
-          ),
-          NavigationDestination(
-            // selectedIcon: Icon(Icons.library_music),
-            icon: Icon(Icons.library_music),
-            label: 'Library',
-          ),
-        ],
+        ),
+        child: NavigationBar(
+          onDestinationSelected: (index) {
+            setState(() {
+              currentPageIndex = index;
+              widget.onCurrentPageChanged(currentPageIndex);
+            });
+          },
+          // labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+          // backgroundColor: const Color.fromARGB(44, 0, 0, 0),
+          //backgroundColor: Color.fromARGB(105, 0, 20, 27),
+          //backgroundColor: Color.fromARGB(22, 68, 137, 255),
+
+          //backgroundColor: Color.fromARGB(255, 3, 0, 35),
+
+          backgroundColor: Colors.transparent,
+          // indicatorColor: Colors.amber,
+          //height: 70,
+          elevation: 0,
+          selectedIndex: currentPageIndex,
+          destinations: const [
+            NavigationDestination(
+              selectedIcon: Icon(Icons.home),
+              icon: Icon(Icons.home_outlined),
+              label: 'Home',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.music_note),
+              icon: Icon(Icons.music_note_outlined),
+              label: 'Music',
+            ),
+            NavigationDestination(
+              // selectedIcon: Icon(Icons.library_music),
+              icon: Icon(Icons.library_music),
+              label: 'Library',
+            ),
+          ],
+        ),
       ),
     );
   }

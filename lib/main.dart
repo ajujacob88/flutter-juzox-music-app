@@ -19,11 +19,11 @@ const kGradient = LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
   colors: [
-    Color.fromARGB(255, 5, 37, 73),
-    //Color.fromARGB(255, 6, 73, 28),
+    Color.fromARGB(255, 5, 37, 73), //this
+    // Color.fromARGB(255, 6, 73, 28),
     // Color.fromARGB(143, 6, 12, 73),
     // Color.fromARGB(143, 18, 2, 28),
-    Color.fromARGB(163, 1, 0, 6),
+    Color.fromARGB(163, 1, 0, 6), //this
   ],
 );
 void main() {

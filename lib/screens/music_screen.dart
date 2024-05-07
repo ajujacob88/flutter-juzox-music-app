@@ -193,10 +193,14 @@ class _MusicScreenState extends State<MusicScreen> {
                     // Set desired width and height for the box
                     width: 50.0, // Adjust as needed
                     height: 50.0, // Adjust as needed
-                    color: const Color.fromARGB(22, 4, 190, 94),
+                    // color: const Color.fromARGB(22, 4, 190, 94),
+                    color: const Color.fromARGB(22, 68, 137, 255),
+                    //color: const Color.fromARGB(22, 64, 195, 255),
                     child: const Icon(
                       Icons.music_note_outlined,
-                      color: Color.fromARGB(185, 4, 190, 94),
+                      //  color: Color.fromARGB(185, 4, 190, 94),
+                      //  color: Colors.lightBlueAccent,
+                      color: Color.fromARGB(140, 64, 195, 255),
                       size: 30,
                     ),
                   ),
