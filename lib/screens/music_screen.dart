@@ -81,7 +81,73 @@ class _MusicScreenState extends State<MusicScreen> {
       // appBar: AppBar(
       //   title: Text('Songs'),
       // ),
+      // backgroundColor: Colors.transparent,
+
       backgroundColor: Colors.transparent,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          titleSpacing: 0,
+          title: Row(
+            children: [
+              // IconButton(
+              //   icon: Icon(
+              //     Icons.menu,
+              //     size: 30,
+              //   ),
+              //   onPressed: () {
+              //     // Add logic to handle settings button tap
+              //   },
+              // ),
+              // InkWell(
+              //   child: const Padding(
+              //     padding: EdgeInsets.all(18.0),
+              //     child: RotatedBox(
+              //       quarterTurns: 0,
+              //       child: Icon(
+              //         Icons.subject_outlined,
+              //         size: 30,
+              //       ),
+              //     ),
+              //   ),
+              //   onTap: () {
+              //     // Add logic to handle settings button tap
+              //   },
+              // ),
+
+              InkWell(
+                child: const Padding(
+                  padding: EdgeInsets.all(18.0),
+                  // child: RotatedBox(
+                  //   quarterTurns: 1,
+                  child: Icon(
+                    Icons.menu_outlined,
+                    size: 30,
+                  ),
+                  // ),
+                ),
+                onTap: () {
+                  // Add logic to handle settings button tap
+                },
+              ),
+
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Add logic to handle search button tap
+                    },
+                    child: Text('Search'),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       body: ListView.builder(
           itemCount: _songs.length,
           itemBuilder: (context, index) {
