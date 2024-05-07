@@ -71,6 +71,8 @@ flutter:
   assets:
     - assets/audio/Galatta 1.mp3
     - assets/audio/Omane 2.mp3
+    - assets/images/juzox-logo.png
+    - assets/images/juzox-logo2.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

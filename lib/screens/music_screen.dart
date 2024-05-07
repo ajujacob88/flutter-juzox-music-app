@@ -101,21 +101,34 @@ class _MusicScreenState extends State<MusicScreen> {
               //     // Add logic to handle settings button tap
               //   },
               // ),
-              // InkWell(
-              //   child: const Padding(
-              //     padding: EdgeInsets.all(18.0),
-              //     child: RotatedBox(
-              //       quarterTurns: 0,
-              //       child: Icon(
-              //         Icons.subject_outlined,
-              //         size: 30,
-              //       ),
-              //     ),
-              //   ),
-              //   onTap: () {
-              //     // Add logic to handle settings button tap
-              //   },
+              // Text('Juzox'),
+
+              // Image.asset(
+              //   'assets/images/juzox-logo.png',
+              //   width: 70,
+              //   height: 50,
+              //   color: Color.fromARGB(158, 105, 240, 175),
+              //   // color: const Color.fromARGB(168, 255, 255, 255),
               // ),
+
+              Image.asset(
+                'assets/images/juzox-logo2.png',
+                width: 70,
+                height: 40,
+                color: Color.fromARGB(158, 105, 240, 175),
+              ),
+
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Add logic to handle search button tap
+                    },
+                    child: Text('Search'),
+                  ),
+                ),
+              ),
 
               InkWell(
                 child: const Padding(
@@ -131,18 +144,6 @@ class _MusicScreenState extends State<MusicScreen> {
                 onTap: () {
                   // Add logic to handle settings button tap
                 },
-              ),
-
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Add logic to handle search button tap
-                    },
-                    child: Text('Search'),
-                  ),
-                ),
               ),
             ],
           ),
