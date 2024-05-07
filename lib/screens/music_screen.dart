@@ -118,8 +118,28 @@ class _MusicScreenState extends State<MusicScreen> {
                 controller: _audioQuery,
                 id: song.id!,
                 type: ArtworkType.AUDIO,
-                nullArtworkWidget: const Icon(
-                  Icons.music_note_rounded,
+                // nullArtworkWidget: const Icon(
+                //   Icons.music_note_rounded,
+                // ),
+
+                // nullArtworkWidget: SizedBox(
+                //   width: 50, // Adjust the size as needed
+                //   height: 50, // Adjust the size as needed
+                //   child: Container(
+                //     color: Colors.grey, // Adjust the color as needed
+                //   ),
+                // ),
+
+                nullArtworkWidget: Container(
+                  // Set desired width and height for the box
+                  width: 50.0, // Adjust as needed
+                  height: 50.0, // Adjust as needed
+                  color: const Color.fromARGB(22, 4, 190, 94),
+                  child: const Icon(
+                    Icons.music_note_outlined,
+                    color: Color.fromARGB(185, 4, 190, 94),
+                    size: 30,
+                  ),
                 ),
               ),
 
@@ -128,7 +148,7 @@ class _MusicScreenState extends State<MusicScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         const AnimatedMusicIndicator(
-                          color: Color.fromARGB(128, 4, 190, 94),
+                          color: Color.fromARGB(218, 4, 190, 94),
                           barStyle: BarStyle.solid,
                           //  numberOfBars: 5,
                           size: .06,
