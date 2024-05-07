@@ -86,10 +86,6 @@ class _MusicScreenState extends State<MusicScreen> {
             final song = _songs[index];
             return ListTile(
               contentPadding: const EdgeInsets.only(left: 18, right: 4),
-              //  contentPadding: EdgeInsets.symmetric(horizontal: 0),
-
-              // isThreeLine: true,
-              // contentPadding: EdgeInsets.zero, // remove the padding
 
               title: Text(
                 song.title!,
@@ -117,23 +113,6 @@ class _MusicScreenState extends State<MusicScreen> {
                 ),
               ),
 
-              // trailing: const AnimatedMusicIndicator(
-              //   color: Color.fromARGB(128, 4, 190, 94),
-              //   barStyle: BarStyle.solid,
-              //   //  numberOfBars: 5,
-              //   size: .06,
-              // ),
-
-              // trailing: Icon(Icons.more_vert),
-
-              // trailing: IconButton(
-              //   icon: const Icon(Icons.more_vert),
-              //   color: Colors.white,
-              //   onPressed: () {
-              //     // Add logic to handle settings button tap
-              //   },
-              // ),
-
               trailing: _tappedSongId == song.id
                   ? Row(
                       mainAxisSize: MainAxisSize.min,
@@ -144,15 +123,6 @@ class _MusicScreenState extends State<MusicScreen> {
                           //  numberOfBars: 5,
                           size: .06,
                         ),
-
-                        // InkWell(
-                        //   onTap: () {
-                        //     //call your onpressed function here
-                        //     print('Button Pressed');
-                        //   },
-                        //   child: Icon(Icons.more_vert),
-                        // ),
-
                         IconButton(
                           icon: const Icon(Icons.more_vert),
                           color: Colors.white,
