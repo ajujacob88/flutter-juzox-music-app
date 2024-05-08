@@ -16,7 +16,7 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10),
+      padding: const EdgeInsets.only(left: 0, right: 0),
       child: Container(
         //padding: EdgeInsets.only(left: 20, right: 20),
         height: 55,
