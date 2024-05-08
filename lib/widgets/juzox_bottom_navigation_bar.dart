@@ -68,52 +68,62 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
               end: Alignment.bottomRight,
             ),
           ),
-          child: NavigationBar(
-            onDestinationSelected: (index) {
-              setState(() {
-                currentPageIndex = index;
-                widget.onCurrentPageChanged(currentPageIndex);
-              });
-            },
-            //labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-            animationDuration: Duration.zero,
-
-            backgroundColor: Colors.transparent,
-            // indicatorColor: Colors.amber,
-            //height: 70,
-            elevation: 0,
-
-            selectedIndex: currentPageIndex,
-            destinations: const [
-              NavigationDestination(
-                selectedIcon: Icon(Icons.home),
-                icon: Icon(
-                  Icons.home_outlined,
-                  color: Colors.grey,
-                  // size: 20,
-                ),
-                label: 'Home',
-              ),
-              NavigationDestination(
-                selectedIcon: Icon(Icons.music_note),
-                icon: Icon(
-                  Icons.music_note_outlined,
+          child: NavigationBarTheme(
+            data: NavigationBarThemeData(
+              labelTextStyle: MaterialStateProperty.all(
+                const TextStyle(
+                  fontSize: 12,
                   color: Colors.white70,
-                  // size: 20,
                 ),
-                label: 'Music',
               ),
-              NavigationDestination(
-                // selectedIcon: Icon(Icons.library_music),
+            ),
+            child: NavigationBar(
+              onDestinationSelected: (index) {
+                setState(() {
+                  currentPageIndex = index;
+                  widget.onCurrentPageChanged(currentPageIndex);
+                });
+              },
+              //labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+              animationDuration: Duration.zero,
 
-                icon: Icon(
-                  Icons.library_music,
-                  color: Colors.white70,
-                  // size: 20,
+              backgroundColor: Colors.transparent,
+              // indicatorColor: Colors.amber,
+              //height: 70,
+              elevation: 0,
+
+              selectedIndex: currentPageIndex,
+              destinations: const [
+                NavigationDestination(
+                  selectedIcon: Icon(Icons.home),
+                  icon: Icon(
+                    Icons.home_outlined,
+                    color: Colors.grey,
+                    // size: 20,
+                  ),
+                  label: 'Home',
                 ),
-                label: 'Library',
-              ),
-            ],
+                NavigationDestination(
+                  selectedIcon: Icon(Icons.music_note),
+                  icon: Icon(
+                    Icons.music_note_outlined,
+                    color: Colors.white70,
+                    // size: 20,
+                  ),
+                  label: 'Music',
+                ),
+                NavigationDestination(
+                  // selectedIcon: Icon(Icons.library_music),
+
+                  icon: Icon(
+                    Icons.library_music,
+                    color: Colors.white70,
+                    // size: 20,
+                  ),
+                  label: 'Library',
+                ),
+              ],
+            ),
           ),
         ),
       ),

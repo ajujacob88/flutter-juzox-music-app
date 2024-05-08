@@ -66,9 +66,15 @@ class MyApp extends StatelessWidget {
               TextStyle(color: kColorScheme.onSecondary, fontSize: 14),
           subtitleTextStyle: const TextStyle(color: Colors.grey),
         ),
-        // navigationBarTheme: ThemeData()
-        //     .navigationBarTheme
-        //     .copyWith(backgroundColor: kColorScheme.onPrimaryContainer),
+        // navigationBarTheme: ThemeData().navigationBarTheme.copyWith(
+        //       //backgroundColor: kColorScheme.onPrimaryContainer,
+        //       labelTextStyle: MaterialStateProperty.all(
+        //         const TextStyle(
+        //           fontSize: 12,
+        //           color: Colors.white70,
+        //         ),
+        //       ),
+        //     ),
 
         // elevatedButtonTheme:
         //     ElevatedButtonThemeData(style: ElevatedButton.styleFrom()),
