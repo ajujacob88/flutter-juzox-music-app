@@ -78,7 +78,8 @@ class _MusicScreenState extends State<MusicScreen> {
     // final double rightPadding = screenWidth * 0.01; // 1% of screen width
 
     return DefaultTabController(
-      length: 10,
+      initialIndex: 1,
+      length: 7,
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: PreferredSize(
@@ -155,22 +156,20 @@ class _MusicScreenState extends State<MusicScreen> {
               dividerColor: Colors.transparent,
               isScrollable: true,
               tabs: [
-                Tab(text: 'Tab 1'),
-                Tab(text: 'Tab 2'),
-                Tab(text: 'Tab 3'),
-                Tab(text: 'Tab 4'),
-                Tab(text: 'Tab 5'),
-                Tab(text: 'Tab 6'),
-                Tab(text: 'Tab 3'),
-                Tab(text: 'Tab 4'),
-                Tab(text: 'Tab 5'),
-                Tab(text: 'Tab 6'),
+                Tab(text: 'Favorites'),
+                Tab(text: 'Songs'),
+                Tab(text: 'Playlists'),
+                Tab(text: 'Folders'),
+                Tab(text: 'Albums'),
+                Tab(text: 'Artiists'),
+                Tab(text: 'Genres'),
               ],
             ),
           ),
         ),
         body: TabBarView(
           children: [
+            Text('Favorites'),
             ListView.builder(
               itemCount: _songs.length,
               itemBuilder: (context, index) {
@@ -267,8 +266,11 @@ class _MusicScreenState extends State<MusicScreen> {
                 );
               },
             ),
-            const Text('Page 2'),
-            const Text('tabbar Page3'),
+            const Text('Playlists'),
+            const Text('Folders'),
+            const Text('Albums'),
+            const Text('Artists'),
+            const Text('Genre'),
           ],
         ),
       ),
