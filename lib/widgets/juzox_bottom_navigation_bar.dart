@@ -70,13 +70,28 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
           ),
           child: NavigationBarTheme(
             data: NavigationBarThemeData(
-              labelTextStyle: MaterialStateProperty.all(
-                const TextStyle(
-                  fontSize: 12,
-                  color: Colors.white70,
+                // labelTextStyle: MaterialStateProperty.all(
+                //   const TextStyle(
+                //     fontSize: 12,
+                //     color: Colors.white70,
+                //   ),
+                // ),
+
+                //set the label text color also changes when icon is sselected
+                labelTextStyle: MaterialStateProperty.resolveWith(
+              (states) => states.contains(MaterialState.selected)
+                  ? const TextStyle(fontSize: 12, color: Colors.lightBlueAccent)
+                  : const TextStyle(fontSize: 12, color: Colors.white70),
+            )
+
+                // labelTextStyle: MaterialStateProperty.resolveWith<TextStyle>(
+                //   (Set<MaterialState> states) =>
+                //       states.contains(MaterialState.selected)
+                //           ? const TextStyle(
+                //               fontSize: 12, color: Colors.lightBlueAccent)
+                //           : const TextStyle(fontSize: 12, color: Colors.white70),
+                // ),
                 ),
-              ),
-            ),
             child: NavigationBar(
               indicatorColor: Colors.transparent,
               onDestinationSelected: (index) {
@@ -98,7 +113,7 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
                 NavigationDestination(
                   selectedIcon: Icon(
                     Icons.home,
-                    color: Colors.blueAccent,
+                    color: Colors.lightBlueAccent,
                   ),
                   icon: Icon(
                     Icons.home_outlined,
@@ -110,7 +125,7 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
                 NavigationDestination(
                   selectedIcon: Icon(
                     Icons.music_note,
-                    color: Colors.blueAccent,
+                    color: Colors.lightBlueAccent,
                   ),
                   icon: Icon(
                     Icons.music_note_outlined,
@@ -122,7 +137,7 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
                 NavigationDestination(
                   selectedIcon: Icon(
                     Icons.library_music,
-                    color: Colors.blueAccent,
+                    color: Colors.lightBlueAccent,
                   ),
                   icon: Icon(
                     Icons.library_music,
