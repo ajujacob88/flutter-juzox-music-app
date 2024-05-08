@@ -155,6 +155,13 @@ class _MusicScreenState extends State<MusicScreen> {
             bottom: const TabBar(
               dividerColor: Colors.transparent,
               isScrollable: true,
+              // padding: EdgeInsets.only(left: 0),
+              indicatorColor: Colors.lightBlueAccent,
+              // indicatorSize: TabBarIndicatorSize.label,
+              //indicatorPadding: EdgeInsets.only(left: 10, right: 10),
+              labelColor: Colors.lightBlueAccent,
+              // labelStyle: TextStyle(color: Colors.red),
+              unselectedLabelColor: Colors.white70,
               tabs: [
                 Tab(text: 'Favorites'),
                 Tab(text: 'Songs'),
