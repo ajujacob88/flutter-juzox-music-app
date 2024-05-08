@@ -38,15 +38,34 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
               // topLeft: Radius.elliptical(100, 80),
               // topRight: Radius.elliptical(100, 80),
             ),
+
             gradient: LinearGradient(
               colors: [
                 // Color.fromARGB(127, 5, 37, 73),
                 // Color.fromARGB(129, 64, 195, 255),
-                Color.fromARGB(95, 5, 37, 73),
-                Color.fromARGB(95, 64, 195, 255),
+                Color.fromARGB(95, 5, 37, 73), //this
+                Color.fromARGB(95, 64, 195, 255), //this
+
+                // Color.fromARGB(255, 5, 37, 73),
+
+                // Color.fromARGB(163, 1, 0, 6),
+
+                // Color.fromARGB(255, 5, 37, 73),
+                // Color.fromARGB(95, 5, 37, 73),
+
+                // Color.fromARGB(255, 5, 37, 73),
+                // Color.fromARGB(161, 3, 11, 43),
+                // Color.fromARGB(255, 5, 37, 73),
+
+                // Color.fromARGB(95, 5, 37, 73), //also good
+                // Color.fromARGB(255, 5, 37, 73), //also good
               ], // Adjust colors as needed
+
+              //    begin: Alignment.topLeft, //this
+              // end: Alignment.bottomRight,  //this
+
               begin: Alignment.topLeft,
-              end: Alignment.bottomRight, // Adjust gradient direction as needed
+              end: Alignment.bottomRight,
             ),
           ),
           child: NavigationBar(
@@ -100,8 +119,6 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
     );
   }
 }
-
-
 
 /*
 import 'package:flutter/material.dart';
@@ -189,7 +206,6 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
 
 
 */
-
 
 /*
 //using cliprrect
