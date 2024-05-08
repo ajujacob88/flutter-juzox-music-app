@@ -78,6 +78,7 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
               ),
             ),
             child: NavigationBar(
+              indicatorColor: Colors.transparent,
               onDestinationSelected: (index) {
                 setState(() {
                   currentPageIndex = index;
@@ -95,7 +96,10 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
               selectedIndex: currentPageIndex,
               destinations: const [
                 NavigationDestination(
-                  selectedIcon: Icon(Icons.home),
+                  selectedIcon: Icon(
+                    Icons.home,
+                    color: Colors.blueAccent,
+                  ),
                   icon: Icon(
                     Icons.home_outlined,
                     color: Colors.grey,
@@ -104,7 +108,10 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
                   label: 'Home',
                 ),
                 NavigationDestination(
-                  selectedIcon: Icon(Icons.music_note),
+                  selectedIcon: Icon(
+                    Icons.music_note,
+                    color: Colors.blueAccent,
+                  ),
                   icon: Icon(
                     Icons.music_note_outlined,
                     color: Colors.white70,
@@ -113,8 +120,10 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
                   label: 'Music',
                 ),
                 NavigationDestination(
-                  // selectedIcon: Icon(Icons.library_music),
-
+                  selectedIcon: Icon(
+                    Icons.library_music,
+                    color: Colors.blueAccent,
+                  ),
                   icon: Icon(
                     Icons.library_music,
                     color: Colors.white70,
