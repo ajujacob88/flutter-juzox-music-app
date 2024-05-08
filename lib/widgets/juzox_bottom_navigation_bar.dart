@@ -40,10 +40,10 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
             ),
             gradient: LinearGradient(
               colors: [
-                // Color.fromARGB(158, 105, 240, 175),
-
-                Color.fromARGB(127, 5, 37, 73),
-                Color.fromARGB(129, 64, 195, 255),
+                // Color.fromARGB(127, 5, 37, 73),
+                // Color.fromARGB(129, 64, 195, 255),
+                Color.fromARGB(95, 5, 37, 73),
+                Color.fromARGB(95, 64, 195, 255),
               ], // Adjust colors as needed
               begin: Alignment.topLeft,
               end: Alignment.bottomRight, // Adjust gradient direction as needed
@@ -79,12 +79,18 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
               ),
               NavigationDestination(
                 selectedIcon: Icon(Icons.music_note),
-                icon: Icon(Icons.music_note_outlined),
+                icon: Icon(
+                  Icons.music_note_outlined,
+                  // size: 20,
+                ),
                 label: 'Music',
               ),
               NavigationDestination(
                 // selectedIcon: Icon(Icons.library_music),
-                icon: Icon(Icons.library_music),
+                icon: Icon(
+                  Icons.library_music,
+                  // size: 20,
+                ),
                 label: 'Library',
               ),
             ],
