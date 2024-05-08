@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:juzox_music_app/models/music_model.dart';
@@ -160,8 +161,13 @@ class _MusicScreenState extends State<MusicScreen> {
               // indicatorSize: TabBarIndicatorSize.label,
               //indicatorPadding: EdgeInsets.only(left: 10, right: 10),
               labelColor: Colors.lightBlueAccent,
-              // labelStyle: TextStyle(color: Colors.red),
-              unselectedLabelColor: Colors.white70,
+              labelStyle: TextStyle(fontSize: 17),
+              unselectedLabelColor: Color.fromARGB(159, 255, 255, 255),
+              unselectedLabelStyle: TextStyle(fontSize: 15),
+              //unselectedLabelStyle: Theme.of(context).textTheme.titleSmall,
+
+              tabAlignment: TabAlignment.start,
+
               tabs: [
                 Tab(text: 'Favorites'),
                 Tab(text: 'Songs'),
