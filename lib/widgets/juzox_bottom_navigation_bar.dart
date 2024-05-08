@@ -77,7 +77,7 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
                 //   ),
                 // ),
 
-                //set the label text color also changes when icon is sselected
+                //set the label text color also changes when icon is sselected.  This allows you to define a function that determines the text style based on the current state of the widget.
                 labelTextStyle: MaterialStateProperty.resolveWith(
               (states) => states.contains(MaterialState.selected)
                   ? const TextStyle(fontSize: 12, color: Colors.lightBlueAccent)
@@ -117,7 +117,7 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
                   ),
                   icon: Icon(
                     Icons.home_outlined,
-                    color: Colors.grey,
+                    color: Colors.white70,
                     // size: 20,
                   ),
                   label: 'Home',
