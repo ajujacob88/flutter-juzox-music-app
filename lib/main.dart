@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:juzox_music_app/screens/tabs_screen.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
-  seedColor: const Color.fromARGB(255, 104, 58, 183),
+  //seedColor: const Color.fromARGB(255, 104, 58, 183), //this
   // seedColor: Color.fromARGB(71, 112, 207, 4),
+  seedColor: const Color.fromARGB(255, 1, 3, 14), //thisss
+  // seedColor: Colors.red,
 );
 
 // const myGradient = LinearGradient(
@@ -42,6 +44,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: const AppBarTheme().copyWith(
           backgroundColor: kColorScheme.onPrimaryContainer,
           foregroundColor: kColorScheme.primaryContainer,
+          // foregroundColor: Color.fromARGB(255, 121, 157, 174),
         ),
         scaffoldBackgroundColor: kColorScheme.onPrimaryContainer,
         textTheme: ThemeData().textTheme.copyWith(
