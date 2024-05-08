@@ -75,23 +75,21 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
                 widget.onCurrentPageChanged(currentPageIndex);
               });
             },
-            // labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-            // backgroundColor: const Color.fromARGB(44, 0, 0, 0),
-            //backgroundColor: Color.fromARGB(105, 0, 20, 27),
-            //backgroundColor: Color.fromARGB(22, 68, 137, 255),
-
-            //backgroundColor: Color.fromARGB(255, 3, 0, 35),
+            //labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+            animationDuration: Duration.zero,
 
             backgroundColor: Colors.transparent,
             // indicatorColor: Colors.amber,
             //height: 70,
             elevation: 0,
+
             selectedIndex: currentPageIndex,
             destinations: const [
               NavigationDestination(
                 selectedIcon: Icon(Icons.home),
                 icon: Icon(
                   Icons.home_outlined,
+                  color: Colors.grey,
                   // size: 20,
                 ),
                 label: 'Home',
@@ -100,14 +98,17 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
                 selectedIcon: Icon(Icons.music_note),
                 icon: Icon(
                   Icons.music_note_outlined,
+                  color: Colors.white70,
                   // size: 20,
                 ),
                 label: 'Music',
               ),
               NavigationDestination(
                 // selectedIcon: Icon(Icons.library_music),
+
                 icon: Icon(
                   Icons.library_music,
+                  color: Colors.white70,
                   // size: 20,
                 ),
                 label: 'Library',
