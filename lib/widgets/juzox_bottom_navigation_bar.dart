@@ -80,8 +80,15 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
                 //set the label text color also changes when icon is sselected.  This allows you to define a function that determines the text style based on the current state of the widget.
                 labelTextStyle: MaterialStateProperty.resolveWith(
               (states) => states.contains(MaterialState.selected)
-                  ? const TextStyle(fontSize: 12, color: Colors.lightBlueAccent)
-                  : const TextStyle(fontSize: 12, color: Colors.white70),
+                  ? const TextStyle(
+                      fontSize: 12,
+                      color: Colors.lightBlueAccent,
+                      //height: BorderSide.strokeAlignOutside)
+                      height: BorderSide.strokeAlignInside)
+                  : const TextStyle(
+                      fontSize: 12,
+                      color: Colors.white70,
+                      height: BorderSide.strokeAlignInside),
             )
 
                 // labelTextStyle: MaterialStateProperty.resolveWith<TextStyle>(
@@ -111,38 +118,56 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
               selectedIndex: currentPageIndex,
               destinations: const [
                 NavigationDestination(
-                  selectedIcon: Icon(
-                    Icons.home,
-                    color: Colors.lightBlueAccent,
+                  selectedIcon: Padding(
+                    padding: EdgeInsets.only(bottom: 9.0),
+                    child: Icon(
+                      Icons.home,
+                      color: Colors.lightBlueAccent,
+                    ),
                   ),
-                  icon: Icon(
-                    Icons.home_outlined,
-                    color: Colors.white70,
-                    // size: 20,
+                  icon: Padding(
+                    padding: EdgeInsets.only(bottom: 9.0),
+                    child: Icon(
+                      Icons.home_outlined,
+                      color: Colors.white70,
+                      // size: 20,
+                    ),
                   ),
                   label: 'Home',
                 ),
                 NavigationDestination(
-                  selectedIcon: Icon(
-                    Icons.music_note,
-                    color: Colors.lightBlueAccent,
+                  selectedIcon: Padding(
+                    padding: EdgeInsets.only(bottom: 9.0),
+                    child: Icon(
+                      Icons.music_note,
+                      color: Colors.lightBlueAccent,
+                    ),
                   ),
-                  icon: Icon(
-                    Icons.music_note_outlined,
-                    color: Colors.white70,
-                    // size: 20,
+                  icon: Padding(
+                    padding: EdgeInsets.only(bottom: 9.0),
+                    child: Icon(
+                      Icons.music_note_outlined,
+                      color: Colors.white70,
+                      // size: 20,
+                    ),
                   ),
                   label: 'Music',
                 ),
                 NavigationDestination(
-                  selectedIcon: Icon(
-                    Icons.library_music,
-                    color: Colors.lightBlueAccent,
+                  selectedIcon: Padding(
+                    padding: EdgeInsets.only(bottom: 9.0),
+                    child: Icon(
+                      Icons.library_music,
+                      color: Colors.lightBlueAccent,
+                    ),
                   ),
-                  icon: Icon(
-                    Icons.library_music,
-                    color: Colors.white70,
-                    // size: 20,
+                  icon: Padding(
+                    padding: EdgeInsets.only(bottom: 9.0),
+                    child: Icon(
+                      Icons.my_library_music_outlined,
+                      color: Colors.white70,
+                      // size: 20,
+                    ),
                   ),
                   label: 'Library',
                 ),
