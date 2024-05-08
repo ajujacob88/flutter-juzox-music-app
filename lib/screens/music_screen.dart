@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:juzox_music_app/models/music_model.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -87,12 +88,13 @@ class _MusicScreenState extends State<MusicScreen> {
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                // backgroundColor: Color.fromARGB(30, 6, 1, 27),
+                //backgroundColor: Color.fromARGB(30, 6, 1, 27),
                 backgroundColor: Colors.transparent,
                 pinned: true,
                 floating: true,
                 forceElevated: innerBoxIsScrolled,
                 //   scrolledUnderElevation: 500,
+
                 // title: AppBar(
                 //   backgroundColor: Colors.transparent,
                 //   elevation: 0,
@@ -190,109 +192,7 @@ class _MusicScreenState extends State<MusicScreen> {
               ),
             ];
           },
-          body:
-
-/*
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight + 30),
-          child: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            titleSpacing: 0,
-            title: Row(
-              children: [
-                Image.asset(
-                  'assets/images/juzox-logo2.png',
-                  width: 70,
-                  // height: 40,
-                  height: 30,
-                  //color: const Color.fromARGB(158, 105, 240, 175),
-                  color: Color.fromARGB(158, 64, 195, 255),
-                ),
-                Expanded(
-                  // child: Padding(
-                  //   padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Container(
-                    height: 30,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(18.0),
-                      gradient: const LinearGradient(
-                        colors: [
-                          // Color.fromARGB(158, 105, 240, 175),
-
-                          Color.fromARGB(127, 5, 37, 73),
-                          Color.fromARGB(129, 64, 195, 255),
-                        ], // Adjust colors as needed
-                        begin: Alignment.topLeft,
-                        end: Alignment
-                            .bottomRight, // Adjust gradient direction as needed
-                      ),
-                    ),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Add logic to handle search button tap
-                      },
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(double.infinity, 30.0),
-                        backgroundColor: Colors.transparent,
-                        foregroundColor: Color.fromARGB(118, 255, 255, 255),
-                      ),
-                      child: const Row(
-                        children: [
-                          Icon(
-                            Icons.search,
-                            size: 20,
-                          ),
-                          SizedBox(width: 10.0),
-                          Text('Search Music'),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                //   ),
-                InkWell(
-                  child: const Padding(
-                    padding: EdgeInsets.all(18.0),
-                    child: Icon(
-                      Icons.menu_outlined,
-                      size: 30,
-                    ),
-                  ),
-                  onTap: () {},
-                ),
-              ],
-            ),
-            bottom: const TabBar(
-              dividerColor: Colors.transparent,
-              isScrollable: true,
-              // padding: EdgeInsets.only(left: 0),
-              indicatorColor: Colors.lightBlueAccent,
-              // indicatorSize: TabBarIndicatorSize.label,
-              //indicatorPadding: EdgeInsets.only(left: 10, right: 10),
-              labelColor: Colors.lightBlueAccent,
-              labelStyle: TextStyle(fontSize: 17),
-              unselectedLabelColor: Color.fromARGB(159, 255, 255, 255),
-              unselectedLabelStyle: TextStyle(fontSize: 15),
-              //unselectedLabelStyle: Theme.of(context).textTheme.titleSmall,
-
-              tabAlignment: TabAlignment.start,
-
-              tabs: [
-                Tab(text: 'Favorites'),
-                Tab(text: 'Songs'),
-                Tab(text: 'Playlists'),
-                Tab(text: 'Folders'),
-                Tab(text: 'Albums'),
-                Tab(text: 'Artiists'),
-                Tab(text: 'Genres'),
-              ],
-            ),
-          ),
-        ),
-
-        */
-              TabBarView(
+          body: TabBarView(
             children: [
               Text('Favorites'),
               ListView.builder(
