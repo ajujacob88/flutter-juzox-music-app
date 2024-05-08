@@ -26,7 +26,7 @@ class _HomeScreenState extends State<TabsScreen> {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      //extendBody: true,
+      extendBody: true,
       // appBar: AppBar(
       //   backgroundColor: Colors.transparent,
       //   title: const Text('My Music'),
