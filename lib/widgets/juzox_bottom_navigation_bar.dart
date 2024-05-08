@@ -16,9 +16,11 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20),
+      padding: const EdgeInsets.only(left: 10, right: 10),
       child: Container(
         //padding: EdgeInsets.only(left: 20, right: 20),
+        height: 55,
+        // height: 60,
         decoration: const BoxDecoration(
           color: Color.fromARGB(255, 1, 0, 6),
           borderRadius: BorderRadius.only(
@@ -27,15 +29,14 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
           ),
         ),
         child: Container(
-          height: 70,
+          // height: 70,
           decoration: const BoxDecoration(
-            color: Colors.amber,
             // backgroundBlendMode: BlendMode.color,
             borderRadius: BorderRadius.only(
-              // topLeft: Radius.circular(80),
-              // topRight: Radius.circular(80),
-              topLeft: Radius.elliptical(80, 80),
-              topRight: Radius.elliptical(80, 80),
+              topLeft: Radius.circular(80),
+              topRight: Radius.circular(80),
+              // topLeft: Radius.elliptical(100, 80),
+              // topRight: Radius.elliptical(100, 80),
             ),
             gradient: LinearGradient(
               colors: [
@@ -70,7 +71,10 @@ class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
             destinations: const [
               NavigationDestination(
                 selectedIcon: Icon(Icons.home),
-                icon: Icon(Icons.home_outlined),
+                icon: Icon(
+                  Icons.home_outlined,
+                  // size: 20,
+                ),
                 label: 'Home',
               ),
               NavigationDestination(
