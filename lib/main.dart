@@ -81,6 +81,12 @@ class MyApp extends StatelessWidget {
 
         // elevatedButtonTheme:
         //     ElevatedButtonThemeData(style: ElevatedButton.styleFrom()),
+
+        // tabBarTheme: const TabBarTheme().copyWith(
+        //   labelColor: Colors.pink[800],
+        //   labelStyle: TextStyle(color: Colors.pink[800]),
+        //   overlayColor: MaterialStatePropertyAll(Colors.green),
+        // ),
       ),
       //Wrap MaterialApp with Container for gradient
       builder: (context, child) => Container(

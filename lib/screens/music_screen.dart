@@ -79,224 +79,256 @@ class _MusicScreenState extends State<MusicScreen> {
     // final double leftPadding = screenWidth * 0.05; // 5% of screen width
     // final double rightPadding = screenWidth * 0.01; // 1% of screen width
 
-    return DefaultTabController(
-      initialIndex: 1,
-      length: 7,
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [
-              SliverAppBar(
-                //backgroundColor: Color.fromARGB(30, 6, 1, 27),
-                backgroundColor: Colors.transparent,
-                pinned: true,
-                floating: true,
-                forceElevated: innerBoxIsScrolled,
-                //   scrolledUnderElevation: 500,
+    return SafeArea(
+      child: DefaultTabController(
+        initialIndex: 1,
+        length: 7,
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: NestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) {
+              return [
+                SliverAppBar(
+                  //backgroundColor: Color.fromARGB(30, 6, 1, 27),
+                  backgroundColor: Colors.transparent,
+                  // backgroundColor: !innerBoxIsScrolled
+                  //     ? Colors.transparent
+                  //     : Color.fromARGB(255, 5, 37, 73),
+                  pinned: true,
+                  floating: true,
+                  forceElevated: innerBoxIsScrolled,
+                  //   scrolledUnderElevation: 500,
 
-                // title: AppBar(
-                //   backgroundColor: Colors.transparent,
-                //   elevation: 0,
-                //   titleSpacing: 0,
-                title: Row(
-                  children: [
-                    Image.asset(
-                      'assets/images/juzox-logo2.png',
-                      width: 70,
-                      // height: 40,
-                      height: 30,
-                      //color: const Color.fromARGB(158, 105, 240, 175),
-                      color: Color.fromARGB(158, 64, 195, 255),
-                    ),
-                    Expanded(
-                      // child: Padding(
-                      //   padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Container(
+                  // title: AppBar(
+                  //   backgroundColor: Colors.transparent,
+                  //   elevation: 0,
+                  //   titleSpacing: 0,
+                  title: Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/juzox-logo2.png',
+                        width: 70,
+                        // height: 40,
                         height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(18.0),
-                          gradient: const LinearGradient(
-                            colors: [
-                              // Color.fromARGB(158, 105, 240, 175),
+                        //color: const Color.fromARGB(158, 105, 240, 175),
+                        color: Color.fromARGB(158, 64, 195, 255),
+                      ),
+                      Expanded(
+                        // child: Padding(
+                        //   padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Container(
+                          height: 30,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(18.0),
+                            gradient: const LinearGradient(
+                              colors: [
+                                // Color.fromARGB(158, 105, 240, 175),
 
-                              Color.fromARGB(127, 5, 37, 73),
-                              Color.fromARGB(129, 64, 195, 255),
-                            ], // Adjust colors as needed
-                            begin: Alignment.topLeft,
-                            end: Alignment
-                                .bottomRight, // Adjust gradient direction as needed
+                                Color.fromARGB(127, 5, 37, 73),
+                                Color.fromARGB(129, 64, 195, 255),
+                              ], // Adjust colors as needed
+                              begin: Alignment.topLeft,
+                              end: Alignment
+                                  .bottomRight, // Adjust gradient direction as needed
+                            ),
                           ),
-                        ),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // Add logic to handle search button tap
-                          },
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(double.infinity, 30.0),
-                            backgroundColor: Colors.transparent,
-                            foregroundColor: Color.fromARGB(118, 255, 255, 255),
-                          ),
-                          child: const Row(
-                            children: [
-                              Icon(
-                                Icons.search,
-                                size: 20,
-                              ),
-                              SizedBox(width: 10.0),
-                              Text('Search Music'),
-                            ],
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // Add logic to handle search button tap
+                            },
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(double.infinity, 30.0),
+                              backgroundColor: Colors.transparent,
+                              foregroundColor:
+                                  Color.fromARGB(118, 255, 255, 255),
+                            ),
+                            child: const Row(
+                              children: [
+                                Icon(
+                                  Icons.search,
+                                  size: 20,
+                                ),
+                                SizedBox(width: 10.0),
+                                Text('Search Music'),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    //   ),
-                    InkWell(
-                      child: const Padding(
-                        padding: EdgeInsets.all(18.0),
-                        child: Icon(
-                          Icons.menu_outlined,
-                          size: 30,
-                        ),
-                      ),
-                      onTap: () {},
-                    ),
-                  ],
-                ),
-                //    ),
-                bottom: const TabBar(
-                  dividerColor: Colors.transparent,
-                  isScrollable: true,
-                  // padding: EdgeInsets.only(left: 0),
-                  indicatorColor: Colors.lightBlueAccent,
-                  // indicatorSize: TabBarIndicatorSize.label,
-                  //indicatorPadding: EdgeInsets.only(left: 10, right: 10),
-                  labelColor: Colors.lightBlueAccent,
-                  labelStyle: TextStyle(fontSize: 17),
-                  unselectedLabelColor: Color.fromARGB(159, 255, 255, 255),
-                  unselectedLabelStyle: TextStyle(fontSize: 15),
-                  //unselectedLabelStyle: Theme.of(context).textTheme.titleSmall,
-
-                  tabAlignment: TabAlignment.start,
-
-                  tabs: [
-                    Tab(text: 'Favorites'),
-                    Tab(text: 'Songs'),
-                    Tab(text: 'Playlists'),
-                    Tab(text: 'Folders'),
-                    Tab(text: 'Albums'),
-                    Tab(text: 'Artiists'),
-                    Tab(text: 'Genres'),
-                  ],
-                ),
-              ),
-            ];
-          },
-          body: TabBarView(
-            children: [
-              Text('Favorites'),
-              ListView.builder(
-                itemCount: _songs.length,
-                itemBuilder: (context, index) {
-                  final song = _songs[index];
-                  return ListTile(
-                    contentPadding: const EdgeInsets.only(left: 18, right: 4),
-
-                    // contentPadding:
-                    //     EdgeInsets.only(left: leftPadding, right: rightPadding),
-
-                    title: Text(
-                      song.title!,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                    //  titleTextStyle: TextStyle(color: Colors.white),
-                    // titleTextStyle: Theme.of(context)
-                    //     .textTheme
-                    //     .titleMedium!
-                    //     .copyWith(color: Colors.red),
-                    subtitle: Text(
-                      '${song.artist!} - ${song.album}',
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    // This Widget will query/load image.
-                    // You can use/create your own widget/method using [queryArtwork].
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: QueryArtworkWidget(
-                        artworkClipBehavior: Clip.none,
-                        controller: _audioQuery,
-                        id: song.id!,
-                        type: ArtworkType.AUDIO,
-                        nullArtworkWidget: Container(
-                          // Set desired width and height for the box
-                          width: 50.0, // Adjust as needed
-                          height: 50.0, // Adjust as needed
-                          // color: const Color.fromARGB(22, 4, 190, 94),
-                          color: const Color.fromARGB(22, 68, 137, 255),
-                          //color: const Color.fromARGB(22, 64, 195, 255),
-                          child: const Icon(
-                            Icons.music_note_outlined,
-                            //  color: Color.fromARGB(185, 4, 190, 94),
-                            //  color: Colors.lightBlueAccent,
-                            color: Color.fromARGB(140, 64, 195, 255),
+                      //   ),
+                      InkWell(
+                        child: const Padding(
+                          padding: EdgeInsets.all(18.0),
+                          child: Icon(
+                            Icons.menu_outlined,
                             size: 30,
                           ),
                         ),
+                        onTap: () {},
+                      ),
+                    ],
+                  ),
+                  //    ),
+                  bottom: const PreferredSize(
+                    // preferredSize: Size.fromHeight(kTextTabBarHeight),
+                    child: ColoredBox(
+                      color: Color.fromARGB(255, 5, 37, 73),
+                      child: TabBar(
+                        dividerColor: Colors.transparent,
+                        isScrollable: true,
+                        // padding: EdgeInsets.only(left: 0),
+                        indicatorColor: Colors.lightBlueAccent,
+                        // indicatorSize: TabBarIndicatorSize.label,
+                        //indicatorPadding: EdgeInsets.only(left: 10, right: 10),
+                        labelColor: Colors.lightBlueAccent,
+                        labelStyle: TextStyle(fontSize: 17),
+                        unselectedLabelColor:
+                            Color.fromARGB(159, 255, 255, 255),
+                        unselectedLabelStyle: TextStyle(fontSize: 15),
+                        //unselectedLabelStyle: Theme.of(context).textTheme.titleSmall,
+
+                        tabAlignment: TabAlignment.start,
+
+                        tabs: [
+                          Tab(text: 'Favorites'),
+                          Tab(text: 'Songs'),
+                          Tab(text: 'Playlists'),
+                          Tab(text: 'Folders'),
+                          Tab(text: 'Albums'),
+                          Tab(text: 'Artiists'),
+                          Tab(text: 'Genres'),
+                        ],
                       ),
                     ),
+                  ),
+                ),
+              ];
+            },
+            body: TabBarView(
+              children: [
+                Text('Favorites'),
+                ListView.builder(
+                  itemCount: _songs.length,
+                  itemBuilder: (context, index) {
+                    final song = _songs[index];
+                    return ListTile(
+                      contentPadding: const EdgeInsets.only(left: 18, right: 4),
 
-                    trailing: _tappedSongId == song.id
-                        ? Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const AnimatedMusicIndicator(
-                                //color: Color.fromARGB(218, 4, 190, 94),
-                                color: Colors.lightBlueAccent,
-                                barStyle: BarStyle.solid,
-                                //  numberOfBars: 5,
-                                size: .06,
-                              ),
-                              IconButton(
-                                icon: const Icon(Icons.more_vert),
-                                color: const Color.fromARGB(130, 255, 255, 255),
-                                onPressed: () {
-                                  // Add logic to handle settings button tap
-                                },
-                              ),
-                            ],
-                          )
-                        : Row(
-                            mainAxisSize: MainAxisSize.min,
-                            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              const AnimatedMusicIndicator(
-                                animate: false,
-                              ),
-                              IconButton(
-                                icon: const Icon(Icons.more_vert),
-                                color: Color.fromARGB(130, 255, 255, 255),
-                                onPressed: () {
-                                  // Add logic to handle settings button tap
-                                },
-                              ),
-                            ],
+                      // contentPadding:
+                      //     EdgeInsets.only(left: leftPadding, right: rightPadding),
+
+                      title: Text(
+                        song.title!,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                      //  titleTextStyle: TextStyle(color: Colors.white),
+                      // titleTextStyle: Theme.of(context)
+                      //     .textTheme
+                      //     .titleMedium!
+                      //     .copyWith(color: Colors.red),
+                      subtitle: Text(
+                        '${song.artist!} - ${song.album}',
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      // This Widget will query/load image.
+                      // You can use/create your own widget/method using [queryArtwork].
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: QueryArtworkWidget(
+                          /*
+                      //  do it instead of cliprrect
+                       leading: QueryArtworkWidget(
+                        // artworkBorder: BorderRadius.only(
+                        //   topLeft: Radius.circular(8),
+                        //   topRight: Radius.circular(8),
+                        //   bottomLeft: Radius.circular(8),
+                        //   bottomRight: Radius.circular(8),
+                        // ),
+
+                        artworkBorder: BorderRadius.horizontal(
+                            left: Radius.circular(8),
+                            right: Radius.circular(8)),
+
+                        artworkClipBehavior: Clip.hardEdge,
+
+*/
+
+                          artworkClipBehavior: Clip.none,
+                          controller: _audioQuery,
+                          id: song.id!,
+                          type: ArtworkType.AUDIO,
+                          nullArtworkWidget: Container(
+                            // Set desired width and height for the box
+                            width: 50.0, // Adjust as needed
+                            height: 50.0, // Adjust as needed
+                            // color: const Color.fromARGB(22, 4, 190, 94),
+                            color: const Color.fromARGB(22, 68, 137, 255),
+                            //color: const Color.fromARGB(22, 64, 195, 255),
+                            child: const Icon(
+                              Icons.music_note_outlined,
+                              //  color: Color.fromARGB(185, 4, 190, 94),
+                              //  color: Colors.lightBlueAccent,
+                              color: Color.fromARGB(140, 64, 195, 255),
+                              size: 30,
+                            ),
                           ),
+                        ),
+                      ),
 
-                    onTap: () {
-                      setState(() {
-                        _tappedSongId = song.id;
-                      });
-                    },
-                  );
-                },
-              ),
-              const Text('Playlists'),
-              const Text('Folders'),
-              const Text('Albums'),
-              const Text('Artists'),
-              const Text('Genre'),
-            ],
+                      trailing: _tappedSongId == song.id
+                          ? Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const AnimatedMusicIndicator(
+                                  //color: Color.fromARGB(218, 4, 190, 94),
+                                  color: Colors.lightBlueAccent,
+                                  barStyle: BarStyle.solid,
+                                  //  numberOfBars: 5,
+                                  size: .06,
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.more_vert),
+                                  color:
+                                      const Color.fromARGB(130, 255, 255, 255),
+                                  onPressed: () {
+                                    // Add logic to handle settings button tap
+                                  },
+                                ),
+                              ],
+                            )
+                          : Row(
+                              mainAxisSize: MainAxisSize.min,
+                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                const AnimatedMusicIndicator(
+                                  animate: false,
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.more_vert),
+                                  color: Color.fromARGB(130, 255, 255, 255),
+                                  onPressed: () {
+                                    // Add logic to handle settings button tap
+                                  },
+                                ),
+                              ],
+                            ),
+
+                      onTap: () {
+                        setState(() {
+                          _tappedSongId = song.id;
+                        });
+                      },
+                    );
+                  },
+                ),
+                const Text('Playlists'),
+                const Text('Folders'),
+                const Text('Albums'),
+                const Text('Artists'),
+                const Text('Genre'),
+              ],
+            ),
           ),
         ),
       ),
