@@ -97,7 +97,7 @@ class _MusicScreenState extends State<MusicScreen> {
                   pinned: true,
                   floating: true,
                   forceElevated: innerBoxIsScrolled,
-                  //   scrolledUnderElevation: 500,
+                  scrolledUnderElevation: 0, //while scrolling opacitty 0 to 1
 
                   // title: AppBar(
                   //   backgroundColor: Colors.transparent,
