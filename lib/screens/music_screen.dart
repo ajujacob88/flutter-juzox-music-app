@@ -90,10 +90,11 @@ class _MusicScreenState extends State<MusicScreen> {
               return [
                 SliverAppBar(
                   //backgroundColor: Color.fromARGB(30, 6, 1, 27),
-                  backgroundColor: Colors.transparent,
-                  // backgroundColor: !innerBoxIsScrolled
-                  //     ? Colors.transparent
-                  //     : Color.fromARGB(255, 5, 37, 73),
+                  // backgroundColor: Colors.transparent,
+                  backgroundColor: !innerBoxIsScrolled
+                      ? Colors.transparent
+                      : Color.fromARGB(255, 5, 37, 73),
+
                   pinned: true,
                   floating: true,
                   forceElevated: innerBoxIsScrolled,
