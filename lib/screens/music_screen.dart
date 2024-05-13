@@ -209,7 +209,7 @@ class _MusicScreenState extends State<MusicScreen> {
             //     EdgeInsets.only(top: kToolbarHeight + kTextTabBarHeight - 15),
             child: TabBarView(
               children: [
-                Text('Favorites'),
+                const Text('Favorites'),
                 ListView.builder(
                   itemCount: _songs.length,
                   itemBuilder: (context, index) {
@@ -234,47 +234,45 @@ class _MusicScreenState extends State<MusicScreen> {
                         '${song.artist!} - ${song.album}',
                         overflow: TextOverflow.ellipsis,
                       ),
+
                       // This Widget will query/load image.
                       // You can use/create your own widget/method using [queryArtwork].
-                      leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: QueryArtworkWidget(
-                          /*
-                      //  do it instead of cliprrect
-                       leading: QueryArtworkWidget(
+                      leading: QueryArtworkWidget(
                         // artworkBorder: BorderRadius.only(
                         //   topLeft: Radius.circular(8),
                         //   topRight: Radius.circular(8),
                         //   bottomLeft: Radius.circular(8),
                         //   bottomRight: Radius.circular(8),
                         // ),
-                
-                        artworkBorder: BorderRadius.horizontal(
+
+                        artworkBorder: const BorderRadius.horizontal(
                             left: Radius.circular(8),
                             right: Radius.circular(8)),
-                
-                        artworkClipBehavior: Clip.hardEdge,
-                
-                */
 
-                          artworkClipBehavior: Clip.none,
-                          controller: _audioQuery,
-                          id: song.id!,
-                          type: ArtworkType.AUDIO,
-                          nullArtworkWidget: Container(
-                            // Set desired width and height for the box
-                            width: 50.0, // Adjust as needed
-                            height: 50.0, // Adjust as needed
-                            // color: const Color.fromARGB(22, 4, 190, 94),
-                            color: const Color.fromARGB(22, 68, 137, 255),
-                            //color: const Color.fromARGB(22, 64, 195, 255),
-                            child: const Icon(
-                              Icons.music_note_outlined,
-                              //  color: Color.fromARGB(185, 4, 190, 94),
-                              //  color: Colors.lightBlueAccent,
-                              color: Color.fromARGB(140, 64, 195, 255),
-                              size: 30,
-                            ),
+                        artworkClipBehavior: Clip.hardEdge,
+
+                        //   artworkClipBehavior: Clip.none,
+                        controller: _audioQuery,
+                        id: song.id!,
+                        type: ArtworkType.AUDIO,
+                        nullArtworkWidget: Container(
+                          decoration: const BoxDecoration(
+                              color: Color.fromARGB(22, 68, 137, 255),
+                              borderRadius: BorderRadius.horizontal(
+                                  left: Radius.circular(8),
+                                  right: Radius.circular(8))),
+                          // Set desired width and height for the box
+                          width: 50.0, // Adjust as needed
+                          height: 50.0, // Adjust as needed
+                          // color: const Color.fromARGB(22, 4, 190, 94),
+                          // color: const Color.fromARGB(22, 68, 137, 255), //this
+                          //color: const Color.fromARGB(22, 64, 195, 255),
+                          child: const Icon(
+                            Icons.music_note_outlined,
+                            //  color: Color.fromARGB(185, 4, 190, 94),
+                            //  color: Colors.lightBlueAccent,
+                            color: Color.fromARGB(140, 64, 195, 255),
+                            size: 30,
                           ),
                         ),
                       ),
@@ -338,7 +336,6 @@ class _MusicScreenState extends State<MusicScreen> {
     );
   }
 }
-
 
 /*
 //code which used Sliver safe area instead of safe area in tabbarview
