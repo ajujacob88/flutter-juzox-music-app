@@ -220,8 +220,6 @@ class _MusicScreenState extends State<MusicScreen>
                 RefreshIndicator(
                   color: Colors.blueAccent,
                   onRefresh: () async {
-                    // Add your refresh logic here
-
                     await Future.delayed(const Duration(seconds: 1));
                     getAudioFiles();
                   },
