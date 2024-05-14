@@ -17,11 +17,17 @@ class MusicScreen extends StatefulWidget {
   State<MusicScreen> createState() => _MusicScreenState();
 }
 
-class _MusicScreenState extends State<MusicScreen> {
+class _MusicScreenState extends State<MusicScreen>
+    with AutomaticKeepAliveClientMixin<MusicScreen> {
+  //AutomaticKeepAliveClientMixin: This mixin helps maintain the state of the "Songs" tab when switching tabs. Without it, the ListView might rebuild from scratch each time the tab is revisited, losing the scroll position.
   final OnAudioQuery _audioQuery = OnAudioQuery();
   List<JuzoxMusicModel> _songs = [];
 
   int? _tappedSongId;
+
+  @override
+  bool get wantKeepAlive =>
+      true; //to preserve the state AutomaticKeepAliveClientMixin
 
   @override
   void initState() {
@@ -72,6 +78,7 @@ class _MusicScreenState extends State<MusicScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context); //to preserve the state AutomaticKeepAliveClientMixin
     // Get the width of the screen
     //final screenWidth = MediaQuery.of(context).size.width;
 
@@ -211,6 +218,8 @@ class _MusicScreenState extends State<MusicScreen> {
               children: [
                 const Text('Favorites'),
                 ListView.builder(
+                  key: const PageStorageKey<String>('songs'),
+                  //PageStorageKey: Using PageStorageKey(key: 'songs') on the ListView.builder helps Flutter associate the list with a unique identifier. This allows it to restore the scroll position when the "Songs" tab is re-rendered. //to preserve the state AutomaticKeepAliveClientMixin
                   itemCount: _songs.length,
                   itemBuilder: (context, index) {
                     final song = _songs[index];
