@@ -217,120 +217,130 @@ class _MusicScreenState extends State<MusicScreen>
             child: TabBarView(
               children: [
                 const Text('Favorites'),
-                ListView.builder(
-                  key: const PageStorageKey<String>('allSongs'),
-                  //PageStorageKey: Using PageStorageKey(key: 'allSongs') on the ListView.builder helps Flutter associate the list with a unique identifier. This allows it to restore the scroll position when the "Songs" tab is re-rendered. //to preserve the state AutomaticKeepAliveClientMixin ... allSongs can be any unique string
-                  itemCount: _songs.length,
-                  itemBuilder: (context, index) {
-                    final song = _songs[index];
-                    return ListTile(
-                      contentPadding: const EdgeInsets.only(left: 18, right: 4),
+                RefreshIndicator(
+                  color: Colors.blueAccent,
+                  onRefresh: () async {
+                    // Add your refresh logic here
 
-                      // contentPadding:
-                      //     EdgeInsets.only(left: leftPadding, right: rightPadding),
+                    await Future.delayed(const Duration(seconds: 1));
+                    getAudioFiles();
+                  },
+                  child: ListView.builder(
+                    key: const PageStorageKey<String>('allSongs'),
+                    //PageStorageKey: Using PageStorageKey(key: 'allSongs') on the ListView.builder helps Flutter associate the list with a unique identifier. This allows it to restore the scroll position when the "Songs" tab is re-rendered. //to preserve the state AutomaticKeepAliveClientMixin ... allSongs can be any unique string
+                    itemCount: _songs.length,
+                    itemBuilder: (context, index) {
+                      final song = _songs[index];
+                      return ListTile(
+                        contentPadding:
+                            const EdgeInsets.only(left: 18, right: 4),
 
-                      title: Text(
-                        song.title!,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
-                      //  titleTextStyle: TextStyle(color: Colors.white),
-                      // titleTextStyle: Theme.of(context)
-                      //     .textTheme
-                      //     .titleMedium!
-                      //     .copyWith(color: Colors.red),
-                      subtitle: Text(
-                        '${song.artist!} - ${song.album}',
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                        // contentPadding:
+                        //     EdgeInsets.only(left: leftPadding, right: rightPadding),
 
-                      // This Widget will query/load image.
-                      // You can use/create your own widget/method using [queryArtwork].
-                      leading: QueryArtworkWidget(
-                        // artworkBorder: BorderRadius.only(
-                        //   topLeft: Radius.circular(8),
-                        //   topRight: Radius.circular(8),
-                        //   bottomLeft: Radius.circular(8),
-                        //   bottomRight: Radius.circular(8),
-                        // ),
+                        title: Text(
+                          song.title!,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        //  titleTextStyle: TextStyle(color: Colors.white),
+                        // titleTextStyle: Theme.of(context)
+                        //     .textTheme
+                        //     .titleMedium!
+                        //     .copyWith(color: Colors.red),
+                        subtitle: Text(
+                          '${song.artist!} - ${song.album}',
+                          overflow: TextOverflow.ellipsis,
+                        ),
 
-                        artworkBorder: const BorderRadius.horizontal(
-                            left: Radius.circular(8),
-                            right: Radius.circular(8)),
+                        // This Widget will query/load image.
+                        // You can use/create your own widget/method using [queryArtwork].
+                        leading: QueryArtworkWidget(
+                          // artworkBorder: BorderRadius.only(
+                          //   topLeft: Radius.circular(8),
+                          //   topRight: Radius.circular(8),
+                          //   bottomLeft: Radius.circular(8),
+                          //   bottomRight: Radius.circular(8),
+                          // ),
 
-                        artworkClipBehavior: Clip.hardEdge,
+                          artworkBorder: const BorderRadius.horizontal(
+                              left: Radius.circular(8),
+                              right: Radius.circular(8)),
 
-                        //   artworkClipBehavior: Clip.none,
-                        controller: _audioQuery,
-                        id: song.id!,
-                        type: ArtworkType.AUDIO,
-                        nullArtworkWidget: Container(
-                          decoration: const BoxDecoration(
-                              color: Color.fromARGB(22, 68, 137, 255),
-                              borderRadius: BorderRadius.horizontal(
-                                  left: Radius.circular(8),
-                                  right: Radius.circular(8))),
-                          // Set desired width and height for the box
-                          width: 50.0, // Adjust as needed
-                          height: 50.0, // Adjust as needed
-                          // color: const Color.fromARGB(22, 4, 190, 94),
-                          // color: const Color.fromARGB(22, 68, 137, 255), //this
-                          //color: const Color.fromARGB(22, 64, 195, 255),
-                          child: const Icon(
-                            Icons.music_note_outlined,
-                            //  color: Color.fromARGB(185, 4, 190, 94),
-                            //  color: Colors.lightBlueAccent,
-                            color: Color.fromARGB(140, 64, 195, 255),
-                            size: 30,
+                          artworkClipBehavior: Clip.hardEdge,
+
+                          //   artworkClipBehavior: Clip.none,
+                          controller: _audioQuery,
+                          id: song.id!,
+                          type: ArtworkType.AUDIO,
+                          nullArtworkWidget: Container(
+                            decoration: const BoxDecoration(
+                                color: Color.fromARGB(22, 68, 137, 255),
+                                borderRadius: BorderRadius.horizontal(
+                                    left: Radius.circular(8),
+                                    right: Radius.circular(8))),
+                            // Set desired width and height for the box
+                            width: 50.0, // Adjust as needed
+                            height: 50.0, // Adjust as needed
+                            // color: const Color.fromARGB(22, 4, 190, 94),
+                            // color: const Color.fromARGB(22, 68, 137, 255), //this
+                            //color: const Color.fromARGB(22, 64, 195, 255),
+                            child: const Icon(
+                              Icons.music_note_outlined,
+                              //  color: Color.fromARGB(185, 4, 190, 94),
+                              //  color: Colors.lightBlueAccent,
+                              color: Color.fromARGB(140, 64, 195, 255),
+                              size: 30,
+                            ),
                           ),
                         ),
-                      ),
 
-                      trailing: _tappedSongId == song.id
-                          ? Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const AnimatedMusicIndicator(
-                                  //color: Color.fromARGB(218, 4, 190, 94),
-                                  color: Colors.lightBlueAccent,
-                                  barStyle: BarStyle.solid,
-                                  //  numberOfBars: 5,
-                                  size: .06,
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.more_vert),
-                                  color:
-                                      const Color.fromARGB(130, 255, 255, 255),
-                                  onPressed: () {
-                                    // Add logic to handle settings button tap
-                                  },
-                                ),
-                              ],
-                            )
-                          : Row(
-                              mainAxisSize: MainAxisSize.min,
-                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                const AnimatedMusicIndicator(
-                                  animate: false,
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.more_vert),
-                                  color: Color.fromARGB(130, 255, 255, 255),
-                                  onPressed: () {
-                                    // Add logic to handle settings button tap
-                                  },
-                                ),
-                              ],
-                            ),
+                        trailing: _tappedSongId == song.id
+                            ? Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const AnimatedMusicIndicator(
+                                    //color: Color.fromARGB(218, 4, 190, 94),
+                                    color: Colors.lightBlueAccent,
+                                    barStyle: BarStyle.solid,
+                                    //  numberOfBars: 5,
+                                    size: .06,
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.more_vert),
+                                    color: const Color.fromARGB(
+                                        130, 255, 255, 255),
+                                    onPressed: () {
+                                      // Add logic to handle settings button tap
+                                    },
+                                  ),
+                                ],
+                              )
+                            : Row(
+                                mainAxisSize: MainAxisSize.min,
+                                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  const AnimatedMusicIndicator(
+                                    animate: false,
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.more_vert),
+                                    color: Color.fromARGB(130, 255, 255, 255),
+                                    onPressed: () {
+                                      // Add logic to handle settings button tap
+                                    },
+                                  ),
+                                ],
+                              ),
 
-                      onTap: () {
-                        setState(() {
-                          _tappedSongId = song.id;
-                        });
-                      },
-                    );
-                  },
+                        onTap: () {
+                          setState(() {
+                            _tappedSongId = song.id;
+                          });
+                        },
+                      );
+                    },
+                  ),
                 ),
                 const Text('Playlists'),
                 const Text('Folders'),
