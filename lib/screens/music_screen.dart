@@ -226,6 +226,20 @@ class _MusicScreenState extends State<MusicScreen>
                   child: ListView.builder(
                     key: const PageStorageKey<String>('allSongs'),
                     //PageStorageKey: Using PageStorageKey(key: 'allSongs') on the ListView.builder helps Flutter associate the list with a unique identifier. This allows it to restore the scroll position when the "Songs" tab is re-rendered. //to preserve the state AutomaticKeepAliveClientMixin ... allSongs can be any unique string
+                    //                physics: const AlwaysScrollableScrollPhysics(),
+
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    //This forces scrolling even when the content of the scrollable widget’s content doesn’t exceed the height of the screen, so even when scrolling is not needed.You might need it when you want to use a RefreshIndicator widget, this widget will not show unless it’s content is scrollable, but if you have content that doesn’t exceed the height of the screen but you want to wrap it with a RefreshIndicator widget, you’ll definitely need to use the AlwaysScrollableScrollPhysics.
+
+                    // physics: const BouncingScrollPhysics(
+                    //   parent: AlwaysScrollableScrollPhysics(),
+                    // ),
+
+                    // physics: const ClampingScrollPhysics(
+                    //     parent: AlwaysScrollableScrollPhysics()),
+
+                    //  physics: NeverScrollableScrollPhysics(),
+
                     itemCount: _songs.length,
                     itemBuilder: (context, index) {
                       final song = _songs[index];
