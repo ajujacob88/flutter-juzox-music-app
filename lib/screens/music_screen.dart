@@ -224,6 +224,8 @@ class _MusicScreenState extends State<MusicScreen>
                     getAudioFiles();
                   },
                   child: CustomScrollView(
+                    key: const PageStorageKey<String>('songssss'),
+                    //above key is to preserve the state while scrolling,, that is for scroll position preservation.
                     slivers: [
                       SliverAppBar(
                         backgroundColor: Color.fromARGB(255, 4, 11, 92),
@@ -270,7 +272,7 @@ class _MusicScreenState extends State<MusicScreen>
                         // ),
                       ),
                       SliverList.builder(
-                        key: const PageStorageKey<String>('allSongss'),
+                        key: const PageStorageKey<String>('allSongs'),
                         //PageStorageKey: Using PageStorageKey(key: 'allSongs') on the ListView.builder helps Flutter associate the list with a unique identifier. This allows it to restore the scroll position when the "Songs" tab is re-rendered. //to preserve the state AutomaticKeepAliveClientMixin ... allSongs can be any unique string
                         //                physics: const AlwaysScrollableScrollPhysics(),
 
