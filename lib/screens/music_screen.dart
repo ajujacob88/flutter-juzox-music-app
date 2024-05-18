@@ -10,6 +10,8 @@ import 'package:permission_handler/permission_handler.dart';
 //import 'dart:io';
 import 'package:animated_music_indicator/animated_music_indicator.dart';
 
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
+
 class MusicScreen extends StatefulWidget {
   const MusicScreen({super.key});
 
@@ -91,12 +93,14 @@ class _MusicScreenState extends State<MusicScreen>
       length: 7,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: NestedScrollView(
+        body: ExtendedNestedScrollView(
+          floatHeaderSlivers: true,
+          onlyOneScrollInBody: true,
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
               SliverOverlapAbsorber(
-                handle:
-                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                handle: ExtendedNestedScrollView.sliverOverlapAbsorberHandleFor(
+                    context),
                 sliver: SliverAppBar(
                   //backgroundColor: Color.fromARGB(30, 6, 1, 27),
                   backgroundColor: Colors.transparent,
@@ -404,8 +408,40 @@ class _MusicScreenState extends State<MusicScreen>
                   ),
                 ),
                 const Text('Playlists'),
-                const Text('Folders'),
-                const Text('Albums'),
+                // const Text('Folders'),
+                const SampleFolderView(),
+
+                // const Text('Albums')
+                // SliverList(
+                //   delegate: SliverChildBuilderDelegate(
+                //     (context, index) =>
+                //     const SliverToBoxAdapter(
+                //       child: Text('Albums'),
+                //     ),
+                //   ),
+                // ),
+
+                CustomScrollView(
+                  key: const PageStorageKey('Sample1Key'),
+                  slivers: [
+                    SliverGrid(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3),
+                      delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                          return Text('.alb.  $index');
+                        },
+                        childCount: 40,
+                        semanticIndexOffset: 2,
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: Text('Albums'),
+                    ),
+                  ],
+                ),
+
                 const Text('Artists'),
                 //  const Text('Genre'),
                 const SampleListView(),
@@ -418,40 +454,75 @@ class _MusicScreenState extends State<MusicScreen>
   }
 }
 
+class SampleFolderView extends StatefulWidget {
+  const SampleFolderView({super.key});
+  @override
+  State<StatefulWidget> createState() => _SampleFolderViewState();
+}
+
+class _SampleFolderViewState extends State<SampleFolderView>
+    with AutomaticKeepAliveClientMixin<SampleFolderView> {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return CustomScrollView(
+      key: const PageStorageKey('SampleKeyy22'),
+      slivers: [
+        SliverGrid(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3),
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return Text('.folder.  $index');
+            },
+            childCount: 40,
+            semanticIndexOffset: 2,
+          ),
+        ),
+        const SliverToBoxAdapter(
+          child: Text('Folders'),
+        ),
+      ],
+    );
+  }
+}
+
 class SampleListView extends StatefulWidget {
   const SampleListView({super.key});
   @override
   State<StatefulWidget> createState() => _SampleListViewState();
 }
 
-class _SampleListViewState extends State<SampleListView> {
-//  var _scrollController = ScrollController();
+class _SampleListViewState extends State<SampleListView>
+    with AutomaticKeepAliveClientMixin<SampleListView> {
+//  final ScrollController _scrollController = ScrollController();
 
-  final ScrollController _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(() {
-      print('my position is ${_scrollController.position}');
-    });
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
   // @override
-  // bool get wantKeepAlive => true;
+  // void initState() {
+  //   super.initState();
+  //   _scrollController.addListener(() {
+  //     print('my position is ${_scrollController.position}');
+  //   });
+  // }
+
+  // @override
+  // void dispose() {
+  //   _scrollController.dispose();
+  //   super.dispose();
+  // }
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
-    //  super.build(context);
+    super.build(context);
     return Scaffold(
       body: ListView.builder(
-        key: PageStorageKey('SampleListKey'),
-        controller: _scrollController,
+        key: const PageStorageKey('SampleListKey'),
+        //    controller: _scrollController,
         itemCount: 200,
         itemBuilder: (context, i) {
           return ListTile(
@@ -464,10 +535,10 @@ class _SampleListViewState extends State<SampleListView> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _scrollController.animateTo(
-              _scrollController.position.minScrollExtent,
-              duration: const Duration(seconds: 2),
-              curve: Curves.easeIn);
+          //    _scrollController.animateTo(
+          //        _scrollController.position.minScrollExtent,
+          //       duration: const Duration(seconds: 2),
+          //       curve: Curves.easeIn);
         },
         child: Icon(Icons.arrow_upward),
       ),
