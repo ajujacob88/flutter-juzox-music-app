@@ -407,11 +407,68 @@ class _MusicScreenState extends State<MusicScreen>
                 const Text('Folders'),
                 const Text('Albums'),
                 const Text('Artists'),
-                const Text('Genre'),
+                //  const Text('Genre'),
+                const SampleListView(),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class SampleListView extends StatefulWidget {
+  const SampleListView({super.key});
+  @override
+  State<StatefulWidget> createState() => _SampleListViewState();
+}
+
+class _SampleListViewState extends State<SampleListView> {
+//  var _scrollController = ScrollController();
+
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      print('my position is ${_scrollController.position}');
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+  // @override
+  // bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    //  super.build(context);
+    return Scaffold(
+      body: ListView.builder(
+        controller: _scrollController,
+        itemCount: 200,
+        itemBuilder: (context, i) {
+          return ListTile(
+              title: Text(
+            i.toString(),
+            // textScaleFactor: 1.5,
+            style: TextStyle(color: Colors.blue),
+          ));
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _scrollController.animateTo(
+              _scrollController.position.minScrollExtent,
+              duration: const Duration(seconds: 2),
+              curve: Curves.easeIn);
+        },
+        child: Icon(Icons.arrow_upward),
       ),
     );
   }
