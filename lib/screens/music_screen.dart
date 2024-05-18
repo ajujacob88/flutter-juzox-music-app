@@ -450,6 +450,7 @@ class _SampleListViewState extends State<SampleListView> {
     //  super.build(context);
     return Scaffold(
       body: ListView.builder(
+        key: PageStorageKey('SampleListKey'),
         controller: _scrollController,
         itemCount: 200,
         itemBuilder: (context, i) {
