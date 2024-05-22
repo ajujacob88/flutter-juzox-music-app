@@ -223,7 +223,7 @@ class _MusicScreenState extends State<MusicScreen>
                 Column(
                   children: [
                     Container(
-                      color: Color.fromARGB(0, 0, 0, 0),
+                      color: const Color.fromARGB(0, 0, 0, 0),
                       height: 60,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -256,6 +256,29 @@ class _MusicScreenState extends State<MusicScreen>
                               //     fontWeight: FontWeight.bold),
                             ),
                           ),
+
+                          TextButton.icon(
+                            onPressed: () {
+                              // Your onPressed logic here
+                            },
+                            style: TextButton.styleFrom(
+                              textStyle: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            icon: const Icon(
+                              Icons.play_circle,
+                              size: 36,
+                              color: Colors.lightBlueAccent,
+                            ),
+                            label: Text(
+                              'Play all(${_songs.length})',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            ),
+                          ),
+
                           // Sort button
                           DropdownButton<String>(
                             items: [],
