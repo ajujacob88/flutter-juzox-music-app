@@ -219,25 +219,14 @@ class _MusicScreenState extends State<MusicScreen>
             child: TabBarView(
               children: [
                 const Text('Favorites'),
-                RefreshIndicator(
-                  color: Colors.blueAccent,
-                  onRefresh: () async {
-                    await Future.delayed(const Duration(seconds: 1));
-                    getAudioFiles();
-                  },
-                  child: CustomScrollView(
-                    key: const PageStorageKey<String>('songssss'),
-                    //above key is to preserve the state while scrolling,, that is for scroll position preservation.
-                    slivers: [
-                      SliverAppBar(
-                        backgroundColor: Color.fromARGB(255, 4, 11, 92),
-                        pinned: true,
-                        floating: true,
-                        //   forceElevated: innerBoxIsScrolled,
-                        scrolledUnderElevation: 0,
-                        // actions: Row(
-                        //    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        actions: [
+
+                Column(
+                  children: [
+                    Container(
+                      color: Colors.transparent,
+                      height: 50,
+                      child: Row(
+                        children: [
                           // Play all button
                           ElevatedButton(
                             onPressed: () {
@@ -271,142 +260,204 @@ class _MusicScreenState extends State<MusicScreen>
                             },
                           ),
                         ],
-                        // ),
                       ),
-                      SliverList.builder(
-                        key: const PageStorageKey<String>('allSongs'),
-                        //PageStorageKey: Using PageStorageKey(key: 'allSongs') on the ListView.builder helps Flutter associate the list with a unique identifier. This allows it to restore the scroll position when the "Songs" tab is re-rendered. //to preserve the state AutomaticKeepAliveClientMixin ... allSongs can be any unique string
-                        //                physics: const AlwaysScrollableScrollPhysics(),
+                    ),
+                    Expanded(
+                      child: RefreshIndicator(
+                        color: Colors.blueAccent,
+                        onRefresh: () async {
+                          await Future.delayed(const Duration(seconds: 1));
+                          getAudioFiles();
+                        },
+                        child: CustomScrollView(
+                          key: const PageStorageKey<String>('songssss'),
+                          //above key is to preserve the state while scrolling,, that is for scroll position preservation.
+                          slivers: [
+                            // SliverAppBar(
+                            //   backgroundColor: Color.fromARGB(255, 4, 11, 92),
+                            //   pinned: true,
+                            //   floating: true,
+                            //   //   forceElevated: innerBoxIsScrolled,
+                            //   scrolledUnderElevation: 0,
+                            //   // actions: Row(
+                            //   //    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //   actions: [
+                            //     // Play all button
+                            //     ElevatedButton(
+                            //       onPressed: () {
+                            //         // Add logic to play all songs
+                            //       },
+                            //       child: const Text('Play All'),
+                            //     ),
+                            //     // Sort button
+                            //     DropdownButton<String>(
+                            //       items: [],
+                            //       // value:
+                            //       //     _selectedSortOption, // Store selected sort option state
+                            //       // items: _sortOptions.map((String value) {
+                            //       //   return DropdownMenuItem<String>(
+                            //       //     value: value,
+                            //       //     child: Text(value),
+                            //       //   );
+                            //       // }).toList(),
+                            //       onChanged: (value) {
+                            //         setState(() {
+                            //           //      _selectedSortOption = value!;
+                            //           // Update song list based on selected sort option (replace with logic)
+                            //         });
+                            //       },
+                            //     ),
+                            //     // Selection button (optional) - Implement based on your needs
+                            //     IconButton(
+                            //       icon: const Icon(Icons.check_box_outline_blank),
+                            //       onPressed: () {
+                            //         // Add logic for song selection (optional)
+                            //       },
+                            //     ),
+                            //   ],
+                            //   // ),
+                            // ),
+                            SliverList.builder(
+                              key: const PageStorageKey<String>('allSongs'),
+                              //PageStorageKey: Using PageStorageKey(key: 'allSongs') on the ListView.builder helps Flutter associate the list with a unique identifier. This allows it to restore the scroll position when the "Songs" tab is re-rendered. //to preserve the state AutomaticKeepAliveClientMixin ... allSongs can be any unique string
+                              //                physics: const AlwaysScrollableScrollPhysics(),
 
-                        //       physics: const AlwaysScrollableScrollPhysics(),
-                        //This forces scrolling even when the content of the scrollable widget’s content doesn’t exceed the height of the screen, so even when scrolling is not needed.You might need it when you want to use a RefreshIndicator widget, this widget will not show unless it’s content is scrollable, but if you have content that doesn’t exceed the height of the screen but you want to wrap it with a RefreshIndicator widget, you’ll definitely need to use the AlwaysScrollableScrollPhysics.
+                              //       physics: const AlwaysScrollableScrollPhysics(),
+                              //This forces scrolling even when the content of the scrollable widget’s content doesn’t exceed the height of the screen, so even when scrolling is not needed.You might need it when you want to use a RefreshIndicator widget, this widget will not show unless it’s content is scrollable, but if you have content that doesn’t exceed the height of the screen but you want to wrap it with a RefreshIndicator widget, you’ll definitely need to use the AlwaysScrollableScrollPhysics.
 
-                        // physics: const BouncingScrollPhysics(
-                        //   parent: AlwaysScrollableScrollPhysics(),
-                        // ),
-
-                        // physics: const ClampingScrollPhysics(
-                        //     parent: AlwaysScrollableScrollPhysics()),
-
-                        //  physics: NeverScrollableScrollPhysics(),
-
-                        itemCount: _songs.length,
-                        itemBuilder: (context, index) {
-                          final song = _songs[index];
-                          return ListTile(
-                            contentPadding:
-                                const EdgeInsets.only(left: 18, right: 4),
-
-                            // contentPadding:
-                            //     EdgeInsets.only(left: leftPadding, right: rightPadding),
-
-                            title: Text(
-                              song.title!,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                            //  titleTextStyle: TextStyle(color: Colors.white),
-                            // titleTextStyle: Theme.of(context)
-                            //     .textTheme
-                            //     .titleMedium!
-                            //     .copyWith(color: Colors.red),
-                            subtitle: Text(
-                              '${song.artist!} - ${song.album}',
-                              overflow: TextOverflow.ellipsis,
-                            ),
-
-                            // This Widget will query/load image.
-                            // You can use/create your own widget/method using [queryArtwork].
-                            leading: QueryArtworkWidget(
-                              // artworkBorder: BorderRadius.only(
-                              //   topLeft: Radius.circular(8),
-                              //   topRight: Radius.circular(8),
-                              //   bottomLeft: Radius.circular(8),
-                              //   bottomRight: Radius.circular(8),
+                              // physics: const BouncingScrollPhysics(
+                              //   parent: AlwaysScrollableScrollPhysics(),
                               // ),
 
-                              artworkBorder: const BorderRadius.horizontal(
-                                  left: Radius.circular(8),
-                                  right: Radius.circular(8)),
+                              // physics: const ClampingScrollPhysics(
+                              //     parent: AlwaysScrollableScrollPhysics()),
 
-                              artworkClipBehavior: Clip.hardEdge,
+                              //  physics: NeverScrollableScrollPhysics(),
 
-                              //   artworkClipBehavior: Clip.none,
-                              controller: _audioQuery,
-                              id: song.id!,
-                              type: ArtworkType.AUDIO,
-                              nullArtworkWidget: Container(
-                                decoration: const BoxDecoration(
-                                    color: Color.fromARGB(22, 68, 137, 255),
-                                    borderRadius: BorderRadius.horizontal(
-                                        left: Radius.circular(8),
-                                        right: Radius.circular(8))),
-                                // Set desired width and height for the box
-                                width: 50.0, // Adjust as needed
-                                height: 50.0, // Adjust as needed
-                                // color: const Color.fromARGB(22, 4, 190, 94),
-                                // color: const Color.fromARGB(22, 68, 137, 255), //this
-                                //color: const Color.fromARGB(22, 64, 195, 255),
-                                child: const Icon(
-                                  Icons.music_note_outlined,
-                                  //  color: Color.fromARGB(185, 4, 190, 94),
-                                  //  color: Colors.lightBlueAccent,
-                                  color: Color.fromARGB(140, 64, 195, 255),
-                                  size: 30,
-                                ),
-                              ),
-                            ),
+                              itemCount: _songs.length,
+                              itemBuilder: (context, index) {
+                                final song = _songs[index];
+                                return ListTile(
+                                  contentPadding:
+                                      const EdgeInsets.only(left: 18, right: 4),
 
-                            trailing: _tappedSongId == song.id
-                                ? Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      const AnimatedMusicIndicator(
-                                        //color: Color.fromARGB(218, 4, 190, 94),
-                                        color: Colors.lightBlueAccent,
-                                        barStyle: BarStyle.solid,
-                                        //  numberOfBars: 5,
-                                        size: .06,
-                                      ),
-                                      IconButton(
-                                        icon: const Icon(Icons.more_vert),
-                                        color: const Color.fromARGB(
-                                            130, 255, 255, 255),
-                                        onPressed: () {
-                                          // Add logic to handle settings button tap
-                                        },
-                                      ),
-                                    ],
-                                  )
-                                : Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      const AnimatedMusicIndicator(
-                                        animate: false,
-                                      ),
-                                      IconButton(
-                                        icon: const Icon(Icons.more_vert),
-                                        color:
-                                            Color.fromARGB(130, 255, 255, 255),
-                                        onPressed: () {
-                                          // Add logic to handle settings button tap
-                                        },
-                                      ),
-                                    ],
+                                  // contentPadding:
+                                  //     EdgeInsets.only(left: leftPadding, right: rightPadding),
+
+                                  title: Text(
+                                    song.title!,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                  ),
+                                  //  titleTextStyle: TextStyle(color: Colors.white),
+                                  // titleTextStyle: Theme.of(context)
+                                  //     .textTheme
+                                  //     .titleMedium!
+                                  //     .copyWith(color: Colors.red),
+                                  subtitle: Text(
+                                    '${song.artist!} - ${song.album}',
+                                    overflow: TextOverflow.ellipsis,
                                   ),
 
-                            onTap: () {
-                              setState(() {
-                                _tappedSongId = song.id;
-                              });
-                            },
-                          );
-                        },
+                                  // This Widget will query/load image.
+                                  // You can use/create your own widget/method using [queryArtwork].
+                                  leading: QueryArtworkWidget(
+                                    // artworkBorder: BorderRadius.only(
+                                    //   topLeft: Radius.circular(8),
+                                    //   topRight: Radius.circular(8),
+                                    //   bottomLeft: Radius.circular(8),
+                                    //   bottomRight: Radius.circular(8),
+                                    // ),
+
+                                    artworkBorder:
+                                        const BorderRadius.horizontal(
+                                            left: Radius.circular(8),
+                                            right: Radius.circular(8)),
+
+                                    artworkClipBehavior: Clip.hardEdge,
+
+                                    //   artworkClipBehavior: Clip.none,
+                                    controller: _audioQuery,
+                                    id: song.id!,
+                                    type: ArtworkType.AUDIO,
+                                    nullArtworkWidget: Container(
+                                      decoration: const BoxDecoration(
+                                          color:
+                                              Color.fromARGB(22, 68, 137, 255),
+                                          borderRadius: BorderRadius.horizontal(
+                                              left: Radius.circular(8),
+                                              right: Radius.circular(8))),
+                                      // Set desired width and height for the box
+                                      width: 50.0, // Adjust as needed
+                                      height: 50.0, // Adjust as needed
+                                      // color: const Color.fromARGB(22, 4, 190, 94),
+                                      // color: const Color.fromARGB(22, 68, 137, 255), //this
+                                      //color: const Color.fromARGB(22, 64, 195, 255),
+                                      child: const Icon(
+                                        Icons.music_note_outlined,
+                                        //  color: Color.fromARGB(185, 4, 190, 94),
+                                        //  color: Colors.lightBlueAccent,
+                                        color:
+                                            Color.fromARGB(140, 64, 195, 255),
+                                        size: 30,
+                                      ),
+                                    ),
+                                  ),
+
+                                  trailing: _tappedSongId == song.id
+                                      ? Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const AnimatedMusicIndicator(
+                                              //color: Color.fromARGB(218, 4, 190, 94),
+                                              color: Colors.lightBlueAccent,
+                                              barStyle: BarStyle.solid,
+                                              //  numberOfBars: 5,
+                                              size: .06,
+                                            ),
+                                            IconButton(
+                                              icon: const Icon(Icons.more_vert),
+                                              color: const Color.fromARGB(
+                                                  130, 255, 255, 255),
+                                              onPressed: () {
+                                                // Add logic to handle settings button tap
+                                              },
+                                            ),
+                                          ],
+                                        )
+                                      : Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            const AnimatedMusicIndicator(
+                                              animate: false,
+                                            ),
+                                            IconButton(
+                                              icon: const Icon(Icons.more_vert),
+                                              color: Color.fromARGB(
+                                                  130, 255, 255, 255),
+                                              onPressed: () {
+                                                // Add logic to handle settings button tap
+                                              },
+                                            ),
+                                          ],
+                                        ),
+
+                                  onTap: () {
+                                    setState(() {
+                                      _tappedSongId = song.id;
+                                    });
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
+
                 const Text('Playlists'),
                 // const Text('Folders'),
                 const SampleFolderView(),
