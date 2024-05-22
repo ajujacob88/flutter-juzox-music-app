@@ -226,7 +226,7 @@ class _MusicScreenState extends State<MusicScreen>
                       color: const Color.fromARGB(0, 0, 0, 0),
                       height: 60,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           TextButton.icon(
@@ -241,15 +241,38 @@ class _MusicScreenState extends State<MusicScreen>
                             // ),
                             icon: const Icon(
                               Icons.play_circle,
-                              size: 36,
+                              size: 32,
                               color: Colors.lightBlueAccent,
                             ),
-                            label: Text(
-                              'Play all(${_songs.length})',
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
+                            // label: Text(
+                            //   'Play all(${_songs.length})',
+                            //   style: const TextStyle(
+                            //       color: Colors.white,
+                            //       fontSize: 16,
+                            //       fontWeight: FontWeight.bold),
+                            // ),
+
+                            label: RichText(
+                              text: TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: 'Play all  ',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '(${_songs.length})',
+                                    style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
 
