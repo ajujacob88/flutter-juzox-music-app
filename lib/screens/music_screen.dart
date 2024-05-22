@@ -282,12 +282,12 @@ class _MusicScreenState extends State<MusicScreen>
                           //   },
                           // ),
 
-                          // SizedBox(
-                          //   width: 500,
-                          // ),
+                          const Spacer(),
 
                           IconButton(
+                            iconSize: 20,
                             color: Colors.white70,
+                            padding: const EdgeInsets.only(right: 8),
                             icon: const Icon(CupertinoIcons.shuffle),
                             onPressed: () {
                               // Add logic for song selection (optional)
@@ -310,13 +310,18 @@ class _MusicScreenState extends State<MusicScreen>
                                 // Update song list based on selected sort option (replace with logic)
                               });
                             },
+
+                            //  padding: EdgeInsets.only(right: 2),
+
                             icon: const Icon(
                               CupertinoIcons.arrow_up_arrow_down,
                               color: Colors.white70,
+                              size: 20,
                             ),
                           ),
                           // Selection button (optional) - Implement based on your needs
                           IconButton(
+                            iconSize: 20,
                             color: Colors.white70,
                             icon: const Icon(Icons.checklist),
                             onPressed: () {
