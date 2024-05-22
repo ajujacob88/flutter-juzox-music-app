@@ -229,44 +229,16 @@ class _MusicScreenState extends State<MusicScreen>
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          const Icon(
-                            Icons.play_circle_fill,
-                            color: Colors.blueAccent,
-                            size: 36,
-                          ),
-                          // Play all button
-                          TextButton(
-                            onPressed: () {
-                              // Add logic to play all songs
-                            },
-                            style: TextButton.styleFrom(
-                              foregroundColor: Colors
-                                  .white, // This is the text color for the button
-                              textStyle: const TextStyle(
-                                fontSize: 16, // Set the desired font size here
-                                fontWeight: FontWeight
-                                    .bold, // Optional: Set font weight if needed
-                              ),
-                            ),
-                            child: Text(
-                              'Play all(${_songs.length})',
-                              // style: TextStyle(
-                              //     fontSize: 18.0, // Adjust font size as needed
-                              //     color: Colors.white,
-                              //     fontWeight: FontWeight.bold),
-                            ),
-                          ),
-
                           TextButton.icon(
                             onPressed: () {
                               // Your onPressed logic here
                             },
-                            style: TextButton.styleFrom(
-                              textStyle: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            // style: TextButton.styleFrom(
+                            //   textStyle: const TextStyle(
+                            //     fontSize: 16,
+                            //     fontWeight: FontWeight.bold,
+                            //   ),
+                            // ),
                             icon: const Icon(
                               Icons.play_circle,
                               size: 36,
@@ -274,8 +246,10 @@ class _MusicScreenState extends State<MusicScreen>
                             ),
                             label: Text(
                               'Play all(${_songs.length})',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
 
