@@ -275,7 +275,24 @@ class _MusicScreenState extends State<MusicScreen>
                               ),
                             ),
                           ),
+                          // IconButton(
+                          //   icon: const Icon(Icons.shuffle),
+                          //   onPressed: () {
+                          //     // Add logic for song selection (optional)
+                          //   },
+                          // ),
 
+                          // SizedBox(
+                          //   width: 500,
+                          // ),
+
+                          IconButton(
+                            color: Colors.white70,
+                            icon: const Icon(CupertinoIcons.shuffle),
+                            onPressed: () {
+                              // Add logic for song selection (optional)
+                            },
+                          ),
                           // Sort button
                           DropdownButton<String>(
                             items: [],
@@ -293,10 +310,15 @@ class _MusicScreenState extends State<MusicScreen>
                                 // Update song list based on selected sort option (replace with logic)
                               });
                             },
+                            icon: const Icon(
+                              CupertinoIcons.arrow_up_arrow_down,
+                              color: Colors.white70,
+                            ),
                           ),
                           // Selection button (optional) - Implement based on your needs
                           IconButton(
-                            icon: const Icon(Icons.check_box_outline_blank),
+                            color: Colors.white70,
+                            icon: const Icon(Icons.checklist),
                             onPressed: () {
                               // Add logic for song selection (optional)
                             },
