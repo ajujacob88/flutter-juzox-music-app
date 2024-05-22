@@ -224,7 +224,7 @@ class _MusicScreenState extends State<MusicScreen>
                   children: [
                     Container(
                       color: const Color.fromARGB(0, 0, 0, 0),
-                      height: 60,
+                      height: 50,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.max,
@@ -233,25 +233,11 @@ class _MusicScreenState extends State<MusicScreen>
                             onPressed: () {
                               // Your onPressed logic here
                             },
-                            // style: TextButton.styleFrom(
-                            //   textStyle: const TextStyle(
-                            //     fontSize: 16,
-                            //     fontWeight: FontWeight.bold,
-                            //   ),
-                            // ),
                             icon: const Icon(
                               Icons.play_circle,
                               size: 32,
                               color: Colors.lightBlueAccent,
                             ),
-                            // label: Text(
-                            //   'Play all(${_songs.length})',
-                            //   style: const TextStyle(
-                            //       color: Colors.white,
-                            //       fontSize: 16,
-                            //       fontWeight: FontWeight.bold),
-                            // ),
-
                             label: RichText(
                               text: TextSpan(
                                 children: [
@@ -275,12 +261,6 @@ class _MusicScreenState extends State<MusicScreen>
                               ),
                             ),
                           ),
-                          // IconButton(
-                          //   icon: const Icon(Icons.shuffle),
-                          //   onPressed: () {
-                          //     // Add logic for song selection (optional)
-                          //   },
-                          // ),
 
                           const Spacer(),
 
