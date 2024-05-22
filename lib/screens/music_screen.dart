@@ -223,16 +223,38 @@ class _MusicScreenState extends State<MusicScreen>
                 Column(
                   children: [
                     Container(
-                      color: Colors.transparent,
-                      height: 50,
+                      color: Color.fromARGB(0, 0, 0, 0),
+                      height: 60,
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisSize: MainAxisSize.max,
                         children: [
+                          const Icon(
+                            Icons.play_circle_fill,
+                            color: Colors.blueAccent,
+                            size: 36,
+                          ),
                           // Play all button
-                          ElevatedButton(
+                          TextButton(
                             onPressed: () {
                               // Add logic to play all songs
                             },
-                            child: const Text('Play All'),
+                            style: TextButton.styleFrom(
+                              foregroundColor: Colors
+                                  .white, // This is the text color for the button
+                              textStyle: const TextStyle(
+                                fontSize: 16, // Set the desired font size here
+                                fontWeight: FontWeight
+                                    .bold, // Optional: Set font weight if needed
+                              ),
+                            ),
+                            child: Text(
+                              'Play all(${_songs.length})',
+                              // style: TextStyle(
+                              //     fontSize: 18.0, // Adjust font size as needed
+                              //     color: Colors.white,
+                              //     fontWeight: FontWeight.bold),
+                            ),
                           ),
                           // Sort button
                           DropdownButton<String>(
@@ -273,50 +295,6 @@ class _MusicScreenState extends State<MusicScreen>
                           key: const PageStorageKey<String>('songssss'),
                           //above key is to preserve the state while scrolling,, that is for scroll position preservation.
                           slivers: [
-                            // SliverAppBar(
-                            //   backgroundColor: Color.fromARGB(255, 4, 11, 92),
-                            //   pinned: true,
-                            //   floating: true,
-                            //   //   forceElevated: innerBoxIsScrolled,
-                            //   scrolledUnderElevation: 0,
-                            //   // actions: Row(
-                            //   //    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //   actions: [
-                            //     // Play all button
-                            //     ElevatedButton(
-                            //       onPressed: () {
-                            //         // Add logic to play all songs
-                            //       },
-                            //       child: const Text('Play All'),
-                            //     ),
-                            //     // Sort button
-                            //     DropdownButton<String>(
-                            //       items: [],
-                            //       // value:
-                            //       //     _selectedSortOption, // Store selected sort option state
-                            //       // items: _sortOptions.map((String value) {
-                            //       //   return DropdownMenuItem<String>(
-                            //       //     value: value,
-                            //       //     child: Text(value),
-                            //       //   );
-                            //       // }).toList(),
-                            //       onChanged: (value) {
-                            //         setState(() {
-                            //           //      _selectedSortOption = value!;
-                            //           // Update song list based on selected sort option (replace with logic)
-                            //         });
-                            //       },
-                            //     ),
-                            //     // Selection button (optional) - Implement based on your needs
-                            //     IconButton(
-                            //       icon: const Icon(Icons.check_box_outline_blank),
-                            //       onPressed: () {
-                            //         // Add logic for song selection (optional)
-                            //       },
-                            //     ),
-                            //   ],
-                            //   // ),
-                            // ),
                             SliverList.builder(
                               key: const PageStorageKey<String>('allSongs'),
                               //PageStorageKey: Using PageStorageKey(key: 'allSongs') on the ListView.builder helps Flutter associate the list with a unique identifier. This allows it to restore the scroll position when the "Songs" tab is re-rendered. //to preserve the state AutomaticKeepAliveClientMixin ... allSongs can be any unique string
