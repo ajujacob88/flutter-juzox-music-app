@@ -6,8 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:juzox_music_app/models/music_model.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:permission_handler/permission_handler.dart';
+//import 'package:permission_handler/permission_handler.dart';
 //import 'dart:io';
+import 'package:juzox_music_app/utils/permission_handler.dart';
 import 'package:animated_music_indicator/animated_music_indicator.dart';
 
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
@@ -40,24 +41,6 @@ class _MusicScreenState extends State<MusicScreen>
         getAudioFiles(); // Call function to get audio files on permission grant
       }
     });
-  }
-
-  Future<bool> requestStoragePermission() async {
-    // <!-- Android 12 or below  --> need to check the os condition and the version here
-    //if (Platform.isAndroid)
-    final storageStatus = await Permission.storage.request();
-
-    // <!-- applicable for Android 13 or greater  -->
-    final audiosPermission = await Permission.audio.request();
-    final photosPermission = await Permission.photos.request();
-    final videosPermission = await Permission.videos.request();
-
-    print(
-        'debug storagepermission this stor $storageStatus, audio $audiosPermission, pho $photosPermission, vid $videosPermission');
-    return ((storageStatus == PermissionStatus.granted) ||
-        ((audiosPermission == PermissionStatus.granted) &&
-            (photosPermission == PermissionStatus.granted) &&
-            (videosPermission == PermissionStatus.granted)));
   }
 
   Future<void> getAudioFiles() async {
