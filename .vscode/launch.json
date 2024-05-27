@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "name": "Flutter (lib/widgets/tab_bar.dart)",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/widgets/tab_bar.dart"
+        }
+    ]
+}

@@ -10,6 +10,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 //import 'dart:io';
 import 'package:juzox_music_app/utils/permission_handler.dart';
 import 'package:juzox_music_app/widgets/search_button.dart';
+import 'package:juzox_music_app/widgets/music_tab_bar.dart';
 
 import 'package:animated_music_indicator/animated_music_indicator.dart';
 
@@ -125,31 +126,7 @@ class _MusicScreenState extends State<MusicScreen>
                   ],
 
                   //    ),
-                  bottom: const TabBar(
-                    dividerColor: Colors.transparent,
-                    isScrollable: true,
-                    // padding: EdgeInsets.only(left: 0),
-                    indicatorColor: Colors.lightBlueAccent,
-                    // indicatorSize: TabBarIndicatorSize.label,
-                    //indicatorPadding: EdgeInsets.only(left: 10, right: 10),
-                    labelColor: Colors.lightBlueAccent,
-                    labelStyle: TextStyle(fontSize: 17),
-                    unselectedLabelColor: Color.fromARGB(159, 255, 255, 255),
-                    unselectedLabelStyle: TextStyle(fontSize: 15),
-                    //unselectedLabelStyle: Theme.of(context).textTheme.titleSmall,
-
-                    tabAlignment: TabAlignment.start,
-
-                    tabs: [
-                      Tab(text: 'Favorites'),
-                      Tab(text: 'Songs'),
-                      Tab(text: 'Playlists'),
-                      Tab(text: 'Folders'),
-                      Tab(text: 'Albums'),
-                      Tab(text: 'Artiists'),
-                      Tab(text: 'Genres'),
-                    ],
-                  ),
+                  bottom: MusicTabBar(),
                 ),
               ),
             ];
