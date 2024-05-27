@@ -4,6 +4,9 @@ import 'package:juzox_music_app/models/music_model.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:juzox_music_app/utils/permission_handler.dart';
 import 'package:animated_music_indicator/animated_music_indicator.dart';
+import 'package:juzox_music_app/services/audio_player_service.dart';
+
+//import 'package:just_audio/just_audio.dart';
 
 class SongsTab extends StatefulWidget {
   const SongsTab({super.key});
@@ -17,6 +20,9 @@ class _SongsTabState extends State<SongsTab>
   //AutomaticKeepAliveClientMixin: This mixin helps maintain the state of the "Songs" tab when switching tabs. Without it, the ListView might rebuild from scratch each time the tab is revisited, losing the scroll position.
 
   final OnAudioQuery _audioQuery = OnAudioQuery();
+
+  final AudioPlayerService _audioPlayerService = AudioPlayerService();
+
   List<JuzoxMusicModel> _songs = [];
 
   int? _tappedSongId;
@@ -36,6 +42,12 @@ class _SongsTabState extends State<SongsTab>
     });
   }
 
+  @override
+  void dispose() {
+    _audioPlayerService.dispose();
+    super.dispose();
+  }
+
   Future<void> getAudioFiles() async {
     final songs = await _audioQuery.querySongs(
       sortType: SongSortType.DATE_ADDED,
@@ -52,6 +64,10 @@ class _SongsTabState extends State<SongsTab>
 
     setState(() {});
     //print('songs is ${_songs[3]}');
+  }
+
+  void _playSong(String url) {
+    _audioPlayerService.play(url);
   }
 
   @override
@@ -268,6 +284,7 @@ class _SongsTabState extends State<SongsTab>
                             ),
 
                       onTap: () {
+                        _playSong(song.filePath);
                         setState(() {
                           _tappedSongId = song.id;
                         });
