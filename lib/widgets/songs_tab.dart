@@ -56,6 +56,8 @@ class _SongsTabState extends State<SongsTab>
       ignoreCase: true,
     );
 
+    //    print('song data is ${songs[0].data} andddd song uri is ${songs[0].uri}');
+
     _songs = songs
         .where((songInfo) =>
             songInfo.fileExtension == 'mp3' || songInfo.fileExtension == 'm4a')
