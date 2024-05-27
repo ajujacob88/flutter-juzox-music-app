@@ -1,9 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:juzox_music_app/models/music_model.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 //import 'package:permission_handler/permission_handler.dart';
@@ -99,10 +95,6 @@ class _MusicScreenState extends State<MusicScreen>
                   forceElevated: innerBoxIsScrolled,
                   scrolledUnderElevation: 0, //while scrolling opacitty 0 to 1
 
-                  // title: AppBar(
-                  //   backgroundColor: Colors.transparent,
-                  //   elevation: 0,
-                  //   titleSpacing: 0,
                   actions: [
                     Image.asset(
                       'assets/images/juzox-logo2.png',
@@ -125,8 +117,7 @@ class _MusicScreenState extends State<MusicScreen>
                     ),
                   ],
 
-                  //    ),
-                  bottom: MusicTabBar(),
+                  bottom: const MusicTabBar(),
                 ),
               ),
             ];
