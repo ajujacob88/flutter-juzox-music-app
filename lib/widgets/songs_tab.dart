@@ -5,15 +5,15 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:juzox_music_app/utils/permission_handler.dart';
 import 'package:animated_music_indicator/animated_music_indicator.dart';
 
-class SongList extends StatefulWidget {
-  const SongList({super.key});
+class SongsTab extends StatefulWidget {
+  const SongsTab({super.key});
 
   @override
-  State<SongList> createState() => _SongListState();
+  State<SongsTab> createState() => _SongsTabState();
 }
 
-class _SongListState extends State<SongList>
-    with AutomaticKeepAliveClientMixin<SongList> {
+class _SongsTabState extends State<SongsTab>
+    with AutomaticKeepAliveClientMixin<SongsTab> {
   //AutomaticKeepAliveClientMixin: This mixin helps maintain the state of the "Songs" tab when switching tabs. Without it, the ListView might rebuild from scratch each time the tab is revisited, losing the scroll position.
 
   final OnAudioQuery _audioQuery = OnAudioQuery();

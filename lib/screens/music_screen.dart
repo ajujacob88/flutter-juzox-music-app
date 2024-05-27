@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 //import 'package:juzox_music_app/utils/permission_handler.dart';
 import 'package:juzox_music_app/widgets/search_button.dart';
 import 'package:juzox_music_app/widgets/music_tab_bar.dart';
-import 'package:juzox_music_app/widgets/song_list.dart';
+import 'package:juzox_music_app/widgets/songs_tab.dart';
 
 //import 'package:animated_music_indicator/animated_music_indicator.dart';
 
@@ -92,7 +92,7 @@ class _MusicScreenState extends State<MusicScreen> {
               children: [
                 const Text('Favorites'),
 
-                const SongList(),
+                const SongsTab(),
 
                 const Text('Playlists'),
                 // const Text('Folders'),
