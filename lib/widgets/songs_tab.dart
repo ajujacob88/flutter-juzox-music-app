@@ -6,7 +6,7 @@ import 'package:juzox_music_app/utils/permission_handler.dart';
 import 'package:animated_music_indicator/animated_music_indicator.dart';
 import 'package:juzox_music_app/services/audio_player_service.dart';
 
-//import 'package:just_audio/just_audio.dart';
+import 'package:just_audio/just_audio.dart';
 
 class SongsTab extends StatefulWidget {
   const SongsTab({super.key});
@@ -21,11 +21,16 @@ class _SongsTabState extends State<SongsTab>
 
   final OnAudioQuery _audioQuery = OnAudioQuery();
 
-  final AudioPlayerService _audioPlayerService = AudioPlayerService();
+  final JuzoxAudioPlayerService _juzoxAudioPlayerService =
+      JuzoxAudioPlayerService();
 
   List<JuzoxMusicModel> _songs = [];
 
   int? _tappedSongId;
+
+  JuzoxMusicModel? _currentlyPlayingSong;
+
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
   @override
   bool get wantKeepAlive => true;
@@ -44,7 +49,7 @@ class _SongsTabState extends State<SongsTab>
 
   @override
   void dispose() {
-    _audioPlayerService.dispose();
+    _juzoxAudioPlayerService.dispose();
     super.dispose();
   }
 
@@ -69,7 +74,7 @@ class _SongsTabState extends State<SongsTab>
   }
 
   void _playSong(String url) {
-    _audioPlayerService.play(url);
+    _juzoxAudioPlayerService.play(url);
   }
 
   @override
@@ -289,6 +294,7 @@ class _SongsTabState extends State<SongsTab>
                         _playSong(song.filePath);
                         setState(() {
                           _tappedSongId = song.id;
+                          _currentlyPlayingSong = song;
                         });
                       },
                     );
@@ -298,7 +304,93 @@ class _SongsTabState extends State<SongsTab>
             ),
           ),
         ),
+        if (_currentlyPlayingSong != null)
+          MiniPlayer(
+            song: _currentlyPlayingSong!,
+            audioPlayer: _audioPlayer,
+          ),
       ],
+    );
+  }
+}
+
+class MiniPlayer extends StatefulWidget {
+  final JuzoxMusicModel song;
+  final AudioPlayer audioPlayer;
+
+  const MiniPlayer({
+    super.key,
+    required this.song,
+    required this.audioPlayer,
+  });
+
+  @override
+  State<MiniPlayer> createState() => _MiniPlayerState();
+}
+
+class _MiniPlayerState extends State<MiniPlayer> {
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 0,
+      left: 0,
+      right: 0,
+      child: Container(
+        color: Colors.grey[900],
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              icon: Icon(Icons.skip_previous, color: Colors.white),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(
+                  widget.audioPlayer.playing ? Icons.pause : Icons.play_arrow,
+                  color: Colors.white),
+              onPressed: () {
+                if (widget.audioPlayer.playing) {
+                  widget.audioPlayer.pause();
+                } else {
+                  widget.audioPlayer.play();
+                }
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.skip_next, color: Colors.white),
+              onPressed: () {},
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(widget.song.title!,
+                      style: TextStyle(color: Colors.white)),
+                  Text(widget.song.artist ?? 'Unknown Artist',
+                      style: TextStyle(color: Colors.white70)),
+                  StreamBuilder<Duration>(
+                    stream: widget.audioPlayer.positionStream,
+                    builder: (context, snapshot) {
+                      final position = snapshot.data ?? Duration.zero;
+                      final duration =
+                          widget.audioPlayer.duration ?? Duration.zero;
+                      return Slider(
+                        value: position.inSeconds.toDouble(),
+                        max: duration.inSeconds.toDouble(),
+                        onChanged: (value) {
+                          widget.audioPlayer
+                              .seek(Duration(seconds: value.toInt()));
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:just_audio/just_audio.dart';
 
-class AudioPlayerService {
+class JuzoxAudioPlayerService {
   final _audioPlayer = AudioPlayer(); // Create a player
 
   AudioPlayer get audioPlayer => _audioPlayer;
