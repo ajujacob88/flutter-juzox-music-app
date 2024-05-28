@@ -6,17 +6,21 @@ class JuzoxAudioPlayerService {
   AudioPlayer get audioPlayer => _audioPlayer;
   //The line AudioPlayer get audioPlayer => _audioPlayer; is a getter in Dart that provides access to the private _audioPlayer instance from outside the AudioPlayerService class.
 
-  Future<void> play(String url) async {
+  Future<void> juzoxPlay(String url) async {
     await _audioPlayer.setUrl(url);
     _audioPlayer.play();
   }
 
-  Future<void> pause() async {
+  Future<void> juzoxPause() async {
     _audioPlayer.pause();
   }
 
-  Future<void> stop() async {
+  Future<void> juzoxStop() async {
     _audioPlayer.stop();
+  }
+
+  bool juzoxPlaying() {
+    return _audioPlayer.playing;
   }
 
   void dispose() {

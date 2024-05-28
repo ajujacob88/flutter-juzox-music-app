@@ -74,7 +74,7 @@ class _SongsTabState extends State<SongsTab>
   }
 
   void _playSong(String url) {
-    _juzoxAudioPlayerService.play(url);
+    _juzoxAudioPlayerService.juzoxPlay(url);
   }
 
   @override
@@ -307,21 +307,22 @@ class _SongsTabState extends State<SongsTab>
         if (_currentlyPlayingSong != null)
           MiniPlayer(
             song: _currentlyPlayingSong!,
-            audioPlayer: _audioPlayer,
+            audioPlayerService: _juzoxAudioPlayerService,
           ),
       ],
     );
   }
 }
 
+/*
 class MiniPlayer extends StatefulWidget {
   final JuzoxMusicModel song;
-  final AudioPlayer audioPlayer;
+  final JuzoxAudioPlayerService juzoxAudioPlayerService;
 
   const MiniPlayer({
     super.key,
     required this.song,
-    required this.audioPlayer,
+    required this.juzoxAudioPlayerService,
   });
 
   @override
@@ -329,6 +330,8 @@ class MiniPlayer extends StatefulWidget {
 }
 
 class _MiniPlayerState extends State<MiniPlayer> {
+  final AudioPlayer audioPlayer = AudioPlayer();
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -347,14 +350,18 @@ class _MiniPlayerState extends State<MiniPlayer> {
             ),
             IconButton(
               icon: Icon(
-                  widget.audioPlayer.playing ? Icons.pause : Icons.play_arrow,
+                  widget.juzoxAudioPlayerService.juzoxPlaying()
+                      ? Icons.pause
+                      : Icons.play_arrow,
                   color: Colors.white),
               onPressed: () {
-                if (widget.audioPlayer.playing) {
-                  widget.audioPlayer.pause();
-                } else {
-                  widget.audioPlayer.play();
-                }
+                setState(() {
+                  if (audioPlayer.playing) {
+                    widget.juzoxAudioPlayerService.juzoxPause();
+                  } else {
+                    audioPlayer.play();
+                  }
+                });
               },
             ),
             IconButton(
@@ -370,19 +377,115 @@ class _MiniPlayerState extends State<MiniPlayer> {
                   Text(widget.song.artist ?? 'Unknown Artist',
                       style: TextStyle(color: Colors.white70)),
                   StreamBuilder<Duration>(
-                    stream: widget.audioPlayer.positionStream,
+                    stream: audioPlayer.positionStream,
                     builder: (context, snapshot) {
                       final position = snapshot.data ?? Duration.zero;
-                      final duration =
-                          widget.audioPlayer.duration ?? Duration.zero;
+                      final duration = audioPlayer.duration ?? Duration.zero;
                       return Slider(
                         value: position.inSeconds.toDouble(),
                         max: duration.inSeconds.toDouble(),
                         onChanged: (value) {
-                          widget.audioPlayer
-                              .seek(Duration(seconds: value.toInt()));
+                          audioPlayer.seek(Duration(seconds: value.toInt()));
                         },
                       );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+*/
+
+class MiniPlayer extends StatefulWidget {
+  final JuzoxMusicModel song;
+  final JuzoxAudioPlayerService audioPlayerService;
+
+  const MiniPlayer({
+    Key? key,
+    required this.song,
+    required this.audioPlayerService,
+  }) : super(key: key);
+
+  @override
+  _MiniPlayerState createState() => _MiniPlayerState();
+}
+
+class _MiniPlayerState extends State<MiniPlayer> {
+  bool isPlaying = false;
+  Duration currentDuration = Duration.zero;
+  Duration totalDuration = Duration.zero;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.audioPlayerService.audioPlayer.positionStream.listen((duration) {
+      setState(() {
+        currentDuration = duration;
+      });
+    });
+    widget.audioPlayerService.audioPlayer.durationStream.listen((duration) {
+      setState(() {
+        totalDuration = duration ?? Duration.zero;
+      });
+    });
+    widget.audioPlayerService.audioPlayer.playingStream.listen((isPlaying) {
+      setState(() {
+        this.isPlaying = isPlaying;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 0,
+      left: 0,
+      right: 0,
+      child: Container(
+        color: Colors.grey[900],
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              icon: Icon(Icons.skip_previous, color: Colors.white),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow,
+                  color: Colors.white),
+              onPressed: () {
+                if (isPlaying) {
+                  widget.audioPlayerService.juzoxPause();
+                } else {
+                  widget.audioPlayerService.juzoxPlay(widget.song.filePath);
+                }
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.skip_next, color: Colors.white),
+              onPressed: () {},
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(widget.song.title!,
+                      style: TextStyle(color: Colors.white)),
+                  Text(widget.song.artist ?? 'Unknown Artist',
+                      style: TextStyle(color: Colors.white70)),
+                  Slider(
+                    value: currentDuration.inSeconds.toDouble(),
+                    max: totalDuration.inSeconds.toDouble(),
+                    onChanged: (value) {
+                      widget.audioPlayerService.audioPlayer
+                          .seek(Duration(seconds: value.toInt()));
                     },
                   ),
                 ],
