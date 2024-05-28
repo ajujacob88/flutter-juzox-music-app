@@ -49,7 +49,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
   @override
   Widget build(BuildContext context) {
     String songDisplayText =
-        "     ${widget.song.title!} - ${widget.song.artist ?? 'Unknown Artist'}  ";
+        "${widget.song.title!} - ${widget.song.artist ?? 'Unknown Artist'}";
 
     return Container(
       color: Colors.grey[900],
@@ -83,16 +83,35 @@ class _MiniPlayerState extends State<MiniPlayer> {
                 SizedBox(
                   height: 30,
                   child: Marquee(
+                    key: ValueKey(widget.song.filePath),
+                    // Unique key based on the song's file path. To ensure that the Marquee always starts with the song title starting position when you click a song, you can utilize the key property of the Marquee widget. By changing the key whenever the song changes, the Marquee will reset and start from the beginning.
                     text: songDisplayText,
-                    style: const TextStyle(color: Colors.white),
-                    textScaleFactor: 1,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                    //textScaleFactor: 1.3,
+                    // blankSpace: 40.0,
+                    // velocity: 30,
+
+                    blankSpace: 40.0,
+                    velocity: 20,
+                    pauseAfterRound: Duration(seconds: 1),
+                    startPadding: 10.0,
+
+                    // style: TextStyle(fontWeight: FontWeight.bold),
+                    // scrollAxis: Axis.horizontal,
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    // blankSpace: 20.0,
+                    // velocity: 40.0,
+                    //  pauseAfterRound: Duration(seconds: 1),
+                    //startPadding: 50.0,
+                    // accelerationDuration: Duration(seconds: 3),
+                    // accelerationCurve: Curves.linear,
+                    // decelerationDuration: Duration(milliseconds: 500),
+                    // decelerationCurve: Curves.easeOut,
                   ),
                 ),
-
-                // Marquee(text: 'sdfsfsfsfsfsfsfsfsdffdhsssssssss'),
-                // Text(widget.song.title!, style: TextStyle(color: Colors.white)),
-                // Text(widget.song.artist ?? 'Unknown Artist',
-                //     style: TextStyle(color: Colors.white70)),
                 Slider(
                   value: currentDuration.inSeconds.toDouble(),
                   max: totalDuration.inSeconds.toDouble(),
