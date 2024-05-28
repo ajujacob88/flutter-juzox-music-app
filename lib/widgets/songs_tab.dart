@@ -307,12 +307,113 @@ class _SongsTabState extends State<SongsTab>
         if (_currentlyPlayingSong != null)
           MiniPlayer(
             song: _currentlyPlayingSong!,
-            audioPlayerService: _juzoxAudioPlayerService,
+            juzoxAudioPlayerService: _juzoxAudioPlayerService,
           ),
       ],
     );
   }
 }
+
+class MiniPlayer extends StatefulWidget {
+  final JuzoxMusicModel song;
+  final JuzoxAudioPlayerService juzoxAudioPlayerService;
+
+  const MiniPlayer({
+    super.key,
+    required this.song,
+    required this.juzoxAudioPlayerService,
+  });
+
+  @override
+  State<MiniPlayer> createState() => _MiniPlayerState();
+}
+
+class _MiniPlayerState extends State<MiniPlayer> {
+  bool isPlaying = false;
+  Duration currentDuration = Duration.zero;
+  Duration totalDuration = Duration.zero;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.juzoxAudioPlayerService.audioPlayer.positionStream
+        .listen((duration) {
+      setState(() {
+        currentDuration = duration;
+      });
+    });
+    widget.juzoxAudioPlayerService.audioPlayer.durationStream
+        .listen((duration) {
+      setState(() {
+        totalDuration = duration ?? Duration.zero;
+      });
+    });
+    widget.juzoxAudioPlayerService.audioPlayer.playingStream
+        .listen((isPlaying) {
+      setState(() {
+        this.isPlaying = isPlaying;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 0,
+      left: 0,
+      right: 0,
+      child: Container(
+        color: Colors.grey[900],
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.skip_previous, color: Colors.white),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow,
+                  color: Colors.white),
+              onPressed: () {
+                if (isPlaying) {
+                  widget.juzoxAudioPlayerService.juzoxPause();
+                } else {
+                  widget.juzoxAudioPlayerService
+                      .juzoxPlay(widget.song.filePath);
+                }
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.skip_next, color: Colors.white),
+              onPressed: () {},
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(widget.song.title!,
+                      style: TextStyle(color: Colors.white)),
+                  Text(widget.song.artist ?? 'Unknown Artist',
+                      style: TextStyle(color: Colors.white70)),
+                  Slider(
+                    value: currentDuration.inSeconds.toDouble(),
+                    max: totalDuration.inSeconds.toDouble(),
+                    onChanged: (value) {
+                      widget.juzoxAudioPlayerService.audioPlayer
+                          .seek(Duration(seconds: value.toInt()));
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 
 /*
 class MiniPlayer extends StatefulWidget {
@@ -401,99 +502,3 @@ class _MiniPlayerState extends State<MiniPlayer> {
 }
 
 */
-
-class MiniPlayer extends StatefulWidget {
-  final JuzoxMusicModel song;
-  final JuzoxAudioPlayerService audioPlayerService;
-
-  const MiniPlayer({
-    Key? key,
-    required this.song,
-    required this.audioPlayerService,
-  }) : super(key: key);
-
-  @override
-  _MiniPlayerState createState() => _MiniPlayerState();
-}
-
-class _MiniPlayerState extends State<MiniPlayer> {
-  bool isPlaying = false;
-  Duration currentDuration = Duration.zero;
-  Duration totalDuration = Duration.zero;
-
-  @override
-  void initState() {
-    super.initState();
-    widget.audioPlayerService.audioPlayer.positionStream.listen((duration) {
-      setState(() {
-        currentDuration = duration;
-      });
-    });
-    widget.audioPlayerService.audioPlayer.durationStream.listen((duration) {
-      setState(() {
-        totalDuration = duration ?? Duration.zero;
-      });
-    });
-    widget.audioPlayerService.audioPlayer.playingStream.listen((isPlaying) {
-      setState(() {
-        this.isPlaying = isPlaying;
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      child: Container(
-        color: Colors.grey[900],
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              icon: Icon(Icons.skip_previous, color: Colors.white),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow,
-                  color: Colors.white),
-              onPressed: () {
-                if (isPlaying) {
-                  widget.audioPlayerService.juzoxPause();
-                } else {
-                  widget.audioPlayerService.juzoxPlay(widget.song.filePath);
-                }
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.skip_next, color: Colors.white),
-              onPressed: () {},
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(widget.song.title!,
-                      style: TextStyle(color: Colors.white)),
-                  Text(widget.song.artist ?? 'Unknown Artist',
-                      style: TextStyle(color: Colors.white70)),
-                  Slider(
-                    value: currentDuration.inSeconds.toDouble(),
-                    max: totalDuration.inSeconds.toDouble(),
-                    onChanged: (value) {
-                      widget.audioPlayerService.audioPlayer
-                          .seek(Duration(seconds: value.toInt()));
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
