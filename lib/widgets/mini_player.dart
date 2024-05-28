@@ -48,6 +48,9 @@ class _MiniPlayerState extends State<MiniPlayer> {
 
   @override
   Widget build(BuildContext context) {
+    String songDisplayText =
+        "     ${widget.song.title!} - ${widget.song.artist ?? 'Unknown Artist'}  ";
+
     return Container(
       color: Colors.grey[900],
       padding: const EdgeInsets.all(8.0),
@@ -77,18 +80,12 @@ class _MiniPlayerState extends State<MiniPlayer> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   height: 30,
                   child: Marquee(
-                    text: widget.song.title!,
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                Container(
-                  height: 30,
-                  child: Marquee(
-                    text: widget.song.artist ?? 'Unknown Artist',
-                    style: TextStyle(color: Colors.white70),
+                    text: songDisplayText,
+                    style: const TextStyle(color: Colors.white),
+                    textScaleFactor: 1,
                   ),
                 ),
 
