@@ -358,57 +358,50 @@ class _MiniPlayerState extends State<MiniPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      child: Container(
-        color: Colors.grey[900],
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.skip_previous, color: Colors.white),
-              onPressed: () {},
+    return Container(
+      color: Colors.grey[900],
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.skip_previous, color: Colors.white),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow,
+                color: Colors.white),
+            onPressed: () {
+              if (isPlaying) {
+                widget.juzoxAudioPlayerService.juzoxPause();
+              } else {
+                widget.juzoxAudioPlayerService.juzoxPlay(widget.song.filePath);
+              }
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.skip_next, color: Colors.white),
+            onPressed: () {},
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(widget.song.title!, style: TextStyle(color: Colors.white)),
+                Text(widget.song.artist ?? 'Unknown Artist',
+                    style: TextStyle(color: Colors.white70)),
+                Slider(
+                  value: currentDuration.inSeconds.toDouble(),
+                  max: totalDuration.inSeconds.toDouble(),
+                  onChanged: (value) {
+                    widget.juzoxAudioPlayerService.audioPlayer
+                        .seek(Duration(seconds: value.toInt()));
+                  },
+                ),
+              ],
             ),
-            IconButton(
-              icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow,
-                  color: Colors.white),
-              onPressed: () {
-                if (isPlaying) {
-                  widget.juzoxAudioPlayerService.juzoxPause();
-                } else {
-                  widget.juzoxAudioPlayerService
-                      .juzoxPlay(widget.song.filePath);
-                }
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.skip_next, color: Colors.white),
-              onPressed: () {},
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(widget.song.title!,
-                      style: TextStyle(color: Colors.white)),
-                  Text(widget.song.artist ?? 'Unknown Artist',
-                      style: TextStyle(color: Colors.white70)),
-                  Slider(
-                    value: currentDuration.inSeconds.toDouble(),
-                    max: totalDuration.inSeconds.toDouble(),
-                    onChanged: (value) {
-                      widget.juzoxAudioPlayerService.audioPlayer
-                          .seek(Duration(seconds: value.toInt()));
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
