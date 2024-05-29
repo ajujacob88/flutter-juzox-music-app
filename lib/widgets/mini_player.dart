@@ -125,30 +125,31 @@ class _MiniPlayerState extends State<MiniPlayer> {
               child: SliderTheme(
                 data: SliderTheme.of(context).copyWith(
                   trackHeight: 0.8,
-                  trackShape: RoundedRectSliderTrackShape(),
-                  activeTrackColor: Colors.purple.shade800,
-                  inactiveTrackColor: Colors.purple.shade100,
-                  thumbShape: RoundSliderThumbShape(
+                  trackShape: const RoundedRectSliderTrackShape(),
+                  //  activeTrackColor: Colors.purple.shade800,
+                  //  inactiveTrackColor: Colors.purple.shade100,
+                  thumbShape: const RoundSliderThumbShape(
                     enabledThumbRadius: 8.0,
                     pressedElevation: 20.0,
                   ),
                   //     thumbColor: Colors.pinkAccent,
                   //     overlayColor: Colors.pink.withOpacity(0.2),
-                  overlayShape: RoundSliderOverlayShape(overlayRadius: 22.0),
-                  tickMarkShape: RoundSliderTickMarkShape(),
+                  overlayShape:
+                      const RoundSliderOverlayShape(overlayRadius: 22.0),
+                  tickMarkShape: const RoundSliderTickMarkShape(),
                   //     activeTickMarkColor: Colors.pinkAccent,
                   //   inactiveTickMarkColor: Colors.white,
-                  valueIndicatorShape: PaddleSliderValueIndicatorShape(),
+                  valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
                   valueIndicatorColor: Colors.black,
-                  valueIndicatorTextStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                  ),
+                  // valueIndicatorTextStyle: const TextStyle(
+                  //   color: Colors.white,
+                  //   fontSize: 20.0,
+                  // ),
                 ),
                 child: Slider(
                   activeColor: const Color.fromARGB(193, 64, 195, 255),
                   thumbColor: Colors.lightBlueAccent,
-                  inactiveColor: Color.fromARGB(94, 64, 195, 255),
+                  inactiveColor: const Color.fromARGB(94, 64, 195, 255),
                   value: currentDuration.inSeconds.toDouble(),
                   max: totalDuration.inSeconds.toDouble(),
                   onChanged: (value) {
