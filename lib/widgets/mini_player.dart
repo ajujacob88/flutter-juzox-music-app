@@ -4,6 +4,7 @@ import 'package:juzox_music_app/services/audio_player_service.dart';
 
 import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:flutter/cupertino.dart';
 
 class MiniPlayer extends StatefulWidget {
   final JuzoxMusicModel song;
@@ -53,9 +54,12 @@ class _MiniPlayerState extends State<MiniPlayer> {
         "${widget.song.title!} - ${widget.song.artist ?? 'Unknown Artist'}";
 
     return Container(
+      // height: 200,
       color: Colors.grey[900],
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(0.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,10 +67,17 @@ class _MiniPlayerState extends State<MiniPlayer> {
               IconButton(
                 icon: const Icon(Icons.skip_previous, color: Colors.white),
                 onPressed: () {},
+                constraints:
+                    BoxConstraints(), // Remove constraints to minimize the size
+                padding: EdgeInsets.all(0),
               ),
               IconButton(
                 icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow,
                     color: Colors.white),
+                constraints:
+                    BoxConstraints(), // Remove constraints to minimize the size
+                padding: EdgeInsets.zero,
+
                 onPressed: () {
                   if (isPlaying) {
                     widget.juzoxAudioPlayerService.juzoxPause();
@@ -79,6 +90,9 @@ class _MiniPlayerState extends State<MiniPlayer> {
               IconButton(
                 icon: const Icon(Icons.skip_next, color: Colors.white),
                 onPressed: () {},
+                constraints:
+                    BoxConstraints(), // Remove constraints to minimize the size
+                padding: EdgeInsets.zero,
               ),
               Expanded(
                 child: SizedBox(
@@ -104,19 +118,54 @@ class _MiniPlayerState extends State<MiniPlayer> {
               ),
             ],
           ),
-          Slider(
-            value: currentDuration.inSeconds.toDouble(),
-            max: totalDuration.inSeconds.toDouble(),
-            onChanged: (value) {
-              widget.juzoxAudioPlayerService.audioPlayer
-                  .seek(Duration(seconds: value.toInt()));
-            },
+          SizedBox(
+            height: 20,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: SliderTheme(
+                data: SliderTheme.of(context).copyWith(
+                  trackHeight: 0.8,
+                  trackShape: RoundedRectSliderTrackShape(),
+                  activeTrackColor: Colors.purple.shade800,
+                  inactiveTrackColor: Colors.purple.shade100,
+                  thumbShape: RoundSliderThumbShape(
+                    enabledThumbRadius: 8.0,
+                    pressedElevation: 20.0,
+                  ),
+                  //     thumbColor: Colors.pinkAccent,
+                  //     overlayColor: Colors.pink.withOpacity(0.2),
+                  overlayShape: RoundSliderOverlayShape(overlayRadius: 22.0),
+                  tickMarkShape: RoundSliderTickMarkShape(),
+                  //     activeTickMarkColor: Colors.pinkAccent,
+                  //   inactiveTickMarkColor: Colors.white,
+                  valueIndicatorShape: PaddleSliderValueIndicatorShape(),
+                  valueIndicatorColor: Colors.black,
+                  valueIndicatorTextStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                  ),
+                ),
+                child: Slider(
+                  activeColor: const Color.fromARGB(193, 64, 195, 255),
+                  thumbColor: Colors.lightBlueAccent,
+                  inactiveColor: Color.fromARGB(94, 64, 195, 255),
+                  value: currentDuration.inSeconds.toDouble(),
+                  max: totalDuration.inSeconds.toDouble(),
+                  onChanged: (value) {
+                    widget.juzoxAudioPlayerService.audioPlayer
+                        .seek(Duration(seconds: value.toInt()));
+                  },
+                ),
+              ),
+            ),
           ),
         ],
       ),
     );
   }
 }
+
+
 
 /*
 class MiniPlayer extends StatefulWidget {

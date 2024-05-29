@@ -310,6 +310,11 @@ class _SongsTabState extends State<SongsTab>
             song: _currentlyPlayingSong!,
             juzoxAudioPlayerService: _juzoxAudioPlayerService,
           ),
+        // CupertinoSlider(
+        //   value: 10,
+        //   max: 30,
+        //   onChanged: (value) {},
+        // ),
       ],
     );
   }
