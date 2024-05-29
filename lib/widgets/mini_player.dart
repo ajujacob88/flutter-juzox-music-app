@@ -3,6 +3,7 @@ import 'package:juzox_music_app/models/music_model.dart';
 import 'package:juzox_music_app/services/audio_player_service.dart';
 
 import 'package:marquee/marquee.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 class MiniPlayer extends StatefulWidget {
   final JuzoxMusicModel song;
@@ -54,34 +55,34 @@ class _MiniPlayerState extends State<MiniPlayer> {
     return Container(
       color: Colors.grey[900],
       padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
         children: [
-          IconButton(
-            icon: const Icon(Icons.skip_previous, color: Colors.white),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow,
-                color: Colors.white),
-            onPressed: () {
-              if (isPlaying) {
-                widget.juzoxAudioPlayerService.juzoxPause();
-              } else {
-                widget.juzoxAudioPlayerService.juzoxPlay(widget.song.filePath);
-              }
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.skip_next, color: Colors.white),
-            onPressed: () {},
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 30,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.skip_previous, color: Colors.white),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow,
+                    color: Colors.white),
+                onPressed: () {
+                  if (isPlaying) {
+                    widget.juzoxAudioPlayerService.juzoxPause();
+                  } else {
+                    widget.juzoxAudioPlayerService
+                        .juzoxPlay(widget.song.filePath);
+                  }
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.skip_next, color: Colors.white),
+                onPressed: () {},
+              ),
+              Expanded(
+                child: SizedBox(
+                  height: 24,
                   child: Marquee(
                     key: ValueKey(widget.song.filePath),
                     // Unique key based on the song's file path. To ensure that the Marquee always starts with the song title starting position when you click a song, you can utilize the key property of the Marquee widget. By changing the key whenever the song changes, the Marquee will reset and start from the beginning.
@@ -98,30 +99,18 @@ class _MiniPlayerState extends State<MiniPlayer> {
                     velocity: 20,
                     pauseAfterRound: Duration(seconds: 1),
                     startPadding: 10.0,
-
-                    // style: TextStyle(fontWeight: FontWeight.bold),
-                    // scrollAxis: Axis.horizontal,
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    // blankSpace: 20.0,
-                    // velocity: 40.0,
-                    //  pauseAfterRound: Duration(seconds: 1),
-                    //startPadding: 50.0,
-                    // accelerationDuration: Duration(seconds: 3),
-                    // accelerationCurve: Curves.linear,
-                    // decelerationDuration: Duration(milliseconds: 500),
-                    // decelerationCurve: Curves.easeOut,
                   ),
                 ),
-                Slider(
-                  value: currentDuration.inSeconds.toDouble(),
-                  max: totalDuration.inSeconds.toDouble(),
-                  onChanged: (value) {
-                    widget.juzoxAudioPlayerService.audioPlayer
-                        .seek(Duration(seconds: value.toInt()));
-                  },
-                ),
-              ],
-            ),
+              ),
+            ],
+          ),
+          Slider(
+            value: currentDuration.inSeconds.toDouble(),
+            max: totalDuration.inSeconds.toDouble(),
+            onChanged: (value) {
+              widget.juzoxAudioPlayerService.audioPlayer
+                  .seek(Duration(seconds: value.toInt()));
+            },
           ),
         ],
       ),
