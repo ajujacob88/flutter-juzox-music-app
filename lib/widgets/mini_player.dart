@@ -54,8 +54,50 @@ class _MiniPlayerState extends State<MiniPlayer> {
         "${widget.song.title!} - ${widget.song.artist ?? 'Unknown Artist'}";
 
     return Container(
+      //width: 330,
+
       // height: 200,
-      color: Colors.grey[900],
+      //  color: Colors.grey[900],
+      //  color: Color.fromARGB(25, 64, 195, 255),
+
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(36.0), // Rounded corners
+        border: Border.all(
+          // Border on all sides
+          color: Colors.grey,
+          width: 1.0,
+        ),
+        // color: Color.fromARGB(25, 64, 195, 255),
+
+        gradient: LinearGradient(
+          colors: [
+            // Color.fromARGB(127, 5, 37, 73),
+            // Color.fromARGB(129, 64, 195, 255),
+            Color.fromARGB(95, 5, 37, 73), //this
+            Color.fromARGB(95, 64, 195, 255), //this
+
+            // Color.fromARGB(255, 5, 37, 73),
+
+            // Color.fromARGB(163, 1, 0, 6),
+
+            // Color.fromARGB(255, 5, 37, 73),
+            // Color.fromARGB(95, 5, 37, 73),
+
+            // Color.fromARGB(255, 5, 37, 73),
+            // Color.fromARGB(161, 3, 11, 43),
+            // Color.fromARGB(255, 5, 37, 73),
+
+            // Color.fromARGB(95, 5, 37, 73), //also good
+            // Color.fromARGB(255, 5, 37, 73), //also good
+          ], // Adjust colors as needed
+
+          //    begin: Alignment.topLeft, //this
+          // end: Alignment.bottomRight,  //this
+
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+        ),
+      ),
       padding: const EdgeInsets.all(0.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
