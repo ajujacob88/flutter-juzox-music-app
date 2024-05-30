@@ -21,33 +21,68 @@ class MiniPlayer extends StatefulWidget {
 }
 
 class _MiniPlayerState extends State<MiniPlayer> {
-  bool isPlaying = false;
-  Duration currentDuration = Duration.zero;
-  Duration totalDuration = Duration.zero;
+  //bool isPlaying = false;
+  // Duration currentDuration = Duration.zero;
+  //Duration totalDuration = Duration.zero;
 
-  final OnAudioQuery _audioQuery = OnAudioQuery();
+  final ValueNotifier<bool> isPlaying = ValueNotifier(false);
+  final ValueNotifier<Duration> currentDuration = ValueNotifier(Duration.zero);
+  final ValueNotifier<Duration> totalDuration = ValueNotifier(Duration.zero);
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   widget.juzoxAudioPlayerService.audioPlayer.positionStream
+  //       .listen((duration) {
+  //     setState(() {
+  //       currentDuration = duration;
+  //     });
+  //   });
+  //   widget.juzoxAudioPlayerService.audioPlayer.durationStream
+  //       .listen((duration) {
+  //     setState(() {
+  //       totalDuration = duration ?? Duration.zero;
+  //     });
+  //   });
+  //   widget.juzoxAudioPlayerService.audioPlayer.playingStream
+  //       .listen((isPlaying) {
+  //     setState(() {
+  //       this.isPlaying = isPlaying;
+  //     });
+  //   });
+  // }
 
   @override
   void initState() {
     super.initState();
     widget.juzoxAudioPlayerService.audioPlayer.positionStream
         .listen((duration) {
-      setState(() {
-        currentDuration = duration;
-      });
+      //   setState(() {
+      currentDuration.value = duration;
+      //   });
     });
     widget.juzoxAudioPlayerService.audioPlayer.durationStream
         .listen((duration) {
-      setState(() {
-        totalDuration = duration ?? Duration.zero;
-      });
+      //    setState(() {
+      totalDuration.value = duration ?? Duration.zero;
+      //    });
     });
     widget.juzoxAudioPlayerService.audioPlayer.playingStream
         .listen((isPlaying) {
-      setState(() {
-        this.isPlaying = isPlaying;
-      });
+      //   setState(() {
+      this.isPlaying.value = isPlaying;
+      //  });
     });
+  }
+
+//dispose check once again because the miniplayer is needed for other pages also, so this dispose should be removed and use REMOVE instead(check a screenshot),,
+  @override
+  void dispose() {
+    // Dispose the ValueNotifiers when the widget is disposed
+    currentDuration.dispose();
+    totalDuration.dispose();
+    isPlaying.dispose();
+    super.dispose();
   }
 
   @override
@@ -92,7 +127,6 @@ class _MiniPlayerState extends State<MiniPlayer> {
           QueryArtworkWidget(
             id: widget.song.id!,
             type: ArtworkType.AUDIO,
-            // controller: _audioQuery,
             artworkHeight: 63,
             // artworkBorder: const BorderRadius.horizontal(
             //     left: Radius.circular(8), right: Radius.circular(8)),
@@ -137,22 +171,27 @@ class _MiniPlayerState extends State<MiniPlayer> {
                           BoxConstraints(), // Remove constraints to minimize the size
                       padding: EdgeInsets.all(0),
                     ),
-                    IconButton(
-                      icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow,
-                          color: Colors.white),
-                      constraints:
-                          BoxConstraints(), // Remove constraints to minimize the size
-                      padding: EdgeInsets.zero,
+                    ValueListenableBuilder(
+                        valueListenable: isPlaying,
+                        builder: (context, isPlaying, child) {
+                          return IconButton(
+                            icon: Icon(
+                                isPlaying ? Icons.pause : Icons.play_arrow,
+                                color: Colors.white),
+                            constraints:
+                                BoxConstraints(), // Remove constraints to minimize the size
+                            padding: EdgeInsets.zero,
 
-                      onPressed: () {
-                        if (isPlaying) {
-                          widget.juzoxAudioPlayerService.juzoxPause();
-                        } else {
-                          widget.juzoxAudioPlayerService
-                              .juzoxPlay(widget.song.filePath);
-                        }
-                      },
-                    ),
+                            onPressed: () {
+                              if (isPlaying) {
+                                widget.juzoxAudioPlayerService.juzoxPause();
+                              } else {
+                                widget.juzoxAudioPlayerService
+                                    .juzoxPlay(widget.song.filePath);
+                              }
+                            },
+                          );
+                        }),
                     IconButton(
                       icon: const Icon(Icons.skip_next, color: Colors.white),
                       onPressed: () {},
@@ -213,17 +252,30 @@ class _MiniPlayerState extends State<MiniPlayer> {
                         //   fontSize: 20.0,
                         // ),
                       ),
-                      child: Slider(
-                        activeColor: const Color.fromARGB(193, 64, 195, 255),
-                        thumbColor: Colors.lightBlueAccent,
-                        inactiveColor: const Color.fromARGB(94, 64, 195, 255),
-                        value: currentDuration.inSeconds.toDouble(),
-                        max: totalDuration.inSeconds.toDouble(),
-                        onChanged: (value) {
-                          widget.juzoxAudioPlayerService.audioPlayer
-                              .seek(Duration(seconds: value.toInt()));
-                        },
-                      ),
+                      child: ValueListenableBuilder(
+                          valueListenable: currentDuration,
+                          builder: (context, currentDurationValue, child) {
+                            return ValueListenableBuilder(
+                                valueListenable: totalDuration,
+                                builder: (context, totalDurationValue, child) {
+                                  return Slider(
+                                    activeColor:
+                                        const Color.fromARGB(193, 64, 195, 255),
+                                    thumbColor: Colors.lightBlueAccent,
+                                    inactiveColor:
+                                        const Color.fromARGB(94, 64, 195, 255),
+                                    value: currentDurationValue.inSeconds
+                                        .toDouble(),
+                                    max:
+                                        totalDurationValue.inSeconds.toDouble(),
+                                    onChanged: (value) {
+                                      widget.juzoxAudioPlayerService.audioPlayer
+                                          .seek(
+                                              Duration(seconds: value.toInt()));
+                                    },
+                                  );
+                                });
+                          }),
                     ),
                   ),
                 ),
@@ -235,8 +287,6 @@ class _MiniPlayerState extends State<MiniPlayer> {
     );
   }
 }
-
-
 
 /*
 //after changed to value listenable builder
