@@ -113,12 +113,16 @@ class MiniPlayer extends StatelessWidget {
 
             nullArtworkWidget: Container(
               decoration: const BoxDecoration(
-                  color: Color.fromARGB(22, 68, 137, 255),
-                  borderRadius: BorderRadius.horizontal(
-                      left: Radius.circular(8), right: Radius.circular(8))),
+                color: Color.fromARGB(22, 68, 137, 255),
+                // borderRadius: BorderRadius.horizontal(
+                //     left: Radius.circular(8), right: Radius.circular(8)),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(36),
+                ),
+              ),
               // Set desired width and height for the box
               width: 50.0, // Adjust as needed
-              height: 50.0, // Adjust as needed
+              height: 63.0, // Adjust as needed
 
               child: const Icon(
                 Icons.music_note_outlined,
