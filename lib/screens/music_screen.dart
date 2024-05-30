@@ -83,6 +83,7 @@ class _MusicScreenState extends State<MusicScreen> {
             ];
           },
           body: SafeArea(
+            bottom: false,
             minimum: EdgeInsets.only(
                 top: MediaQuery.of(context).padding.top + kTextTabBarHeight),
 

@@ -82,7 +82,7 @@ class _SongsTabState extends State<SongsTab>
   Widget build(BuildContext context) {
     super.build(context); //to preserve the state AutomaticKeepAliveClientMixin
 
-    return Column(
+    return Stack(
       children: [
         Container(
           color: const Color.fromARGB(0, 0, 0, 0),
@@ -173,13 +173,17 @@ class _SongsTabState extends State<SongsTab>
             ],
           ),
         ),
-        Expanded(
-          child: RefreshIndicator(
-            color: Colors.blueAccent,
-            onRefresh: () async {
-              await Future.delayed(const Duration(seconds: 1));
-              getAudioFiles();
-            },
+        RefreshIndicator(
+          color: Colors.blueAccent,
+          onRefresh: () async {
+            await Future.delayed(const Duration(seconds: 1));
+            getAudioFiles();
+          },
+          child: Positioned(
+            top: 50,
+            bottom: 0,
+            left: 0,
+            right: 0,
             child: CustomScrollView(
               key: const PageStorageKey<String>('songssss'),
               //above key is to preserve the state while scrolling,, that is for scroll position preservation.
@@ -301,14 +305,33 @@ class _SongsTabState extends State<SongsTab>
                     );
                   },
                 ),
+                const SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 190,
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 100),
+                          child: Text(
+                            'Finished',
+                          ),
+                        )),
+                  ),
+                ),
               ],
             ),
           ),
         ),
+
         if (_currentlyPlayingSong != null)
-          MiniPlayer(
-            song: _currentlyPlayingSong!,
-            juzoxAudioPlayerService: _juzoxAudioPlayerService,
+          Positioned(
+            bottom: 54, //height of bottom nav bar
+            left: 45,
+
+            child: MiniPlayer(
+              song: _currentlyPlayingSong!,
+              juzoxAudioPlayerService: _juzoxAudioPlayerService,
+            ),
           ),
         // CupertinoSlider(
         //   value: 10,

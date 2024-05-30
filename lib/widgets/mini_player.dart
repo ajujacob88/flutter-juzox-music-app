@@ -82,7 +82,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
         //   color: Colors.grey,
         //   width: 1.0,
         // ),
-        color: Color.fromARGB(25, 64, 195, 255),
+        color: Color.fromARGB(255, 1, 33, 47),
       ),
       padding: const EdgeInsets.all(0.0),
       child: Column(
