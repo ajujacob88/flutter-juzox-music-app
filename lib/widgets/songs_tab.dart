@@ -63,6 +63,7 @@ class _SongsTabState extends State<SongsTab>
       this.isPlaying.value = isPlaying;
     });
 
+//for swaping pause button when finished playing a song
     _juzoxAudioPlayerService.audioPlayer.processingStateStream.listen((state) {
       processingState.value = state;
     });

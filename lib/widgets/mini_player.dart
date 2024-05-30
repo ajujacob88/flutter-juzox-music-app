@@ -238,16 +238,27 @@ class MiniPlayer extends StatelessWidget {
                             return ValueListenableBuilder(
                                 valueListenable: totalDuration,
                                 builder: (context, totalDurationValue, child) {
+                                  // Ensure the currentDurationValue does not exceed totalDurationValue
+                                  double sliderValue =
+                                      currentDurationValue.inSeconds.toDouble();
+                                  double maxSliderValue =
+                                      totalDurationValue.inSeconds.toDouble();
+
+                                  if (sliderValue > maxSliderValue) {
+                                    sliderValue = maxSliderValue;
+                                  }
                                   return Slider(
                                     activeColor:
                                         const Color.fromARGB(193, 64, 195, 255),
                                     thumbColor: Colors.lightBlueAccent,
                                     inactiveColor:
                                         const Color.fromARGB(94, 64, 195, 255),
-                                    value: currentDurationValue.inSeconds
-                                        .toDouble(),
-                                    max:
-                                        totalDurationValue.inSeconds.toDouble(),
+                                    // value: currentDurationValue.inSeconds
+                                    //     .toDouble(),
+                                    // max:
+                                    //     totalDurationValue.inSeconds.toDouble(),
+                                    value: sliderValue,
+                                    max: maxSliderValue,
                                     onChanged: (value) {
                                       juzoxAudioPlayerService.audioPlayer.seek(
                                           Duration(seconds: value.toInt()));
