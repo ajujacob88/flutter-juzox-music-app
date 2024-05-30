@@ -93,9 +93,18 @@ class _MiniPlayerState extends State<MiniPlayer> {
             id: widget.song.id!,
             type: ArtworkType.AUDIO,
             // controller: _audioQuery,
-            artworkBorder: const BorderRadius.horizontal(
-                left: Radius.circular(8), right: Radius.circular(8)),
+            artworkHeight: 63,
+            // artworkBorder: const BorderRadius.horizontal(
+            //     left: Radius.circular(8), right: Radius.circular(8)),
+            // artworkBorder: BorderRadius.circular(5),
+            artworkBorder: const BorderRadius.only(
+              topLeft: Radius.circular(36),
+              //topRight: Radius.circular(8),
+              //bottomLeft: Radius.circular(8),
+              // bottomRight: Radius.circular(8),
+            ),
             artworkClipBehavior: Clip.hardEdge,
+
             nullArtworkWidget: Container(
               decoration: const BoxDecoration(
                   color: Color.fromARGB(22, 68, 137, 255),
