@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:juzox_music_app/models/music_model.dart';
 import 'package:juzox_music_app/services/audio_player_service.dart';
 
+import 'package:just_audio/just_audio.dart';
+
 import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,6 +14,7 @@ class MiniPlayer extends StatelessWidget {
   final ValueNotifier<bool> isPlaying;
   final ValueNotifier<Duration> currentDuration;
   final ValueNotifier<Duration> totalDuration;
+  final ValueNotifier<ProcessingState> processingState;
 
   const MiniPlayer({
     super.key,
@@ -20,6 +23,7 @@ class MiniPlayer extends StatelessWidget {
     required this.isPlaying,
     required this.currentDuration,
     required this.totalDuration,
+    required this.processingState,
   });
 
   // final ValueNotifier<bool> isPlaying = ValueNotifier(false);
@@ -140,25 +144,33 @@ class MiniPlayer extends StatelessWidget {
                       padding: EdgeInsets.all(0),
                     ),
                     ValueListenableBuilder(
-                        valueListenable: isPlaying,
-                        builder: (context, isPlaying, child) {
-                          return IconButton(
-                            icon: Icon(
-                                isPlaying ? Icons.pause : Icons.play_arrow,
-                                color: Colors.white),
-                            constraints:
-                                BoxConstraints(), // Remove constraints to minimize the size
-                            padding: EdgeInsets.zero,
+                        valueListenable: processingState,
+                        builder: (context, state, child) {
+                          return ValueListenableBuilder(
+                              valueListenable: isPlaying,
+                              builder: (context, isPlayingValue, child) {
+                                return IconButton(
+                                  icon: Icon(
+                                      state == ProcessingState.completed
+                                          ? Icons.play_arrow
+                                          : (isPlayingValue
+                                              ? Icons.pause
+                                              : Icons.play_arrow),
+                                      color: Colors.white),
+                                  constraints:
+                                      BoxConstraints(), // Remove constraints to minimize the size
+                                  padding: EdgeInsets.zero,
 
-                            onPressed: () {
-                              if (isPlaying) {
-                                juzoxAudioPlayerService.juzoxPause();
-                              } else {
-                                juzoxAudioPlayerService
-                                    .juzoxPlay(song.filePath);
-                              }
-                            },
-                          );
+                                  onPressed: () {
+                                    if (isPlayingValue) {
+                                      juzoxAudioPlayerService.juzoxPause();
+                                    } else {
+                                      juzoxAudioPlayerService
+                                          .juzoxPlay(song.filePath);
+                                    }
+                                  },
+                                );
+                              });
                         }),
                     IconButton(
                       icon: const Icon(Icons.skip_next, color: Colors.white),

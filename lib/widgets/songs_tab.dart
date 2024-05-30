@@ -36,6 +36,8 @@ class _SongsTabState extends State<SongsTab>
   final ValueNotifier<bool> isPlaying = ValueNotifier(false);
   final ValueNotifier<Duration> currentDuration = ValueNotifier(Duration.zero);
   final ValueNotifier<Duration> totalDuration = ValueNotifier(Duration.zero);
+  final ValueNotifier<ProcessingState> processingState =
+      ValueNotifier(ProcessingState.idle);
 
   @override
   bool get wantKeepAlive => true;
@@ -60,6 +62,10 @@ class _SongsTabState extends State<SongsTab>
     _juzoxAudioPlayerService.audioPlayer.playingStream.listen((isPlaying) {
       this.isPlaying.value = isPlaying;
     });
+
+    _juzoxAudioPlayerService.audioPlayer.processingStateStream.listen((state) {
+      processingState.value = state;
+    });
   }
 
 //dispose check once again because the miniplayer is needed for other pages also, so this dispose should be removed and use REMOVE instead(check a screenshot),,
@@ -71,6 +77,8 @@ class _SongsTabState extends State<SongsTab>
     currentDuration.dispose();
     totalDuration.dispose();
     isPlaying.dispose();
+    processingState.dispose();
+
     super.dispose();
   }
 
@@ -354,6 +362,7 @@ class _SongsTabState extends State<SongsTab>
               isPlaying: isPlaying,
               currentDuration: currentDuration,
               totalDuration: totalDuration,
+              processingState: processingState,
             ),
           ),
         // CupertinoSlider(
