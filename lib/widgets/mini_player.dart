@@ -53,8 +53,21 @@ class _MiniPlayerState extends State<MiniPlayer> {
     String songDisplayText =
         "${widget.song.title!} - ${widget.song.artist ?? 'Unknown Artist'}";
 
+    // final double bottomNavHeight =
+    //     MediaQuery.of(context).viewInsets.bottom + 56;
+    // 56 is the typical height of a BottomNavigationBar
+
     return Container(
-      //width: 330,
+      //  width: 330,
+
+      // Set width to be 90% of the screen width, for example
+      // width: MediaQuery.of(context).size.width * 0.8,
+
+      width: (MediaQuery.of(context).size.width) - 90,
+      //80 is the radius of the bottom nav bar circluar edge
+
+      // width: MediaQuery.of(context).size.width,
+      // margin: EdgeInsets.only(left: bottomNavHeight, right: bottomNavHeight),
 
       // height: 200,
       //  color: Colors.grey[900],
