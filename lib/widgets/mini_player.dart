@@ -139,13 +139,15 @@ class MiniPlayer extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconButton(
-                      icon:
-                          const Icon(Icons.skip_previous, color: Colors.white),
-                      onPressed: () {},
-                      constraints:
-                          BoxConstraints(), // Remove constraints to minimize the size
-                      padding: EdgeInsets.all(0),
+                    Expanded(
+                      child: IconButton(
+                        icon: const Icon(Icons.skip_previous,
+                            color: Colors.white),
+                        onPressed: () {},
+                        constraints:
+                            BoxConstraints(), // Remove constraints to minimize the size
+                        padding: EdgeInsets.all(0),
+                      ),
                     ),
                     ValueListenableBuilder(
                         valueListenable: processingState,
@@ -153,37 +155,42 @@ class MiniPlayer extends StatelessWidget {
                           return ValueListenableBuilder(
                               valueListenable: isPlaying,
                               builder: (context, isPlayingValue, child) {
-                                return IconButton(
-                                  icon: Icon(
-                                      state == ProcessingState.completed
-                                          ? Icons.play_arrow
-                                          : (isPlayingValue
-                                              ? Icons.pause
-                                              : Icons.play_arrow),
-                                      color: Colors.white),
-                                  constraints:
-                                      BoxConstraints(), // Remove constraints to minimize the size
-                                  padding: EdgeInsets.zero,
+                                return Expanded(
+                                  child: IconButton(
+                                    icon: Icon(
+                                        state == ProcessingState.completed
+                                            ? Icons.play_arrow
+                                            : (isPlayingValue
+                                                ? Icons.pause
+                                                : Icons.play_arrow),
+                                        color: Colors.white),
+                                    constraints:
+                                        BoxConstraints(), // Remove constraints to minimize the size
+                                    padding: EdgeInsets.zero,
 
-                                  onPressed: () {
-                                    if (isPlayingValue) {
-                                      juzoxAudioPlayerService.juzoxPause();
-                                    } else {
-                                      juzoxAudioPlayerService
-                                          .juzoxPlay(song.filePath);
-                                    }
-                                  },
+                                    onPressed: () {
+                                      if (isPlayingValue) {
+                                        juzoxAudioPlayerService.juzoxPause();
+                                      } else {
+                                        juzoxAudioPlayerService
+                                            .juzoxPlay(song.filePath);
+                                      }
+                                    },
+                                  ),
                                 );
                               });
                         }),
-                    IconButton(
-                      icon: const Icon(Icons.skip_next, color: Colors.white),
-                      onPressed: () {},
-                      constraints:
-                          BoxConstraints(), // Remove constraints to minimize the size
-                      padding: EdgeInsets.zero,
+                    Expanded(
+                      child: IconButton(
+                        icon: const Icon(Icons.skip_next, color: Colors.white),
+                        onPressed: () {},
+                        constraints:
+                            BoxConstraints(), // Remove constraints to minimize the size
+                        padding: EdgeInsets.zero,
+                      ),
                     ),
                     Expanded(
+                      flex: 4,
                       child: SizedBox(
                         height: 24,
                         child: Marquee(
@@ -285,66 +292,71 @@ class MiniPlayer extends StatelessWidget {
 
 /*
 
-//code before converting to stateless
+//code with expanded
 
 import 'package:flutter/material.dart';
 import 'package:juzox_music_app/models/music_model.dart';
 import 'package:juzox_music_app/services/audio_player_service.dart';
 
+import 'package:just_audio/just_audio.dart';
+
 import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:flutter/cupertino.dart';
 
-class MiniPlayer extends StatefulWidget {
+class MiniPlayer extends StatelessWidget {
   final JuzoxMusicModel song;
   final JuzoxAudioPlayerService juzoxAudioPlayerService;
+  final ValueNotifier<bool> isPlaying;
+  final ValueNotifier<Duration> currentDuration;
+  final ValueNotifier<Duration> totalDuration;
+  final ValueNotifier<ProcessingState> processingState;
 
   const MiniPlayer({
     super.key,
     required this.song,
     required this.juzoxAudioPlayerService,
+    required this.isPlaying,
+    required this.currentDuration,
+    required this.totalDuration,
+    required this.processingState,
   });
 
-  @override
-  State<MiniPlayer> createState() => _MiniPlayerState();
-}
+  // final ValueNotifier<bool> isPlaying = ValueNotifier(false);
+  // final ValueNotifier<Duration> currentDuration = ValueNotifier(Duration.zero);
+  // final ValueNotifier<Duration> totalDuration = ValueNotifier(Duration.zero);
 
-class _MiniPlayerState extends State<MiniPlayer> {
-  final ValueNotifier<bool> isPlaying = ValueNotifier(false);
-  final ValueNotifier<Duration> currentDuration = ValueNotifier(Duration.zero);
-  final ValueNotifier<Duration> totalDuration = ValueNotifier(Duration.zero);
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   widget.juzoxAudioPlayerService.audioPlayer.positionStream
+  //       .listen((duration) {
+  //     currentDuration.value = duration;
+  //   });
+  //   widget.juzoxAudioPlayerService.audioPlayer.durationStream
+  //       .listen((duration) {
+  //     totalDuration.value = duration ?? Duration.zero;
+  //   });
+  //   widget.juzoxAudioPlayerService.audioPlayer.playingStream
+  //       .listen((isPlaying) {
+  //     this.isPlaying.value = isPlaying;
+  //   });
+  // }
 
-  @override
-  void initState() {
-    super.initState();
-    widget.juzoxAudioPlayerService.audioPlayer.positionStream
-        .listen((duration) {
-      currentDuration.value = duration;
-    });
-    widget.juzoxAudioPlayerService.audioPlayer.durationStream
-        .listen((duration) {
-      totalDuration.value = duration ?? Duration.zero;
-    });
-    widget.juzoxAudioPlayerService.audioPlayer.playingStream
-        .listen((isPlaying) {
-      this.isPlaying.value = isPlaying;
-    });
-  }
-
-//dispose check once again because the miniplayer is needed for other pages also, so this dispose should be removed and use REMOVE instead(check a screenshot),,
-  @override
-  void dispose() {
-    // Dispose the ValueNotifiers when the widget is disposed
-    currentDuration.dispose();
-    totalDuration.dispose();
-    isPlaying.dispose();
-    super.dispose();
-  }
+// //dispose check once again because the miniplayer is needed for other pages also, so this dispose should be removed and use REMOVE instead(check a screenshot),,
+//   @override
+//   void dispose() {
+//     // Dispose the ValueNotifiers when the widget is disposed
+//     currentDuration.dispose();
+//     totalDuration.dispose();
+//     isPlaying.dispose();
+//     super.dispose();
+//   }
 
   @override
   Widget build(BuildContext context) {
     String songDisplayText =
-        "${widget.song.title!} - ${widget.song.artist ?? 'Unknown Artist'}";
+        "${song.title!} - ${song.artist ?? 'Unknown Artist'}";
 
     // final double bottomNavHeight =
     //     MediaQuery.of(context).viewInsets.bottom + 56;
@@ -381,7 +393,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
       child: Row(
         children: [
           QueryArtworkWidget(
-            id: widget.song.id!,
+            id: song.id!,
             type: ArtworkType.AUDIO,
             artworkHeight: 63,
             // artworkBorder: const BorderRadius.horizontal(
@@ -397,12 +409,16 @@ class _MiniPlayerState extends State<MiniPlayer> {
 
             nullArtworkWidget: Container(
               decoration: const BoxDecoration(
-                  color: Color.fromARGB(22, 68, 137, 255),
-                  borderRadius: BorderRadius.horizontal(
-                      left: Radius.circular(8), right: Radius.circular(8))),
+                color: Color.fromARGB(22, 68, 137, 255),
+                // borderRadius: BorderRadius.horizontal(
+                //     left: Radius.circular(8), right: Radius.circular(8)),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(36),
+                ),
+              ),
               // Set desired width and height for the box
               width: 50.0, // Adjust as needed
-              height: 50.0, // Adjust as needed
+              height: 63.0, // Adjust as needed
 
               child: const Icon(
                 Icons.music_note_outlined,
@@ -419,47 +435,61 @@ class _MiniPlayerState extends State<MiniPlayer> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconButton(
-                      icon:
-                          const Icon(Icons.skip_previous, color: Colors.white),
-                      onPressed: () {},
-                      constraints:
-                          BoxConstraints(), // Remove constraints to minimize the size
-                      padding: EdgeInsets.all(0),
+                    Expanded(
+                      child: IconButton(
+                        icon: const Icon(Icons.skip_previous,
+                            color: Colors.white),
+                        onPressed: () {},
+                        constraints:
+                            BoxConstraints(), // Remove constraints to minimize the size
+                      ),
                     ),
                     ValueListenableBuilder(
-                        valueListenable: isPlaying,
-                        builder: (context, isPlaying, child) {
-                          return IconButton(
-                            icon: Icon(
-                                isPlaying ? Icons.pause : Icons.play_arrow,
-                                color: Colors.white),
-                            constraints:
-                                BoxConstraints(), // Remove constraints to minimize the size
-                            padding: EdgeInsets.zero,
+                        valueListenable: processingState,
+                        builder: (context, state, child) {
+                          return ValueListenableBuilder(
+                              valueListenable: isPlaying,
+                              builder: (context, isPlayingValue, child) {
+                                return Expanded(
+                                  child: IconButton(
+                                    icon: Icon(
+                                        state == ProcessingState.completed
+                                            ? Icons.play_arrow
+                                            : (isPlayingValue
+                                                ? Icons.pause
+                                                : Icons.play_arrow),
+                                        color: Colors.white),
+                                    constraints:
+                                        BoxConstraints(), // Remove constraints to minimize the size
+                                    padding: EdgeInsets.zero,
 
-                            onPressed: () {
-                              if (isPlaying) {
-                                widget.juzoxAudioPlayerService.juzoxPause();
-                              } else {
-                                widget.juzoxAudioPlayerService
-                                    .juzoxPlay(widget.song.filePath);
-                              }
-                            },
-                          );
+                                    onPressed: () {
+                                      if (isPlayingValue) {
+                                        juzoxAudioPlayerService.juzoxPause();
+                                      } else {
+                                        juzoxAudioPlayerService
+                                            .juzoxPlay(song.filePath);
+                                      }
+                                    },
+                                  ),
+                                );
+                              });
                         }),
-                    IconButton(
-                      icon: const Icon(Icons.skip_next, color: Colors.white),
-                      onPressed: () {},
-                      constraints:
-                          BoxConstraints(), // Remove constraints to minimize the size
-                      padding: EdgeInsets.zero,
+                    Expanded(
+                      child: IconButton(
+                        icon: const Icon(Icons.skip_next, color: Colors.white),
+                        onPressed: () {},
+                        constraints:
+                            BoxConstraints(), // Remove constraints to minimize the size
+                        padding: EdgeInsets.zero,
+                      ),
                     ),
                     Expanded(
+                      flex: 4,
                       child: SizedBox(
                         height: 24,
                         child: Marquee(
-                          key: ValueKey(widget.song.filePath),
+                          key: ValueKey(song.filePath),
                           // Unique key based on the song's file path. To ensure that the Marquee always starts with the song title starting position when you click a song, you can utilize the key property of the Marquee widget. By changing the key whenever the song changes, the Marquee will reset and start from the beginning.
                           text: songDisplayText,
                           style: const TextStyle(
@@ -514,20 +544,30 @@ class _MiniPlayerState extends State<MiniPlayer> {
                             return ValueListenableBuilder(
                                 valueListenable: totalDuration,
                                 builder: (context, totalDurationValue, child) {
+                                  // Ensure the currentDurationValue does not exceed totalDurationValue
+                                  double sliderValue =
+                                      currentDurationValue.inSeconds.toDouble();
+                                  double maxSliderValue =
+                                      totalDurationValue.inSeconds.toDouble();
+
+                                  if (sliderValue > maxSliderValue) {
+                                    sliderValue = maxSliderValue;
+                                  }
                                   return Slider(
                                     activeColor:
                                         const Color.fromARGB(193, 64, 195, 255),
                                     thumbColor: Colors.lightBlueAccent,
                                     inactiveColor:
                                         const Color.fromARGB(94, 64, 195, 255),
-                                    value: currentDurationValue.inSeconds
-                                        .toDouble(),
-                                    max:
-                                        totalDurationValue.inSeconds.toDouble(),
+                                    // value: currentDurationValue.inSeconds
+                                    //     .toDouble(),
+                                    // max:
+                                    //     totalDurationValue.inSeconds.toDouble(),
+                                    value: sliderValue,
+                                    max: maxSliderValue,
                                     onChanged: (value) {
-                                      widget.juzoxAudioPlayerService.audioPlayer
-                                          .seek(
-                                              Duration(seconds: value.toInt()));
+                                      juzoxAudioPlayerService.audioPlayer.seek(
+                                          Duration(seconds: value.toInt()));
                                     },
                                   );
                                 });
@@ -543,6 +583,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
     );
   }
 }
+
 
 
 */
