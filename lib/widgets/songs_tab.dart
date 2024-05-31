@@ -6,6 +6,7 @@ import 'package:juzox_music_app/utils/permission_handler.dart';
 import 'package:animated_music_indicator/animated_music_indicator.dart';
 import 'package:juzox_music_app/services/audio_player_service.dart';
 import 'package:juzox_music_app/widgets/mini_player.dart';
+import 'package:juzox_music_app/widgets/static_music_indicator.dart';
 
 import 'package:just_audio/just_audio.dart';
 
@@ -386,34 +387,6 @@ class _SongsTabState extends State<SongsTab>
         //   onChanged: (value) {},
         // ),
       ],
-    );
-  }
-}
-
-//good this is the final with padding above
-class StaticMusicIndicator extends StatelessWidget {
-  final Color color;
-  final double size;
-
-  const StaticMusicIndicator({
-    super.key,
-    required this.color,
-    required this.size,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: List.generate(5, (index) {
-        return Container(
-          width: 3,
-          height: (index + 1) * 4.0 * size,
-          //height: (5 - index + 1) * 4.0 * size,
-          margin: const EdgeInsets.symmetric(horizontal: 1.0),
-          color: color,
-        );
-      }),
     );
   }
 }
