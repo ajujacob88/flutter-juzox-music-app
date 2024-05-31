@@ -26,7 +26,7 @@ class _SongsTabState extends State<SongsTab>
   final JuzoxAudioPlayerService _juzoxAudioPlayerService =
       JuzoxAudioPlayerService();
 
-  List<JuzoxMusicModel> _songs = [];
+  // List<JuzoxMusicModel> _songs = [];
 
   // int? _tappedSongId;
 
@@ -43,6 +43,7 @@ class _SongsTabState extends State<SongsTab>
   final ValueNotifier<int?> _tappedSongId = ValueNotifier(null);
   final ValueNotifier<JuzoxMusicModel?> _currentlyPlayingSong =
       ValueNotifier(null);
+  final ValueNotifier<List<JuzoxMusicModel>> _songs = ValueNotifier([]);
 
   @override
   bool get wantKeepAlive => true;
@@ -101,13 +102,13 @@ class _SongsTabState extends State<SongsTab>
 
     //    print('song data is ${songs[0].data} andddd song uri is ${songs[0].uri}');
 
-    _songs = songs
+    _songs.value = songs
         .where((songInfo) =>
             songInfo.fileExtension == 'mp3' || songInfo.fileExtension == 'm4a')
         .map((songInfo) => JuzoxMusicModel.fromSongInfo(songInfo))
         .toList();
 
-    setState(() {});
+    // setState(() {}); //removed setstate since valuenotifier implemented
     //print('songs is ${_songs[3]}');
   }
 
@@ -137,28 +138,32 @@ class _SongsTabState extends State<SongsTab>
                   size: 32,
                   color: Colors.lightBlueAccent,
                 ),
-                label: RichText(
-                  text: TextSpan(
-                    children: [
-                      const TextSpan(
-                        text: 'Play all  ',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                label: ValueListenableBuilder(
+                    valueListenable: _songs,
+                    builder: (context, songsValue, child) {
+                      return RichText(
+                        text: TextSpan(
+                          children: [
+                            const TextSpan(
+                              text: 'Play all  ',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '(${songsValue.length})',
+                              style: const TextStyle(
+                                color: Colors.grey,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      TextSpan(
-                        text: '(${_songs.length})',
-                        style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                      );
+                    }),
               ),
 
               const Spacer(),
@@ -225,145 +230,153 @@ class _SongsTabState extends State<SongsTab>
               key: const PageStorageKey<String>('songssss'),
               //above key is to preserve the state while scrolling,, that is for scroll position preservation.
               slivers: [
-                SliverList.builder(
-                  key: const PageStorageKey<String>('allSongs'),
-                  //PageStorageKey: Using PageStorageKey(key: 'allSongs') on the ListView.builder helps Flutter associate the list with a unique identifier. This allows it to restore the scroll position when the "Songs" tab is re-rendered. //to preserve the state AutomaticKeepAliveClientMixin ... allSongs can be any unique string
-                  //                physics: const AlwaysScrollableScrollPhysics(),
+                ValueListenableBuilder(
+                    valueListenable: _songs,
+                    builder: (context, songsValue, child) {
+                      return SliverList.builder(
+                        key: const PageStorageKey<String>('allSongs'),
+                        //PageStorageKey: Using PageStorageKey(key: 'allSongs') on the ListView.builder helps Flutter associate the list with a unique identifier. This allows it to restore the scroll position when the "Songs" tab is re-rendered. //to preserve the state AutomaticKeepAliveClientMixin ... allSongs can be any unique string
+                        //                physics: const AlwaysScrollableScrollPhysics(),
 
-                  //       physics: const AlwaysScrollableScrollPhysics(),
-                  //This forces scrolling even when the content of the scrollable widget’s content doesn’t exceed the height of the screen, so even when scrolling is not needed.You might need it when you want to use a RefreshIndicator widget, this widget will not show unless it’s content is scrollable, but if you have content that doesn’t exceed the height of the screen but you want to wrap it with a RefreshIndicator widget, you’ll definitely need to use the AlwaysScrollableScrollPhysics.
+                        //       physics: const AlwaysScrollableScrollPhysics(),
+                        //This forces scrolling even when the content of the scrollable widget’s content doesn’t exceed the height of the screen, so even when scrolling is not needed.You might need it when you want to use a RefreshIndicator widget, this widget will not show unless it’s content is scrollable, but if you have content that doesn’t exceed the height of the screen but you want to wrap it with a RefreshIndicator widget, you’ll definitely need to use the AlwaysScrollableScrollPhysics.
 
-                  // physics: const BouncingScrollPhysics(
-                  //   parent: AlwaysScrollableScrollPhysics(),
-                  // ),
+                        // physics: const BouncingScrollPhysics(
+                        //   parent: AlwaysScrollableScrollPhysics(),
+                        // ),
 
-                  // physics: const ClampingScrollPhysics(
-                  //     parent: AlwaysScrollableScrollPhysics()),
+                        // physics: const ClampingScrollPhysics(
+                        //     parent: AlwaysScrollableScrollPhysics()),
 
-                  //  physics: NeverScrollableScrollPhysics(),
+                        //  physics: NeverScrollableScrollPhysics(),
 
-                  itemCount: _songs.length,
-                  itemBuilder: (context, index) {
-                    final song = _songs[index];
-                    return ListTile(
-                      contentPadding: const EdgeInsets.only(left: 18, right: 4),
+                        itemCount: songsValue.length,
+                        itemBuilder: (context, index) {
+                          final song = songsValue[index];
+                          return ListTile(
+                            contentPadding:
+                                const EdgeInsets.only(left: 18, right: 4),
 
-                      // contentPadding:
-                      //     EdgeInsets.only(left: leftPadding, right: rightPadding),
+                            // contentPadding:
+                            //     EdgeInsets.only(left: leftPadding, right: rightPadding),
 
-                      title: Text(
-                        song.title!,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
-                      //  titleTextStyle: TextStyle(color: Colors.white),
-                      // titleTextStyle: Theme.of(context)
-                      //     .textTheme
-                      //     .titleMedium!
-                      //     .copyWith(color: Colors.red),
-                      subtitle: Text(
-                        '${song.artist!} - ${song.album}',
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                            title: Text(
+                              song.title!,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                            //  titleTextStyle: TextStyle(color: Colors.white),
+                            // titleTextStyle: Theme.of(context)
+                            //     .textTheme
+                            //     .titleMedium!
+                            //     .copyWith(color: Colors.red),
+                            subtitle: Text(
+                              '${song.artist!} - ${song.album}',
+                              overflow: TextOverflow.ellipsis,
+                            ),
 
-                      // This Widget will query/load image.
-                      // You can use/create your own widget/method using [queryArtwork].
-                      leading: QueryArtworkWidget(
-                        artworkBorder: const BorderRadius.horizontal(
-                            left: Radius.circular(8),
-                            right: Radius.circular(8)),
-                        artworkClipBehavior: Clip.hardEdge,
-                        controller: _audioQuery,
-                        id: song.id!,
-                        type: ArtworkType.AUDIO,
-                        nullArtworkWidget: Container(
-                          decoration: const BoxDecoration(
-                              color: Color.fromARGB(22, 68, 137, 255),
-                              borderRadius: BorderRadius.horizontal(
+                            // This Widget will query/load image.
+                            // You can use/create your own widget/method using [queryArtwork].
+                            leading: QueryArtworkWidget(
+                              artworkBorder: const BorderRadius.horizontal(
                                   left: Radius.circular(8),
-                                  right: Radius.circular(8))),
-                          // Set desired width and height for the box
-                          width: 50.0, // Adjust as needed
-                          height: 50.0, // Adjust as needed
+                                  right: Radius.circular(8)),
+                              artworkClipBehavior: Clip.hardEdge,
+                              controller: _audioQuery,
+                              id: song.id!,
+                              type: ArtworkType.AUDIO,
+                              nullArtworkWidget: Container(
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(22, 68, 137, 255),
+                                    borderRadius: BorderRadius.horizontal(
+                                        left: Radius.circular(8),
+                                        right: Radius.circular(8))),
+                                // Set desired width and height for the box
+                                width: 50.0, // Adjust as needed
+                                height: 50.0, // Adjust as needed
 
-                          child: const Icon(
-                            Icons.music_note_outlined,
-                            color: Color.fromARGB(140, 64, 195, 255),
-                            size: 30,
-                          ),
-                        ),
-                      ),
+                                child: const Icon(
+                                  Icons.music_note_outlined,
+                                  color: Color.fromARGB(140, 64, 195, 255),
+                                  size: 30,
+                                ),
+                              ),
+                            ),
 
-                      trailing: ValueListenableBuilder(
-                        valueListenable: _tappedSongId,
-                        builder: (context, tappedSongIdValue, child) {
-                          if (tappedSongIdValue == song.id) {
-                            return Row(
-                              //  crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                ValueListenableBuilder(
-                                  valueListenable: isPlaying,
-                                  builder: (context, isPlayingValue, child) {
-                                    return isPlayingValue
-                                        ? const AnimatedMusicIndicator(
-                                            color: Colors.lightBlueAccent,
-                                            barStyle: BarStyle.solid,
-                                            size: .06,
-                                          )
-                                        : const Padding(
-                                            padding: EdgeInsets.only(top: 18.0),
-                                            child: StaticMusicIndicator(
-                                              color: Colors.lightBlueAccent,
-                                              size: .1,
-                                            ),
-                                          ); //
-                                  },
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.more_vert),
-                                  color:
-                                      const Color.fromARGB(130, 255, 255, 255),
-                                  onPressed: () {
-                                    // Add logic to handle settings button tap
-                                  },
-                                ),
-                              ],
-                            );
-                          } else {
-                            return Row(
-                              mainAxisSize: MainAxisSize.min,
-                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                const AnimatedMusicIndicator(
-                                  animate: false,
-                                  size: .06,
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.more_vert),
-                                  color:
-                                      const Color.fromARGB(130, 255, 255, 255),
-                                  onPressed: () {
-                                    // Add logic to handle settings button tap
-                                  },
-                                ),
-                              ],
-                            );
-                          }
+                            trailing: ValueListenableBuilder(
+                              valueListenable: _tappedSongId,
+                              builder: (context, tappedSongIdValue, child) {
+                                if (tappedSongIdValue == song.id) {
+                                  return Row(
+                                    //  crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      ValueListenableBuilder(
+                                        valueListenable: isPlaying,
+                                        builder:
+                                            (context, isPlayingValue, child) {
+                                          return isPlayingValue
+                                              ? const AnimatedMusicIndicator(
+                                                  color: Colors.lightBlueAccent,
+                                                  barStyle: BarStyle.solid,
+                                                  size: .06,
+                                                )
+                                              : const Padding(
+                                                  padding: EdgeInsets.only(
+                                                      top: 18.0),
+                                                  child: StaticMusicIndicator(
+                                                    color:
+                                                        Colors.lightBlueAccent,
+                                                    size: .1,
+                                                  ),
+                                                ); //
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(Icons.more_vert),
+                                        color: const Color.fromARGB(
+                                            130, 255, 255, 255),
+                                        onPressed: () {
+                                          // Add logic to handle settings button tap
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                } else {
+                                  return Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      const AnimatedMusicIndicator(
+                                        animate: false,
+                                        size: .06,
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(Icons.more_vert),
+                                        color: const Color.fromARGB(
+                                            130, 255, 255, 255),
+                                        onPressed: () {
+                                          // Add logic to handle settings button tap
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                }
+                              },
+                            ),
+
+                            onTap: () {
+                              _playSong(song.filePath);
+
+                              // setState(() { // no need os setstate, setstate converted to value listenable builder
+                              _tappedSongId.value = song.id;
+                              _currentlyPlayingSong.value = song;
+                              //});
+                            },
+                          );
                         },
-                      ),
-
-                      onTap: () {
-                        _playSong(song.filePath);
-
-                        // setState(() { // no need os setstate, setstate converted to value listenable builder
-                        _tappedSongId.value = song.id;
-                        _currentlyPlayingSong.value = song;
-                        //});
-                      },
-                    );
-                  },
-                ),
+                      );
+                    }),
                 const SliverToBoxAdapter(
                   child: SizedBox(
                     height: 190,
