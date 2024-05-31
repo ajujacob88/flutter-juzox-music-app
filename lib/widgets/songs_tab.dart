@@ -85,6 +85,9 @@ class _SongsTabState extends State<SongsTab>
     isPlaying.dispose();
     processingState.dispose();
 
+    _tappedSongId.dispose();
+    _currentlyPlayingSong.dispose();
+
     super.dispose();
   }
 
@@ -353,7 +356,7 @@ class _SongsTabState extends State<SongsTab>
                       onTap: () {
                         _playSong(song.filePath);
 
-                        // setState(() {
+                        // setState(() { // no need os setstate, setstate converted to value listenable builder
                         _tappedSongId.value = song.id;
                         _currentlyPlayingSong.value = song;
                         //});
