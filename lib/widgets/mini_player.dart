@@ -144,8 +144,8 @@ class MiniPlayer extends StatelessWidget {
                         icon: const Icon(Icons.skip_previous,
                             color: Colors.white),
                         onPressed: () {},
-                        constraints:
-                            BoxConstraints(), // Remove constraints to minimize the size
+                        // constraints:
+                        //     BoxConstraints(), // Remove constraints to minimize the size
                         padding: EdgeInsets.all(0),
                       ),
                     ),
@@ -164,8 +164,8 @@ class MiniPlayer extends StatelessWidget {
                                                 ? Icons.pause
                                                 : Icons.play_arrow),
                                         color: Colors.white),
-                                    constraints:
-                                        BoxConstraints(), // Remove constraints to minimize the size
+                                    // constraints:
+                                    //     BoxConstraints(), // Remove constraints to minimize the size
                                     padding: EdgeInsets.zero,
 
                                     onPressed: () {
@@ -184,8 +184,8 @@ class MiniPlayer extends StatelessWidget {
                       child: IconButton(
                         icon: const Icon(Icons.skip_next, color: Colors.white),
                         onPressed: () {},
-                        constraints:
-                            BoxConstraints(), // Remove constraints to minimize the size
+                        // constraints:
+                        //     BoxConstraints(), // Remove constraints to minimize the size
                         padding: EdgeInsets.zero,
                       ),
                     ),
