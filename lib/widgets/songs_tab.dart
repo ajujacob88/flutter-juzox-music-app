@@ -30,7 +30,7 @@ class _SongsTabState extends State<SongsTab>
 
   // int? _tappedSongId;
 
-  JuzoxMusicModel? _currentlyPlayingSong;
+  // JuzoxMusicModel? _currentlyPlayingSong;
 
   final AudioPlayer _audioPlayer = AudioPlayer();
 
@@ -41,6 +41,8 @@ class _SongsTabState extends State<SongsTab>
       ValueNotifier(ProcessingState.idle);
 
   final ValueNotifier<int?> _tappedSongId = ValueNotifier(null);
+  final ValueNotifier<JuzoxMusicModel?> _currentlyPlayingSong =
+      ValueNotifier(null);
 
   @override
   bool get wantKeepAlive => true;
@@ -291,8 +293,8 @@ class _SongsTabState extends State<SongsTab>
 
                       trailing: ValueListenableBuilder(
                         valueListenable: _tappedSongId,
-                        builder: (context, tapp, child) {
-                          if (_tappedSongId.value == song.id) {
+                        builder: (context, tappedSongIdValue, child) {
+                          if (tappedSongIdValue == song.id) {
                             return Row(
                               //  crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisSize: MainAxisSize.min,
@@ -353,7 +355,7 @@ class _SongsTabState extends State<SongsTab>
 
                         // setState(() {
                         _tappedSongId.value = song.id;
-                        _currentlyPlayingSong = song;
+                        _currentlyPlayingSong.value = song;
                         //});
                       },
                     );
@@ -377,20 +379,28 @@ class _SongsTabState extends State<SongsTab>
           ),
         ),
 
-        if (_currentlyPlayingSong != null)
-          Positioned(
-            bottom: 54, //height of bottom nav bar
-            left: 45,
+        //  if (_currentlyPlayingSong != null)
+        ValueListenableBuilder(
+            valueListenable: _currentlyPlayingSong,
+            builder: (context, currentPlayingSongValue, child) {
+              if (currentPlayingSongValue != null) {
+                return Positioned(
+                  bottom: 54, //height of bottom nav bar
+                  left: 45,
 
-            child: MiniPlayer(
-              song: _currentlyPlayingSong!,
-              juzoxAudioPlayerService: _juzoxAudioPlayerService,
-              isPlaying: isPlaying,
-              currentDuration: currentDuration,
-              totalDuration: totalDuration,
-              processingState: processingState,
-            ),
-          ),
+                  child: MiniPlayer(
+                    song: currentPlayingSongValue,
+                    juzoxAudioPlayerService: _juzoxAudioPlayerService,
+                    isPlaying: isPlaying,
+                    currentDuration: currentDuration,
+                    totalDuration: totalDuration,
+                    processingState: processingState,
+                  ),
+                );
+              } else {
+                return SizedBox();
+              }
+            }),
         // CupertinoSlider(
         //   value: 10,
         //   max: 30,
