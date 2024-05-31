@@ -28,7 +28,7 @@ class _SongsTabState extends State<SongsTab>
 
   List<JuzoxMusicModel> _songs = [];
 
-  int? _tappedSongId;
+  // int? _tappedSongId;
 
   JuzoxMusicModel? _currentlyPlayingSong;
 
@@ -39,6 +39,8 @@ class _SongsTabState extends State<SongsTab>
   final ValueNotifier<Duration> totalDuration = ValueNotifier(Duration.zero);
   final ValueNotifier<ProcessingState> processingState =
       ValueNotifier(ProcessingState.idle);
+
+  final ValueNotifier<int?> _tappedSongId = ValueNotifier(null);
 
   @override
   bool get wantKeepAlive => true;
@@ -177,10 +179,10 @@ class _SongsTabState extends State<SongsTab>
                 //   );
                 // }).toList(),
                 onChanged: (value) {
-                  setState(() {
-                    //      _selectedSortOption = value!;
-                    // Update song list based on selected sort option (replace with logic)
-                  });
+                  // setState(() {
+                  //      _selectedSortOption = value!;
+                  // Update song list based on selected sort option (replace with logic)
+                  // });
                 },
 
                 //  padding: EdgeInsets.only(right: 2),
@@ -287,8 +289,11 @@ class _SongsTabState extends State<SongsTab>
                         ),
                       ),
 
-                      trailing: _tappedSongId == song.id
-                          ? Row(
+                      trailing: ValueListenableBuilder(
+                        valueListenable: _tappedSongId,
+                        builder: (context, tapp, child) {
+                          if (_tappedSongId.value == song.id) {
+                            return Row(
                               //  crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -319,8 +324,9 @@ class _SongsTabState extends State<SongsTab>
                                   },
                                 ),
                               ],
-                            )
-                          : Row(
+                            );
+                          } else {
+                            return Row(
                               mainAxisSize: MainAxisSize.min,
                               // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -337,14 +343,18 @@ class _SongsTabState extends State<SongsTab>
                                   },
                                 ),
                               ],
-                            ),
+                            );
+                          }
+                        },
+                      ),
 
                       onTap: () {
                         _playSong(song.filePath);
-                        setState(() {
-                          _tappedSongId = song.id;
-                          _currentlyPlayingSong = song;
-                        });
+
+                        // setState(() {
+                        _tappedSongId.value = song.id;
+                        _currentlyPlayingSong = song;
+                        //});
                       },
                     );
                   },
