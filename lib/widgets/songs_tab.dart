@@ -288,13 +288,43 @@ class _SongsTabState extends State<SongsTab>
 
                       trailing: _tappedSongId == song.id
                           ? Row(
+                              //  crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const AnimatedMusicIndicator(
-                                  color: Colors.lightBlueAccent,
-                                  barStyle: BarStyle.solid,
-                                  //  numberOfBars: 5,
-                                  size: .06,
+                                ValueListenableBuilder(
+                                  valueListenable: isPlaying,
+                                  builder: (context, isPlayingValue, child) {
+                                    // return AnimatedMusicIndicator(
+                                    //   color: Colors.lightBlueAccent,
+                                    //   barStyle: BarStyle.solid,
+                                    //   //  numberOfBars: 5,
+                                    //   size: .06,
+                                    //   roundBars: false,
+
+                                    //   animate: isPlayingValue ? true : false,
+                                    // );
+                                    // : const AnimatedMusicIndicator(
+                                    //     color: Colors.lightBlueAccent,
+                                    //     barStyle: BarStyle.solid,
+                                    //     animate: false,
+                                    //     //  numberOfBars: 5,
+                                    //     size: .06,
+                                    //   ); // Display nothing when not playing
+
+                                    return isPlayingValue
+                                        ? const AnimatedMusicIndicator(
+                                            color: Colors.lightBlueAccent,
+                                            barStyle: BarStyle.solid,
+                                            size: .06,
+                                          )
+                                        : const Padding(
+                                            padding: EdgeInsets.only(top: 18.0),
+                                            child: StaticMusicIndicator(
+                                              color: Colors.lightBlueAccent,
+                                              size: .1,
+                                            ),
+                                          ); //
+                                  },
                                 ),
                                 IconButton(
                                   icon: const Icon(Icons.more_vert),
@@ -312,6 +342,7 @@ class _SongsTabState extends State<SongsTab>
                               children: [
                                 const AnimatedMusicIndicator(
                                   animate: false,
+                                  size: .06,
                                 ),
                                 IconButton(
                                   icon: const Icon(Icons.more_vert),
@@ -376,10 +407,139 @@ class _SongsTabState extends State<SongsTab>
   }
 }
 
+/*
+class StaticMusicIndicator extends StatelessWidget {
+  final Color color;
+  final double size;
+
+  const StaticMusicIndicator({
+    Key? key,
+    required this.color,
+    required this.size,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 20.0 * size, // Adjust the height as needed
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: List.generate(5, (index) {
+          return Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Container(
+                width: 3,
+                height: (index + 1) * 4.0 * size,
+                margin: const EdgeInsets.symmetric(horizontal: 1.0),
+                color: color,
+              ),
+            ],
+          );
+        }),
+      ),
+    );
+  }
+}
+*/
+
+/*
+//good this 
+class StaticMusicIndicator extends StatelessWidget {
+  final Color color;
+  final double size;
+
+  const StaticMusicIndicator({
+    Key? key,
+    required this.color,
+    required this.size,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 16,
+      padding: EdgeInsets.only(top: 15),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: List.generate(5, (index) {
+          return Container(
+            width: 3,
+            height: (index + 1) * 4.0 * size,
+            // height: index * .56,
+            margin: const EdgeInsets.symmetric(horizontal: 1.0),
+            color: color,
+          );
+        }),
+      ),
+    );
+  }
+}
+*/
+
+//good this is the final with padding above
+class StaticMusicIndicator extends StatelessWidget {
+  final Color color;
+  final double size;
+
+  const StaticMusicIndicator({
+    super.key,
+    required this.color,
+    required this.size,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(5, (index) {
+        return Container(
+          width: 3,
+          height: (index + 1) * 4.0 * size,
+          //height: (5 - index + 1) * 4.0 * size,
+          margin: const EdgeInsets.symmetric(horizontal: 1.0),
+          color: color,
+        );
+      }),
+    );
+  }
+}
+
 
 /*
 
-//code before converting miniplayer to stateless
+class StaticMusicIndicator extends StatelessWidget {
+  final Color color;
+  final double size;
+
+  const StaticMusicIndicator({
+    Key? key,
+    required this.color,
+    required this.size,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(6, (index) {
+        return Container(
+          alignment: Alignment.bottomRight,
+          width: 3,
+          height: index % 2 == 0 ? ((index * 2) * 4.0) : (index + 1) * 3,
+          margin: const EdgeInsets.symmetric(horizontal: 1.0),
+          color: color,
+        );
+      }),
+    );
+  }
+}
+*/
+
+
+/*
+
+//code with music indicator show a bottom line when music paused
 
 
 import 'package:flutter/material.dart';
@@ -417,6 +577,12 @@ class _SongsTabState extends State<SongsTab>
 
   final AudioPlayer _audioPlayer = AudioPlayer();
 
+  final ValueNotifier<bool> isPlaying = ValueNotifier(false);
+  final ValueNotifier<Duration> currentDuration = ValueNotifier(Duration.zero);
+  final ValueNotifier<Duration> totalDuration = ValueNotifier(Duration.zero);
+  final ValueNotifier<ProcessingState> processingState =
+      ValueNotifier(ProcessingState.idle);
+
   @override
   bool get wantKeepAlive => true;
   //to preserve the state AutomaticKeepAliveClientMixin
@@ -430,11 +596,34 @@ class _SongsTabState extends State<SongsTab>
         getAudioFiles(); // Call function to get audio files on permission grant
       }
     });
+
+    _juzoxAudioPlayerService.audioPlayer.positionStream.listen((duration) {
+      currentDuration.value = duration;
+    });
+    _juzoxAudioPlayerService.audioPlayer.durationStream.listen((duration) {
+      totalDuration.value = duration ?? Duration.zero;
+    });
+    _juzoxAudioPlayerService.audioPlayer.playingStream.listen((isPlaying) {
+      this.isPlaying.value = isPlaying;
+    });
+
+//for swaping pause button when finished playing a song
+    _juzoxAudioPlayerService.audioPlayer.processingStateStream.listen((state) {
+      processingState.value = state;
+    });
   }
 
+//dispose check once again because the miniplayer is needed for other pages also, so this dispose should be removed and use REMOVE instead(check a screenshot),,
   @override
   void dispose() {
     _juzoxAudioPlayerService.dispose();
+
+    // Dispose the ValueNotifiers when the widget is disposed
+    currentDuration.dispose();
+    totalDuration.dispose();
+    isPlaying.dispose();
+    processingState.dispose();
+
     super.dispose();
   }
 
@@ -643,13 +832,44 @@ class _SongsTabState extends State<SongsTab>
 
                       trailing: _tappedSongId == song.id
                           ? Row(
+                              //  crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const AnimatedMusicIndicator(
-                                  color: Colors.lightBlueAccent,
-                                  barStyle: BarStyle.solid,
-                                  //  numberOfBars: 5,
-                                  size: .06,
+                                ValueListenableBuilder(
+                                  valueListenable: isPlaying,
+                                  builder: (context, isPlayingValue, child) {
+                                    // return AnimatedMusicIndicator(
+                                    //   color: Colors.lightBlueAccent,
+                                    //   barStyle: BarStyle.solid,
+                                    //   //  numberOfBars: 5,
+                                    //   size: .06,
+                                    //   roundBars: false,
+
+                                    //   animate: isPlayingValue ? true : false,
+                                    // );
+                                    // : const AnimatedMusicIndicator(
+                                    //     color: Colors.lightBlueAccent,
+                                    //     barStyle: BarStyle.solid,
+                                    //     animate: false,
+                                    //     //  numberOfBars: 5,
+                                    //     size: .06,
+                                    //   ); // Display nothing when not playing
+
+                                    return isPlayingValue
+                                        ? const AnimatedMusicIndicator(
+                                            color: Colors.lightBlueAccent,
+                                            barStyle: BarStyle.solid,
+                                            size: .06,
+                                          )
+                                        : const Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 18.0),
+                                            child: const StaticMusicIndicator(
+                                              color: Colors.lightBlueAccent,
+                                              size: .1,
+                                            ),
+                                          ); //
+                                  },
                                 ),
                                 IconButton(
                                   icon: const Icon(Icons.more_vert),
@@ -667,6 +887,7 @@ class _SongsTabState extends State<SongsTab>
                               children: [
                                 const AnimatedMusicIndicator(
                                   animate: false,
+                                  size: .06,
                                 ),
                                 IconButton(
                                   icon: const Icon(Icons.more_vert),
@@ -715,6 +936,10 @@ class _SongsTabState extends State<SongsTab>
             child: MiniPlayer(
               song: _currentlyPlayingSong!,
               juzoxAudioPlayerService: _juzoxAudioPlayerService,
+              isPlaying: isPlaying,
+              currentDuration: currentDuration,
+              totalDuration: totalDuration,
+              processingState: processingState,
             ),
           ),
         // CupertinoSlider(
@@ -726,5 +951,133 @@ class _SongsTabState extends State<SongsTab>
     );
   }
 }
+/*
+class StaticMusicIndicator extends StatelessWidget {
+  final Color color;
+  final double size;
+
+  const StaticMusicIndicator({
+    Key? key,
+    required this.color,
+    required this.size,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 20.0 * size, // Adjust the height as needed
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: List.generate(5, (index) {
+          return Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Container(
+                width: 3,
+                height: (index + 1) * 4.0 * size,
+                margin: const EdgeInsets.symmetric(horizontal: 1.0),
+                color: color,
+              ),
+            ],
+          );
+        }),
+      ),
+    );
+  }
+}
+*/
+
+/*
+//good this 
+class StaticMusicIndicator extends StatelessWidget {
+  final Color color;
+  final double size;
+
+  const StaticMusicIndicator({
+    Key? key,
+    required this.color,
+    required this.size,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 16,
+      padding: EdgeInsets.only(top: 15),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: List.generate(5, (index) {
+          return Container(
+            width: 3,
+            height: (index + 1) * 4.0 * size,
+            // height: index * .56,
+            margin: const EdgeInsets.symmetric(horizontal: 1.0),
+            color: color,
+          );
+        }),
+      ),
+    );
+  }
+}
+*/
+
+//good this is the final with padding above
+class StaticMusicIndicator extends StatelessWidget {
+  final Color color;
+  final double size;
+
+  const StaticMusicIndicator({
+    Key? key,
+    required this.color,
+    required this.size,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(5, (index) {
+        return Container(
+          width: 3,
+          height: (index + 1) * 4.0 * size,
+          //height: (5 - index + 1) * 4.0 * size,
+          margin: const EdgeInsets.symmetric(horizontal: 1.0),
+          color: color,
+        );
+      }),
+    );
+  }
+}
+
+
+/*
+
+class StaticMusicIndicator extends StatelessWidget {
+  final Color color;
+  final double size;
+
+  const StaticMusicIndicator({
+    Key? key,
+    required this.color,
+    required this.size,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(6, (index) {
+        return Container(
+          alignment: Alignment.bottomRight,
+          width: 3,
+          height: index % 2 == 0 ? ((index * 2) * 4.0) : (index + 1) * 3,
+          margin: const EdgeInsets.symmetric(horizontal: 1.0),
+          color: color,
+        );
+      }),
+    );
+  }
+}
+*/
 
 */
