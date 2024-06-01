@@ -99,7 +99,8 @@ class MiniPlayer extends StatelessWidget {
           QueryArtworkWidget(
             id: song.id!,
             type: ArtworkType.AUDIO,
-            artworkHeight: 63,
+            // artworkHeight: 63,
+            artworkHeight: 65,
             // artworkBorder: const BorderRadius.horizontal(
             //     left: Radius.circular(8), right: Radius.circular(8)),
             // artworkBorder: BorderRadius.circular(5),
@@ -122,8 +123,8 @@ class MiniPlayer extends StatelessWidget {
               ),
               // Set desired width and height for the box
               width: 50.0, // Adjust as needed
-              height: 63.0, // Adjust as needed
-
+              // height: 63.0, // Adjust as needed
+              height: 65.0,
               child: const Icon(
                 Icons.music_note_outlined,
                 color: Color.fromARGB(140, 64, 195, 255),
