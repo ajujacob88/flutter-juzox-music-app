@@ -35,10 +35,53 @@ class _HomeScreenState extends State<TabsScreen> {
         onCurrentPageChanged: handleOnCurrentPageChanged,
       ),
       body: [
-        HomeScreen(),
-        MusicScreen(),
-        LibraryScreen(),
+        const HomeScreen(),
+        const MusicScreen(),
+        const LibraryScreen(),
       ][currentPageIndex],
     );
   }
 }
+
+
+
+/*
+//here is the code to change it to stateless widget and use valuelistenablebuilder
+//but itis actually not required here - here only the tabs index is changing in this whole and if i used value notifier , then also it needs to rebuild it when the index changes,, same is the case with set state.. so here, both of this has same effect
+//Also, while using valuenotifier, we need to dispose it to avoid memory leaks, so we need to call dispose method and calling dispose method can be achievable only on stateful widget, so anyway we need stateful widget.... 
+//in below code, the notifier is not disposed...
+class TabsScreen extends StatelessWidget {
+  TabsScreen({super.key});
+
+  final ValueNotifier<int> currentPageIndexNotifier = ValueNotifier<int>(0);
+
+  void handleOnCurrentPageChanged(int newIndex) {
+    currentPageIndexNotifier.value = newIndex;
+    print('debug check 1 currentpageindex = $newIndex');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      extendBody: true,
+      bottomNavigationBar: JuzoxBottomNavigationBar(
+        onCurrentPageChanged: handleOnCurrentPageChanged,
+      ),
+      body: ValueListenableBuilder<int>(
+        valueListenable: currentPageIndexNotifier,
+        builder: (context, currentPageIndex, child) {
+          return [
+            HomeScreen(),
+            MusicScreen(),
+            LibraryScreen(),
+          ][currentPageIndex];
+        },
+      ),
+    );
+  }
+}
+
+
+
+*/
