@@ -13,14 +13,9 @@ import 'package:juzox_music_app/widgets/songs_tab.dart';
 
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 
-class MusicScreen extends StatefulWidget {
+class MusicScreen extends StatelessWidget {
   const MusicScreen({super.key});
 
-  @override
-  State<MusicScreen> createState() => _MusicScreenState();
-}
-
-class _MusicScreenState extends State<MusicScreen> {
   @override
   Widget build(BuildContext context) {
     // Get the width of the screen
@@ -98,16 +93,6 @@ class _MusicScreenState extends State<MusicScreen> {
                 const Text('Playlists'),
                 // const Text('Folders'),
                 const SampleFolderView(),
-
-                // const Text('Albums')
-                // SliverList(
-                //   delegate: SliverChildBuilderDelegate(
-                //     (context, index) =>
-                //     const SliverToBoxAdapter(
-                //       child: Text('Albums'),
-                //     ),
-                //   ),
-                // ),
 
                 CustomScrollView(
                   key: const PageStorageKey('Sample1Key'),
