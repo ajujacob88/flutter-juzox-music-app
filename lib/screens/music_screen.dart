@@ -12,9 +12,14 @@ import 'package:juzox_music_app/widgets/songs_tab.dart';
 //import 'package:animated_music_indicator/animated_music_indicator.dart';
 
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
+import 'package:juzox_music_app/models/music_model.dart';
 
 class MusicScreen extends StatelessWidget {
-  const MusicScreen({super.key});
+  final Function(JuzoxMusicModel) onSongSelected;
+  final ValueNotifier<bool> isPlaying;
+
+  const MusicScreen(
+      {super.key, required this.onSongSelected, required this.isPlaying});
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +93,10 @@ class MusicScreen extends StatelessWidget {
               children: [
                 const Text('Favorites'),
 
-                const SongsTab(),
+                SongsTab(
+                  onSongSelected: onSongSelected,
+                  isPlaying: isPlaying,
+                ),
 
                 const Text('Playlists'),
                 // const Text('Folders'),

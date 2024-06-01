@@ -1,4 +1,147 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:juzox_music_app/models/music_model.dart';
+import 'package:on_audio_query/on_audio_query.dart';
+import 'package:juzox_music_app/utils/permission_handler.dart';
+import 'package:animated_music_indicator/animated_music_indicator.dart';
+import 'package:juzox_music_app/services/audio_player_service.dart';
+import 'package:juzox_music_app/widgets/mini_player.dart';
+import 'package:juzox_music_app/widgets/static_music_indicator.dart';
+
+import 'package:just_audio/just_audio.dart';
+
+import 'package:juzox_music_app/screens/library_screen.dart';
+import 'package:juzox_music_app/screens/home_screen.dart';
+import 'package:juzox_music_app/screens/music_screen.dart';
+import 'package:juzox_music_app/widgets/juzox_bottom_navigation_bar.dart';
+
+class TabsScreen extends StatefulWidget {
+  const TabsScreen({super.key});
+
+  @override
+  State<TabsScreen> createState() => _TabsScreenState();
+}
+
+class _TabsScreenState extends State<TabsScreen> {
+  final ValueNotifier<int> _currentPageIndexNotifier = ValueNotifier<int>(0);
+  final ValueNotifier<JuzoxMusicModel?> _currentlyPlayingSongNotifier =
+      ValueNotifier<JuzoxMusicModel?>(null);
+
+  final JuzoxAudioPlayerService _juzoxAudioPlayerService =
+      JuzoxAudioPlayerService();
+  final ValueNotifier<bool> _isPlayingNotifier = ValueNotifier<bool>(false);
+  final ValueNotifier<Duration> _currentDurationNotifier =
+      ValueNotifier<Duration>(Duration.zero);
+  final ValueNotifier<Duration> _totalDurationNotifier =
+      ValueNotifier<Duration>(Duration.zero);
+  final ValueNotifier<ProcessingState> _processingStateNotifier =
+      ValueNotifier<ProcessingState>(ProcessingState.idle);
+
+  @override
+  void initState() {
+    super.initState();
+
+    _juzoxAudioPlayerService.audioPlayer.positionStream.listen((duration) {
+      _currentDurationNotifier.value = duration;
+    });
+    _juzoxAudioPlayerService.audioPlayer.durationStream.listen((duration) {
+      _totalDurationNotifier.value = duration ?? Duration.zero;
+    });
+    _juzoxAudioPlayerService.audioPlayer.playingStream.listen((isPlaying) {
+      _isPlayingNotifier.value = isPlaying;
+    });
+
+//for swaping pause button when finished playing a song
+    _juzoxAudioPlayerService.audioPlayer.processingStateStream.listen((state) {
+      _processingStateNotifier.value = state;
+    });
+  }
+
+  @override
+  void dispose() {
+    _currentPageIndexNotifier.dispose();
+    _currentlyPlayingSongNotifier.dispose();
+    _isPlayingNotifier.dispose();
+    _currentDurationNotifier.dispose();
+    _totalDurationNotifier.dispose();
+    _processingStateNotifier.dispose();
+    super.dispose();
+  }
+
+  void _playSong(String url) {
+    _juzoxAudioPlayerService.juzoxPlay(url);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<int>(
+      valueListenable: _currentPageIndexNotifier,
+      builder: (context, currentPageIndex, child) {
+        return Scaffold(
+          backgroundColor: Colors.transparent,
+          extendBody: true,
+          bottomNavigationBar: JuzoxBottomNavigationBar(
+            onCurrentPageChanged: (newIndex) {
+              _currentPageIndexNotifier.value = newIndex;
+              print('debug check 1 currentpageindex = $newIndex');
+            },
+          ),
+          body: Stack(
+            children: [
+              IndexedStack(
+                index: currentPageIndex,
+                children: [
+                  const HomeScreen(),
+                  MusicScreen(
+                    onSongSelected: _onSongSelected,
+                    isPlaying: _isPlayingNotifier,
+                  ),
+                  const LibraryScreen(),
+                ],
+              ),
+              ValueListenableBuilder<JuzoxMusicModel?>(
+                valueListenable: _currentlyPlayingSongNotifier,
+                builder: (context, currentlyPlayingSong, child) {
+                  if (currentlyPlayingSong != null) {
+                    return Positioned(
+                      bottom: 54, //height of bottom nav bar
+                      left: 45,
+                      child: MiniPlayer(
+                        song: currentlyPlayingSong,
+                        juzoxAudioPlayerService: _juzoxAudioPlayerService,
+                        isPlaying: _isPlayingNotifier,
+                        currentDuration: _currentDurationNotifier,
+                        totalDuration: _totalDurationNotifier,
+                        processingState: _processingStateNotifier,
+                      ),
+                    );
+                  } else {
+                    return SizedBox();
+                  }
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _onSongSelected(JuzoxMusicModel song) {
+    _currentlyPlayingSongNotifier.value = song;
+    _playSong(song.filePath);
+    // Add logic to start playing the song using the audio player service.
+    // Update the other notifiers (isPlaying, currentDuration, totalDuration, processingState) accordingly.
+  }
+}
+
+
+
+
+
+/*
+//originals
+import 'package:flutter/material.dart';
 import 'package:juzox_music_app/screens/library_screen.dart';
 import 'package:juzox_music_app/screens/home_screen.dart';
 import 'package:juzox_music_app/screens/music_screen.dart';
@@ -42,7 +185,7 @@ class _HomeScreenState extends State<TabsScreen> {
     );
   }
 }
-
+*/
 
 
 /*

@@ -7,11 +7,16 @@ import 'package:animated_music_indicator/animated_music_indicator.dart';
 import 'package:juzox_music_app/services/audio_player_service.dart';
 import 'package:juzox_music_app/widgets/mini_player.dart';
 import 'package:juzox_music_app/widgets/static_music_indicator.dart';
+import 'package:juzox_music_app/screens/tabs_screen.dart';
 
 import 'package:just_audio/just_audio.dart';
 
 class SongsTab extends StatefulWidget {
-  const SongsTab({super.key});
+  final Function(JuzoxMusicModel) onSongSelected;
+  final ValueNotifier<bool> isPlaying;
+
+  const SongsTab(
+      {super.key, required this.onSongSelected, required this.isPlaying});
 
   @override
   State<SongsTab> createState() => _SongsTabState();
@@ -34,7 +39,7 @@ class _SongsTabState extends State<SongsTab>
 
   final AudioPlayer _audioPlayer = AudioPlayer();
 
-  final ValueNotifier<bool> isPlaying = ValueNotifier(false);
+  // final ValueNotifier<bool> isPlaying = ValueNotifier(false);
   final ValueNotifier<Duration> currentDuration = ValueNotifier(Duration.zero);
   final ValueNotifier<Duration> totalDuration = ValueNotifier(Duration.zero);
   final ValueNotifier<ProcessingState> processingState =
@@ -59,25 +64,26 @@ class _SongsTabState extends State<SongsTab>
       }
     });
 
-    _juzoxAudioPlayerService.audioPlayer.positionStream.listen((duration) {
-      currentDuration.value = duration;
-    });
-    _juzoxAudioPlayerService.audioPlayer.durationStream.listen((duration) {
-      totalDuration.value = duration ?? Duration.zero;
-    });
-    _juzoxAudioPlayerService.audioPlayer.playingStream.listen((isPlaying) {
-      this.isPlaying.value = isPlaying;
-    });
+    // _juzoxAudioPlayerService.audioPlayer.positionStream.listen((duration) {
+    //   currentDuration.value = duration;
+    // });
+    // _juzoxAudioPlayerService.audioPlayer.durationStream.listen((duration) {
+    //   totalDuration.value = duration ?? Duration.zero;
+    // });
+    // _juzoxAudioPlayerService.audioPlayer.playingStream.listen((isPlaying) {
+    //   this.isPlaying.value = isPlaying;
+    // });
 
 //for swaping pause button when finished playing a song
-    _juzoxAudioPlayerService.audioPlayer.processingStateStream.listen((state) {
-      processingState.value = state;
-    });
+    // _juzoxAudioPlayerService.audioPlayer.processingStateStream.listen((state) {
+    //   processingState.value = state;
+    // });
   }
 
 //dispose check once again because the miniplayer is needed for other pages also, so this dispose should be removed and use REMOVE instead(check a screenshot),,
   @override
   void dispose() {
+    /*
     _juzoxAudioPlayerService.dispose();
 
     // Dispose the ValueNotifiers when the widget is disposed
@@ -88,7 +94,7 @@ class _SongsTabState extends State<SongsTab>
 
     _tappedSongId.dispose();
     _currentlyPlayingSong.dispose();
-
+*/
     super.dispose();
   }
 
@@ -312,7 +318,7 @@ class _SongsTabState extends State<SongsTab>
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       ValueListenableBuilder(
-                                        valueListenable: isPlaying,
+                                        valueListenable: widget.isPlaying,
                                         builder:
                                             (context, isPlayingValue, child) {
                                           return isPlayingValue
@@ -366,7 +372,8 @@ class _SongsTabState extends State<SongsTab>
                             ),
 
                             onTap: () {
-                              _playSong(song.filePath);
+                              // _playSong(song.filePath);
+                              widget.onSongSelected(song);
 
                               // setState(() { // no need os setstate, setstate converted to value listenable builder
                               _tappedSongId.value = song.id;
@@ -396,6 +403,7 @@ class _SongsTabState extends State<SongsTab>
         ),
 
         //  if (_currentlyPlayingSong != null)
+/*
         ValueListenableBuilder(
             valueListenable: _currentlyPlayingSong,
             builder: (context, currentPlayingSongValue, child) {
@@ -407,7 +415,7 @@ class _SongsTabState extends State<SongsTab>
                   child: MiniPlayer(
                     song: currentPlayingSongValue,
                     juzoxAudioPlayerService: _juzoxAudioPlayerService,
-                    isPlaying: isPlaying,
+                    isPlaying: widget.isPlaying,
                     currentDuration: currentDuration,
                     totalDuration: totalDuration,
                     processingState: processingState,
@@ -417,6 +425,7 @@ class _SongsTabState extends State<SongsTab>
                 return SizedBox();
               }
             }),
+*/
         // CupertinoSlider(
         //   value: 10,
         //   max: 30,
