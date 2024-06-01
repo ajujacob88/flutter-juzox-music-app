@@ -127,42 +127,63 @@ class MusicScreen extends StatelessWidget {
   }
 }
 
-class SampleFolderView extends StatefulWidget {
+//sample folderview converted to statelesswidget, but inorder to preerve scrolling position automatickeepaliveclient mixin need to be used, but it cant be used in stateless widget, so used AutomaticKeepAlive class but still need a StatefulWidget (AutomaticKeepAlive) for keep-alive behavior. so converting this to statless doesnt have an performance improvement since a statefull widget is also needed.
+//However i just converted to stateless and AutomaticKeepAlive stateful for understanding
+//both the two approaches are good
+class SampleFolderView extends StatelessWidget {
   const SampleFolderView({super.key});
+  //
+
   @override
-  State<StatefulWidget> createState() => _SampleFolderViewState();
+  Widget build(BuildContext context) {
+    // super.build(context);
+    return AutomaticKeepAlive(
+      child: CustomScrollView(
+        key: const PageStorageKey('SampleKeyy22'),
+        slivers: [
+          SliverGrid(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3),
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return Text('.folder.  $index');
+              },
+              childCount: 40,
+              semanticIndexOffset: 2,
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: Text('Folders'),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
-class _SampleFolderViewState extends State<SampleFolderView>
-    with AutomaticKeepAliveClientMixin<SampleFolderView> {
+//this is for SampleFolderView keep alive scrolling position
+class AutomaticKeepAlive extends StatefulWidget {
+  final Widget child;
+
+  const AutomaticKeepAlive({required this.child, super.key});
+
+  @override
+  State<AutomaticKeepAlive> createState() => _AutomaticKeepAliveState();
+}
+
+class _AutomaticKeepAliveState extends State<AutomaticKeepAlive>
+    with AutomaticKeepAliveClientMixin<AutomaticKeepAlive> {
   @override
   bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return CustomScrollView(
-      key: const PageStorageKey('SampleKeyy22'),
-      slivers: [
-        SliverGrid(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3),
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              return Text('.folder.  $index');
-            },
-            childCount: 40,
-            semanticIndexOffset: 2,
-          ),
-        ),
-        const SliverToBoxAdapter(
-          child: Text('Folders'),
-        ),
-      ],
-    );
+    return widget.child;
   }
 }
 
+//for the sample list view.. here also we can convert it to stateless and wrap scafold with AutomaticKeepAlive similar to above, but no performance improvement is there, so i didnt used and used automaticclientmixin instead
 class SampleListView extends StatefulWidget {
   const SampleListView({super.key});
   @override
