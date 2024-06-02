@@ -27,15 +27,18 @@ class _TabsScreenState extends State<TabsScreen> {
   final ValueNotifier<JuzoxMusicModel?> _currentlyPlayingSongNotifier =
       ValueNotifier<JuzoxMusicModel?>(null);
 
-  final JuzoxAudioPlayerService _juzoxAudioPlayerService =
-      JuzoxAudioPlayerService();
   final ValueNotifier<bool> _isPlayingNotifier = ValueNotifier<bool>(false);
   final ValueNotifier<Duration> _currentDurationNotifier =
       ValueNotifier<Duration>(Duration.zero);
   final ValueNotifier<Duration> _totalDurationNotifier =
       ValueNotifier<Duration>(Duration.zero);
+
+  //for swaping pause button when finished playing a song
   final ValueNotifier<ProcessingState> _processingStateNotifier =
       ValueNotifier<ProcessingState>(ProcessingState.idle);
+
+  final JuzoxAudioPlayerService _juzoxAudioPlayerService =
+      JuzoxAudioPlayerService();
 
   @override
   void initState() {
@@ -83,7 +86,7 @@ class _TabsScreenState extends State<TabsScreen> {
           bottomNavigationBar: JuzoxBottomNavigationBar(
             onCurrentPageChanged: (newIndex) {
               _currentPageIndexNotifier.value = newIndex;
-              print('debug check 1 currentpageindex = $newIndex');
+              //   print('debug check 1 currentpageindex = $newIndex');
             },
           ),
           body: Stack(
@@ -94,7 +97,7 @@ class _TabsScreenState extends State<TabsScreen> {
                   const HomeScreen(),
                   MusicScreen(
                     onSongSelected: _onSongSelected,
-                    isPlaying: _isPlayingNotifier,
+                    isPlayingNotifier: _isPlayingNotifier,
                   ),
                   const LibraryScreen(),
                 ],
@@ -130,8 +133,6 @@ class _TabsScreenState extends State<TabsScreen> {
   void _onSongSelected(JuzoxMusicModel song) {
     _currentlyPlayingSongNotifier.value = song;
     _playSong(song.filePath);
-    // Add logic to start playing the song using the audio player service.
-    // Update the other notifiers (isPlaying, currentDuration, totalDuration, processingState) accordingly.
   }
 }
 

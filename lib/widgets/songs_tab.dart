@@ -13,10 +13,12 @@ import 'package:just_audio/just_audio.dart';
 
 class SongsTab extends StatefulWidget {
   final Function(JuzoxMusicModel) onSongSelected;
-  final ValueNotifier<bool> isPlaying;
+  final ValueNotifier<bool> isPlayingNotifier;
 
   const SongsTab(
-      {super.key, required this.onSongSelected, required this.isPlaying});
+      {super.key,
+      required this.onSongSelected,
+      required this.isPlayingNotifier});
 
   @override
   State<SongsTab> createState() => _SongsTabState();
@@ -31,23 +33,8 @@ class _SongsTabState extends State<SongsTab>
   final JuzoxAudioPlayerService _juzoxAudioPlayerService =
       JuzoxAudioPlayerService();
 
-  // List<JuzoxMusicModel> _songs = [];
-
-  // int? _tappedSongId;
-
-  // JuzoxMusicModel? _currentlyPlayingSong;
-
-  final AudioPlayer _audioPlayer = AudioPlayer();
-
-  // final ValueNotifier<bool> isPlaying = ValueNotifier(false);
-  final ValueNotifier<Duration> currentDuration = ValueNotifier(Duration.zero);
-  final ValueNotifier<Duration> totalDuration = ValueNotifier(Duration.zero);
-  final ValueNotifier<ProcessingState> processingState =
-      ValueNotifier(ProcessingState.idle);
-
   final ValueNotifier<int?> _tappedSongId = ValueNotifier(null);
-  final ValueNotifier<JuzoxMusicModel?> _currentlyPlayingSong =
-      ValueNotifier(null);
+
   final ValueNotifier<List<JuzoxMusicModel>> _songs = ValueNotifier([]);
 
   @override
@@ -63,38 +50,19 @@ class _SongsTabState extends State<SongsTab>
         getAudioFiles(); // Call function to get audio files on permission grant
       }
     });
-
-    // _juzoxAudioPlayerService.audioPlayer.positionStream.listen((duration) {
-    //   currentDuration.value = duration;
-    // });
-    // _juzoxAudioPlayerService.audioPlayer.durationStream.listen((duration) {
-    //   totalDuration.value = duration ?? Duration.zero;
-    // });
-    // _juzoxAudioPlayerService.audioPlayer.playingStream.listen((isPlaying) {
-    //   this.isPlaying.value = isPlaying;
-    // });
-
-//for swaping pause button when finished playing a song
-    // _juzoxAudioPlayerService.audioPlayer.processingStateStream.listen((state) {
-    //   processingState.value = state;
-    // });
   }
 
 //dispose check once again because the miniplayer is needed for other pages also, so this dispose should be removed and use REMOVE instead(check a screenshot),,
   @override
   void dispose() {
-    /*
     _juzoxAudioPlayerService.dispose();
 
     // Dispose the ValueNotifiers when the widget is disposed
-    currentDuration.dispose();
-    totalDuration.dispose();
-    isPlaying.dispose();
-    processingState.dispose();
 
     _tappedSongId.dispose();
-    _currentlyPlayingSong.dispose();
-*/
+
+    _songs.dispose();
+
     super.dispose();
   }
 
@@ -116,10 +84,6 @@ class _SongsTabState extends State<SongsTab>
 
     // setState(() {}); //removed setstate since valuenotifier implemented
     //print('songs is ${_songs[3]}');
-  }
-
-  void _playSong(String url) {
-    _juzoxAudioPlayerService.juzoxPlay(url);
   }
 
   @override
@@ -318,7 +282,8 @@ class _SongsTabState extends State<SongsTab>
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       ValueListenableBuilder(
-                                        valueListenable: widget.isPlaying,
+                                        valueListenable:
+                                            widget.isPlayingNotifier,
                                         builder:
                                             (context, isPlayingValue, child) {
                                           return isPlayingValue
@@ -372,13 +337,9 @@ class _SongsTabState extends State<SongsTab>
                             ),
 
                             onTap: () {
-                              // _playSong(song.filePath);
                               widget.onSongSelected(song);
 
-                              // setState(() { // no need os setstate, setstate converted to value listenable builder
                               _tappedSongId.value = song.id;
-                              _currentlyPlayingSong.value = song;
-                              //});
                             },
                           );
                         },
@@ -401,36 +362,6 @@ class _SongsTabState extends State<SongsTab>
             ),
           ),
         ),
-
-        //  if (_currentlyPlayingSong != null)
-/*
-        ValueListenableBuilder(
-            valueListenable: _currentlyPlayingSong,
-            builder: (context, currentPlayingSongValue, child) {
-              if (currentPlayingSongValue != null) {
-                return Positioned(
-                  bottom: 54, //height of bottom nav bar
-                  left: 45,
-
-                  child: MiniPlayer(
-                    song: currentPlayingSongValue,
-                    juzoxAudioPlayerService: _juzoxAudioPlayerService,
-                    isPlaying: widget.isPlaying,
-                    currentDuration: currentDuration,
-                    totalDuration: totalDuration,
-                    processingState: processingState,
-                  ),
-                );
-              } else {
-                return SizedBox();
-              }
-            }),
-*/
-        // CupertinoSlider(
-        //   value: 10,
-        //   max: 30,
-        //   onChanged: (value) {},
-        // ),
       ],
     );
   }

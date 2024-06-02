@@ -16,10 +16,12 @@ import 'package:juzox_music_app/models/music_model.dart';
 
 class MusicScreen extends StatelessWidget {
   final Function(JuzoxMusicModel) onSongSelected;
-  final ValueNotifier<bool> isPlaying;
+  final ValueNotifier<bool> isPlayingNotifier;
 
   const MusicScreen(
-      {super.key, required this.onSongSelected, required this.isPlaying});
+      {super.key,
+      required this.onSongSelected,
+      required this.isPlayingNotifier});
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +97,7 @@ class MusicScreen extends StatelessWidget {
 
                 SongsTab(
                   onSongSelected: onSongSelected,
-                  isPlaying: isPlaying,
+                  isPlayingNotifier: isPlayingNotifier,
                 ),
 
                 const Text('Playlists'),
