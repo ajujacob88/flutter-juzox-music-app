@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:juzox_music_app/models/music_model.dart';
+import 'package:juzox_music_app/providers/audio_player_provider.dart';
 import 'package:juzox_music_app/services/audio_player_service.dart';
 
 import 'package:just_audio/just_audio.dart';
@@ -7,55 +8,25 @@ import 'package:just_audio/just_audio.dart';
 import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 class MiniPlayer extends StatelessWidget {
   final JuzoxMusicModel song;
-  final JuzoxAudioPlayerService juzoxAudioPlayerService;
-  final ValueNotifier<bool> isPlaying;
-  final ValueNotifier<Duration> currentDuration;
-  final ValueNotifier<Duration> totalDuration;
-  final ValueNotifier<ProcessingState> processingState;
+  // final JuzoxAudioPlayerService juzoxAudioPlayerService;
+  // final ValueNotifier<bool> isPlaying;
+  // final ValueNotifier<Duration> currentDuration;
+  // final ValueNotifier<Duration> totalDuration;
+  // final ValueNotifier<ProcessingState> processingState;
 
   const MiniPlayer({
     super.key,
     required this.song,
-    required this.juzoxAudioPlayerService,
-    required this.isPlaying,
-    required this.currentDuration,
-    required this.totalDuration,
-    required this.processingState,
+    // required this.juzoxAudioPlayerService,
+    // required this.isPlaying,
+    // required this.currentDuration,
+    // required this.totalDuration,
+    // required this.processingState,
   });
-
-  // final ValueNotifier<bool> isPlaying = ValueNotifier(false);
-  // final ValueNotifier<Duration> currentDuration = ValueNotifier(Duration.zero);
-  // final ValueNotifier<Duration> totalDuration = ValueNotifier(Duration.zero);
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   widget.juzoxAudioPlayerService.audioPlayer.positionStream
-  //       .listen((duration) {
-  //     currentDuration.value = duration;
-  //   });
-  //   widget.juzoxAudioPlayerService.audioPlayer.durationStream
-  //       .listen((duration) {
-  //     totalDuration.value = duration ?? Duration.zero;
-  //   });
-  //   widget.juzoxAudioPlayerService.audioPlayer.playingStream
-  //       .listen((isPlaying) {
-  //     this.isPlaying.value = isPlaying;
-  //   });
-  // }
-
-// //dispose check once again because the miniplayer is needed for other pages also, so this dispose should be removed and use REMOVE instead(check a screenshot),,
-//   @override
-//   void dispose() {
-//     // Dispose the ValueNotifiers when the widget is disposed
-//     currentDuration.dispose();
-//     totalDuration.dispose();
-//     isPlaying.dispose();
-//     super.dispose();
-//   }
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +36,9 @@ class MiniPlayer extends StatelessWidget {
     // final double bottomNavHeight =
     //     MediaQuery.of(context).viewInsets.bottom + 56;
     // 56 is the typical height of a BottomNavigationBar
+
+    // final JuzoxAudioPlayerService juzoxAudioPlayerService =
+    //     JuzoxAudioPlayerService();
 
     return Container(
       //  width: 330,
@@ -150,37 +124,39 @@ class MiniPlayer extends StatelessWidget {
                         padding: EdgeInsets.all(0),
                       ),
                     ),
-                    ValueListenableBuilder(
-                        valueListenable: processingState,
-                        builder: (context, state, child) {
-                          return ValueListenableBuilder(
-                              valueListenable: isPlaying,
-                              builder: (context, isPlayingValue, child) {
-                                return Expanded(
-                                  child: IconButton(
-                                    icon: Icon(
-                                        state == ProcessingState.completed
-                                            ? Icons.play_arrow
-                                            : (isPlayingValue
-                                                ? Icons.pause
-                                                : Icons.play_arrow),
-                                        color: Colors.white),
-                                    // constraints:
-                                    //     BoxConstraints(), // Remove constraints to minimize the size
-                                    padding: EdgeInsets.zero,
+                    Consumer<AudioPlayerProvider>(
+                        //valueListenable: processingState,
+                        builder: (context, audioPlayerProvider, child) {
+                      // return Consumer<bool>(
+                      //     // valueListenable: isPlaying,
+                      //     builder: (context, isPlaying, child) {
+                      return Expanded(
+                        child: IconButton(
+                          icon: Icon(
+                              audioPlayerProvider.processingState ==
+                                      ProcessingState.completed
+                                  ? Icons.play_arrow
+                                  : (audioPlayerProvider.isPlaying
+                                      ? Icons.pause
+                                      : Icons.play_arrow),
+                              color: Colors.white),
+                          // constraints:
+                          //     BoxConstraints(), // Remove constraints to minimize the size
+                          padding: EdgeInsets.zero,
 
-                                    onPressed: () {
-                                      if (isPlayingValue) {
-                                        juzoxAudioPlayerService.juzoxPause();
-                                      } else {
-                                        juzoxAudioPlayerService
-                                            .juzoxPlay(song.filePath);
-                                      }
-                                    },
-                                  ),
-                                );
-                              });
-                        }),
+                          onPressed: () {
+                            if (audioPlayerProvider.isPlaying) {
+                              audioPlayerProvider.juzoxAudioPlayerService
+                                  .juzoxPause();
+                            } else {
+                              audioPlayerProvider.juzoxAudioPlayerService
+                                  .juzoxPlay(song.filePath);
+                            }
+                          },
+                        ),
+                      );
+                      //   },);
+                    }),
                     Expanded(
                       child: IconButton(
                         icon: const Icon(Icons.skip_next, color: Colors.white),
@@ -244,40 +220,41 @@ class MiniPlayer extends StatelessWidget {
                         //   fontSize: 20.0,
                         // ),
                       ),
-                      child: ValueListenableBuilder(
-                          valueListenable: currentDuration,
-                          builder: (context, currentDurationValue, child) {
-                            return ValueListenableBuilder(
-                                valueListenable: totalDuration,
-                                builder: (context, totalDurationValue, child) {
-                                  // Ensure the currentDurationValue does not exceed totalDurationValue
-                                  double sliderValue =
-                                      currentDurationValue.inSeconds.toDouble();
-                                  double maxSliderValue =
-                                      totalDurationValue.inSeconds.toDouble();
+                      child: Consumer<AudioPlayerProvider>(
+                          //  valueListenable: currentDuration,
+                          builder: (context, audioPlayerProvider, child) {
+                        // return Consumer<Duration>(
+                        //     //  valueListenable: totalDuration,
+                        //     builder: (context, totalDuration, child) {
+                        // Ensure the currentDurationValue does not exceed totalDurationValue
+                        double sliderValue = audioPlayerProvider
+                            .currentDuration.inSeconds
+                            .toDouble();
+                        double maxSliderValue = audioPlayerProvider
+                            .totalDuration.inSeconds
+                            .toDouble();
 
-                                  if (sliderValue > maxSliderValue) {
-                                    sliderValue = maxSliderValue;
-                                  }
-                                  return Slider(
-                                    activeColor:
-                                        const Color.fromARGB(193, 64, 195, 255),
-                                    thumbColor: Colors.lightBlueAccent,
-                                    inactiveColor:
-                                        const Color.fromARGB(94, 64, 195, 255),
-                                    // value: currentDurationValue.inSeconds
-                                    //     .toDouble(),
-                                    // max:
-                                    //     totalDurationValue.inSeconds.toDouble(),
-                                    value: sliderValue,
-                                    max: maxSliderValue,
-                                    onChanged: (value) {
-                                      juzoxAudioPlayerService.audioPlayer.seek(
-                                          Duration(seconds: value.toInt()));
-                                    },
-                                  );
-                                });
-                          }),
+                        if (sliderValue > maxSliderValue) {
+                          sliderValue = maxSliderValue;
+                        }
+                        return Slider(
+                          activeColor: const Color.fromARGB(193, 64, 195, 255),
+                          thumbColor: Colors.lightBlueAccent,
+                          inactiveColor: const Color.fromARGB(94, 64, 195, 255),
+                          // value: currentDurationValue.inSeconds
+                          //     .toDouble(),
+                          // max:
+                          //     totalDurationValue.inSeconds.toDouble(),
+                          value: sliderValue,
+                          max: maxSliderValue,
+                          onChanged: (value) {
+                            audioPlayerProvider
+                                .juzoxAudioPlayerService.audioPlayer
+                                .seek(Duration(seconds: value.toInt()));
+                          },
+                        );
+                        // });
+                      }),
                     ),
                   ),
                 ),

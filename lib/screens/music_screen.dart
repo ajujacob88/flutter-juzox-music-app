@@ -15,6 +15,265 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:juzox_music_app/models/music_model.dart';
 
 class MusicScreen extends StatelessWidget {
+  // final Function(JuzoxMusicModel) onSongSelected;
+  // final ValueNotifier<bool> isPlayingNotifier;
+
+  const MusicScreen({
+    super.key,
+    //  required this.onSongSelected,
+    //    required this.isPlayingNotifier
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // Get the width of the screen
+    //final screenWidth = MediaQuery.of(context).size.width;
+
+    // Calculate padding as a percentage of the screen width
+    // final double leftPadding = screenWidth * 0.05; // 5% of screen width
+    // final double rightPadding = screenWidth * 0.01; // 1% of screen width
+
+    return DefaultTabController(
+      initialIndex: 1,
+      length: 7,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: ExtendedNestedScrollView(
+          floatHeaderSlivers: true,
+          onlyOneScrollInBody: true,
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              SliverOverlapAbsorber(
+                handle: ExtendedNestedScrollView.sliverOverlapAbsorberHandleFor(
+                    context),
+                sliver: SliverAppBar(
+                  //backgroundColor: Color.fromARGB(30, 6, 1, 27),
+                  backgroundColor: Colors.transparent,
+                  // backgroundColor: !innerBoxIsScrolled
+                  //     ? Colors.transparent
+                  //     : Color.fromARGB(255, 5, 37, 73),
+
+                  pinned: true,
+                  floating: true,
+                  forceElevated: innerBoxIsScrolled,
+                  scrolledUnderElevation: 0, //while scrolling opacitty 0 to 1
+
+                  actions: [
+                    Image.asset(
+                      'assets/images/juzox-logo2.png',
+                      width: 70,
+                      // height: 40,
+                      height: 30,
+                      //color: const Color.fromARGB(158, 105, 240, 175),
+                      color: Color.fromARGB(158, 64, 195, 255),
+                    ),
+                    const SearchButton(),
+                    InkWell(
+                      child: const Padding(
+                        padding: EdgeInsets.only(right: 18, left: 18),
+                        child: Icon(
+                          Icons.menu_outlined,
+                          size: 30,
+                        ),
+                      ),
+                      onTap: () {},
+                    ),
+                  ],
+
+                  bottom: const MusicTabBar(),
+                ),
+              ),
+            ];
+          },
+          body: SafeArea(
+            bottom: false,
+            minimum: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top + kTextTabBarHeight),
+
+            // minimum:
+            //     EdgeInsets.only(top: kToolbarHeight + kTextTabBarHeight - 15),
+            child: TabBarView(
+              children: [
+                const Text('Favorites'),
+
+                SongsTab(
+                    //      onSongSelected: onSongSelected,
+                    //   isPlayingNotifier: isPlayingNotifier,
+                    ),
+
+                const Text('Playlists'),
+                // const Text('Folders'),
+                const SampleFolderView(),
+
+                CustomScrollView(
+                  key: const PageStorageKey('Sample1Key'),
+                  slivers: [
+                    SliverGrid(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3),
+                      delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                          return Text('.alb.  $index');
+                        },
+                        childCount: 40,
+                        semanticIndexOffset: 2,
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: Text('Albums'),
+                    ),
+                  ],
+                ),
+
+                const Text('Artists'),
+                //  const Text('Genre'),
+                const SampleListView(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+//sample folderview converted to statelesswidget, but inorder to preerve scrolling position automatickeepaliveclient mixin need to be used, but it cant be used in stateless widget, so used AutomaticKeepAlive class but still need a StatefulWidget (AutomaticKeepAlive) for keep-alive behavior. so converting this to statless doesnt have an performance improvement since a statefull widget is also needed.
+//However i just converted to stateless and AutomaticKeepAlive stateful for understanding
+//both the two approaches are good
+class SampleFolderView extends StatelessWidget {
+  const SampleFolderView({super.key});
+  //
+
+  @override
+  Widget build(BuildContext context) {
+    // super.build(context);
+    return AutomaticKeepAlive(
+      child: CustomScrollView(
+        key: const PageStorageKey('SampleKeyy22'),
+        slivers: [
+          SliverGrid(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3),
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return Text('.folder.  $index');
+              },
+              childCount: 40,
+              semanticIndexOffset: 2,
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: Text('Folders'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+//this is for SampleFolderView keep alive scrolling position
+class AutomaticKeepAlive extends StatefulWidget {
+  final Widget child;
+
+  const AutomaticKeepAlive({required this.child, super.key});
+
+  @override
+  State<AutomaticKeepAlive> createState() => _AutomaticKeepAliveState();
+}
+
+class _AutomaticKeepAliveState extends State<AutomaticKeepAlive>
+    with AutomaticKeepAliveClientMixin<AutomaticKeepAlive> {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return widget.child;
+  }
+}
+
+//for the sample list view.. here also we can convert it to stateless and wrap scafold with AutomaticKeepAlive similar to above, but no performance improvement is there, so i didnt used and used automaticclientmixin instead
+class SampleListView extends StatefulWidget {
+  const SampleListView({super.key});
+  @override
+  State<StatefulWidget> createState() => _SampleListViewState();
+}
+
+class _SampleListViewState extends State<SampleListView>
+    with AutomaticKeepAliveClientMixin<SampleListView> {
+//  final ScrollController _scrollController = ScrollController();
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _scrollController.addListener(() {
+  //     print('my position is ${_scrollController.position}');
+  //   });
+  // }
+
+  // @override
+  // void dispose() {
+  //   _scrollController.dispose();
+  //   super.dispose();
+  // }
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return Scaffold(
+      body: ListView.builder(
+        key: const PageStorageKey('SampleListKey'),
+        //    controller: _scrollController,
+        itemCount: 200,
+        itemBuilder: (context, i) {
+          return ListTile(
+              title: Text(
+            i.toString(),
+            // textScaleFactor: 1.5,
+            style: TextStyle(color: Colors.blue),
+          ));
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          //    _scrollController.animateTo(
+          //        _scrollController.position.minScrollExtent,
+          //       duration: const Duration(seconds: 2),
+          //       curve: Curves.easeIn);
+        },
+        child: Icon(Icons.arrow_upward),
+      ),
+    );
+  }
+}
+
+
+
+
+/*
+
+//code just before implementing provider
+//import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+//import 'package:juzox_music_app/models/music_model.dart';
+//import 'package:on_audio_query/on_audio_query.dart';
+//import 'package:permission_handler/permission_handler.dart';
+//import 'dart:io';
+//import 'package:juzox_music_app/utils/permission_handler.dart';
+import 'package:juzox_music_app/widgets/search_button.dart';
+import 'package:juzox_music_app/widgets/music_tab_bar.dart';
+import 'package:juzox_music_app/widgets/songs_tab.dart';
+
+//import 'package:animated_music_indicator/animated_music_indicator.dart';
+
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
+import 'package:juzox_music_app/models/music_model.dart';
+
+class MusicScreen extends StatelessWidget {
   final Function(JuzoxMusicModel) onSongSelected;
   final ValueNotifier<bool> isPlayingNotifier;
 
@@ -249,6 +508,9 @@ class _SampleListViewState extends State<SampleListView>
     );
   }
 }
+
+
+*/
 
 
 /*

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:juzox_music_app/providers/audio_player_provider.dart';
 import 'package:juzox_music_app/screens/tabs_screen.dart';
+import 'package:provider/provider.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
   //seedColor: const Color.fromARGB(255, 104, 58, 183), //this
@@ -29,7 +31,12 @@ const kGradient = LinearGradient(
   ],
 );
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => AudioPlayerProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
