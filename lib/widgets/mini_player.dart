@@ -124,12 +124,75 @@ class MiniPlayer extends StatelessWidget {
                         padding: EdgeInsets.all(0),
                       ),
                     ),
+                    Selector<AudioPlayerProvider, IconData>(
+                      selector: (context, provider) {
+                        if (provider.processingState ==
+                            ProcessingState.completed) {
+                          return Icons.play_arrow;
+                        } else {
+                          return provider.isPlaying
+                              ? Icons.pause
+                              : Icons.play_arrow;
+                        }
+                      },
+                      shouldRebuild: (previous, current) => previous != current,
+                      builder: (context, iconData, child) {
+                        return Expanded(
+                          child: IconButton(
+                            icon: Icon(
+                              iconData,
+                              color: Colors.white,
+                            ),
+                            padding: EdgeInsets.zero,
+                            onPressed: () {
+                              final audioPlayerService = context
+                                  .read<AudioPlayerProvider>()
+                                  .juzoxAudioPlayerService;
+                              //  if(context.read<AudioPlayerProvider>().isPlaying)
+                              if (audioPlayerService.audioPlayer.playing) {
+                                audioPlayerService.juzoxPause();
+                              } else {
+                                audioPlayerService.juzoxPlay(song.filePath);
+                              }
+                            },
+                          ),
+                        );
+                      },
+                    ),
+
+/*
+                    Selector<AudioPlayerProvider, ProcessingState>(
+                        selector: (context, audioPlayerProvider) =>
+                            audioPlayerProvider.processingState,
+                        builder: (context, audioProcessingState, child) {
+                          return Expanded(
+                            child: IconButton(
+                              icon: Icon(
+                                  audioProcessingState ==
+                                          ProcessingState.completed
+                                      ? Icons.play_arrow
+                                      : (audioPlayerProvider.isPlaying
+                                          ? Icons.pause
+                                          : Icons.play_arrow),
+                                  color: Colors.white),
+                              padding: EdgeInsets.zero,
+                              onPressed: () {
+                                if (audioPlayerProvider.isPlaying) {
+                                  audioPlayerProvider.juzoxAudioPlayerService
+                                      .juzoxPause();
+                                } else {
+                                  audioPlayerProvider.juzoxAudioPlayerService
+                                      .juzoxPlay(song.filePath);
+                                }
+                              },
+                            ),
+                          );
+                        }),
+*/
+                    /*
                     Consumer<AudioPlayerProvider>(
-                        //valueListenable: processingState,
                         builder: (context, audioPlayerProvider, child) {
-                      // return Consumer<bool>(
-                      //     // valueListenable: isPlaying,
-                      //     builder: (context, isPlaying, child) {
+                     
                       return Expanded(
                         child: IconButton(
                           icon: Icon(
@@ -140,8 +203,7 @@ class MiniPlayer extends StatelessWidget {
                                       ? Icons.pause
                                       : Icons.play_arrow),
                               color: Colors.white),
-                          // constraints:
-                          //     BoxConstraints(), // Remove constraints to minimize the size
+                         
                           padding: EdgeInsets.zero,
 
                           onPressed: () {
@@ -155,8 +217,9 @@ class MiniPlayer extends StatelessWidget {
                           },
                         ),
                       );
-                      //   },);
                     }),
+
+                    */
                     Expanded(
                       child: IconButton(
                         icon: const Icon(Icons.skip_next, color: Colors.white),

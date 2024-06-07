@@ -98,13 +98,13 @@ class _TabsScreenState extends State<TabsScreen> {
             children: [
               IndexedStack(
                 index: currentPageIndex,
-                children: [
-                  const HomeScreen(),
+                children: const [
+                  HomeScreen(),
                   MusicScreen(
                       // onSongSelected: _onSongSelected,
                       //    isPlayingNotifier: _isPlayingNotifier,
                       ),
-                  const LibraryScreen(),
+                  LibraryScreen(),
                 ],
               ),
               // ValueListenableBuilder<JuzoxMusicModel?>(
