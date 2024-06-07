@@ -100,16 +100,10 @@ class _TabsScreenState extends State<TabsScreen> {
                 index: currentPageIndex,
                 children: const [
                   HomeScreen(),
-                  MusicScreen(
-                      // onSongSelected: _onSongSelected,
-                      //    isPlayingNotifier: _isPlayingNotifier,
-                      ),
+                  MusicScreen(),
                   LibraryScreen(),
                 ],
               ),
-              // ValueListenableBuilder<JuzoxMusicModel?>(
-              //   valueListenable: _currentlyPlayingSongNotifier,
-              //   builder: (context, currentlyPlayingSong, child) {
 
               Selector<AudioPlayerProvider, JuzoxMusicModel?>(
                 selector: (context, provider) => provider.currentlyPlayingSong,
@@ -176,23 +170,6 @@ class _TabsScreenState extends State<TabsScreen> {
       },
     );
   }
-
-  // void _onSongSelected(JuzoxMusicModel song) {
-  //   // final audioPlayerProvider2 =
-  //   //     Provider.of<AudioPlayerProvider>(context, listen: false);
-
-  //   // _currentlyPlayingSongNotifier.value = song;
-  //   // audioPlayerProvider2.setCurrentlyPlayingSong(song);
-  //   // _playSong(song.filePath);
-
-  //   Provider.of<AudioPlayerProvider>(context, listen: false)
-  //       .setCurrentlyPlayingSong(song);
-  // }
-
-  // void _onSongSelected(JuzoxMusicModel song) {
-  //   _currentlyPlayingSongNotifier.value = song;
-  //   _playSong(song.filePath);
-  // }
 }
 
 
