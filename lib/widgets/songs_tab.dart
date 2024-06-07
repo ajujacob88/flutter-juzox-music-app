@@ -271,6 +271,32 @@ class _SongsTabState extends State<SongsTab>
                                     //  crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
+                                      Selector<AudioPlayerProvider, bool>(
+                                        selector:
+                                            (context, audioPlayerProvider) =>
+                                                audioPlayerProvider.isPlaying,
+                                        shouldRebuild: (previous, current) =>
+                                            previous != current,
+                                        builder: (context, isPlayingg, child) {
+                                          return isPlayingg
+                                              ? const AnimatedMusicIndicator(
+                                                  color: Colors.lightBlueAccent,
+                                                  barStyle: BarStyle.solid,
+                                                  size: .06,
+                                                )
+                                              : const Padding(
+                                                  padding: EdgeInsets.only(
+                                                      top: 18.0),
+                                                  child: StaticMusicIndicator(
+                                                    color:
+                                                        Colors.lightBlueAccent,
+                                                    size: .1,
+                                                  ),
+                                                ); //
+                                        },
+                                      ),
+
+/*
                                       Consumer<AudioPlayerProvider>(
                                         //  valueListenable: widget.isPlayingNotifier,
                                         builder: (context, audioPlayerProvider,
@@ -292,6 +318,8 @@ class _SongsTabState extends State<SongsTab>
                                                 ); //
                                         },
                                       ),
+
+                                      */
                                       IconButton(
                                         icon: const Icon(Icons.more_vert),
                                         color: const Color.fromARGB(
