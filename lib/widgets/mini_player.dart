@@ -283,13 +283,81 @@ class MiniPlayer extends StatelessWidget {
                         //   fontSize: 20.0,
                         // ),
                       ),
+
+                      child: Selector<AudioPlayerProvider, double>(
+                        selector: (context, provider) {
+                          final currentDuration =
+                              provider.currentDuration.inSeconds.toDouble();
+                          final maxDuration =
+                              provider.totalDuration.inSeconds.toDouble();
+                          return currentDuration > maxDuration
+                              ? maxDuration
+                              : currentDuration;
+                        },
+                        shouldRebuild: (previous, current) =>
+                            previous != current,
+                        builder: (context, sliderValue, child) {
+                          // final maxDuration = context
+                          //     .read<AudioPlayerProvider>()
+                          //     .totalDuration
+                          //     .inSeconds
+                          //     .toDouble();
+                          return Slider(
+                            activeColor:
+                                const Color.fromARGB(193, 64, 195, 255),
+                            thumbColor: Colors.lightBlueAccent,
+                            inactiveColor:
+                                const Color.fromARGB(94, 64, 195, 255),
+                            value: sliderValue,
+                            max: context
+                                .read<AudioPlayerProvider>()
+                                .totalDuration
+                                .inSeconds
+                                .toDouble(),
+                            onChanged: (value) {
+                              context
+                                  .read<AudioPlayerProvider>()
+                                  .juzoxAudioPlayerService
+                                  .audioPlayer
+                                  .seek(Duration(seconds: value.toInt()));
+                            },
+                          );
+                        },
+                      ),
+                      // child: Selector<AudioPlayerProvider, double>(
+                      //     selector: (context, audioPlayerProvider) {},
+                      //     builder: (context, audioPlayerProvider, child) {
+                      //       double sliderValue = audioPlayerProvider
+                      //           .currentDuration.inSeconds
+                      //           .toDouble();
+                      //       double maxSliderValue = audioPlayerProvider
+                      //           .totalDuration.inSeconds
+                      //           .toDouble();
+
+                      //       if (sliderValue > maxSliderValue) {
+                      //         sliderValue = maxSliderValue;
+                      //       }
+                      //       return Slider(
+                      //         activeColor:
+                      //             const Color.fromARGB(193, 64, 195, 255),
+                      //         thumbColor: Colors.lightBlueAccent,
+                      //         inactiveColor:
+                      //             const Color.fromARGB(94, 64, 195, 255),
+                      //         value: sliderValue,
+                      //         max: maxSliderValue,
+                      //         onChanged: (value) {
+                      //           audioPlayerProvider
+                      //               .juzoxAudioPlayerService.audioPlayer
+                      //               .seek(Duration(seconds: value.toInt()));
+                      //         },
+                      //       );
+                      //     }),
+
+/*
+
                       child: Consumer<AudioPlayerProvider>(
-                          //  valueListenable: currentDuration,
                           builder: (context, audioPlayerProvider, child) {
-                        // return Consumer<Duration>(
-                        //     //  valueListenable: totalDuration,
-                        //     builder: (context, totalDuration, child) {
-                        // Ensure the currentDurationValue does not exceed totalDurationValue
+                       
                         double sliderValue = audioPlayerProvider
                             .currentDuration.inSeconds
                             .toDouble();
@@ -304,10 +372,7 @@ class MiniPlayer extends StatelessWidget {
                           activeColor: const Color.fromARGB(193, 64, 195, 255),
                           thumbColor: Colors.lightBlueAccent,
                           inactiveColor: const Color.fromARGB(94, 64, 195, 255),
-                          // value: currentDurationValue.inSeconds
-                          //     .toDouble(),
-                          // max:
-                          //     totalDurationValue.inSeconds.toDouble(),
+                         
                           value: sliderValue,
                           max: maxSliderValue,
                           onChanged: (value) {
@@ -316,8 +381,9 @@ class MiniPlayer extends StatelessWidget {
                                 .seek(Duration(seconds: value.toInt()));
                           },
                         );
-                        // });
                       }),
+
+                      */
                     ),
                   ),
                 ),
