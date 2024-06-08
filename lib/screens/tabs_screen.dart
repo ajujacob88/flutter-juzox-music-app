@@ -82,92 +82,91 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget build(BuildContext context) {
     // final audioPlayerProvider = Provider.of<AudioPlayerProvider>(context);
 
-    return ValueListenableBuilder<int>(
-      valueListenable: _currentPageIndexNotifier,
-      builder: (context, currentPageIndex, child) {
-        return Scaffold(
-          backgroundColor: Colors.transparent,
-          extendBody: true,
-          bottomNavigationBar: JuzoxBottomNavigationBar(
-            onCurrentPageChanged: (newIndex) {
-              _currentPageIndexNotifier.value = newIndex;
-              //   print('debug check 1 currentpageindex = $newIndex');
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      extendBody: true,
+      bottomNavigationBar: JuzoxBottomNavigationBar(
+        onCurrentPageChanged: (newIndex) {
+          _currentPageIndexNotifier.value = newIndex;
+          //   print('debug check 1 currentpageindex = $newIndex');
+        },
+      ),
+      body: Stack(
+        children: [
+          ValueListenableBuilder(
+              valueListenable: _currentPageIndexNotifier,
+              builder: (context, currentPageIndex, child) {
+                return IndexedStack(
+                  index: currentPageIndex,
+                  children: const [
+                    HomeScreen(),
+                    MusicScreen(),
+                    LibraryScreen(),
+                  ],
+                );
+              }),
+
+          Selector<AudioPlayerProvider, JuzoxMusicModel?>(
+            selector: (context, provider) => provider.currentlyPlayingSong,
+            shouldRebuild: (previous, current) => previous != current,
+            builder: (context, song, child) {
+              if (song != null) {
+                return Positioned(
+                  bottom: 54,
+                  left: 45,
+                  child: MiniPlayer(
+                    song: song,
+                    // ... other MiniPlayer arguments
+                  ),
+                );
+              } else {
+                return const SizedBox();
+              }
             },
           ),
-          body: Stack(
-            children: [
-              IndexedStack(
-                index: currentPageIndex,
-                children: const [
-                  HomeScreen(),
-                  MusicScreen(),
-                  LibraryScreen(),
-                ],
-              ),
 
-              Selector<AudioPlayerProvider, JuzoxMusicModel?>(
-                selector: (context, provider) => provider.currentlyPlayingSong,
-                shouldRebuild: (previous, current) => previous != current,
-                builder: (context, song, child) {
-                  if (song != null) {
-                    return Positioned(
-                      bottom: 54,
-                      left: 45,
-                      child: MiniPlayer(
-                        song: song,
-                        // ... other MiniPlayer arguments
-                      ),
-                    );
-                  } else {
-                    return const SizedBox();
-                  }
-                },
-              ),
+          /*
+          Consumer<AudioPlayerProvider>(
+              builder: (context, audioPlayerProvider, child) {
+            if (audioPlayerProvider.currentlyPlayingSong != null) {
+              return Positioned(
+                bottom: 54, //height of bottom nav bar
+                left: 45,
+                child: MiniPlayer(
+                  song: audioPlayerProvider.currentlyPlayingSong!,
+                  //      juzoxAudioPlayerService: _juzoxAudioPlayerService,
+                  // isPlaying: _isPlayingNotifier,
+                  // currentDuration: _currentDurationNotifier,
+                  // totalDuration: _totalDurationNotifier,
+                  // processingState: _processingStateNotifier,
+                ),
+              );
+            } else {
+              return const SizedBox();
+            }
+          })
+    
+          */
+          // if (audioPlayerProvider.currentlyPlayingSong != null)
+          //   Positioned(
+          //     bottom: 54, //height of bottom nav bar
+          //     left: 45,
+          //     child: MiniPlayer(
+          //       song: audioPlayerProvider.currentlyPlayingSong!,
+          //       //      juzoxAudioPlayerService: _juzoxAudioPlayerService,
+          //       // isPlaying: _isPlayingNotifier,
+          //       // currentDuration: _currentDurationNotifier,
+          //       // totalDuration: _totalDurationNotifier,
+          //       // processingState: _processingStateNotifier,
+          //     ),
+          //   )
+          // else
+          //   SizedBox()
 
-/*
-              Consumer<AudioPlayerProvider>(
-                  builder: (context, audioPlayerProvider, child) {
-                if (audioPlayerProvider.currentlyPlayingSong != null) {
-                  return Positioned(
-                    bottom: 54, //height of bottom nav bar
-                    left: 45,
-                    child: MiniPlayer(
-                      song: audioPlayerProvider.currentlyPlayingSong!,
-                      //      juzoxAudioPlayerService: _juzoxAudioPlayerService,
-                      // isPlaying: _isPlayingNotifier,
-                      // currentDuration: _currentDurationNotifier,
-                      // totalDuration: _totalDurationNotifier,
-                      // processingState: _processingStateNotifier,
-                    ),
-                  );
-                } else {
-                  return const SizedBox();
-                }
-              })
-
-              */
-              // if (audioPlayerProvider.currentlyPlayingSong != null)
-              //   Positioned(
-              //     bottom: 54, //height of bottom nav bar
-              //     left: 45,
-              //     child: MiniPlayer(
-              //       song: audioPlayerProvider.currentlyPlayingSong!,
-              //       //      juzoxAudioPlayerService: _juzoxAudioPlayerService,
-              //       // isPlaying: _isPlayingNotifier,
-              //       // currentDuration: _currentDurationNotifier,
-              //       // totalDuration: _totalDurationNotifier,
-              //       // processingState: _processingStateNotifier,
-              //     ),
-              //   )
-              // else
-              //   SizedBox()
-
-              //       },
-              //      ),
-            ],
-          ),
-        );
-      },
+          //       },
+          //      ),
+        ],
+      ),
     );
   }
 }
