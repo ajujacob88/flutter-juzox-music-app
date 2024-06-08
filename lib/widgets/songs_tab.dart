@@ -14,13 +14,8 @@ import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 
 class SongsTab extends StatefulWidget {
-//  final Function(JuzoxMusicModel) onSongSelected;
-  // final ValueNotifier<bool> isPlayingNotifier;
-
   const SongsTab({
     super.key,
-    //  required this.onSongSelected,
-    //     required this.isPlayingNotifier
   });
 
   @override
@@ -225,11 +220,7 @@ class _SongsTabState extends State<SongsTab>
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),
-                            //  titleTextStyle: TextStyle(color: Colors.white),
-                            // titleTextStyle: Theme.of(context)
-                            //     .textTheme
-                            //     .titleMedium!
-                            //     .copyWith(color: Colors.red),
+
                             subtitle: Text(
                               '${song.artist!} - ${song.album}',
                               overflow: TextOverflow.ellipsis,
@@ -295,31 +286,6 @@ class _SongsTabState extends State<SongsTab>
                                                 ); //
                                         },
                                       ),
-
-/*
-                                      Consumer<AudioPlayerProvider>(
-                                        //  valueListenable: widget.isPlayingNotifier,
-                                        builder: (context, audioPlayerProvider,
-                                            child) {
-                                          return audioPlayerProvider.isPlaying
-                                              ? const AnimatedMusicIndicator(
-                                                  color: Colors.lightBlueAccent,
-                                                  barStyle: BarStyle.solid,
-                                                  size: .06,
-                                                )
-                                              : const Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: 18.0),
-                                                  child: StaticMusicIndicator(
-                                                    color:
-                                                        Colors.lightBlueAccent,
-                                                    size: .1,
-                                                  ),
-                                                ); //
-                                        },
-                                      ),
-
-                                      */
                                       IconButton(
                                         icon: const Icon(Icons.more_vert),
                                         color: const Color.fromARGB(

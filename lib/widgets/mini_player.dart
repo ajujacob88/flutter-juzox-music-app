@@ -32,22 +32,11 @@ class MiniPlayer extends StatelessWidget {
       width: (MediaQuery.of(context).size.width) - 90,
       //80 is the radius of the bottom nav bar circluar edge
 
-      // width: MediaQuery.of(context).size.width,
-      // margin: EdgeInsets.only(left: bottomNavHeight, right: bottomNavHeight),
-
-      // height: 200,
-      //  color: Colors.grey[900],
-      //  color: Color.fromARGB(25, 64, 195, 255),
-
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(36),
             topRight: Radius.circular(36)), // Rounded corners
-        // border: Border.all(
-        //   // Border on all sides
-        //   color: Colors.grey,
-        //   width: 1.0,
-        // ),
+
         color: Color.fromARGB(255, 1, 33, 47),
       ),
       padding: const EdgeInsets.all(0.0),
@@ -58,22 +47,15 @@ class MiniPlayer extends StatelessWidget {
             type: ArtworkType.AUDIO,
             // artworkHeight: 63,
             artworkHeight: 65,
-            // artworkBorder: const BorderRadius.horizontal(
-            //     left: Radius.circular(8), right: Radius.circular(8)),
-            // artworkBorder: BorderRadius.circular(5),
+
             artworkBorder: const BorderRadius.only(
               topLeft: Radius.circular(36),
-              //topRight: Radius.circular(8),
-              //bottomLeft: Radius.circular(8),
-              // bottomRight: Radius.circular(8),
             ),
             artworkClipBehavior: Clip.hardEdge,
 
             nullArtworkWidget: Container(
               decoration: const BoxDecoration(
                 color: Color.fromARGB(22, 68, 137, 255),
-                // borderRadius: BorderRadius.horizontal(
-                //     left: Radius.circular(8), right: Radius.circular(8)),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(36),
                 ),
