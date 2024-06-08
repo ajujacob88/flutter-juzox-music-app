@@ -12,33 +12,16 @@ import 'package:provider/provider.dart';
 
 class MiniPlayer extends StatelessWidget {
   final JuzoxMusicModel song;
-  // final JuzoxAudioPlayerService juzoxAudioPlayerService;
-  // final ValueNotifier<bool> isPlaying;
-  // final ValueNotifier<Duration> currentDuration;
-  // final ValueNotifier<Duration> totalDuration;
-  // final ValueNotifier<ProcessingState> processingState;
 
   const MiniPlayer({
     super.key,
     required this.song,
-    // required this.juzoxAudioPlayerService,
-    // required this.isPlaying,
-    // required this.currentDuration,
-    // required this.totalDuration,
-    // required this.processingState,
   });
 
   @override
   Widget build(BuildContext context) {
     String songDisplayText =
         "${song.title!} - ${song.artist ?? 'Unknown Artist'}";
-
-    // final double bottomNavHeight =
-    //     MediaQuery.of(context).viewInsets.bottom + 56;
-    // 56 is the typical height of a BottomNavigationBar
-
-    // final JuzoxAudioPlayerService juzoxAudioPlayerService =
-    //     JuzoxAudioPlayerService();
 
     return Container(
       //  width: 330,
@@ -159,67 +142,6 @@ class MiniPlayer extends StatelessWidget {
                         );
                       },
                     ),
-
-/*
-                    Selector<AudioPlayerProvider, ProcessingState>(
-                        selector: (context, audioPlayerProvider) =>
-                            audioPlayerProvider.processingState,
-                        builder: (context, audioProcessingState, child) {
-                          return Expanded(
-                            child: IconButton(
-                              icon: Icon(
-                                  audioProcessingState ==
-                                          ProcessingState.completed
-                                      ? Icons.play_arrow
-                                      : (audioPlayerProvider.isPlaying
-                                          ? Icons.pause
-                                          : Icons.play_arrow),
-                                  color: Colors.white),
-                              padding: EdgeInsets.zero,
-                              onPressed: () {
-                                if (audioPlayerProvider.isPlaying) {
-                                  audioPlayerProvider.juzoxAudioPlayerService
-                                      .juzoxPause();
-                                } else {
-                                  audioPlayerProvider.juzoxAudioPlayerService
-                                      .juzoxPlay(song.filePath);
-                                }
-                              },
-                            ),
-                          );
-                        }),
-*/
-                    /*
-                    Consumer<AudioPlayerProvider>(
-                        builder: (context, audioPlayerProvider, child) {
-                     
-                      return Expanded(
-                        child: IconButton(
-                          icon: Icon(
-                              audioPlayerProvider.processingState ==
-                                      ProcessingState.completed
-                                  ? Icons.play_arrow
-                                  : (audioPlayerProvider.isPlaying
-                                      ? Icons.pause
-                                      : Icons.play_arrow),
-                              color: Colors.white),
-                         
-                          padding: EdgeInsets.zero,
-
-                          onPressed: () {
-                            if (audioPlayerProvider.isPlaying) {
-                              audioPlayerProvider.juzoxAudioPlayerService
-                                  .juzoxPause();
-                            } else {
-                              audioPlayerProvider.juzoxAudioPlayerService
-                                  .juzoxPlay(song.filePath);
-                            }
-                          },
-                        ),
-                      );
-                    }),
-
-                    */
                     Expanded(
                       child: IconButton(
                         icon: const Icon(Icons.skip_next, color: Colors.white),
@@ -283,7 +205,6 @@ class MiniPlayer extends StatelessWidget {
                         //   fontSize: 20.0,
                         // ),
                       ),
-
                       child: Selector<AudioPlayerProvider, double>(
                         selector: (context, provider) {
                           final currentDuration =
@@ -324,66 +245,6 @@ class MiniPlayer extends StatelessWidget {
                           );
                         },
                       ),
-                      // child: Selector<AudioPlayerProvider, double>(
-                      //     selector: (context, audioPlayerProvider) {},
-                      //     builder: (context, audioPlayerProvider, child) {
-                      //       double sliderValue = audioPlayerProvider
-                      //           .currentDuration.inSeconds
-                      //           .toDouble();
-                      //       double maxSliderValue = audioPlayerProvider
-                      //           .totalDuration.inSeconds
-                      //           .toDouble();
-
-                      //       if (sliderValue > maxSliderValue) {
-                      //         sliderValue = maxSliderValue;
-                      //       }
-                      //       return Slider(
-                      //         activeColor:
-                      //             const Color.fromARGB(193, 64, 195, 255),
-                      //         thumbColor: Colors.lightBlueAccent,
-                      //         inactiveColor:
-                      //             const Color.fromARGB(94, 64, 195, 255),
-                      //         value: sliderValue,
-                      //         max: maxSliderValue,
-                      //         onChanged: (value) {
-                      //           audioPlayerProvider
-                      //               .juzoxAudioPlayerService.audioPlayer
-                      //               .seek(Duration(seconds: value.toInt()));
-                      //         },
-                      //       );
-                      //     }),
-
-/*
-
-                      child: Consumer<AudioPlayerProvider>(
-                          builder: (context, audioPlayerProvider, child) {
-                       
-                        double sliderValue = audioPlayerProvider
-                            .currentDuration.inSeconds
-                            .toDouble();
-                        double maxSliderValue = audioPlayerProvider
-                            .totalDuration.inSeconds
-                            .toDouble();
-
-                        if (sliderValue > maxSliderValue) {
-                          sliderValue = maxSliderValue;
-                        }
-                        return Slider(
-                          activeColor: const Color.fromARGB(193, 64, 195, 255),
-                          thumbColor: Colors.lightBlueAccent,
-                          inactiveColor: const Color.fromARGB(94, 64, 195, 255),
-                         
-                          value: sliderValue,
-                          max: maxSliderValue,
-                          onChanged: (value) {
-                            audioPlayerProvider
-                                .juzoxAudioPlayerService.audioPlayer
-                                .seek(Duration(seconds: value.toInt()));
-                          },
-                        );
-                      }),
-
-                      */
                     ),
                   ),
                 ),

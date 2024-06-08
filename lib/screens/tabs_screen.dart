@@ -27,56 +27,18 @@ class TabsScreen extends StatefulWidget {
 
 class _TabsScreenState extends State<TabsScreen> {
   final ValueNotifier<int> _currentPageIndexNotifier = ValueNotifier<int>(0);
-  // final ValueNotifier<JuzoxMusicModel?> _currentlyPlayingSongNotifier =
-  //     ValueNotifier<JuzoxMusicModel?>(null);
-
-  // final ValueNotifier<bool> _isPlayingNotifier = ValueNotifier<bool>(false);
-  // final ValueNotifier<Duration> _currentDurationNotifier =
-  //     ValueNotifier<Duration>(Duration.zero);
-  // final ValueNotifier<Duration> _totalDurationNotifier =
-  //     ValueNotifier<Duration>(Duration.zero);
-
-  // //for swaping pause button when finished playing a song
-  // final ValueNotifier<ProcessingState> _processingStateNotifier =
-  //     ValueNotifier<ProcessingState>(ProcessingState.idle);
-
-  // final JuzoxAudioPlayerService _juzoxAudioPlayerService =
-  //     JuzoxAudioPlayerService();
 
   @override
   void initState() {
     super.initState();
-
-//     _juzoxAudioPlayerService.audioPlayer.positionStream.listen((duration) {
-//       _currentDurationNotifier.value = duration;
-//     });
-//     _juzoxAudioPlayerService.audioPlayer.durationStream.listen((duration) {
-//       _totalDurationNotifier.value = duration ?? Duration.zero;
-//     });
-//     _juzoxAudioPlayerService.audioPlayer.playingStream.listen((isPlaying) {
-//       _isPlayingNotifier.value = isPlaying;
-//     });
-
-// //for swaping pause button when finished playing a song
-//     _juzoxAudioPlayerService.audioPlayer.processingStateStream.listen((state) {
-//       _processingStateNotifier.value = state;
-//     });
   }
 
   @override
   void dispose() {
     _currentPageIndexNotifier.dispose();
-    // _currentlyPlayingSongNotifier.dispose();
-    // _isPlayingNotifier.dispose();
-    // _currentDurationNotifier.dispose();
-    // _totalDurationNotifier.dispose();
-    // _processingStateNotifier.dispose();
+
     super.dispose();
   }
-
-  // void _playSong(String url) {
-  //   _juzoxAudioPlayerService.juzoxPlay(url);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +67,6 @@ class _TabsScreenState extends State<TabsScreen> {
                   ],
                 );
               }),
-
           Selector<AudioPlayerProvider, JuzoxMusicModel?>(
             selector: (context, provider) => provider.currentlyPlayingSong,
             shouldRebuild: (previous, current) => previous != current,
@@ -124,47 +85,6 @@ class _TabsScreenState extends State<TabsScreen> {
               }
             },
           ),
-
-          /*
-          Consumer<AudioPlayerProvider>(
-              builder: (context, audioPlayerProvider, child) {
-            if (audioPlayerProvider.currentlyPlayingSong != null) {
-              return Positioned(
-                bottom: 54, //height of bottom nav bar
-                left: 45,
-                child: MiniPlayer(
-                  song: audioPlayerProvider.currentlyPlayingSong!,
-                  //      juzoxAudioPlayerService: _juzoxAudioPlayerService,
-                  // isPlaying: _isPlayingNotifier,
-                  // currentDuration: _currentDurationNotifier,
-                  // totalDuration: _totalDurationNotifier,
-                  // processingState: _processingStateNotifier,
-                ),
-              );
-            } else {
-              return const SizedBox();
-            }
-          })
-    
-          */
-          // if (audioPlayerProvider.currentlyPlayingSong != null)
-          //   Positioned(
-          //     bottom: 54, //height of bottom nav bar
-          //     left: 45,
-          //     child: MiniPlayer(
-          //       song: audioPlayerProvider.currentlyPlayingSong!,
-          //       //      juzoxAudioPlayerService: _juzoxAudioPlayerService,
-          //       // isPlaying: _isPlayingNotifier,
-          //       // currentDuration: _currentDurationNotifier,
-          //       // totalDuration: _totalDurationNotifier,
-          //       // processingState: _processingStateNotifier,
-          //     ),
-          //   )
-          // else
-          //   SizedBox()
-
-          //       },
-          //      ),
         ],
       ),
     );
