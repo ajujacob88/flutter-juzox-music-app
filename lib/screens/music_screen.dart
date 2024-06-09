@@ -1,5 +1,8 @@
 //import 'package:flutter/cupertino.dart';
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:juzox_music_app/screens/playlist_tab.dart';
 //import 'package:juzox_music_app/models/music_model.dart';
 //import 'package:on_audio_query/on_audio_query.dart';
 //import 'package:permission_handler/permission_handler.dart';
@@ -96,13 +99,12 @@ class MusicScreen extends StatelessWidget {
               children: [
                 const Text('Favorites'),
 
-                SongsTab(
-                    //      onSongSelected: onSongSelected,
-                    //   isPlayingNotifier: isPlayingNotifier,
-                    ),
+                const SongsTab(),
 
-                const Text('Playlists'),
-                // const Text('Folders'),
+                //   const Text('Playlists'),
+
+                const PlaylistTab(),
+
                 const SampleFolderView(),
 
                 CustomScrollView(
