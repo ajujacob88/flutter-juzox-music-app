@@ -258,6 +258,115 @@ class _SongsTabState extends State<SongsTab>
                               ),
                             ),
 
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Selector<AudioPlayerProvider,
+                                    ({int? item1, bool item2})>(
+                                  selector: (context, audioplayerprovider) => (
+                                    item1: audioplayerprovider
+                                        .currentlyPlayingSong?.id,
+                                    item2: audioplayerprovider.isPlaying
+                                  ),
+                                  builder: (context, data, child) {
+                                    return data.item1 == song.id
+                                        ? data.item2
+                                            ? const AnimatedMusicIndicator(
+                                                color: Colors.lightBlueAccent,
+                                                barStyle: BarStyle.solid,
+                                                size: .06,
+                                              )
+                                            : const Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 18.0),
+                                                child: StaticMusicIndicator(
+                                                  color: Colors.lightBlueAccent,
+                                                  size: .1,
+                                                ),
+                                              )
+                                        // : const AnimatedMusicIndicator(
+                                        //     animate: false,
+                                        //     size: .06,
+                                        //   );
+                                        : const StaticMusicIndicator(
+                                            color: Colors.lightBlueAccent,
+                                            size: 0,
+                                          );
+
+                                    // return const Padding(
+                                    //   padding: EdgeInsets.only(top: 18.0),
+                                    //   // child: AnimatedMusicIndicator(
+                                    //   //   animate: false,
+                                    //   //   size: .06,
+                                    //   // ),
+                                    //   child: StaticMusicIndicator(
+                                    //     color: Colors.lightBlueAccent,
+                                    //     size: 0,
+                                    //   ),
+                                    // );
+                                  },
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.more_vert),
+                                  color:
+                                      const Color.fromARGB(130, 255, 255, 255),
+                                  onPressed: () {
+                                    // Add logic to handle settings button tap
+                                  },
+                                ),
+                              ],
+                            ),
+
+                            /*
+
+//copied from chatgpt - optimised one - check it
+                            trailing: Selector<AudioPlayerProvider,
+                                ({int? item1, bool item2})>(
+                              selector: (context, audioplayerprovider) => (
+                                item1: audioplayerprovider
+                                    .currentlyPlayingSong?.id,
+                                item2: audioplayerprovider.isPlaying
+                              ),
+                              builder: (context, data, child) {
+                                return Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    data.item1 == song.id
+                                        ? data.item2
+                                            ? const AnimatedMusicIndicator(
+                                                color: Colors.lightBlueAccent,
+                                                barStyle: BarStyle.solid,
+                                                size: .06,
+                                              )
+                                            : const Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 18.0),
+                                                child: StaticMusicIndicator(
+                                                  color: Colors.lightBlueAccent,
+                                                  size: .1,
+                                                ),
+                                              )
+                                        : const AnimatedMusicIndicator(
+                                            animate: false,
+                                            size: .06,
+                                          ),
+                                    IconButton(
+                                      icon: const Icon(Icons.more_vert),
+                                      color: const Color.fromARGB(
+                                          130, 255, 255, 255),
+                                      onPressed: () {
+                                        // Add logic to handle settings button tap
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+
+                            */
+
+                            /*
+//final one
                             trailing: Selector<AudioPlayerProvider,
                                 ({int? item1, bool item2})>(
                               selector: (context, audioplayerprovider) => (
@@ -318,7 +427,10 @@ class _SongsTabState extends State<SongsTab>
                               },
                             ),
 
+                            */
+
 /*
+//here to selectors are there
                             trailing: Selector<AudioPlayerProvider, int?>(
                               selector: (context, audioPlayerProvider) {
                                 // if (audioPlayerProvider.currentlyPlayingSong !=
