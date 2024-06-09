@@ -258,6 +258,84 @@ class _SongsTabState extends State<SongsTab>
                               ),
                             ),
 
+                            trailing: Selector<AudioPlayerProvider, int?>(
+                              selector: (context, audioPlayerProvider) {
+                                // if (audioPlayerProvider.currentlyPlayingSong !=
+                                //     null) {
+                                //   return audioPlayerProvider
+                                //       .currentlyPlayingSong!.id;
+                                // } else {
+                                //   return null;
+                                // }
+
+                                return audioPlayerProvider
+                                    .currentlyPlayingSong?.id;
+                              },
+                              builder: (context, tappedSongIdValue, child) {
+                                if (tappedSongIdValue == song.id) {
+                                  return Row(
+                                    //  crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Selector<AudioPlayerProvider, bool>(
+                                        selector:
+                                            (context, audioPlayerProvider) =>
+                                                audioPlayerProvider.isPlaying,
+                                        shouldRebuild: (previous, current) =>
+                                            previous != current,
+                                        builder: (context, isPlayingg, child) {
+                                          return isPlayingg
+                                              ? const AnimatedMusicIndicator(
+                                                  color: Colors.lightBlueAccent,
+                                                  barStyle: BarStyle.solid,
+                                                  size: .06,
+                                                )
+                                              : const Padding(
+                                                  padding: EdgeInsets.only(
+                                                      top: 18.0),
+                                                  child: StaticMusicIndicator(
+                                                    color:
+                                                        Colors.lightBlueAccent,
+                                                    size: .1,
+                                                  ),
+                                                ); //
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(Icons.more_vert),
+                                        color: const Color.fromARGB(
+                                            130, 255, 255, 255),
+                                        onPressed: () {
+                                          // Add logic to handle settings button tap
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                } else {
+                                  return Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      const AnimatedMusicIndicator(
+                                        animate: false,
+                                        size: .06,
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(Icons.more_vert),
+                                        color: const Color.fromARGB(
+                                            130, 255, 255, 255),
+                                        onPressed: () {
+                                          // Add logic to handle settings button tap
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                }
+                              },
+                            ),
+
+                            /*
+
                             trailing: ValueListenableBuilder(
                               valueListenable: _tappedSongId,
                               builder: (context, tappedSongIdValue, child) {
@@ -322,6 +400,8 @@ class _SongsTabState extends State<SongsTab>
                                 }
                               },
                             ),
+
+                            */
 
                             onTap: () {
                               //play only that song
