@@ -37,7 +37,7 @@ class AudioPlayerProvider extends ChangeNotifier {
       notifyListeners();
 
       if (state == ProcessingState.completed) {
-        _playNextSong();
+        playNextSong();
       }
     });
   }
@@ -56,6 +56,8 @@ class AudioPlayerProvider extends ChangeNotifier {
   JuzoxAudioPlayerService get juzoxAudioPlayerService =>
       _juzoxAudioPlayerService;
 
+  // get playNextSong => _playNextSong();
+
   // void playSong(String url) {
   //   _juzoxAudioPlayerService.juzoxPlay(url);
   // }
@@ -71,7 +73,7 @@ class AudioPlayerProvider extends ChangeNotifier {
     _playlist = playlist;
   }
 
-  void _playNextSong() {
+  void playNextSong() {
     if (_currentlyPlayingSong != null) {
       // final currentIndex = _playlist.isNotEmpty
       //     ? _playlist.indexOf(_currentlyPlayingSong!)
@@ -85,6 +87,18 @@ class AudioPlayerProvider extends ChangeNotifier {
       final currentIndex = _playlist.indexOf(_currentlyPlayingSong!);
       final nextIndex = (currentIndex + 1) % _playlist.length;
       setCurrentlyPlayingSong(_playlist[nextIndex]);
+    }
+  }
+
+  void playPreviousSong() {
+    if (_currentlyPlayingSong != null) {
+      final currentIndex = _playlist.indexOf(_currentlyPlayingSong!);
+      //final prevIndex = (currentIndex - 1 ) % _playlist.length;
+
+      //Using final prevIndex = (currentIndex - 1 + _playlist.length) % _playlist.length; is necessary to ensure correct and expected behavior when navigating to the previous song in the playlist.
+      final prevIndex =
+          (currentIndex - 1 + _playlist.length) % _playlist.length;
+      setCurrentlyPlayingSong(_playlist[prevIndex]);
     }
   }
 

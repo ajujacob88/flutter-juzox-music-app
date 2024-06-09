@@ -83,7 +83,11 @@ class MiniPlayer extends StatelessWidget {
                       child: IconButton(
                         icon: const Icon(Icons.skip_previous,
                             color: Colors.white),
-                        onPressed: () {},
+                        onPressed: () {
+                          Provider.of<AudioPlayerProvider>(context,
+                                  listen: false)
+                              .playPreviousSong();
+                        },
                         // constraints:
                         //     BoxConstraints(), // Remove constraints to minimize the size
                         padding: EdgeInsets.all(0),
@@ -127,7 +131,11 @@ class MiniPlayer extends StatelessWidget {
                     Expanded(
                       child: IconButton(
                         icon: const Icon(Icons.skip_next, color: Colors.white),
-                        onPressed: () {},
+                        onPressed: () {
+                          Provider.of<AudioPlayerProvider>(context,
+                                  listen: false)
+                              .playNextSong();
+                        },
                         // constraints:
                         //     BoxConstraints(), // Remove constraints to minimize the size
                         padding: EdgeInsets.zero,
