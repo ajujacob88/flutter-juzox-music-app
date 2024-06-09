@@ -14,6 +14,9 @@ class AudioPlayerProvider extends ChangeNotifier {
   //for swaping pause button when finished playing a song
   ProcessingState _processingState = ProcessingState.idle;
 
+  List<JuzoxMusicModel> _playlist = [];
+  List<JuzoxMusicModel> _defaultSongs = [];
+
   AudioPlayerProvider() {
     _juzoxAudioPlayerService.audioPlayer.positionStream.listen((duration) {
       _currentDuration = duration;
@@ -32,6 +35,10 @@ class AudioPlayerProvider extends ChangeNotifier {
     _juzoxAudioPlayerService.audioPlayer.processingStateStream.listen((state) {
       _processingState = state;
       notifyListeners();
+
+      if (state == ProcessingState.completed) {
+        _playNextSong();
+      }
     });
   }
 
@@ -58,5 +65,36 @@ class AudioPlayerProvider extends ChangeNotifier {
     // playSong(song.filePath);
     _juzoxAudioPlayerService.juzoxPlay(song.filePath);
     notifyListeners();
+  }
+
+  void setPlaylist(List<JuzoxMusicModel> playlist) {
+    _playlist = playlist;
+  }
+
+  void _playNextSong() {
+    if (_currentlyPlayingSong != null) {
+      // final currentIndex = _playlist.isNotEmpty
+      //     ? _playlist.indexOf(_currentlyPlayingSong!)
+      //     : _defaultSongs.indexOf(_currentlyPlayingSong!);
+      // final nextIndex = (currentIndex + 1) %
+      //     (_playlist.isNotEmpty ? _playlist.length : _defaultSongs.length);
+      // setCurrentlyPlayingSong(_playlist.isNotEmpty
+      //     ? _playlist[nextIndex]
+      //     : _defaultSongs[nextIndex]);
+
+      final currentIndex = _playlist.indexOf(_currentlyPlayingSong!);
+      final nextIndex = (currentIndex + 1) % _playlist.length;
+      setCurrentlyPlayingSong(_playlist[nextIndex]);
+    }
+  }
+
+  // Optional: Method to add default songs
+  void setDefaultSongs(List<JuzoxMusicModel> songs) {
+    _defaultSongs = songs;
+  }
+
+  void playSongFromList(JuzoxMusicModel song, List<JuzoxMusicModel> playlist) {
+    setPlaylist(playlist);
+    setCurrentlyPlayingSong(song);
   }
 }

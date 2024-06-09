@@ -100,6 +100,10 @@ class _SongsTabState extends State<SongsTab>
               TextButton.icon(
                 onPressed: () {
                   // Your onPressed logic here
+                  final audioPlayerProvider =
+                      Provider.of<AudioPlayerProvider>(context, listen: false);
+                  audioPlayerProvider.playSongFromList(
+                      _songs.value.first, _songs.value);
                 },
                 icon: const Icon(
                   Icons.play_circle,
@@ -320,10 +324,18 @@ class _SongsTabState extends State<SongsTab>
                             ),
 
                             onTap: () {
-                              //widget.onSongSelected(song);
-                              Provider.of<AudioPlayerProvider>(context,
-                                      listen: false)
-                                  .setCurrentlyPlayingSong(song);
+                              //play only that song
+                              // Provider.of<AudioPlayerProvider>(context,
+                              //         listen: false)
+                              //     .setCurrentlyPlayingSong(song);
+
+                              //to play all the songs in the list
+                              final audioPlayerProvider =
+                                  Provider.of<AudioPlayerProvider>(context,
+                                      listen: false);
+                              audioPlayerProvider.playSongFromList(
+                                  song, songsValue);
+
                               _tappedSongId.value = song.id;
                             },
                           );
@@ -351,8 +363,6 @@ class _SongsTabState extends State<SongsTab>
     );
   }
 }
-
-
 
 /*
 //code just before implementing provider
