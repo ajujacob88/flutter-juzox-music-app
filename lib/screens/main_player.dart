@@ -52,7 +52,7 @@ class MainPlayer extends StatelessWidget {
                 QueryArtworkWidget(
                   id: currentlyPlayingSong!.id!,
                   type: ArtworkType.AUDIO,
-                  //size: 165,
+                  size: 500,
                   quality: 100,
                   artworkHeight: 300,
                   artworkWidth: 300,
