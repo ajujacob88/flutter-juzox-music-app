@@ -3,19 +3,21 @@ import 'package:juzox_music_app/providers/audio_player_provider.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
 
-class MainPlayer extends StatefulWidget {
-  @override
-  _MainPlayerState createState() => _MainPlayerState();
-}
-
-class _MainPlayerState extends State<MainPlayer> {
+class MainPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final audioPlayerProvider = Provider.of<AudioPlayerProvider>(context);
     final currentlyPlayingSong = audioPlayerProvider.currentlyPlayingSong;
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.keyboard_arrow_down),
+          onPressed: () {},
+        ),
         title: Text(currentlyPlayingSong?.title ?? 'No song playing'),
         actions: [
           IconButton(
@@ -105,8 +107,6 @@ class _MainPlayerState extends State<MainPlayer> {
     );
   }
 }
-
-
 
 /*
 import 'package:flutter/material.dart';
