@@ -48,7 +48,7 @@ class MainPlayer extends StatelessWidget {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Song Image
+                const SizedBox(height: 20),
                 QueryArtworkWidget(
                   id: currentlyPlayingSong!.id!,
                   type: ArtworkType.AUDIO,
@@ -57,8 +57,8 @@ class MainPlayer extends StatelessWidget {
                   artworkHeight: 300,
                   artworkWidth: 300,
 
-                  artworkBorder: const BorderRadius.only(
-                    topLeft: Radius.circular(36),
+                  artworkBorder: const BorderRadius.all(
+                    Radius.circular(12),
                   ),
                   //  artworkClipBehavior: Clip.hardEdge,
 
