@@ -81,7 +81,7 @@ class _SongsTabState extends State<SongsTab>
         .toList();
 
     // setState(() {}); //removed setstate since valuenotifier implemented
-    //print('songs is ${_songs[3]}');
+    // print('songs is ${songs[3].}');
   }
 
   @override
