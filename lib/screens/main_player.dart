@@ -26,6 +26,7 @@ class MainPlayer extends StatelessWidget {
         title: Selector<AudioPlayerProvider, JuzoxMusicModel?>(
             selector: (context, audioPlayerProvider) =>
                 audioPlayerProvider.currentlyPlayingSong,
+            shouldRebuild: (previous, current) => previous != current,
             builder: (context, currentlyPlayingSong, _) {
               return Text(currentlyPlayingSong?.title ?? 'No song playing');
             }),
@@ -38,15 +39,16 @@ class MainPlayer extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Song Image
-          Selector<AudioPlayerProvider, JuzoxMusicModel?>(
-              selector: (context, audioPlayerProvider) =>
-                  audioPlayerProvider.currentlyPlayingSong,
-              builder: (context, currentlyPlayingSong, _) {
-                return QueryArtworkWidget(
+      body: Selector<AudioPlayerProvider, JuzoxMusicModel?>(
+          selector: (context, audioPlayerProvider) =>
+              audioPlayerProvider.currentlyPlayingSong,
+          shouldRebuild: (previous, current) => previous != current,
+          builder: (context, currentlyPlayingSong, _) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Song Image
+                QueryArtworkWidget(
                   id: currentlyPlayingSong!.id!,
                   type: ArtworkType.AUDIO,
                   //size: 165,
@@ -78,112 +80,106 @@ class MainPlayer extends StatelessWidget {
                       size: 30,
                     ),
                   ),
-                );
-              }),
-          const SizedBox(height: 20),
-          // Seek Bar
-          SliderTheme(
-            data: SliderTheme.of(context).copyWith(
-              trackHeight: 0.8,
-              trackShape: const RoundedRectSliderTrackShape(),
-              //  activeTrackColor: Colors.purple.shade800,
-              //  inactiveTrackColor: Colors.purple.shade100,
-              thumbShape: const RoundSliderThumbShape(
-                enabledThumbRadius: 8.0,
-                pressedElevation: 20.0,
-              ),
-              //     thumbColor: Colors.pinkAccent,
-              //     overlayColor: Colors.pink.withOpacity(0.2),
-              overlayShape: const RoundSliderOverlayShape(overlayRadius: 22.0),
-              tickMarkShape: const RoundSliderTickMarkShape(),
-              //     activeTickMarkColor: Colors.pinkAccent,
-              //   inactiveTickMarkColor: Colors.white,
-              valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
-              valueIndicatorColor: Colors.black,
-              // valueIndicatorTextStyle: const TextStyle(
-              //   color: Colors.white,
-              //   fontSize: 20.0,
-              // ),
-            ),
-            child: Selector<AudioPlayerProvider, double>(
-              selector: (context, provider) {
-                final currentDuration =
-                    provider.currentDuration.inSeconds.toDouble();
-                final maxDuration = provider.totalDuration.inSeconds.toDouble();
-                return currentDuration > maxDuration
-                    ? maxDuration
-                    : currentDuration;
-              },
-              shouldRebuild: (previous, current) => previous != current,
-              builder: (context, sliderValue, child) {
-                // final maxDuration = context
-                //     .read<AudioPlayerProvider>()
-                //     .totalDuration
-                //     .inSeconds
-                //     .toDouble();
-                return Slider(
-                  activeColor: const Color.fromARGB(193, 64, 195, 255),
-                  thumbColor: Colors.lightBlueAccent,
-                  inactiveColor: const Color.fromARGB(94, 64, 195, 255),
-                  value: sliderValue,
-                  max: context
-                      .read<AudioPlayerProvider>()
-                      .totalDuration
-                      .inSeconds
-                      .toDouble(),
-                  onChanged: (value) {
-                    context
-                        .read<AudioPlayerProvider>()
-                        .juzoxAudioPlayerService
-                        .audioPlayer
-                        .seek(Duration(seconds: value.toInt()));
-                  },
-                );
-              },
-            ),
-          ),
-          // Song Details
-          Selector<AudioPlayerProvider, JuzoxMusicModel?>(
-              selector: (context, audioPlayerProvider) =>
-                  audioPlayerProvider.currentlyPlayingSong,
-              builder: (context, currentlyPlayingSong, _) {
-                return Text(currentlyPlayingSong?.title ?? 'No song playing');
-              }),
-          Selector<AudioPlayerProvider, JuzoxMusicModel?>(
-              selector: (context, audioPlayerProvider) =>
-                  audioPlayerProvider.currentlyPlayingSong,
-              builder: (context, currentlyPlayingSong, _) {
-                return Text(currentlyPlayingSong?.artist ?? 'Unknown Artist');
-              }),
-          SizedBox(height: 20),
-          // Control Buttons
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                icon: Icon(Icons.skip_previous),
-                onPressed: () {
-                  audioPlayerProvider.playPreviousSong();
-                },
-              ),
-              IconButton(
-                icon: Icon(audioPlayerProvider.isPlaying
-                    ? Icons.pause
-                    : Icons.play_arrow),
-                onPressed: () {
-                  // audioPlayerProvider.togglePlayPause();
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.skip_next),
-                onPressed: () {
-                  audioPlayerProvider.playNextSong();
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
+                ),
+                const SizedBox(height: 20),
+                // Seek Bar
+                SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                    trackHeight: 0.8,
+                    trackShape: const RoundedRectSliderTrackShape(),
+                    //  activeTrackColor: Colors.purple.shade800,
+                    //  inactiveTrackColor: Colors.purple.shade100,
+                    thumbShape: const RoundSliderThumbShape(
+                      enabledThumbRadius: 8.0,
+                      pressedElevation: 20.0,
+                    ),
+                    //     thumbColor: Colors.pinkAccent,
+                    //     overlayColor: Colors.pink.withOpacity(0.2),
+                    overlayShape:
+                        const RoundSliderOverlayShape(overlayRadius: 22.0),
+                    tickMarkShape: const RoundSliderTickMarkShape(),
+                    //     activeTickMarkColor: Colors.pinkAccent,
+                    //   inactiveTickMarkColor: Colors.white,
+                    valueIndicatorShape:
+                        const PaddleSliderValueIndicatorShape(),
+                    valueIndicatorColor: Colors.black,
+                    // valueIndicatorTextStyle: const TextStyle(
+                    //   color: Colors.white,
+                    //   fontSize: 20.0,
+                    // ),
+                  ),
+                  child: Selector<AudioPlayerProvider, double>(
+                    selector: (context, provider) {
+                      final currentDuration =
+                          provider.currentDuration.inSeconds.toDouble();
+
+                      final maxDuration =
+                          provider.totalDuration.inSeconds.toDouble();
+                      return currentDuration > maxDuration
+                          ? maxDuration
+                          : currentDuration;
+                    },
+                    shouldRebuild: (previous, current) => previous != current,
+                    builder: (context, sliderValue, child) {
+                      // final maxDuration = context
+                      //     .read<AudioPlayerProvider>()
+                      //     .totalDuration
+                      //     .inSeconds
+                      //     .toDouble();
+                      return Slider(
+                        activeColor: const Color.fromARGB(193, 64, 195, 255),
+                        thumbColor: Colors.lightBlueAccent,
+                        inactiveColor: const Color.fromARGB(94, 64, 195, 255),
+                        value: sliderValue,
+                        max: context
+                            .read<AudioPlayerProvider>()
+                            .totalDuration
+                            .inSeconds
+                            .toDouble(),
+                        onChanged: (value) {
+                          context
+                              .read<AudioPlayerProvider>()
+                              .juzoxAudioPlayerService
+                              .audioPlayer
+                              .seek(Duration(seconds: value.toInt()));
+                        },
+                      );
+                    },
+                  ),
+                ),
+                // Song Details
+                Text(currentlyPlayingSong.title ?? 'No song playing'),
+                Text(currentlyPlayingSong.artist ?? 'Unknown Artist'),
+                SizedBox(height: 20),
+                // Control Buttons
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.skip_previous),
+                      onPressed: () {
+                        audioPlayerProvider.playPreviousSong();
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(audioPlayerProvider.isPlaying
+                          ? Icons.pause
+                          : Icons.play_arrow),
+                      onPressed: () {
+                        // audioPlayerProvider.togglePlayPause();
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.skip_next),
+                      onPressed: () {
+                        audioPlayerProvider.playNextSong();
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            );
+          }),
     );
   }
 }
