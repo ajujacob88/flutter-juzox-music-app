@@ -229,23 +229,41 @@ class MainPlayer extends StatelessWidget {
                       //     .totalDuration
                       //     .inSeconds
                       //     .toDouble();
-                      return Slider(
-                        activeColor: const Color.fromARGB(193, 64, 195, 255),
-                        thumbColor: Colors.lightBlueAccent,
-                        inactiveColor: const Color.fromARGB(94, 64, 195, 255),
-                        value: sliderValue,
-                        max: context
-                            .read<AudioPlayerProvider>()
-                            .totalDuration
-                            .inSeconds
-                            .toDouble(),
-                        onChanged: (value) {
-                          context
-                              .read<AudioPlayerProvider>()
-                              .juzoxAudioPlayerService
-                              .audioPlayer
-                              .seek(Duration(seconds: value.toInt()));
-                        },
+                      return Column(
+                        children: [
+                          Slider(
+                            activeColor:
+                                const Color.fromARGB(193, 64, 195, 255),
+                            thumbColor: Colors.lightBlueAccent,
+                            inactiveColor:
+                                const Color.fromARGB(94, 64, 195, 255),
+                            value: sliderValue,
+                            max: context
+                                .read<AudioPlayerProvider>()
+                                .totalDuration
+                                .inSeconds
+                                .toDouble(),
+                            onChanged: (value) {
+                              context
+                                  .read<AudioPlayerProvider>()
+                                  .juzoxAudioPlayerService
+                                  .audioPlayer
+                                  .seek(Duration(seconds: value.toInt()));
+                            },
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 20.0, right: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('$sliderValue'),
+                                Text(
+                                    '${context.read<AudioPlayerProvider>().totalDuration.inSeconds}'),
+                              ],
+                            ),
+                          )
+                        ],
                       );
                     },
                   ),
@@ -271,7 +289,13 @@ class MainPlayer extends StatelessWidget {
                           ? Icons.pause
                           : Icons.play_arrow),
                       onPressed: () {
-                        // audioPlayerProvider.togglePlayPause();
+                        if (audioPlayerProvider.isPlaying) {
+                          audioPlayerProvider.juzoxAudioPlayerService
+                              .juzoxPause();
+                        } else {
+                          audioPlayerProvider.juzoxAudioPlayerService
+                              .juzoxPlay(currentlyPlayingSong.filePath);
+                        }
                       },
                     ),
                     IconButton(
