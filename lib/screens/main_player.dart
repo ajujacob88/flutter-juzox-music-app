@@ -59,36 +59,39 @@ class MainPlayer extends StatelessWidget {
                   children: [
                     Expanded(
                       flex: 3,
-                      child: QueryArtworkWidget(
-                        id: currentlyPlayingSong!.id! + 1,
-                        type: ArtworkType.AUDIO,
-                        size: 500,
-                        quality: 100,
-                        artworkHeight: 350,
-                        // artworkWidth: 40,
+                      child: GestureDetector(
+                        onTap: audioPlayerProvider.playPreviousSong,
+                        child: QueryArtworkWidget(
+                          id: currentlyPlayingSong!.id! + 1,
+                          type: ArtworkType.AUDIO,
+                          size: 500,
+                          quality: 100,
+                          artworkHeight: 350,
+                          // artworkWidth: 40,
 
-                        artworkBorder: const BorderRadius.only(
-                            topRight: Radius.circular(12),
-                            bottomRight: Radius.circular(12)),
-                        //  artworkClipBehavior: Clip.hardEdge,
+                          artworkBorder: const BorderRadius.only(
+                              topRight: Radius.circular(12),
+                              bottomRight: Radius.circular(12)),
+                          //  artworkClipBehavior: Clip.hardEdge,
 
-                        artworkClipBehavior: Clip.antiAliasWithSaveLayer,
-                        artworkFit: BoxFit.cover,
-                        nullArtworkWidget: Container(
-                          decoration: const BoxDecoration(
-                            color: Color.fromARGB(22, 68, 137, 255),
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(12),
-                                bottomRight: Radius.circular(12)),
-                          ),
-                          // Set desired width and height for the box
-                          width: 300.0, // Adjust as needed
-                          // height: 63.0, // Adjust as needed
-                          height: 300.0,
-                          child: const Icon(
-                            Icons.music_note_outlined,
-                            color: Color.fromARGB(140, 64, 195, 255),
-                            size: 300,
+                          artworkClipBehavior: Clip.antiAliasWithSaveLayer,
+                          artworkFit: BoxFit.cover,
+                          nullArtworkWidget: Container(
+                            decoration: const BoxDecoration(
+                              color: Color.fromARGB(22, 68, 137, 255),
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(12),
+                                  bottomRight: Radius.circular(12)),
+                            ),
+                            // Set desired width and height for the box
+                            width: 300.0, // Adjust as needed
+                            // height: 63.0, // Adjust as needed
+                            height: 300.0,
+                            child: const Icon(
+                              Icons.music_note_outlined,
+                              color: Color.fromARGB(140, 64, 195, 255),
+                              size: 300,
+                            ),
                           ),
                         ),
                       ),
@@ -99,36 +102,53 @@ class MainPlayer extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 50,
-                      child: QueryArtworkWidget(
-                        id: currentlyPlayingSong!.id!,
-                        type: ArtworkType.AUDIO,
-                        size: 500,
-                        quality: 100,
-                        artworkHeight: 380,
-                        artworkWidth: 300,
+                      child: GestureDetector(
+                        onTap: () {
+                          audioPlayerProvider.isPlaying
+                              ? audioPlayerProvider.juzoxAudioPlayerService
+                                  .juzoxPause()
+                              : audioPlayerProvider.juzoxAudioPlayerService
+                                  .juzoxPlay(currentlyPlayingSong.filePath);
 
-                        artworkBorder: const BorderRadius.all(
-                          Radius.circular(12),
-                        ),
-                        //  artworkClipBehavior: Clip.hardEdge,
+                          // if (audioPlayerProvider.isPlaying) {
+                          //   audioPlayerProvider.juzoxAudioPlayerService
+                          //       .juzoxPause();
+                          // } else {
+                          //   audioPlayerProvider.juzoxAudioPlayerService
+                          //       .juzoxPlay(currentlyPlayingSong.filePath);
+                          // }
+                        },
+                        child: QueryArtworkWidget(
+                          id: currentlyPlayingSong!.id!,
+                          type: ArtworkType.AUDIO,
+                          size: 500,
+                          quality: 100,
+                          artworkHeight: 380,
+                          artworkWidth: 300,
 
-                        artworkClipBehavior: Clip.antiAliasWithSaveLayer,
-                        artworkFit: BoxFit.fill,
-                        nullArtworkWidget: Container(
-                          decoration: const BoxDecoration(
-                            color: Color.fromARGB(22, 68, 137, 255),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(12),
-                            ),
+                          artworkBorder: const BorderRadius.all(
+                            Radius.circular(12),
                           ),
-                          // Set desired width and height for the box
-                          width: 300.0, // Adjust as needed
-                          // height: 63.0, // Adjust as needed
-                          height: 300.0,
-                          child: const Icon(
-                            Icons.music_note_outlined,
-                            color: Color.fromARGB(140, 64, 195, 255),
-                            size: 300,
+                          //  artworkClipBehavior: Clip.hardEdge,
+
+                          artworkClipBehavior: Clip.antiAliasWithSaveLayer,
+                          artworkFit: BoxFit.fill,
+                          nullArtworkWidget: Container(
+                            decoration: const BoxDecoration(
+                              color: Color.fromARGB(22, 68, 137, 255),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12),
+                              ),
+                            ),
+                            // Set desired width and height for the box
+                            width: 300.0, // Adjust as needed
+                            // height: 63.0, // Adjust as needed
+                            height: 300.0,
+                            child: const Icon(
+                              Icons.music_note_outlined,
+                              color: Color.fromARGB(140, 64, 195, 255),
+                              size: 300,
+                            ),
                           ),
                         ),
                       ),
@@ -139,37 +159,40 @@ class MainPlayer extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 3,
-                      child: QueryArtworkWidget(
-                        id: currentlyPlayingSong.id! - 1,
+                      child: GestureDetector(
+                        onTap: audioPlayerProvider.playNextSong,
+                        child: QueryArtworkWidget(
+                          id: currentlyPlayingSong.id! - 1,
 
-                        type: ArtworkType.AUDIO,
-                        size: 500,
-                        quality: 100,
-                        artworkHeight: 350,
-                        // artworkWidth: 40,
+                          type: ArtworkType.AUDIO,
+                          size: 500,
+                          quality: 100,
+                          artworkHeight: 350,
+                          // artworkWidth: 40,
 
-                        artworkBorder: const BorderRadius.only(
-                            topLeft: Radius.circular(12),
-                            bottomLeft: Radius.circular(12)),
-                        //  artworkClipBehavior: Clip.hardEdge,
+                          artworkBorder: const BorderRadius.only(
+                              topLeft: Radius.circular(12),
+                              bottomLeft: Radius.circular(12)),
+                          //  artworkClipBehavior: Clip.hardEdge,
 
-                        artworkClipBehavior: Clip.antiAliasWithSaveLayer,
-                        artworkFit: BoxFit.cover,
-                        nullArtworkWidget: Container(
-                          decoration: const BoxDecoration(
-                            color: Color.fromARGB(22, 68, 137, 255),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(12),
+                          artworkClipBehavior: Clip.antiAliasWithSaveLayer,
+                          artworkFit: BoxFit.cover,
+                          nullArtworkWidget: Container(
+                            decoration: const BoxDecoration(
+                              color: Color.fromARGB(22, 68, 137, 255),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12),
+                              ),
                             ),
-                          ),
-                          // Set desired width and height for the box
-                          width: 300.0, // Adjust as needed
-                          // height: 63.0, // Adjust as needed
-                          height: 300.0,
-                          child: const Icon(
-                            Icons.music_note_outlined,
-                            color: Color.fromARGB(140, 64, 195, 255),
-                            size: 300,
+                            // Set desired width and height for the box
+                            width: 300.0, // Adjust as needed
+                            // height: 63.0, // Adjust as needed
+                            height: 300.0,
+                            child: const Icon(
+                              Icons.music_note_outlined,
+                              color: Color.fromARGB(140, 64, 195, 255),
+                              size: 300,
+                            ),
                           ),
                         ),
                       ),
