@@ -92,6 +92,9 @@ class MainPlayer extends StatelessWidget {
                     // Spacer(
                     //   flex: 1,
                     // ),
+                    const SizedBox(
+                      width: 23,
+                    ),
                     Expanded(
                       flex: 5,
                       child: Column(
@@ -106,7 +109,7 @@ class MainPlayer extends StatelessWidget {
                               text: currentlyPlayingSong.title ?? 'Unknown',
                               style: const TextStyle(
                                 color: Colors.white,
-                                fontSize: 26,
+                                fontSize: 22,
                               ),
                               //textScaleFactor: 1.3,
                               // blankSpace: 40.0,
