@@ -70,18 +70,18 @@ class MainPlayer extends StatelessWidget {
                   nullArtworkWidget: Container(
                     decoration: const BoxDecoration(
                       color: Color.fromARGB(22, 68, 137, 255),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(36),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(12),
                       ),
                     ),
                     // Set desired width and height for the box
-                    width: 50.0, // Adjust as needed
+                    width: 300.0, // Adjust as needed
                     // height: 63.0, // Adjust as needed
-                    height: 65.0,
+                    height: 300.0,
                     child: const Icon(
                       Icons.music_note_outlined,
                       color: Color.fromARGB(140, 64, 195, 255),
-                      size: 30,
+                      size: 300,
                     ),
                   ),
                 ),
@@ -125,7 +125,8 @@ class MainPlayer extends StatelessWidget {
                               blankSpace: 40.0,
                               velocity: 20,
                               pauseAfterRound: Duration(seconds: 1),
-                              startPadding: 10.0,
+                              //startPadding: 10.0,
+                              startPadding: 0.0,
                             ),
                           ),
 
@@ -150,7 +151,7 @@ class MainPlayer extends StatelessWidget {
                               blankSpace: 40.0,
                               velocity: 20,
                               pauseAfterRound: Duration(seconds: 1),
-                              startPadding: 10.0,
+                              startPadding: 0.0,
                             ),
                           ),
                         ],
