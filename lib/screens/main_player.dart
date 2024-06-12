@@ -46,7 +46,8 @@ class MainPlayer extends StatelessWidget {
           shouldRebuild: (previous, current) => previous != current,
           builder: (context, currentlyPlayingSong, _) {
             return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 const SizedBox(height: 20),
                 QueryArtworkWidget(
@@ -84,7 +85,8 @@ class MainPlayer extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                Expanded(
+                SizedBox(
+                  height: 26,
                   child: Marquee(
                     key: ValueKey(currentlyPlayingSong.filePath),
                     // Unique key based on the song's file path. To ensure that the Marquee always starts with the song title starting position when you click a song, you can utilize the key property of the Marquee widget. By changing the key whenever the song changes, the Marquee will reset and start from the beginning.
@@ -104,9 +106,10 @@ class MainPlayer extends StatelessWidget {
                   ),
                 ),
 
-                // const SizedBox(height: 20),
+                // // const SizedBox(height: 20),
 
-                Expanded(
+                SizedBox(
+                  height: 26,
                   child: Marquee(
                     key: ValueKey(currentlyPlayingSong.filePath),
                     // Unique key based on the song's file path. To ensure that the Marquee always starts with the song title starting position when you click a song, you can utilize the key property of the Marquee widget. By changing the key whenever the song changes, the Marquee will reset and start from the beginning.
@@ -126,7 +129,6 @@ class MainPlayer extends StatelessWidget {
                     startPadding: 10.0,
                   ),
                 ),
-                // Seek Bar
                 SliderTheme(
                   data: SliderTheme.of(context).copyWith(
                     trackHeight: 0.8,
@@ -192,7 +194,7 @@ class MainPlayer extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(height: 20),
+                //SizedBox(height: 20),
                 // Control Buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
