@@ -47,6 +47,8 @@ class MainPlayer extends StatelessWidget {
                 // SizedBox(
                 // height: 300,
                 // width: 300,
+
+                /*
                 QueryArtworkWidget(
                   id: currentlyPlayingSong!.id!,
                   type: ArtworkType.AUDIO,
@@ -81,18 +83,26 @@ class MainPlayer extends StatelessWidget {
                   ),
                 ),
                 //  ),
+                */
                 const SizedBox(height: 20),
 
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
+                    // Spacer(
+                    //   flex: 1,
+                    // ),
                     Expanded(
+                      flex: 4,
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           SizedBox(
                             height: 50,
-                            //   width: 330,
+                            // width: 250,
                             child: Marquee(
-                              key: ValueKey(currentlyPlayingSong.filePath),
+                              key: ValueKey(currentlyPlayingSong!.filePath),
                               // Unique key based on the song's file path. To ensure that the Marquee always starts with the song title starting position when you click a song, you can utilize the key property of the Marquee widget. By changing the key whenever the song changes, the Marquee will reset and start from the beginning.
                               text: currentlyPlayingSong.title ?? 'Unknown',
                               style: const TextStyle(
@@ -137,65 +147,31 @@ class MainPlayer extends StatelessWidget {
                         ],
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.favorite_border),
-                      color: const Color.fromARGB(156, 64, 195, 255),
+                    Flexible(
+                      flex: 1,
+                      //fit: FlexFit.tight,
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.favorite_border),
+                        color: const Color.fromARGB(156, 64, 195, 255),
+                      ),
                     ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.tune_outlined),
-                      color: const Color.fromARGB(156, 64, 195, 255),
+                    Flexible(
+                      flex: 1,
+                      //fit: FlexFit.tight,
+                      child: Transform.rotate(
+                        angle: 1.5708, // Convert degrees to radians
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.tune_outlined),
+                          color: const Color.fromARGB(156, 64, 195, 255),
+                          //iconSize: 24,
+                        ),
+                      ),
                     )
                   ],
                 ),
 
-                // SizedBox(
-                //   height: 50,
-                //   //   width: 330,
-                //   child: Marquee(
-                //     key: ValueKey(currentlyPlayingSong.filePath),
-                //     // Unique key based on the song's file path. To ensure that the Marquee always starts with the song title starting position when you click a song, you can utilize the key property of the Marquee widget. By changing the key whenever the song changes, the Marquee will reset and start from the beginning.
-                //     text: currentlyPlayingSong.title ?? 'Unknown',
-                //     style: const TextStyle(
-                //       color: Colors.white,
-                //       fontSize: 26,
-                //     ),
-                //     //textScaleFactor: 1.3,
-                //     // blankSpace: 40.0,
-                //     // velocity: 30,
-
-                //     blankSpace: 40.0,
-                //     velocity: 20,
-                //     pauseAfterRound: Duration(seconds: 1),
-                //     startPadding: 10.0,
-                //   ),
-                // ),
-
-                // // // const SizedBox(height: 20),
-
-                // SizedBox(
-                //   height: 26,
-                //   //  width: 330,
-                //   child: Marquee(
-                //     key: ValueKey(currentlyPlayingSong.filePath),
-                //     // Unique key based on the song's file path. To ensure that the Marquee always starts with the song title starting position when you click a song, you can utilize the key property of the Marquee widget. By changing the key whenever the song changes, the Marquee will reset and start from the beginning.
-                //     text:
-                //         "${currentlyPlayingSong.album ?? 'Unknown Album'} - ${currentlyPlayingSong.artist ?? 'Unknown Artist'} ",
-                //     style: const TextStyle(
-                //       color: Colors.white38,
-                //       fontSize: 16,
-                //     ),
-                //     //textScaleFactor: 1.3,
-                //     // blankSpace: 40.0,
-                //     // velocity: 30,
-
-                //     blankSpace: 40.0,
-                //     velocity: 20,
-                //     pauseAfterRound: Duration(seconds: 1),
-                //     startPadding: 10.0,
-                //   ),
-                // ),
                 SliderTheme(
                   data: SliderTheme.of(context).copyWith(
                     trackHeight: 0.8,
