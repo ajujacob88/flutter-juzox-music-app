@@ -257,9 +257,18 @@ class MainPlayer extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('$sliderValue'),
-                                Text(
-                                    '${context.read<AudioPlayerProvider>().totalDuration.inSeconds}'),
+                                Text(formatDuration(sliderValue)),
+
+                                Text(formatDuration(context
+                                    .read<AudioPlayerProvider>()
+                                    .totalDuration
+                                    .inSeconds
+                                    .toDouble())),
+
+                                //using the formatDuration function that i created is more efficient, because it is arithematic operation,, below one is string manipulation which is less performant compared to arithematic operation
+
+                                // Text('${context.read<AudioPlayerProvider>().currentDuration.toString().substring(2, 7)}'),
+                                // Text('${context.read<AudioPlayerProvider>().totalDuration.toString().substring(2, 7)}'),
                               ],
                             ),
                           )
@@ -314,6 +323,12 @@ class MainPlayer extends StatelessWidget {
           }),
     );
   }
+}
+
+String formatDuration(double durationInSeconds) {
+  int minutes = (durationInSeconds / 60).floor();
+  int seconds = (durationInSeconds % 60).floor();
+  return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
 }
 
 /*
