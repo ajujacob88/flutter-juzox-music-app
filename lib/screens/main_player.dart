@@ -24,13 +24,7 @@ class MainPlayer extends StatelessWidget {
             Navigator.of(context).pop();
           },
         ),
-        title: Selector<AudioPlayerProvider, JuzoxMusicModel?>(
-            selector: (context, audioPlayerProvider) =>
-                audioPlayerProvider.currentlyPlayingSong,
-            shouldRebuild: (previous, current) => previous != current,
-            builder: (context, currentlyPlayingSong, _) {
-              return Text(currentlyPlayingSong?.title ?? 'No song playing');
-            }),
+        title: Text('Playing'),
         actions: [
           IconButton(
             icon: const Icon(Icons.close),
