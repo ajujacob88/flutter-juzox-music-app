@@ -20,6 +20,7 @@ class MainPlayer extends StatelessWidget {
         automaticallyImplyLeading: false,
         leading: IconButton(
           icon: const Icon(Icons.keyboard_arrow_down),
+          iconSize: 40,
           onPressed: () {
             Navigator.of(context).pop();
           },
