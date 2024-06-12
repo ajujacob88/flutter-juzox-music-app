@@ -103,6 +103,15 @@ class MainPlayer extends StatelessWidget {
                     Expanded(
                       flex: 50,
                       child: GestureDetector(
+                        onHorizontalDragEnd: (details) {
+                          if (details.primaryVelocity! < 0) {
+                            // Swiped left
+                            audioPlayerProvider.playNextSong();
+                          } else if (details.primaryVelocity! > 0) {
+                            // Swiped right
+                            audioPlayerProvider.playPreviousSong();
+                          }
+                        },
                         onTap: () {
                           audioPlayerProvider.isPlaying
                               ? audioPlayerProvider.juzoxAudioPlayerService
