@@ -43,10 +43,14 @@ class MainPlayer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const SizedBox(height: 20),
+                // const SizedBox(height: 20),
                 // SizedBox(
                 // height: 300,
                 // width: 300,
+
+                const Spacer(
+                  flex: 1,
+                ),
 
                 QueryArtworkWidget(
                   id: currentlyPlayingSong!.id!,
@@ -83,7 +87,10 @@ class MainPlayer extends StatelessWidget {
                 ),
                 //  ),
 
-                const SizedBox(height: 20),
+                //  const SizedBox(height: 20),
+                const Spacer(
+                  flex: 2,
+                ),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -172,20 +179,11 @@ class MainPlayer extends StatelessWidget {
                         ],
                       ),
                     ),
-                    // Flexible(
-                    //   flex: 1,
-                    //   //fit: FlexFit.tight,
-                    //   child: Transform.rotate(
-                    //     angle: 1.5708, // Convert degrees to radians
-                    //     child: IconButton(
-                    //       onPressed: () {},
-                    //       icon: const Icon(Icons.tune_outlined),
-                    //       color: const Color.fromARGB(156, 64, 195, 255),
-                    //       //iconSize: 24,
-                    //     ),
-                    //   ),
-                    // )
                   ],
+                ),
+
+                const Spacer(
+                  flex: 2,
                 ),
 
                 SliderTheme(
@@ -255,6 +253,10 @@ class MainPlayer extends StatelessWidget {
 
                 //SizedBox(height: 20),
                 // Control Buttons
+
+                // const Spacer(
+                //     //flex: 1,
+                //     ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -279,6 +281,9 @@ class MainPlayer extends StatelessWidget {
                       },
                     ),
                   ],
+                ),
+                const Spacer(
+                  flex: 2,
                 ),
               ],
             );
