@@ -16,6 +16,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
   late AnimationController _controller;
   late final Animation<AlignmentGeometry> _alignAnimation;
 
+  double opacityLevel = 0.5;
   // late final AnimationController _controller2 = AnimationController(
   //   duration: const Duration(seconds: 5),
   //   vsync: this,
@@ -25,8 +26,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
   //   curve: Curves.easeIn,
   // );
 
-  // late AnimationController _fadeAnimationController;
-  // late final Animation<double> _fadeAnimation;
+  late AnimationController _fadeAnimationController;
+  late final Animation<double> _fadeAnimation;
 
   // late final AnimationController _fadeAnimationController = AnimationController(
   //   duration: const Duration(seconds: 1),
@@ -68,19 +69,19 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
     //     _controller.stop();
     //   }
 
-    // _fadeAnimationController = AnimationController(
-    //   duration: const Duration(seconds: 1),
-    //   vsync: this,
-    // );
+    _fadeAnimationController = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
 
-    // _fadeAnimation =
-    //     Tween(begin: 0.0, end: 1.0).animate(_fadeAnimationController);
+    _fadeAnimation =
+        Tween<double>(begin: 1.0, end: 0.5).animate(_fadeAnimationController);
   }
 
   @override
   void dispose() {
     _controller.dispose();
-    //  _fadeAnimationController.dispose();
+    _fadeAnimationController.dispose();
     super.dispose();
   }
 
@@ -119,7 +120,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
               audioPlayerProvider.currentlyPlayingSong,
           shouldRebuild: (previous, current) => previous != current,
           builder: (context, currentlyPlayingSong, _) {
-            //  _fadeAnimationController.forward(from: 0);
+            _fadeAnimationController.forward(from: 0);
             // counter++;
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -143,12 +144,14 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
-                        flex: 3,
+                        // flex: 3,
+                        flex: 6,
                         child: GestureDetector(
                           onTap: audioPlayerProvider.playPreviousSong,
-                          child: AnimatedOpacity(
-                            opacity: _visible ? 0.5 : 1.0,
-                            duration: const Duration(seconds: 3),
+                          child: Opacity(
+                            opacity: 0.3,
+                            // opacity: _fadeAnimation,
+                            //   duration: const Duration(seconds: 3),
                             child: QueryArtworkWidget(
                               id: currentlyPlayingSong!.id! + 1,
                               type: ArtworkType.AUDIO,
@@ -264,12 +267,15 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                         width: 15,
                       ),
                       Expanded(
-                        flex: 3,
+                        //  flex: 3,
+                        flex: 6,
                         child: GestureDetector(
                           onTap: audioPlayerProvider.playNextSong,
-                          child: AnimatedOpacity(
-                            opacity: _visible ? 0.5 : 1.0,
-                            duration: const Duration(seconds: 3),
+                          child: Opacity(
+                            // opacity: _visible ? 0.5 : 1.0,
+                            opacity: 0.3,
+
+                            // opacity: _fadeAnimation,
                             child: QueryArtworkWidget(
                               id: currentlyPlayingSong.id! - 1,
 
@@ -517,11 +523,12 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                       icon: Icon(Icons.skip_previous),
                       onPressed: () {
                         audioPlayerProvider.playPreviousSong();
+                        _changeOpacity;
                         //_controller2.forward(from: 0);
-                        setState(() {
-                          _visible = !_visible;
-                          //  _controller2.forward();
-                        });
+                        // setState(() {
+                        //   return opacityLevel = opacityLevel == 0 ? 1.0 : 0.0;
+                        //   //  _controller2.forward();
+                        // });
                       },
                     ),
                     IconButton(
@@ -542,11 +549,14 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                       icon: Icon(Icons.skip_next),
                       onPressed: () {
                         audioPlayerProvider.playNextSong();
+                        _changeOpacity;
                         // _controller2.forward(from: 0);
-                        setState(() {
-                          _visible = !_visible;
-                          //  _controller2.forward();
-                        });
+                        // setState(() {
+                        //   // _visible = !_visible;
+                        //   //  _controller2.forward();
+
+                        //   return opacityLevel = opacityLevel == 0 ? 1.0 : 0.0;
+                        //});
                       },
                     ),
                   ],
@@ -559,6 +569,10 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
           }),
     );
   }
+
+  void _changeOpacity() {
+    setState(() => opacityLevel = opacityLevel == 0.5 ? 1.0 : 0.5);
+  }
 }
 
 String formatDuration(double durationInSeconds) {
@@ -566,6 +580,8 @@ String formatDuration(double durationInSeconds) {
   int seconds = (durationInSeconds % 60).floor();
   return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
 }
+
+
 
 
 /*
