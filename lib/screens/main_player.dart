@@ -42,7 +42,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _alignAnimationController = AnimationController(
-      duration: const Duration(seconds: 8), //15 is good //8 is good for new
+      duration: const Duration(
+          seconds: 1), //15 is good //8 is good for new //8 is final
       vsync: this,
     )..repeat(reverse: true);
 
@@ -217,7 +218,12 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
                               if (_alignAnimationController.status ==
                                   AnimationStatus.reverse) {
-                                _alignAnimationController.reverse();
+                                _alignAnimationController.reverse().then(
+                                  (value) {
+                                    _alignAnimationController.repeat(
+                                        reverse: true);
+                                  },
+                                );
                               } else {
                                 _alignAnimationController.repeat(reverse: true);
                               }
@@ -563,7 +569,12 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
                               if (_alignAnimationController.status ==
                                   AnimationStatus.reverse) {
-                                _alignAnimationController.reverse();
+                                _alignAnimationController.reverse().then(
+                                  (value) {
+                                    _alignAnimationController.repeat(
+                                        reverse: true);
+                                  },
+                                );
                               } else {
                                 _alignAnimationController.repeat(reverse: true);
                               }
