@@ -127,8 +127,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
             _fadeAnimationController.forward(from: 0);
             // counter++;
 
-            print(
-                'printingg index of previous song from main player ${audioPlayerProvider.previousSongIndex} and currentplaying id is ${currentlyPlayingSong!.id}');
+            // print(
+            //     'printingg index of previous song from main player ${audioPlayerProvider.previousSong} and currentplaying id is ${currentlyPlayingSong!.id}');
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -161,7 +161,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                             child: QueryArtworkWidget(
                               // id: currentlyPlayingSong!.id! + 1,
 
-                              id: audioPlayerProvider.previousSongIndex!.id!,
+                              id: audioPlayerProvider.previousSong?.id ?? 0,
                               type: ArtworkType.AUDIO,
                               size: 500,
                               quality: 100,
