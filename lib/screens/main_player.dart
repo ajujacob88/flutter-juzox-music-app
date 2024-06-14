@@ -135,7 +135,13 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                 ),
 
                 AnimatedSwitcher(
-                  duration: const Duration(seconds: 1),
+                  duration: const Duration(seconds: 5),
+                  transitionBuilder: (child, animation) {
+                    return ScaleTransition(
+                      scale: animation,
+                      child: child,
+                    );
+                  },
                   child: Row(
                     key: ValueKey(keyValueCounter++),
                     crossAxisAlignment: CrossAxisAlignment.center,
