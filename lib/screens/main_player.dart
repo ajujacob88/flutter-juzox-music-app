@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:juzox_music_app/models/music_model.dart';
 import 'package:juzox_music_app/providers/audio_player_provider.dart';
 import 'package:juzox_music_app/utils/format_duration.dart';
@@ -520,43 +521,45 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
-                      icon: Icon(Icons.skip_previous),
+                      icon: const Icon(Icons.skip_previous),
                       onPressed: () {
                         audioPlayerProvider.playPreviousSong();
-                        _changeOpacity;
-                        //_controller2.forward(from: 0);
-                        // setState(() {
-                        //   return opacityLevel = opacityLevel == 0 ? 1.0 : 0.0;
-                        //   //  _controller2.forward();
-                        // });
                       },
                     ),
-                    IconButton(
-                      icon: Icon(audioPlayerProvider.isPlaying
-                          ? Icons.pause
-                          : Icons.play_arrow),
-                      onPressed: () {
-                        if (audioPlayerProvider.isPlaying) {
-                          audioPlayerProvider.juzoxAudioPlayerService
-                              .juzoxPause();
+                    Selector<AudioPlayerProvider, IconData>(
+                      selector: (context, provider) {
+                        if (provider.processingState ==
+                            ProcessingState.completed) {
+                          return Icons.play_arrow;
                         } else {
-                          audioPlayerProvider.juzoxAudioPlayerService
-                              .juzoxPlay(currentlyPlayingSong.filePath);
+                          return provider.isPlaying
+                              ? Icons.pause
+                              : Icons.play_arrow;
                         }
                       },
+                      shouldRebuild: (previous, current) => previous != current,
+                      builder: (_, currentIcon, __) {
+                        return IconButton(
+                          icon: Icon(
+                            currentIcon,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            if (audioPlayerProvider.isPlaying) {
+                              audioPlayerProvider.juzoxAudioPlayerService
+                                  .juzoxPause();
+                            } else {
+                              audioPlayerProvider.juzoxAudioPlayerService
+                                  .juzoxPlay(currentlyPlayingSong.filePath);
+                            }
+                          },
+                        );
+                      },
                     ),
                     IconButton(
-                      icon: Icon(Icons.skip_next),
+                      icon: const Icon(Icons.skip_next),
                       onPressed: () {
                         audioPlayerProvider.playNextSong();
-                        _changeOpacity;
-                        // _controller2.forward(from: 0);
-                        // setState(() {
-                        //   // _visible = !_visible;
-                        //   //  _controller2.forward();
-
-                        //   return opacityLevel = opacityLevel == 0 ? 1.0 : 0.0;
-                        //});
                       },
                     ),
                   ],
@@ -568,10 +571,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
             );
           }),
     );
-  }
-
-  void _changeOpacity() {
-    setState(() => opacityLevel = opacityLevel == 0.5 ? 1.0 : 0.5);
   }
 }
 
