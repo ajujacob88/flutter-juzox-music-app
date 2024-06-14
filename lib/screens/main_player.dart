@@ -180,7 +180,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 // Set desired width and height for the box
                                 width: 300.0, // Adjust as needed
                                 // height: 63.0, // Adjust as needed
-                                height: 300.0,
+                                height: 350.0,
                                 child: const Icon(
                                   Icons.music_note_outlined,
                                   color: Color.fromARGB(140, 64, 195, 255),
@@ -268,7 +268,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 // Set desired width and height for the box
                                 width: 300.0, // Adjust as needed
                                 // height: 63.0, // Adjust as needed
-                                height: 300.0,
+                                height: 380.0,
                                 child: const Icon(
                                   Icons.music_note_outlined,
                                   color: Color.fromARGB(140, 64, 195, 255),
@@ -320,7 +320,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 // Set desired width and height for the box
                                 width: 300.0, // Adjust as needed
                                 // height: 63.0, // Adjust as needed
-                                height: 300.0,
+                                height: 350.0,
                                 child: const Icon(
                                   Icons.music_note_outlined,
                                   color: Color.fromARGB(140, 64, 195, 255),
