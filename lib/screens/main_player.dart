@@ -200,9 +200,11 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                             if (details.primaryVelocity! < 0) {
                               // Swiped left
                               audioPlayerProvider.playNextSong();
+                              _alignAnimationController.repeat(reverse: true);
                             } else if (details.primaryVelocity! > 0) {
                               // Swiped right
                               audioPlayerProvider.playPreviousSong();
+                              _alignAnimationController.repeat(reverse: true);
                             }
                           },
                           onTap: () {
@@ -219,7 +221,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                               if (_alignAnimationController.status ==
                                   AnimationStatus.reverse) {
                                 _alignAnimationController.reverse().then(
-                                  (value) {
+                                  (_) {
                                     _alignAnimationController.repeat(
                                         reverse: true);
                                   },
@@ -537,6 +539,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                       icon: const Icon(Icons.skip_previous),
                       onPressed: () {
                         audioPlayerProvider.playPreviousSong();
+                        _alignAnimationController.repeat(reverse: true);
                       },
                     ),
                     Selector<AudioPlayerProvider, IconData>(
@@ -570,7 +573,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                               if (_alignAnimationController.status ==
                                   AnimationStatus.reverse) {
                                 _alignAnimationController.reverse().then(
-                                  (value) {
+                                  (_) {
                                     _alignAnimationController.repeat(
                                         reverse: true);
                                   },
@@ -596,6 +599,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                       icon: const Icon(Icons.skip_next),
                       onPressed: () {
                         audioPlayerProvider.playNextSong();
+                        _alignAnimationController.repeat(reverse: true);
                       },
                     ),
                   ],
