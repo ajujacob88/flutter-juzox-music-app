@@ -126,6 +126,9 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
           builder: (context, currentlyPlayingSong, _) {
             _fadeAnimationController.forward(from: 0);
             // counter++;
+
+            print(
+                'printingg index of previous song from main player ${audioPlayerProvider.previousSongIndex} and currentplaying id is ${currentlyPlayingSong!.id}');
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -156,7 +159,9 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                           child: Opacity(
                             opacity: 0.3,
                             child: QueryArtworkWidget(
-                              id: currentlyPlayingSong!.id! + 1,
+                              // id: currentlyPlayingSong!.id! + 1,
+
+                              id: audioPlayerProvider.previousSongIndex!.id!,
                               type: ArtworkType.AUDIO,
                               size: 500,
                               quality: 100,
@@ -216,7 +221,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                               _alignAnimationController.stop();
                             } else {
                               audioPlayerProvider.juzoxAudioPlayerService
-                                  .juzoxPlay(currentlyPlayingSong.filePath);
+                                  .juzoxPlay(currentlyPlayingSong!.filePath);
 
                               //  _alignAnimationController.repeat(reverse: true);
 
@@ -244,7 +249,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                           child: AlignTransition(
                             alignment: _alignAnimation,
                             child: QueryArtworkWidget(
-                              id: currentlyPlayingSong.id!,
+                              id: currentlyPlayingSong!.id!,
                               type: ArtworkType.AUDIO,
                               size: 500,
                               quality: 100,

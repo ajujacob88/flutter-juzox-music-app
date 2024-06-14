@@ -14,6 +14,8 @@ class AudioPlayerProvider extends ChangeNotifier {
   //for swaping pause button when finished playing a song
   ProcessingState _processingState = ProcessingState.idle;
 
+  int? _prevIndex;
+
   List<JuzoxMusicModel> _playlist = [];
   List<JuzoxMusicModel> _defaultSongs = [];
 
@@ -96,10 +98,20 @@ class AudioPlayerProvider extends ChangeNotifier {
       //final prevIndex = (currentIndex - 1 ) % _playlist.length;
 
       //Using final prevIndex = (currentIndex - 1 + _playlist.length) % _playlist.length; is necessary to ensure correct and expected behavior when navigating to the previous song in the playlist.
-      final prevIndex =
-          (currentIndex - 1 + _playlist.length) % _playlist.length;
-      setCurrentlyPlayingSong(_playlist[prevIndex]);
+      _prevIndex = (currentIndex - 1 + _playlist.length) % _playlist.length;
+
+      print(
+          'current index is $currentIndex and prev index is $_prevIndex currently playing song id is  ${_currentlyPlayingSong!.id}');
+
+      setCurrentlyPlayingSong(_playlist[_prevIndex!]);
     }
+  }
+
+  JuzoxMusicModel? get previousSongIndex {
+    final prindex =
+        (_playlist.indexOf(_currentlyPlayingSong!) - 1 + _playlist.length) %
+            _playlist.length;
+    return _playlist[prindex];
   }
 
   // Optional: Method to add default songs
