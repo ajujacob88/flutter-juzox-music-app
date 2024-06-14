@@ -40,7 +40,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(seconds: 8), //15 is good
+      duration: const Duration(seconds: 8), //15 is good //8 is good for new
       vsync: this,
     )..repeat(reverse: true);
 
