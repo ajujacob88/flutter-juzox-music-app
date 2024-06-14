@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:juzox_music_app/models/music_model.dart';
 import 'package:juzox_music_app/providers/audio_player_provider.dart';
+import 'package:juzox_music_app/utils/format_duration.dart';
 import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
@@ -85,8 +86,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  bool _visible = true;
-  int keyValueCounter = 1;
+  int _keyValueCounter = 1;
   @override
   Widget build(BuildContext context) {
     final audioPlayerProvider =
@@ -138,20 +138,19 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                 AnimatedSwitcher(
                   duration: const Duration(seconds: 1),
                   child: Row(
-                    key: ValueKey(keyValueCounter++),
+                    key: ValueKey(_keyValueCounter++),
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         // flex: 3,
-                        flex: 6,
+                        //flex: 6,
+                        flex: 5,
                         child: GestureDetector(
                           onTap: audioPlayerProvider.playPreviousSong,
                           child: Opacity(
                             opacity: 0.3,
-                            // opacity: _fadeAnimation,
-                            //   duration: const Duration(seconds: 3),
                             child: QueryArtworkWidget(
                               id: currentlyPlayingSong!.id! + 1,
                               type: ArtworkType.AUDIO,
@@ -268,7 +267,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                       ),
                       Expanded(
                         //  flex: 3,
-                        flex: 6,
+                        //flex: 6,
+                        flex: 5,
                         child: GestureDetector(
                           onTap: audioPlayerProvider.playNextSong,
                           child: Opacity(
@@ -355,7 +355,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
                               blankSpace: 40.0,
                               velocity: 20,
-                              pauseAfterRound: Duration(seconds: 1),
+                              pauseAfterRound: const Duration(seconds: 1),
                               //startPadding: 10.0,
                               startPadding: 0.0,
                             ),
@@ -575,11 +575,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
   }
 }
 
-String formatDuration(double durationInSeconds) {
-  int minutes = (durationInSeconds / 60).floor();
-  int seconds = (durationInSeconds % 60).floor();
-  return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
-}
 
 
 
