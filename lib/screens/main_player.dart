@@ -85,6 +85,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
   }
 
   bool _visible = true;
+  int keyValueCounter = 1;
   @override
   Widget build(BuildContext context) {
     final audioPlayerProvider =
@@ -118,7 +119,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
               audioPlayerProvider.currentlyPlayingSong,
           shouldRebuild: (previous, current) => previous != current,
           builder: (context, currentlyPlayingSong, _) {
-            _fadeAnimationController.forward(from: 0);
+            //  _fadeAnimationController.forward(from: 0);
+            // counter++;
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -132,9 +134,10 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                   flex: 1,
                 ),
 
-                FadeTransition(
-                  opacity: _fadeAnimation,
+                AnimatedSwitcher(
+                  duration: const Duration(seconds: 1),
                   child: Row(
+                    key: ValueKey(keyValueCounter++),
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
