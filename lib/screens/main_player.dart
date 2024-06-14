@@ -25,8 +25,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
   //   curve: Curves.easeIn,
   // );
 
-  late AnimationController _fadeAnimationController;
-  late final Animation<double> _fadeAnimation;
+  // late AnimationController _fadeAnimationController;
+  // late final Animation<double> _fadeAnimation;
 
   // late final AnimationController _fadeAnimationController = AnimationController(
   //   duration: const Duration(seconds: 1),
@@ -68,19 +68,19 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
     //     _controller.stop();
     //   }
 
-    _fadeAnimationController = AnimationController(
-      duration: const Duration(seconds: 1),
-      vsync: this,
-    );
+    // _fadeAnimationController = AnimationController(
+    //   duration: const Duration(seconds: 1),
+    //   vsync: this,
+    // );
 
-    _fadeAnimation =
-        Tween(begin: 0.0, end: 1.0).animate(_fadeAnimationController);
+    // _fadeAnimation =
+    //     Tween(begin: 0.0, end: 1.0).animate(_fadeAnimationController);
   }
 
   @override
   void dispose() {
     _controller.dispose();
-    _fadeAnimationController.dispose();
+    //  _fadeAnimationController.dispose();
     super.dispose();
   }
 
