@@ -213,7 +213,14 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                               audioPlayerProvider.juzoxAudioPlayerService
                                   .juzoxPlay(currentlyPlayingSong.filePath);
 
-                              _alignAnimationController.repeat(reverse: true);
+                              //  _alignAnimationController.repeat(reverse: true);
+
+                              if (_alignAnimationController.status ==
+                                  AnimationStatus.reverse) {
+                                _alignAnimationController.reverse();
+                              } else {
+                                _alignAnimationController.repeat(reverse: true);
+                              }
                             }
 
                             // if (audioPlayerProvider.isPlaying) {
@@ -552,7 +559,23 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                             } else {
                               audioPlayerProvider.juzoxAudioPlayerService
                                   .juzoxPlay(currentlyPlayingSong.filePath);
-                              _alignAnimationController.repeat(reverse: true);
+                              // _alignAnimationController.repeat(reverse: true);
+
+                              if (_alignAnimationController.status ==
+                                  AnimationStatus.reverse) {
+                                _alignAnimationController.reverse();
+                              } else {
+                                _alignAnimationController.repeat(reverse: true);
+                              }
+
+                              // if (_alignAnimationController.status ==
+                              //         AnimationStatus.completed ||
+                              //     _alignAnimationController.status ==
+                              //         AnimationStatus.reverse) {
+                              //   _alignAnimationController.reverse();
+                              // } else {
+                              //   _alignAnimationController.repeat(reverse: true);
+                              // }
                             }
                           },
                         );
