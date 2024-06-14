@@ -15,7 +15,7 @@ class MainPlayer extends StatefulWidget {
 }
 
 class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
-  late AnimationController _controller;
+  late AnimationController _alignAnimationController;
   late final Animation<AlignmentGeometry> _alignAnimation;
 
   double opacityLevel = 0.5;
@@ -41,7 +41,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
+    _alignAnimationController = AnimationController(
       duration: const Duration(seconds: 8), //15 is good //8 is good for new
       vsync: this,
     )..repeat(reverse: true);
@@ -51,7 +51,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
       end: Alignment.centerRight,
     ).animate(
       CurvedAnimation(
-        parent: _controller,
+        parent: _alignAnimationController,
         curve: Curves.easeInOutCubic,
       ),
     );
@@ -82,7 +82,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _alignAnimationController.dispose();
     _fadeAnimationController.dispose();
     super.dispose();
   }
@@ -208,12 +208,12 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                             if (audioPlayerProvider.isPlaying) {
                               audioPlayerProvider.juzoxAudioPlayerService
                                   .juzoxPause();
-                              _controller.stop();
+                              _alignAnimationController.stop();
                             } else {
                               audioPlayerProvider.juzoxAudioPlayerService
                                   .juzoxPlay(currentlyPlayingSong.filePath);
 
-                              _controller.repeat(reverse: true);
+                              _alignAnimationController.repeat(reverse: true);
                             }
 
                             // if (audioPlayerProvider.isPlaying) {
@@ -227,7 +227,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                           child: AlignTransition(
                             alignment: _alignAnimation,
                             child: QueryArtworkWidget(
-                              id: currentlyPlayingSong!.id!,
+                              id: currentlyPlayingSong.id!,
                               type: ArtworkType.AUDIO,
                               size: 500,
                               quality: 100,
@@ -263,7 +263,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                         ),
                       ),
                       // Spacer(),
-                      SizedBox(
+                      const SizedBox(
                         width: 15,
                       ),
                       Expanded(
@@ -382,7 +382,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
                               blankSpace: 40.0,
                               velocity: 20,
-                              pauseAfterRound: Duration(seconds: 1),
+                              pauseAfterRound: const Duration(seconds: 1),
                               startPadding: 0.0,
                             ),
                           ),
@@ -548,9 +548,11 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                             if (audioPlayerProvider.isPlaying) {
                               audioPlayerProvider.juzoxAudioPlayerService
                                   .juzoxPause();
+                              _alignAnimationController.stop();
                             } else {
                               audioPlayerProvider.juzoxAudioPlayerService
                                   .juzoxPlay(currentlyPlayingSong.filePath);
+                              _alignAnimationController.repeat(reverse: true);
                             }
                           },
                         );
