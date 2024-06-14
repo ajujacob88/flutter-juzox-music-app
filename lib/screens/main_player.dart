@@ -172,7 +172,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                               artworkFit: BoxFit.cover,
                               nullArtworkWidget: Container(
                                 decoration: const BoxDecoration(
-                                  color: Color.fromARGB(22, 68, 137, 255),
+                                  color: Color.fromARGB(70, 68, 137, 255),
                                   borderRadius: BorderRadius.only(
                                       topRight: Radius.circular(12),
                                       bottomRight: Radius.circular(12)),
@@ -184,7 +184,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 child: const Icon(
                                   Icons.music_note_outlined,
                                   color: Color.fromARGB(140, 64, 195, 255),
-                                  size: 300,
+                                  size: 30,
                                 ),
                               ),
                             ),
@@ -312,7 +312,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                               artworkFit: BoxFit.cover,
                               nullArtworkWidget: Container(
                                 decoration: const BoxDecoration(
-                                  color: Color.fromARGB(22, 68, 137, 255),
+                                  color: Color.fromARGB(70, 68, 137, 255),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(12),
                                   ),
@@ -324,7 +324,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 child: const Icon(
                                   Icons.music_note_outlined,
                                   color: Color.fromARGB(140, 64, 195, 255),
-                                  size: 300,
+                                  size: 30,
                                 ),
                               ),
                             ),
