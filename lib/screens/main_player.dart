@@ -43,7 +43,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
     super.initState();
     _alignAnimationController = AnimationController(
       duration: const Duration(
-          seconds: 1), //15 is good //8 is good for new //8 is final
+          seconds:
+              4), //15 is good //8 is good for new //8 is final //4 for Curves.slowMiddle
       vsync: this,
     )..repeat(reverse: true);
 
@@ -53,7 +54,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
     ).animate(
       CurvedAnimation(
         parent: _alignAnimationController,
-        curve: Curves.easeInOutCubic,
+        //curve: Curves.easeInOutCubic,
+        curve: Curves.slowMiddle,
       ),
     );
 
