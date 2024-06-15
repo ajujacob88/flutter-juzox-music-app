@@ -96,21 +96,6 @@ class AudioPlayerProvider extends ChangeNotifier {
   }
 
   void playNextSong() {
-    // if (_currentlyPlayingSong != null) {
-    //   // final currentIndex = _playlist.isNotEmpty
-    //   //     ? _playlist.indexOf(_currentlyPlayingSong!)
-    //   //     : _defaultSongs.indexOf(_currentlyPlayingSong!);
-    //   // final nextIndex = (currentIndex + 1) %
-    //   //     (_playlist.isNotEmpty ? _playlist.length : _defaultSongs.length);
-    //   // setCurrentlyPlayingSong(_playlist.isNotEmpty
-    //   //     ? _playlist[nextIndex]
-    //   //     : _defaultSongs[nextIndex]);
-
-    //   final currentIndex = _playlist.indexOf(_currentlyPlayingSong!);
-    //   final nextIndex = (currentIndex + 1) % _playlist.length;
-    //   setCurrentlyPlayingSong(_playlist[nextIndex]);
-    // }
-
     if (_currentlyPlayingSong == null || _playlist.isEmpty) return;
 
     final nexSong = nextSong;
