@@ -75,12 +75,12 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
     //   }
 
     _fadeAnimationController = AnimationController(
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 5),
       vsync: this,
     );
 
     _fadeAnimation =
-        Tween<double>(begin: 1.0, end: 0.5).animate(_fadeAnimationController);
+        Tween<double>(begin: 0.5, end: 0).animate(_fadeAnimationController);
   }
 
   @override
@@ -125,6 +125,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
           shouldRebuild: (previous, current) => previous != current,
           builder: (context, currentlyPlayingSong, _) {
             _fadeAnimationController.forward(from: 0);
+
+            //   bool _showArrows = true;
             // counter++;
 
             // print(
@@ -246,41 +248,80 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                             //       .juzoxPlay(currentlyPlayingSong.filePath);
                             // }
                           },
-                          child: AlignTransition(
-                            alignment: _alignAnimation,
-                            child: QueryArtworkWidget(
-                              id: currentlyPlayingSong!.id!,
-                              type: ArtworkType.AUDIO,
-                              size: 500,
-                              quality: 100,
-                              artworkHeight: 380,
-                              artworkWidth: 300,
+                          child: Stack(
+                            children: [
+                              AlignTransition(
+                                alignment: _alignAnimation,
+                                child: QueryArtworkWidget(
+                                  id: currentlyPlayingSong!.id!,
+                                  type: ArtworkType.AUDIO,
+                                  size: 500,
+                                  quality: 100,
+                                  artworkHeight: 380,
+                                  artworkWidth: 300,
 
-                              artworkBorder: const BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                              //  artworkClipBehavior: Clip.hardEdge,
-
-                              artworkClipBehavior: Clip.antiAliasWithSaveLayer,
-                              artworkFit: BoxFit.fill,
-                              nullArtworkWidget: Container(
-                                decoration: const BoxDecoration(
-                                  color: Color.fromARGB(22, 68, 137, 255),
-                                  borderRadius: BorderRadius.all(
+                                  artworkBorder: const BorderRadius.all(
                                     Radius.circular(12),
                                   ),
-                                ),
-                                // Set desired width and height for the box
-                                width: 300.0, // Adjust as needed
-                                // height: 63.0, // Adjust as needed
-                                height: 380.0,
-                                child: const Icon(
-                                  Icons.music_note_outlined,
-                                  color: Color.fromARGB(140, 64, 195, 255),
-                                  size: 300,
+                                  //  artworkClipBehavior: Clip.hardEdge,
+
+                                  artworkClipBehavior:
+                                      Clip.antiAliasWithSaveLayer,
+                                  artworkFit: BoxFit.fill,
+                                  nullArtworkWidget: Container(
+                                    decoration: const BoxDecoration(
+                                      color: Color.fromARGB(22, 68, 137, 255),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(12),
+                                      ),
+                                    ),
+                                    // Set desired width and height for the box
+                                    width: 300.0, // Adjust as needed
+                                    // height: 63.0, // Adjust as needed
+                                    height: 380.0,
+                                    child: const Icon(
+                                      Icons.music_note_outlined,
+                                      color: Color.fromARGB(140, 64, 195, 255),
+                                      size: 300,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                              Positioned(
+                                left: 10,
+                                child: FadeTransition(
+                                  opacity: _fadeAnimation,
+                                  child: const Icon(
+                                    Icons.arrow_back,
+                                    size: 40,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                right: 10,
+                                child: FadeTransition(
+                                  opacity: _fadeAnimation,
+                                  child: const Icon(
+                                    Icons.arrow_forward,
+                                    size: 40,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              Center(
+                                child: FadeTransition(
+                                  opacity: _fadeAnimation,
+                                  child: Icon(
+                                    audioPlayerProvider.isPlaying
+                                        ? Icons.pause
+                                        : Icons.play_arrow,
+                                    size: 40,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
