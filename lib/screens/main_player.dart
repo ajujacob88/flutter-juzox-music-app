@@ -300,7 +300,9 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
                             // opacity: _fadeAnimation,
                             child: QueryArtworkWidget(
-                              id: currentlyPlayingSong.id! - 1,
+                              // id: currentlyPlayingSong.id! - 1,
+
+                              id: audioPlayerProvider.nextSong?.id ?? 0,
 
                               type: ArtworkType.AUDIO,
                               size: 500,

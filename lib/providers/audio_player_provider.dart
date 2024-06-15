@@ -75,36 +75,7 @@ class AudioPlayerProvider extends ChangeNotifier {
     _playlist = playlist;
   }
 
-  void playNextSong() {
-    if (_currentlyPlayingSong != null) {
-      // final currentIndex = _playlist.isNotEmpty
-      //     ? _playlist.indexOf(_currentlyPlayingSong!)
-      //     : _defaultSongs.indexOf(_currentlyPlayingSong!);
-      // final nextIndex = (currentIndex + 1) %
-      //     (_playlist.isNotEmpty ? _playlist.length : _defaultSongs.length);
-      // setCurrentlyPlayingSong(_playlist.isNotEmpty
-      //     ? _playlist[nextIndex]
-      //     : _defaultSongs[nextIndex]);
-
-      final currentIndex = _playlist.indexOf(_currentlyPlayingSong!);
-      final nextIndex = (currentIndex + 1) % _playlist.length;
-      setCurrentlyPlayingSong(_playlist[nextIndex]);
-    }
-  }
-
   void playPreviousSong() {
-    // if (_currentlyPlayingSong != null) {
-    //   // final currentIndex = _playlist.indexOf(_currentlyPlayingSong!);
-    //   // final prevIndex = (currentIndex - 1) % _playlist.length;
-    //   //Using final prevIndex = (currentIndex - 1 + _playlist.length) % _playlist.length; is necessary to ensure correct and expected behavior when navigating to the previous song in the playlist.
-    //   // _prevIndex = (currentIndex - 1 + _playlist.length) % _playlist.length;
-    //   // // print('current index is $currentIndex and prev index is $prevIndex currently playing song id is  ${_currentlyPlayingSong!.id}');
-    //   // setCurrentlyPlayingSong(_playlist[prevIndex]);
-
-    //   final prevSong = previousSong;
-    //   setCurrentlyPlayingSong(prevSong ?? _currentlyPlayingSong!);
-    // }
-
     if (_currentlyPlayingSong == null || _playlist.isEmpty) return;
 
     final prevSong = previousSong;
@@ -115,29 +86,47 @@ class AudioPlayerProvider extends ChangeNotifier {
 
   JuzoxMusicModel? get previousSong {
     if (_currentlyPlayingSong != null) {
+      final currentIndex = _playlist.indexOf(_currentlyPlayingSong!);
       final prevIndex =
-          (_playlist.indexOf(_currentlyPlayingSong!) - 1 + _playlist.length) %
-              _playlist.length;
+          (currentIndex - 1 + _playlist.length) % _playlist.length;
+
       return _playlist[prevIndex];
     }
     return null;
   }
 
-/*
-  JuzoxMusicModel? _previousSong() {
+  void playNextSong() {
+    // if (_currentlyPlayingSong != null) {
+    //   // final currentIndex = _playlist.isNotEmpty
+    //   //     ? _playlist.indexOf(_currentlyPlayingSong!)
+    //   //     : _defaultSongs.indexOf(_currentlyPlayingSong!);
+    //   // final nextIndex = (currentIndex + 1) %
+    //   //     (_playlist.isNotEmpty ? _playlist.length : _defaultSongs.length);
+    //   // setCurrentlyPlayingSong(_playlist.isNotEmpty
+    //   //     ? _playlist[nextIndex]
+    //   //     : _defaultSongs[nextIndex]);
+
+    //   final currentIndex = _playlist.indexOf(_currentlyPlayingSong!);
+    //   final nextIndex = (currentIndex + 1) % _playlist.length;
+    //   setCurrentlyPlayingSong(_playlist[nextIndex]);
+    // }
+
+    if (_currentlyPlayingSong == null || _playlist.isEmpty) return;
+
+    final nexSong = nextSong;
+    if (nexSong != null) {
+      setCurrentlyPlayingSong(nexSong);
+    }
+  }
+
+  JuzoxMusicModel? get nextSong {
     if (_currentlyPlayingSong != null) {
-      final prevIndex =
-          (_playlist.indexOf(_currentlyPlayingSong!) - 1 + _playlist.length) %
-              _playlist.length;
-      return _playlist[prevIndex];
+      final currentIndex = _playlist.indexOf(_currentlyPlayingSong!);
+      final nextIndex = (currentIndex + 1) % _playlist.length;
+      return _playlist[nextIndex];
     }
     return null;
   }
-  
-
-  JuzoxMusicModel? get previousSong => _previousSong();
-
-  */
 
   // Optional: Method to add default songs
   void setDefaultSongs(List<JuzoxMusicModel> songs) {
