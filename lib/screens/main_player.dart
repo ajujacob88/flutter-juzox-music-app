@@ -90,7 +90,10 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
     )..repeat(reverse: true);
 
     _leftAlignAnimation = Tween<AlignmentGeometry>(
-      begin: Alignment.center,
+      // begin: Alignment.center,
+
+      // Adjust offset (0.2 = 20% from center)
+      begin: const Alignment(-0.28, 0.0),
       end: Alignment.centerLeft,
     ).animate(
       CurvedAnimation(
@@ -100,7 +103,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
     );
 
     _rightAlignAnimation = Tween<AlignmentGeometry>(
-      begin: Alignment.center,
+      //  begin: Alignment.center,
+      begin: const Alignment(0.28, 0.0),
       end: Alignment.centerRight,
     ).animate(
       CurvedAnimation(
@@ -328,14 +332,10 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                   opacity: _fadeAnimation,
                                   child: AlignTransition(
                                     alignment: _leftAlignAnimation,
-                                    child: const Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 80.0),
-                                      child: const Icon(
-                                        Icons.swipe_left_alt_outlined,
-                                        size: 40,
-                                        color: Colors.white,
-                                      ),
+                                    child: const Icon(
+                                      Icons.swipe_left_alt_outlined,
+                                      size: 40,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
@@ -346,13 +346,10 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                   opacity: _fadeAnimation,
                                   child: AlignTransition(
                                     alignment: _rightAlignAnimation,
-                                    child: const Padding(
-                                      padding: const EdgeInsets.only(left: 80),
-                                      child: const Icon(
-                                        Icons.swipe_right_alt_outlined,
-                                        size: 40,
-                                        color: Colors.white,
-                                      ),
+                                    child: const Icon(
+                                      Icons.swipe_right_alt_outlined,
+                                      size: 40,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
