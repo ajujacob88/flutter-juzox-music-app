@@ -55,25 +55,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
       ),
     );
 
-    _fadeAnimationControllerforicon = AnimationController(
-      duration: const Duration(seconds: 5),
-      vsync: this,
-    );
-
-    _fadeAnimation = Tween<double>(begin: 0.5, end: 0)
-        .animate(_fadeAnimationControllerforicon);
-
-    // _scaleAnimation = CurvedAnimation(
-    //   parent: _fadeAnimationControllerforicon,
-    //   curve: Curves.fastOutSlowIn,
-    // );
-
-    // _scaleAnimation =
-    //     Tween<double>(begin: 1, end: 0).animate(_fadeAnimationControllerforicon);
-
-    // _scaleAnimation = CurveTween(curve: Curves.linearToEaseOut)
-    //     .animate(_fadeAnimationControllerforicon);
-
     _iconAnimationController = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
@@ -84,8 +65,16 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
     _iconAnimation =
         Tween<double>(begin: 0.0, end: 1.0).animate(_iconAnimationController);
 
+    _fadeAnimationControllerforicon = AnimationController(
+      duration: const Duration(seconds: 5),
+      vsync: this,
+    );
+
+    _fadeAnimation = Tween<double>(begin: 0.5, end: 0)
+        .animate(_fadeAnimationControllerforicon);
+
     _alignAnimationControllerforicon = AnimationController(
-      duration: const Duration(seconds: 10),
+      duration: const Duration(seconds: 5),
       vsync: this,
     )..repeat(reverse: true);
 
@@ -94,7 +83,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
       // Adjust offset (0.2 = 20% from center)
       begin: const Alignment(-0.28, 0.0),
-      end: Alignment.centerLeft,
+      // end: Alignment.centerLeft,
+      end: const Alignment(-0.72, 0.0),
     ).animate(
       CurvedAnimation(
         parent: _alignAnimationControllerforicon,
@@ -105,7 +95,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
     _rightAlignAnimation = Tween<AlignmentGeometry>(
       //  begin: Alignment.center,
       begin: const Alignment(0.28, 0.0),
-      end: Alignment.centerRight,
+      // end: Alignment.centerRight,
+      end: const Alignment(0.72, 0.0),
     ).animate(
       CurvedAnimation(
         parent: _alignAnimationControllerforicon,
@@ -260,11 +251,18 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                               audioPlayerProvider.juzoxAudioPlayerService
                                   .juzoxPause();
                               _alignAnimationController.stop();
+
+                              _fadeAnimationControllerforicon.reverse();
+                              _alignAnimationControllerforicon.reverse();
+                              _iconAnimationController.reverse();
                             } else {
                               audioPlayerProvider.juzoxAudioPlayerService
                                   .juzoxPlay(currentlyPlayingSong!.filePath);
 
                               //  _alignAnimationController.repeat(reverse: true);
+                              _fadeAnimationControllerforicon.forward();
+                              _alignAnimationControllerforicon.forward();
+                              _iconAnimationController.forward();
 
                               if (_alignAnimationController.status ==
                                   AnimationStatus.reverse) {
