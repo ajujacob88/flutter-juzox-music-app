@@ -328,10 +328,14 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                   opacity: _fadeAnimation,
                                   child: AlignTransition(
                                     alignment: _leftAlignAnimation,
-                                    child: const Icon(
-                                      Icons.swipe_left_alt_outlined,
-                                      size: 40,
-                                      color: Colors.white,
+                                    child: const Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 80.0),
+                                      child: const Icon(
+                                        Icons.swipe_left_alt_outlined,
+                                        size: 40,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -342,10 +346,13 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                   opacity: _fadeAnimation,
                                   child: AlignTransition(
                                     alignment: _rightAlignAnimation,
-                                    child: const Icon(
-                                      Icons.swipe_right_alt_outlined,
-                                      size: 40,
-                                      color: Colors.white,
+                                    child: const Padding(
+                                      padding: const EdgeInsets.only(left: 80),
+                                      child: const Icon(
+                                        Icons.swipe_right_alt_outlined,
+                                        size: 40,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
