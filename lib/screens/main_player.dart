@@ -19,24 +19,15 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
   late final Animation<AlignmentGeometry> _alignAnimation;
 
   double opacityLevel = 0.5;
-  // late final AnimationController _controller2 = AnimationController(
-  //   duration: const Duration(seconds: 5),
-  //   vsync: this,
-  // )..repeat(reverse: true);
-  // late final Animation<double> _animation = CurvedAnimation(
-  //   parent: _controller2,
-  //   curve: Curves.easeIn,
-  // );
 
   late AnimationController _fadeAnimationController;
   late final Animation<double> _fadeAnimation;
 
-  // late final AnimationController _fadeAnimationController = AnimationController(
-  //   duration: const Duration(seconds: 1),
-  //   vsync: this,
-  // );
-  // late final Animation<double> _fadeAnimation =
-  //     Tween(begin: 0.0, end: 1.0).animate(_fadeAnimationController);
+  late final Animation<double> _scaleAnimation;
+
+  late final Animation<double> _iconAnimation;
+
+  late AnimationController _iconAnimationController;
 
   @override
   void initState() {
@@ -59,21 +50,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
       ),
     );
 
-    // Listen to the playing state of the audio player
-    //   final audioPlayerProvider =
-    //       Provider.of<AudioPlayerProvider>(context, listen: false);
-    //   audioPlayerProvider.addListener(_audioPlayerListener);
-    // }
-
-    // void _audioPlayerListener() {
-    //   final audioPlayerProvider =
-    //       Provider.of<AudioPlayerProvider>(context, listen: false);
-    //   if (audioPlayerProvider.isPlaying) {
-    //     _controller.repeat(reverse: true);
-    //   } else {
-    //     _controller.stop();
-    //   }
-
     _fadeAnimationController = AnimationController(
       duration: const Duration(seconds: 5),
       vsync: this,
@@ -81,6 +57,27 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
     _fadeAnimation =
         Tween<double>(begin: 0.5, end: 0).animate(_fadeAnimationController);
+
+    // _scaleAnimation = CurvedAnimation(
+    //   parent: _fadeAnimationController,
+    //   curve: Curves.fastOutSlowIn,
+    // );
+
+    // _scaleAnimation =
+    //     Tween<double>(begin: 1, end: 0).animate(_fadeAnimationController);
+
+    _scaleAnimation = CurveTween(curve: Curves.linearToEaseOut)
+        .animate(_fadeAnimationController);
+
+    _iconAnimationController = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+
+    // _iconAnimationController.forward(); //this needs to be in build method if need to restard after each rebuilt
+
+    _iconAnimation =
+        Tween<double>(begin: 0.0, end: 1.0).animate(_iconAnimationController);
   }
 
   @override
@@ -125,6 +122,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
           shouldRebuild: (previous, current) => previous != current,
           builder: (context, currentlyPlayingSong, _) {
             _fadeAnimationController.forward(from: 0);
+
+            _iconAnimationController.forward(from: 0);
 
             //   bool _showArrows = true;
             // counter++;
@@ -288,22 +287,23 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 ),
                               ),
                               Positioned(
-                                left: 10,
-                                child: FadeTransition(
-                                  opacity: _fadeAnimation,
+                                left: 20,
+                                child: ScaleTransition(
+                                  scale: _scaleAnimation,
+                                  //opacity: _fadeAnimation,
                                   child: const Icon(
-                                    Icons.arrow_back,
+                                    Icons.swipe_left_alt_outlined,
                                     size: 40,
                                     color: Colors.white,
                                   ),
                                 ),
                               ),
                               Positioned(
-                                right: 10,
+                                right: 20,
                                 child: FadeTransition(
                                   opacity: _fadeAnimation,
                                   child: const Icon(
-                                    Icons.arrow_forward,
+                                    Icons.swipe_right_alt_outlined,
                                     size: 40,
                                     color: Colors.white,
                                   ),
@@ -312,10 +312,16 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                               Center(
                                 child: FadeTransition(
                                   opacity: _fadeAnimation,
-                                  child: Icon(
-                                    audioPlayerProvider.isPlaying
-                                        ? Icons.pause
-                                        : Icons.play_arrow,
+                                  // child: Icon(
+                                  //   audioPlayerProvider.isPlaying
+                                  //       ? Icons.pause
+                                  //       : Icons.play_arrow,
+                                  //   size: 40,
+                                  //   color: Colors.white,
+                                  // ),
+                                  child: AnimatedIcon(
+                                    progress: _iconAnimation,
+                                    icon: AnimatedIcons.play_pause,
                                     size: 40,
                                     color: Colors.white,
                                   ),
