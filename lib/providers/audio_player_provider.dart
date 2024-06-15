@@ -93,16 +93,23 @@ class AudioPlayerProvider extends ChangeNotifier {
   }
 
   void playPreviousSong() {
-    if (_currentlyPlayingSong != null) {
-      // final currentIndex = _playlist.indexOf(_currentlyPlayingSong!);
-      // final prevIndex = (currentIndex - 1) % _playlist.length;
-      //Using final prevIndex = (currentIndex - 1 + _playlist.length) % _playlist.length; is necessary to ensure correct and expected behavior when navigating to the previous song in the playlist.
-      // _prevIndex = (currentIndex - 1 + _playlist.length) % _playlist.length;
-      // print('current index is $currentIndex and prev index is $prevIndex currently playing song id is  ${_currentlyPlayingSong!.id}');
-      // setCurrentlyPlayingSong(_playlist[prevIndex]);
+    // if (_currentlyPlayingSong != null) {
+    //   // final currentIndex = _playlist.indexOf(_currentlyPlayingSong!);
+    //   // final prevIndex = (currentIndex - 1) % _playlist.length;
+    //   //Using final prevIndex = (currentIndex - 1 + _playlist.length) % _playlist.length; is necessary to ensure correct and expected behavior when navigating to the previous song in the playlist.
+    //   // _prevIndex = (currentIndex - 1 + _playlist.length) % _playlist.length;
+    //   // // print('current index is $currentIndex and prev index is $prevIndex currently playing song id is  ${_currentlyPlayingSong!.id}');
+    //   // setCurrentlyPlayingSong(_playlist[prevIndex]);
 
-      final prevSong = previousSong;
-      setCurrentlyPlayingSong(prevSong ?? _currentlyPlayingSong!);
+    //   final prevSong = previousSong;
+    //   setCurrentlyPlayingSong(prevSong ?? _currentlyPlayingSong!);
+    // }
+
+    if (_currentlyPlayingSong == null || _playlist.isEmpty) return;
+
+    final prevSong = previousSong;
+    if (prevSong != null) {
+      setCurrentlyPlayingSong(prevSong);
     }
   }
 
