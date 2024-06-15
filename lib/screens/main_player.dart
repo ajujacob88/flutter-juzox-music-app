@@ -20,7 +20,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
   double opacityLevel = 0.5;
 
-  late AnimationController _fadeAnimationController;
+  late AnimationController _fadeAnimationControllerforicon;
   late final Animation<double> _fadeAnimation;
 
   late final Animation<double> _scaleAnimation;
@@ -55,24 +55,24 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
       ),
     );
 
-    _fadeAnimationController = AnimationController(
+    _fadeAnimationControllerforicon = AnimationController(
       duration: const Duration(seconds: 5),
       vsync: this,
     );
 
-    _fadeAnimation =
-        Tween<double>(begin: 0.5, end: 0).animate(_fadeAnimationController);
+    _fadeAnimation = Tween<double>(begin: 0.5, end: 0)
+        .animate(_fadeAnimationControllerforicon);
 
     // _scaleAnimation = CurvedAnimation(
-    //   parent: _fadeAnimationController,
+    //   parent: _fadeAnimationControllerforicon,
     //   curve: Curves.fastOutSlowIn,
     // );
 
     // _scaleAnimation =
-    //     Tween<double>(begin: 1, end: 0).animate(_fadeAnimationController);
+    //     Tween<double>(begin: 1, end: 0).animate(_fadeAnimationControllerforicon);
 
-    _scaleAnimation = CurveTween(curve: Curves.linearToEaseOut)
-        .animate(_fadeAnimationController);
+    // _scaleAnimation = CurveTween(curve: Curves.linearToEaseOut)
+    //     .animate(_fadeAnimationControllerforicon);
 
     _iconAnimationController = AnimationController(
       duration: const Duration(seconds: 1),
@@ -117,7 +117,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
   @override
   void dispose() {
     _alignAnimationController.dispose();
-    _fadeAnimationController.dispose();
+    _fadeAnimationControllerforicon.dispose();
 
     _iconAnimationController.dispose();
 
@@ -159,7 +159,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
               audioPlayerProvider.currentlyPlayingSong,
           shouldRebuild: (previous, current) => previous != current,
           builder: (context, currentlyPlayingSong, _) {
-            _fadeAnimationController.forward(from: 0);
+            _fadeAnimationControllerforicon.forward(from: 0);
 
             _iconAnimationController.forward(from: 0);
 
@@ -357,13 +357,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                               Center(
                                 child: FadeTransition(
                                   opacity: _fadeAnimation,
-                                  // child: Icon(
-                                  //   audioPlayerProvider.isPlaying
-                                  //       ? Icons.pause
-                                  //       : Icons.play_arrow,
-                                  //   size: 40,
-                                  //   color: Colors.white,
-                                  // ),
                                   child: AnimatedIcon(
                                     progress: _iconAnimation,
                                     icon: AnimatedIcons.play_pause,
@@ -666,10 +659,18 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                               audioPlayerProvider.juzoxAudioPlayerService
                                   .juzoxPause();
                               _alignAnimationController.stop();
+
+                              _fadeAnimationControllerforicon.reverse();
+                              _alignAnimationControllerforicon.reverse();
+                              _iconAnimationController.reverse();
                             } else {
                               audioPlayerProvider.juzoxAudioPlayerService
                                   .juzoxPlay(currentlyPlayingSong.filePath);
                               // _alignAnimationController.repeat(reverse: true);
+
+                              _fadeAnimationControllerforicon.forward();
+                              _alignAnimationControllerforicon.forward();
+                              _iconAnimationController.forward();
 
                               if (_alignAnimationController.status ==
                                   AnimationStatus.reverse) {
