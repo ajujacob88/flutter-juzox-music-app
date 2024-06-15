@@ -29,6 +29,11 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
   late AnimationController _iconAnimationController;
 
+  late AnimationController _alignAnimationControllerforicon;
+
+  late final Animation<AlignmentGeometry> _leftAlignAnimation;
+  late final Animation<AlignmentGeometry> _rightAlignAnimation;
+
   @override
   void initState() {
     super.initState();
@@ -78,12 +83,41 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
     _iconAnimation =
         Tween<double>(begin: 0.0, end: 1.0).animate(_iconAnimationController);
+
+    _alignAnimationControllerforicon = AnimationController(
+      duration: const Duration(seconds: 10),
+      vsync: this,
+    )..repeat(reverse: true);
+
+    _leftAlignAnimation = Tween<AlignmentGeometry>(
+      begin: Alignment.center,
+      end: Alignment.centerLeft,
+    ).animate(
+      CurvedAnimation(
+        parent: _alignAnimationControllerforicon,
+        curve: Curves.decelerate,
+      ),
+    );
+
+    _rightAlignAnimation = Tween<AlignmentGeometry>(
+      begin: Alignment.center,
+      end: Alignment.centerRight,
+    ).animate(
+      CurvedAnimation(
+        parent: _alignAnimationControllerforicon,
+        curve: Curves.decelerate,
+      ),
+    );
   }
 
   @override
   void dispose() {
     _alignAnimationController.dispose();
     _fadeAnimationController.dispose();
+
+    _iconAnimationController.dispose();
+
+    _alignAnimationControllerforicon.dispose();
     super.dispose();
   }
 
@@ -124,6 +158,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
             _fadeAnimationController.forward(from: 0);
 
             _iconAnimationController.forward(from: 0);
+
+            _alignAnimationControllerforicon.forward(from: 0);
 
             //   bool _showArrows = true;
             // counter++;
@@ -287,25 +323,30 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 ),
                               ),
                               Positioned(
-                                left: 20,
-                                child: ScaleTransition(
-                                  scale: _scaleAnimation,
-                                  //opacity: _fadeAnimation,
-                                  child: const Icon(
-                                    Icons.swipe_left_alt_outlined,
-                                    size: 40,
-                                    color: Colors.white,
+                                //  left: 20,
+                                child: FadeTransition(
+                                  opacity: _fadeAnimation,
+                                  child: AlignTransition(
+                                    alignment: _leftAlignAnimation,
+                                    child: const Icon(
+                                      Icons.swipe_left_alt_outlined,
+                                      size: 40,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
                               Positioned(
-                                right: 20,
+                                //  right: 20,
                                 child: FadeTransition(
                                   opacity: _fadeAnimation,
-                                  child: const Icon(
-                                    Icons.swipe_right_alt_outlined,
-                                    size: 40,
-                                    color: Colors.white,
+                                  child: AlignTransition(
+                                    alignment: _rightAlignAnimation,
+                                    child: const Icon(
+                                      Icons.swipe_right_alt_outlined,
+                                      size: 40,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
