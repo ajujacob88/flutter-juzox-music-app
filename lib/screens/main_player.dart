@@ -142,6 +142,20 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
         Provider.of<AudioPlayerProvider>(context, listen: false);
     // final currentlyPlayingSong = audioPlayerProvider.currentlyPlayingSong;
 
+    if (audioPlayerProvider.isPlaying) {
+      _fadeAnimationControllerforicon.forward(from: 0);
+
+      _iconAnimationController.forward(from: 0);
+
+      _alignAnimationControllerforicon.forward(from: 0);
+    } else {
+      _fadeAnimationControllerforicon.reverse();
+
+      _iconAnimationController.reverse();
+
+      _alignAnimationControllerforicon.reverse();
+    }
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -169,11 +183,11 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
               audioPlayerProvider.currentlyPlayingSong,
           shouldRebuild: (previous, current) => previous != current,
           builder: (context, currentlyPlayingSong, _) {
-            _fadeAnimationControllerforicon.forward(from: 0);
+            // _fadeAnimationControllerforicon.forward(from: 0);
 
-            _iconAnimationController.forward(from: 0);
+            // _iconAnimationController.forward(from: 0);
 
-            _alignAnimationControllerforicon.forward(from: 0);
+            // _alignAnimationControllerforicon.forward(from: 0);
 
             //   bool _showArrows = true;
             // counter++;
