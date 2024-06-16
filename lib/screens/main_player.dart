@@ -67,6 +67,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
     _fadeAnimationControllerforicon = AnimationController(
       duration: const Duration(seconds: 5),
+      reverseDuration: const Duration(seconds: 2),
       vsync: this,
     );
 
@@ -75,6 +76,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
     _alignAnimationControllerforicon = AnimationController(
       duration: const Duration(seconds: 5),
+      reverseDuration: const Duration(seconds: 2),
       vsync: this,
     )..repeat(reverse: true);
 
@@ -89,6 +91,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
       CurvedAnimation(
         parent: _alignAnimationControllerforicon,
         curve: Curves.decelerate,
+        //reverseCurve: Curves.easeInCubic,
+        reverseCurve: Curves.easeInQuart,
       ),
     );
 
@@ -101,6 +105,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
       CurvedAnimation(
         parent: _alignAnimationControllerforicon,
         curve: Curves.decelerate,
+        // reverseCurve: Curves.easeInCubic,
+        reverseCurve: Curves.easeInQuart,
       ),
     );
   }
