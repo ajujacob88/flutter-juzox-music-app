@@ -62,8 +62,19 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
     // _iconAnimationController.forward(); //this needs to be in build method if need to restard after each rebuilt
 
-    _iconAnimation =
-        Tween<double>(begin: 0.0, end: 1.0).animate(_iconAnimationController);
+    // _iconAnimation =
+    //     Tween<double>(begin: 0.0, end: 1.0).animate(_iconAnimationController);
+
+    _iconAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _iconAnimationController,
+      // curve: Curves.linear,
+      curve: Curves.easeOutQuart,
+      reverseCurve: Curves.easeInCubic,
+      // reverseCurve: Curves.easeInQuart,
+    ));
 
     _fadeAnimationControllerforicon = AnimationController(
       duration: const Duration(seconds: 5),
@@ -92,7 +103,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
         parent: _alignAnimationControllerforicon,
         curve: Curves.decelerate,
         //reverseCurve: Curves.easeInCubic,
-        reverseCurve: Curves.easeInQuart,
+        //reverseCurve: Curves.easeInQuart,
+        reverseCurve: Curves.easeInExpo,
       ),
     );
 
@@ -106,7 +118,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
         parent: _alignAnimationControllerforicon,
         curve: Curves.decelerate,
         // reverseCurve: Curves.easeInCubic,
-        reverseCurve: Curves.easeInQuart,
+        //reverseCurve: Curves.easeInQuart,
+        reverseCurve: Curves.easeInExpo,
       ),
     );
   }
