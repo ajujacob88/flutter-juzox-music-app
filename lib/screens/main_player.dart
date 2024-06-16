@@ -275,10 +275,26 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                               // Swiped left
                               audioPlayerProvider.playNextSong();
                               _alignAnimationController.repeat(reverse: true);
+
+                              if (!audioPlayerProvider.isPlaying) {
+                                _fadeAnimationControllerforicon.forward();
+
+                                _iconAnimationController.forward();
+
+                                _alignAnimationControllerforicon.forward();
+                              }
                             } else if (details.primaryVelocity! > 0) {
                               // Swiped right
                               audioPlayerProvider.playPreviousSong();
                               _alignAnimationController.repeat(reverse: true);
+
+                              if (!audioPlayerProvider.isPlaying) {
+                                _fadeAnimationControllerforicon.forward();
+
+                                _iconAnimationController.forward();
+
+                                _alignAnimationControllerforicon.forward();
+                              }
                             }
                           },
                           onTap: () {
@@ -667,6 +683,14 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                       onPressed: () {
                         audioPlayerProvider.playPreviousSong();
                         _alignAnimationController.repeat(reverse: true);
+
+                        if (!audioPlayerProvider.isPlaying) {
+                          _fadeAnimationControllerforicon.forward();
+
+                          _iconAnimationController.forward();
+
+                          _alignAnimationControllerforicon.forward();
+                        }
                       },
                     ),
                     Selector<AudioPlayerProvider, IconData>(
@@ -735,6 +759,14 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                       onPressed: () {
                         audioPlayerProvider.playNextSong();
                         _alignAnimationController.repeat(reverse: true);
+
+                        if (!audioPlayerProvider.isPlaying) {
+                          _fadeAnimationControllerforicon.forward();
+
+                          _iconAnimationController.forward();
+
+                          _alignAnimationControllerforicon.forward();
+                        }
                       },
                     ),
                   ],
