@@ -18,29 +18,23 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
   late AnimationController _alignAnimationController;
   late final Animation<AlignmentGeometry> _alignAnimation;
 
-  double opacityLevel = 0.5;
-
   late AnimationController _fadeAnimationControllerforicon;
   late final Animation<double> _fadeAnimation;
 
-  late final Animation<double> _scaleAnimation;
-
+  late AnimationController _iconAnimationController;
   late final Animation<double> _iconAnimation;
 
-  late AnimationController _iconAnimationController;
-
   late AnimationController _alignAnimationControllerforicon;
-
   late final Animation<AlignmentGeometry> _leftAlignAnimation;
   late final Animation<AlignmentGeometry> _rightAlignAnimation;
 
   @override
   void initState() {
     super.initState();
+
+    // Align Animation Controller
     _alignAnimationController = AnimationController(
-      duration: const Duration(
-          seconds:
-              4), //15 is good //8 is good for new //8 is final //4 for Curves.slowMiddle
+      duration: const Duration(seconds: 4),
       vsync: this,
     )..repeat(reverse: true);
 
@@ -55,16 +49,14 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
       ),
     );
 
+    // Icon Animation Controller
     _iconAnimationController = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
     );
 
     // _iconAnimationController.forward(); //this needs to be in build method if need to restard after each rebuilt
-
-    // _iconAnimation =
-    //     Tween<double>(begin: 0.0, end: 1.0).animate(_iconAnimationController);
-
+    // _iconAnimation =  Tween<double>(begin: 0.0, end: 1.0).animate(_iconAnimationController);
     _iconAnimation = Tween<double>(
       begin: 0.0,
       end: 1.0,
@@ -76,6 +68,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
       // reverseCurve: Curves.easeInQuart,
     ));
 
+    // Fade Animation Controller for Icon
     _fadeAnimationControllerforicon = AnimationController(
       duration: const Duration(seconds: 5),
       reverseDuration: const Duration(seconds: 2),
@@ -85,6 +78,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
     _fadeAnimation = Tween<double>(begin: 0.5, end: 0)
         .animate(_fadeAnimationControllerforicon);
 
+    // Align Animation Controller for Icon
     _alignAnimationControllerforicon = AnimationController(
       duration: const Duration(seconds: 5),
       reverseDuration: const Duration(seconds: 2),
@@ -93,7 +87,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
     _leftAlignAnimation = Tween<AlignmentGeometry>(
       // begin: Alignment.center,
-
       // Adjust offset (0.2 = 20% from center)
       begin: const Alignment(-0.28, 0.0),
       // end: Alignment.centerLeft,
@@ -128,9 +121,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
   void dispose() {
     _alignAnimationController.dispose();
     _fadeAnimationControllerforicon.dispose();
-
     _iconAnimationController.dispose();
-
     _alignAnimationControllerforicon.dispose();
     super.dispose();
   }
