@@ -154,6 +154,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
       _iconAnimationController.reverse();
 
       _alignAnimationControllerforicon.reverse();
+
+      _alignAnimationController.stop();
     }
 
     return Scaffold(
