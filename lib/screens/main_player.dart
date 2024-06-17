@@ -154,12 +154,16 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
         automaticallyImplyLeading: false,
         leading: IconButton(
           icon: const Icon(Icons.keyboard_arrow_down),
-          iconSize: 40,
+          iconSize: 35, //40
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        title: const Text('Playing'),
+        centerTitle: true,
+        title: const Text(
+          'Playing',
+          style: TextStyle(fontSize: 18),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.more_vert_outlined),
