@@ -75,7 +75,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
       vsync: this,
     );
 
-    _fadeAnimation = Tween<double>(begin: 0.5, end: 0)
+    _fadeAnimation = Tween<double>(begin: 0.8, end: 0)
         .animate(_fadeAnimationControllerforicon);
 
     // Align Transition Controller for Icon
@@ -88,9 +88,9 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
     _leftAlignAnimation = Tween<AlignmentGeometry>(
       // begin: Alignment.center,
       // Adjust offset (0.2 = 20% from center)
-      begin: const Alignment(-0.28, 0.0),
+      begin: const Alignment(-0.38, 0.0),
       // end: Alignment.centerLeft,
-      end: const Alignment(-0.72, 0.0),
+      end: const Alignment(-0.82, 0.0),
     ).animate(
       CurvedAnimation(
         parent: _alignAnimationControllerforicon,
@@ -103,9 +103,9 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
     _rightAlignAnimation = Tween<AlignmentGeometry>(
       //  begin: Alignment.center,
-      begin: const Alignment(0.28, 0.0),
+      begin: const Alignment(0.38, 0.0),
       // end: Alignment.centerRight,
-      end: const Alignment(0.72, 0.0),
+      end: const Alignment(0.82, 0.0),
     ).animate(
       CurvedAnimation(
         parent: _alignAnimationControllerforicon,
