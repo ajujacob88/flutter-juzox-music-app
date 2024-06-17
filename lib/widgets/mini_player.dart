@@ -300,9 +300,9 @@ Route _createRoute() {
 }
 */
 
+/*
 // for page route animation
 //Method 3
-
 Route _createRoute() {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => const MainPlayer(),
@@ -319,6 +319,27 @@ Route _createRoute() {
 
       return SlideTransition(
         position: tween.animate(curvedAnimation),
+        child: child,
+      );
+    },
+  );
+}
+*/
+
+//my experiments
+
+Route _createRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => const MainPlayer(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      final tween = Tween<double>(begin: 0.0, end: 1.0);
+      final curvedAnimation = CurvedAnimation(
+        parent: animation,
+        curve: Curves.ease,
+      );
+
+      return FadeTransition(
+        opacity: tween.animate(curvedAnimation),
         child: child,
       );
     },
