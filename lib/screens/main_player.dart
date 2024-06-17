@@ -162,10 +162,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
         title: const Text('Playing'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+            icon: const Icon(Icons.more_vert_outlined),
+            onPressed: () {},
           ),
         ],
       ),
