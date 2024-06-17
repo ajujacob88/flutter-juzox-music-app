@@ -315,37 +315,77 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                             children: [
                               AlignTransition(
                                 alignment: _alignAnimation,
-                                child: QueryArtworkWidget(
-                                  id: currentlyPlayingSong!.id!,
-                                  type: ArtworkType.AUDIO,
-                                  size: 500,
-                                  quality: 100,
-                                  artworkHeight: 380,
-                                  artworkWidth: 300,
+                                child: Stack(
+                                  children: [
+                                    QueryArtworkWidget(
+                                      id: currentlyPlayingSong!.id!,
+                                      type: ArtworkType.AUDIO,
+                                      size: 500,
+                                      quality: 100,
+                                      artworkHeight: 380,
+                                      artworkWidth: 300,
 
-                                  artworkBorder: const BorderRadius.all(
-                                    Radius.circular(12),
-                                  ),
-                                  //  artworkClipBehavior: Clip.hardEdge,
-
-                                  artworkClipBehavior:
-                                      Clip.antiAliasWithSaveLayer,
-                                  artworkFit: BoxFit.fill,
-                                  nullArtworkWidget: Container(
-                                    decoration: const BoxDecoration(
-                                      color: Color.fromARGB(22, 68, 137, 255),
-                                      borderRadius: BorderRadius.all(
+                                      artworkBorder: const BorderRadius.all(
                                         Radius.circular(12),
                                       ),
+                                      //  artworkClipBehavior: Clip.hardEdge,
+
+                                      artworkClipBehavior:
+                                          Clip.antiAliasWithSaveLayer,
+                                      artworkFit: BoxFit.fill,
+                                      nullArtworkWidget: Container(
+                                        decoration: const BoxDecoration(
+                                          color:
+                                              Color.fromARGB(22, 68, 137, 255),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(12),
+                                          ),
+                                        ),
+                                        width: 300.0,
+                                        height: 380.0,
+                                        child: const Icon(
+                                          Icons.music_note_outlined,
+                                          color:
+                                              Color.fromARGB(140, 64, 195, 255),
+                                          size: 300,
+                                        ),
+                                      ),
                                     ),
-                                    width: 300.0,
-                                    height: 380.0,
-                                    child: const Icon(
-                                      Icons.music_note_outlined,
-                                      color: Color.fromARGB(140, 64, 195, 255),
-                                      size: 300,
-                                    ),
-                                  ),
+                                    Positioned(
+                                      top: 20,
+                                      right: 20,
+                                      child: Selector<AudioPlayerProvider,
+                                              bool>(
+                                          selector:
+                                              (context, audioPlayerProvider) =>
+                                                  audioPlayerProvider.isPlaying,
+                                          builder: (_, isPlaying, __) {
+                                            return AnimatedSwitcher(
+                                              duration: const Duration(
+                                                  milliseconds: 500),
+                                              child: isPlaying
+                                                  ? const AnimatedMusicIndicator(
+                                                      key: ValueKey('animated'),
+                                                      color: Color.fromARGB(
+                                                          129, 255, 255, 255),
+                                                      barStyle: BarStyle.solid,
+                                                      size: .06,
+                                                    )
+                                                  : const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: 18.0),
+                                                      child:
+                                                          StaticMusicIndicator(
+                                                        key: ValueKey('static'),
+                                                        color: Color.fromARGB(
+                                                            129, 255, 255, 255),
+                                                        size: .1,
+                                                      ),
+                                                    ),
+                                            );
+                                          }),
+                                    )
+                                  ],
                                 ),
                               ),
                               FadeTransition(
@@ -379,31 +419,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                   color: Colors.white,
                                 ),
                               ),
-                              Positioned(
-                                top: 10,
-                                right: 10,
-                                child: Selector<AudioPlayerProvider, bool>(
-                                    selector: (context, audioPlayerProvider) =>
-                                        audioPlayerProvider.isPlaying,
-                                    builder: (_, isPlaying, __) {
-                                      return isPlaying
-                                          ? const AnimatedMusicIndicator(
-                                              color: Color.fromARGB(
-                                                  129, 255, 255, 255),
-                                              barStyle: BarStyle.solid,
-                                              size: .06,
-                                            )
-                                          : const Padding(
-                                              padding:
-                                                  EdgeInsets.only(top: 18.0),
-                                              child: StaticMusicIndicator(
-                                                color: Color.fromARGB(
-                                                    129, 255, 255, 255),
-                                                size: .1,
-                                              ),
-                                            );
-                                    }),
-                              )
                             ],
                           ),
                         ),
