@@ -327,7 +327,7 @@ Route _createRoute() {
 */
 
 //my experiments
-
+/*
 Route _createRoute() {
   return PageRouteBuilder(
     transitionDuration: const Duration(seconds: 1),
@@ -342,6 +342,28 @@ Route _createRoute() {
 
       return FadeTransition(
         opacity: tween.animate(curvedAnimation),
+        child: child,
+      );
+    },
+  );
+}
+*/
+
+Route _createRoute() {
+  return PageRouteBuilder(
+    transitionDuration: const Duration(seconds: 1),
+    reverseTransitionDuration: const Duration(seconds: 1),
+    pageBuilder: (context, animation, secondaryAnimation) => const MainPlayer(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      final tween =
+          Tween<Offset>(begin: const Offset(0.0, 1.0), end: Offset.zero);
+      final curvedAnimation = CurvedAnimation(
+        parent: animation,
+        curve: Curves.ease,
+      );
+
+      return SlideTransition(
+        position: tween.animate(curvedAnimation),
         child: child,
       );
     },
