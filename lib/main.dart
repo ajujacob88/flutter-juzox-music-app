@@ -6,8 +6,9 @@ import 'package:provider/provider.dart';
 var kColorScheme = ColorScheme.fromSeed(
   //seedColor: const Color.fromARGB(255, 104, 58, 183), //this
   // seedColor: Color.fromARGB(71, 112, 207, 4),
-  seedColor: const Color.fromARGB(255, 1, 3, 14), //thisss
+  // seedColor: const Color.fromARGB(255, 1, 3, 14), //thisss
   // seedColor: Colors.red,
+  seedColor: const Color(0xFF004277), //this finalised
 );
 
 // const myGradient = LinearGradient(
