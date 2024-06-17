@@ -367,7 +367,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                                   ? const AnimatedMusicIndicator(
                                                       key: ValueKey('animated'),
                                                       color: Color.fromARGB(
-                                                          129, 255, 255, 255),
+                                                          219, 255, 255, 255),
                                                       barStyle: BarStyle.solid,
                                                       size: .06,
                                                     )
@@ -378,7 +378,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                                           StaticMusicIndicator(
                                                         key: ValueKey('static'),
                                                         color: Color.fromARGB(
-                                                            129, 255, 255, 255),
+                                                            219, 255, 255, 255),
                                                         size: .1,
                                                       ),
                                                     ),
