@@ -32,7 +32,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    // Align Animation Controller
+    // Align Transition Controller
     _alignAnimationController = AnimationController(
       duration: const Duration(seconds: 4),
       vsync: this,
@@ -49,7 +49,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
       ),
     );
 
-    // Icon Animation Controller
+    // Animated Icon Controller
     _iconAnimationController = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
@@ -68,7 +68,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
       // reverseCurve: Curves.easeInQuart,
     ));
 
-    // Fade Animation Controller for Icon
+    // Fade Transition Controller for Icon
     _fadeAnimationControllerforicon = AnimationController(
       duration: const Duration(seconds: 5),
       reverseDuration: const Duration(seconds: 2),
@@ -78,7 +78,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
     _fadeAnimation = Tween<double>(begin: 0.5, end: 0)
         .animate(_fadeAnimationControllerforicon);
 
-    // Align Animation Controller for Icon
+    // Align Transition Controller for Icon
     _alignAnimationControllerforicon = AnimationController(
       duration: const Duration(seconds: 5),
       reverseDuration: const Duration(seconds: 2),
@@ -309,6 +309,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                             }
                           },
                           child: Stack(
+                            alignment: Alignment.center,
                             children: [
                               AlignTransition(
                                 alignment: _alignAnimation,
@@ -345,43 +346,35 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                   ),
                                 ),
                               ),
-                              Positioned(
-                                //  left: 20,
-                                child: FadeTransition(
-                                  opacity: _fadeAnimation,
-                                  child: AlignTransition(
-                                    alignment: _leftAlignAnimation,
-                                    child: const Icon(
-                                      Icons.swipe_left_alt_outlined,
-                                      size: 40,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                //  right: 20,
-                                child: FadeTransition(
-                                  opacity: _fadeAnimation,
-                                  child: AlignTransition(
-                                    alignment: _rightAlignAnimation,
-                                    child: const Icon(
-                                      Icons.swipe_right_alt_outlined,
-                                      size: 40,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Center(
-                                child: FadeTransition(
-                                  opacity: _fadeAnimation,
-                                  child: AnimatedIcon(
-                                    progress: _iconAnimation,
-                                    icon: AnimatedIcons.play_pause,
+                              FadeTransition(
+                                opacity: _fadeAnimation,
+                                child: AlignTransition(
+                                  alignment: _leftAlignAnimation,
+                                  child: const Icon(
+                                    Icons.swipe_left_alt_outlined,
                                     size: 40,
                                     color: Colors.white,
                                   ),
+                                ),
+                              ),
+                              FadeTransition(
+                                opacity: _fadeAnimation,
+                                child: AlignTransition(
+                                  alignment: _rightAlignAnimation,
+                                  child: const Icon(
+                                    Icons.swipe_right_alt_outlined,
+                                    size: 40,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              FadeTransition(
+                                opacity: _fadeAnimation,
+                                child: AnimatedIcon(
+                                  progress: _iconAnimation,
+                                  icon: AnimatedIcons.play_pause,
+                                  size: 40,
+                                  color: Colors.white,
                                 ),
                               ),
                             ],
