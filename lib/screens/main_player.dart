@@ -1,8 +1,10 @@
+import 'package:animated_music_indicator/animated_music_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:juzox_music_app/models/music_model.dart';
 import 'package:juzox_music_app/providers/audio_player_provider.dart';
 import 'package:juzox_music_app/utils/format_duration.dart';
+import 'package:juzox_music_app/widgets/static_music_indicator.dart';
 import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
@@ -377,6 +379,31 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                   color: Colors.white,
                                 ),
                               ),
+                              Positioned(
+                                top: 10,
+                                right: 10,
+                                child: Selector<AudioPlayerProvider, bool>(
+                                    selector: (context, audioPlayerProvider) =>
+                                        audioPlayerProvider.isPlaying,
+                                    builder: (_, isPlaying, __) {
+                                      return isPlaying
+                                          ? const AnimatedMusicIndicator(
+                                              color: Color.fromARGB(
+                                                  129, 255, 255, 255),
+                                              barStyle: BarStyle.solid,
+                                              size: .06,
+                                            )
+                                          : const Padding(
+                                              padding:
+                                                  EdgeInsets.only(top: 18.0),
+                                              child: StaticMusicIndicator(
+                                                color: Color.fromARGB(
+                                                    129, 255, 255, 255),
+                                                size: .1,
+                                              ),
+                                            );
+                                    }),
+                              )
                             ],
                           ),
                         ),
