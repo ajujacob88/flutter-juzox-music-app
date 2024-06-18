@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:juzox_music_app/providers/audio_player_provider.dart';
 import 'package:juzox_music_app/screens/tabs_screen.dart';
+import 'package:juzox_music_app/widgets/gradient_background.dart';
 import 'package:provider/provider.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
@@ -95,6 +96,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+/*
+//seperated to another file in widgets
 class GradientBackground extends StatelessWidget {
   const GradientBackground({super.key, required this.child});
 
@@ -108,7 +111,7 @@ class GradientBackground extends StatelessWidget {
     );
   }
 }
-
+*/
 
 
 
