@@ -352,7 +352,7 @@ Route _createRoute() {
 Route _createRoute() {
   return PageRouteBuilder(
     transitionDuration: const Duration(milliseconds: 800),
-    reverseTransitionDuration: const Duration(milliseconds: 800),
+    reverseTransitionDuration: const Duration(milliseconds: 500),
     pageBuilder: (context, animation, secondaryAnimation) => const MainPlayer(),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       // final tween =
