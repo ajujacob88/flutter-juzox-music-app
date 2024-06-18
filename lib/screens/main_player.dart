@@ -227,8 +227,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
                                 id: audioPlayerProvider.previousSong?.id ?? 0,
                                 type: ArtworkType.AUDIO,
-                                size: 500,
-                                quality: 100,
+                                size: 400,
+                                quality: 80,
                                 artworkHeight: 350,
                                 // artworkWidth: 40,
 
@@ -337,8 +337,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                       QueryArtworkWidget(
                                         id: currentlyPlayingSong!.id!,
                                         type: ArtworkType.AUDIO,
-                                        size: 500,
-                                        quality: 100,
+                                        size: 400, //500
+                                        quality: 80, //100
                                         artworkHeight: 380,
                                         artworkWidth: 300,
 
@@ -464,8 +464,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                               child: QueryArtworkWidget(
                                 id: audioPlayerProvider.nextSong?.id ?? 0,
                                 type: ArtworkType.AUDIO,
-                                size: 500,
-                                quality: 100,
+                                size: 400,
+                                quality: 80,
                                 artworkHeight: 350,
                                 artworkBorder: const BorderRadius.only(
                                     topLeft: Radius.circular(12),
