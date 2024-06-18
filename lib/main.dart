@@ -4,30 +4,15 @@ import 'package:juzox_music_app/screens/tabs_screen.dart';
 import 'package:provider/provider.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
-  //seedColor: const Color.fromARGB(255, 104, 58, 183), //this
-  // seedColor: Color.fromARGB(71, 112, 207, 4),
-  // seedColor: const Color.fromARGB(255, 1, 3, 14), //thisss
-  // seedColor: Colors.red,
   seedColor: const Color(0xFF004277), //this finalised
 );
-
-// const myGradient = LinearGradient(
-//   begin: Alignment.topCenter,
-//   end: Alignment.bottomCenter,
-//   colors: [
-//     Color(0xFF243B55),
-//     Color(0xFF141E30),
-//   ],
-// );
 
 const kGradient = LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
   colors: [
     Color.fromARGB(255, 5, 37, 73), //this
-    // Color.fromARGB(255, 6, 73, 28),
-    // Color.fromARGB(143, 6, 12, 73),
-    // Color.fromARGB(143, 18, 2, 28),
+
     Color.fromARGB(163, 1, 0, 6), //this
   ],
 );
@@ -77,25 +62,8 @@ class MyApp extends StatelessWidget {
               TextStyle(color: kColorScheme.onSecondary, fontSize: 14),
           subtitleTextStyle: const TextStyle(color: Colors.grey),
         ),
-        // navigationBarTheme: ThemeData().navigationBarTheme.copyWith(
-        //       //backgroundColor: kColorScheme.onPrimaryContainer,
-        //       labelTextStyle: MaterialStateProperty.all(
-        //         const TextStyle(
-        //           fontSize: 12,
-        //           color: Colors.white70,
-        //         ),
-        //       ),
-        //     ),
-
-        // elevatedButtonTheme:
-        //     ElevatedButtonThemeData(style: ElevatedButton.styleFrom()),
-
-        // tabBarTheme: const TabBarTheme().copyWith(
-        //   labelColor: Colors.pink[800],
-        //   labelStyle: TextStyle(color: Colors.pink[800]),
-        //   overlayColor: MaterialStatePropertyAll(Colors.green),
-        // ),
       ),
+
       //Wrap MaterialApp with Container for gradient
       // builder: (context, child) => Container(
       //   decoration: const BoxDecoration(
@@ -115,18 +83,13 @@ class MyApp extends StatelessWidget {
       home: const GradientBackground(
         child: TabsScreen(),
       ),
-      // home: Container(
-      //   decoration: const BoxDecoration(
-      //     gradient: LinearGradient(
-      //       begin: Alignment.topCenter,
-      //       end: Alignment.bottomCenter,
-      //       colors: [
-      //         Color.fromARGB(255, 104, 58, 183),
-      //         Color.fromARGB(255, 10, 160, 28),
-      //       ],
-      //     ),
+
+      //below is also efficient, giving scafold with transparent background here,, then no need to provide scafold in every pages... this also is good
+      //  home: GradientBackground(
+      //   child: Scaffold(
+      //     backgroundColor: Colors.transparent, // Optional for consistency
+      //     body: TabsScreen(), // Or other screens
       //   ),
-      //   child: const HomeScreen(),
       // ),
     );
   }
