@@ -85,6 +85,26 @@ class MyApp extends StatelessWidget {
         child: TabsScreen(),
       ),
 
+/*
+      //in the other pages outside tabscreen, wrap the pages scafold with GradientBackground or wrap with GradientBackground in navigator.push inorder to achieve gradient... 
+//eg:
+// In your navigation code (e.g., within TabsScreen)
+Navigator.push(
+  context,
+  MaterialPageRoute(
+    builder: (context) => GradientBackground(
+      child: MainPlayer(), // Your MainPlayer widget
+    ),
+  ),
+
+  OR
+
+   Widget build(BuildContext context) {
+    return GradientBackground(
+      child: Scaffold(
+);
+*/
+
       //below is also efficient, giving scafold with transparent background here,, then no need to provide scafold in every pages... this also is good
       //  home: GradientBackground(
       //   child: Scaffold(
@@ -112,9 +132,6 @@ class GradientBackground extends StatelessWidget {
   }
 }
 */
-
-
-
 
 /*
 //old method using builder method of material app for wrapping the scafold with container and gradient... But creating a seperate clas bradientbackground than using builder function is a better and efficient approach, so i changed the code to above
