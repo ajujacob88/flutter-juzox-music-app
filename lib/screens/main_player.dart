@@ -160,6 +160,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
+        //backgroundColor: const Color.fromARGB(255, 1, 14, 24),
+
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           automaticallyImplyLeading: false,
