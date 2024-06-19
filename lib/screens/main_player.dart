@@ -744,6 +744,101 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                           }
                         },
                       ),
+
+                      //no need of selector here... because only one animated icon is here and it animation direction is controlled with _iconanimationcontroller
+                      IconButton(
+                        icon: AnimatedIcon(
+                          icon: AnimatedIcons.play_pause,
+                          progress: _iconAnimation,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          if (audioPlayerProvider.isPlaying) {
+                            audioPlayerProvider.juzoxAudioPlayerService
+                                .juzoxPause();
+                            _alignAnimationController.stop();
+
+                            _fadeAnimationControllerforicon.reverse();
+                            _alignAnimationControllerforicon.reverse();
+                            _iconAnimationController.reverse();
+                          } else {
+                            audioPlayerProvider.juzoxAudioPlayerService
+                                .juzoxPlay(currentlyPlayingSong.filePath);
+                            // _alignAnimationController.repeat(reverse: true);
+
+                            _fadeAnimationControllerforicon.forward();
+                            _alignAnimationControllerforicon.forward();
+                            _iconAnimationController.forward();
+
+                            if (_alignAnimationController.status ==
+                                AnimationStatus.reverse) {
+                              _alignAnimationController.reverse().then(
+                                (_) {
+                                  _alignAnimationController.repeat(
+                                      reverse: true);
+                                },
+                              );
+                            } else {
+                              _alignAnimationController.repeat(reverse: true);
+                            }
+                          }
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.skip_next),
+                        onPressed: () {
+                          audioPlayerProvider.playNextSong();
+                          _alignAnimationController.repeat(reverse: true);
+
+                          if (!audioPlayerProvider.isPlaying) {
+                            _fadeAnimationControllerforicon.forward();
+
+                            _iconAnimationController.forward();
+
+                            _alignAnimationControllerforicon.forward();
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                  const Spacer(
+                    flex: 2,
+                  ),
+                ],
+              );
+            }),
+      ),
+    );
+  }
+}
+
+
+
+
+/*
+below ico buttons checking
+   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: IconButton(
+                          icon: const Icon(Icons.skip_previous),
+                          onPressed: () {
+                            audioPlayerProvider.playPreviousSong();
+                            _alignAnimationController.repeat(reverse: true);
+
+                            if (!audioPlayerProvider.isPlaying) {
+                              _fadeAnimationControllerforicon.forward();
+
+                              _iconAnimationController.forward();
+
+                              _alignAnimationControllerforicon.forward();
+                            }
+                          },
+                        ),
+                      ),
+
+                      //old one
                       Selector<AudioPlayerProvider, IconData>(
                         selector: (context, provider) {
                           if (provider.processingState ==
@@ -798,30 +893,117 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                           );
                         },
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.skip_next),
-                        onPressed: () {
-                          audioPlayerProvider.playNextSong();
-                          _alignAnimationController.repeat(reverse: true);
 
-                          if (!audioPlayerProvider.isPlaying) {
-                            _fadeAnimationControllerforicon.forward();
+                      //with selector - but actually no need of selector here 
+                      Expanded(
+                        child: Selector<AudioPlayerProvider, bool>(
+                          selector: (context, audioPlayerProvider) =>
+                              audioPlayerProvider.isPlaying,
+                          builder: (context, isPlaying, child) {
+                            return IconButton(
+                                icon: AnimatedIcon(
+                                  icon: AnimatedIcons.play_pause,
+                                  progress: _iconAnimation,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {
+                                  if (audioPlayerProvider.isPlaying) {
+                                    audioPlayerProvider.juzoxAudioPlayerService
+                                        .juzoxPause();
+                                    _alignAnimationController.stop();
 
-                            _iconAnimationController.forward();
+                                    _fadeAnimationControllerforicon.reverse();
+                                    _alignAnimationControllerforicon.reverse();
+                                    _iconAnimationController.reverse();
+                                  } else {
+                                    audioPlayerProvider.juzoxAudioPlayerService
+                                        .juzoxPlay(
+                                            currentlyPlayingSong.filePath);
+                                    // _alignAnimationController.repeat(reverse: true);
 
-                            _alignAnimationControllerforicon.forward();
-                          }
-                        },
+                                    _fadeAnimationControllerforicon.forward();
+                                    _alignAnimationControllerforicon.forward();
+                                    _iconAnimationController.forward();
+
+                                    if (_alignAnimationController.status ==
+                                        AnimationStatus.reverse) {
+                                      _alignAnimationController.reverse().then(
+                                        (_) {
+                                          _alignAnimationController.repeat(
+                                              reverse: true);
+                                        },
+                                      );
+                                    } else {
+                                      _alignAnimationController.repeat(
+                                          reverse: true);
+                                    }
+                                  }
+                                });
+                          },
+                        ),
+                      ),
+
+                      //this below is the correct one
+                      Expanded(
+                        child: IconButton(
+                          icon: AnimatedIcon(
+                            icon: AnimatedIcons.play_pause,
+                            progress: _iconAnimation,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            if (audioPlayerProvider.isPlaying) {
+                              audioPlayerProvider.juzoxAudioPlayerService
+                                  .juzoxPause();
+                              _alignAnimationController.stop();
+
+                              _fadeAnimationControllerforicon.reverse();
+                              _alignAnimationControllerforicon.reverse();
+                              _iconAnimationController.reverse();
+                            } else {
+                              audioPlayerProvider.juzoxAudioPlayerService
+                                  .juzoxPlay(currentlyPlayingSong.filePath);
+                              // _alignAnimationController.repeat(reverse: true);
+
+                              _fadeAnimationControllerforicon.forward();
+                              _alignAnimationControllerforicon.forward();
+                              _iconAnimationController.forward();
+
+                              if (_alignAnimationController.status ==
+                                  AnimationStatus.reverse) {
+                                _alignAnimationController.reverse().then(
+                                  (_) {
+                                    _alignAnimationController.repeat(
+                                        reverse: true);
+                                  },
+                                );
+                              } else {
+                                _alignAnimationController.repeat(reverse: true);
+                              }
+                            }
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: IconButton(
+                          icon: const Icon(Icons.skip_next),
+                          onPressed: () {
+                            audioPlayerProvider.playNextSong();
+                            _alignAnimationController.repeat(reverse: true);
+
+                            if (!audioPlayerProvider.isPlaying) {
+                              _fadeAnimationControllerforicon.forward();
+
+                              _iconAnimationController.forward();
+
+                              _alignAnimationControllerforicon.forward();
+                            }
+                          },
+                        ),
                       ),
                     ],
                   ),
-                  const Spacer(
-                    flex: 2,
-                  ),
-                ],
-              );
-            }),
-      ),
-    );
-  }
-}
+
+
+
+                  */
