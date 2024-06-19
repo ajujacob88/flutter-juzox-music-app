@@ -758,14 +758,15 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                         },
                       ),
                       IconButton(
-                        iconSize: 40, // Size of the circle
+                        iconSize: 43, // Size of the circle
                         icon: Ink(
                           decoration: const ShapeDecoration(
-                              shape: CircleBorder(),
-                              // color: Color.fromARGB(
-                              //     106, 64, 195, 255), // Circle color
-                              color: Color.fromARGB(164, 255, 255, 255)),
-                          padding: const EdgeInsets.all(5),
+                            shape: CircleBorder(),
+                            // color: Color.fromARGB(
+                            //     106, 64, 195, 255), // Circle color
+                            color: Color.fromARGB(164, 255, 255, 255),
+                          ),
+                          padding: const EdgeInsets.all(3),
                           child: AnimatedIcon(
                             icon: AnimatedIcons.play_pause,
                             progress: _iconAnimation,
