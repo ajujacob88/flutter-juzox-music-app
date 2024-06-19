@@ -1,4 +1,5 @@
 import 'package:animated_music_indicator/animated_music_indicator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:juzox_music_app/models/music_model.dart';
@@ -730,10 +731,18 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
+                        iconSize: 25,
+                        icon: const Icon(
+                          CupertinoIcons.shuffle,
+                          color: Color.fromARGB(164, 255, 255, 255),
+                        ),
+                        onPressed: () {},
+                      ),
+                      IconButton(
+                        iconSize: 40,
                         icon: const Icon(
                           Icons.skip_previous,
-                          color: Colors.white,
-                          size: 30,
+                          color: Color.fromARGB(164, 255, 255, 255),
                         ),
                         onPressed: () {
                           audioPlayerProvider.playPreviousSong();
@@ -774,15 +783,16 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                         iconSize: 40, // Size of the circle
                         icon: Ink(
                           decoration: const ShapeDecoration(
-                            shape: CircleBorder(),
-                            color: Color.fromARGB(
-                                106, 64, 195, 255), // Circle color
-                          ),
+                              shape: CircleBorder(),
+                              // color: Color.fromARGB(
+                              //     106, 64, 195, 255), // Circle color
+                              color: Color.fromARGB(164, 255, 255, 255)),
                           padding: const EdgeInsets.all(5),
                           child: AnimatedIcon(
                             icon: AnimatedIcons.play_pause,
                             progress: _iconAnimation,
-                            color: Colors.white,
+                            // color: Colors.white,
+                            color: const Color.fromARGB(255, 0, 6, 11),
                           ),
                         ),
                         onPressed: () {
@@ -880,10 +890,10 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
                       */
                       IconButton(
+                        iconSize: 40,
                         icon: const Icon(
                           Icons.skip_next,
-                          color: Colors.white,
-                          size: 30,
+                          color: Color.fromARGB(164, 255, 255, 255),
                         ),
                         onPressed: () {
                           audioPlayerProvider.playNextSong();
@@ -897,6 +907,15 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                             _alignAnimationControllerforicon.forward();
                           }
                         },
+                      ),
+
+                      IconButton(
+                        iconSize: 28,
+                        icon: const Icon(
+                          Icons.repeat,
+                          color: Color.fromARGB(164, 255, 255, 255),
+                        ),
+                        onPressed: () {},
                       ),
                     ],
                   ),
