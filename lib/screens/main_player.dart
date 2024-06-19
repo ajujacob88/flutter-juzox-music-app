@@ -728,7 +728,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                   //     //flex: 1,
                   //     ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       IconButton(
                         iconSize: 25,
