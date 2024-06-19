@@ -749,6 +749,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                         },
                       ),
 
+/*
                       IconButton(
                         iconSize: 40, // Size of the circle
                         icon: Container(
@@ -767,7 +768,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                         ),
                         onPressed: () {},
                       ),
-
+*/
                       //out of this 3 , the preferred one is this one
                       IconButton(
                         iconSize: 40, // Size of the circle
@@ -775,7 +776,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                           decoration: const ShapeDecoration(
                             shape: CircleBorder(),
                             color: Color.fromARGB(
-                                106, 64, 255, 96), // Circle color
+                                106, 64, 195, 255), // Circle color
                           ),
                           padding: const EdgeInsets.all(5),
                           child: AnimatedIcon(
@@ -784,9 +785,39 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                             color: Colors.white,
                           ),
                         ),
-                        onPressed: () {},
-                      ),
+                        onPressed: () {
+                          if (audioPlayerProvider.isPlaying) {
+                            audioPlayerProvider.juzoxAudioPlayerService
+                                .juzoxPause();
+                            _alignAnimationController.stop();
 
+                            _fadeAnimationControllerforicon.reverse();
+                            _alignAnimationControllerforicon.reverse();
+                            _iconAnimationController.reverse();
+                          } else {
+                            audioPlayerProvider.juzoxAudioPlayerService
+                                .juzoxPlay(currentlyPlayingSong.filePath);
+                            // _alignAnimationController.repeat(reverse: true);
+
+                            _fadeAnimationControllerforicon.forward();
+                            _alignAnimationControllerforicon.forward();
+                            _iconAnimationController.forward();
+
+                            if (_alignAnimationController.status ==
+                                AnimationStatus.reverse) {
+                              _alignAnimationController.reverse().then(
+                                (_) {
+                                  _alignAnimationController.repeat(
+                                      reverse: true);
+                                },
+                              );
+                            } else {
+                              _alignAnimationController.repeat(reverse: true);
+                            }
+                          }
+                        },
+                      ),
+/*
                       Ink(
                         decoration: const ShapeDecoration(
                           color: Color.fromARGB(106, 147, 64, 255),
@@ -803,7 +834,9 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                           onPressed: () {},
                         ),
                       ),
+*/
 
+/*
                       //no need of selector here... because only one animated icon is here and it animation direction is controlled with _iconanimationcontroller
                       IconButton(
                         icon: AnimatedIcon(
@@ -844,6 +877,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                           }
                         },
                       ),
+
+                      */
                       IconButton(
                         icon: const Icon(
                           Icons.skip_next,
