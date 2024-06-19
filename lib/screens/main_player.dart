@@ -90,9 +90,9 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
     _leftAlignAnimation = Tween<AlignmentGeometry>(
       // begin: Alignment.center,
       // Adjust offset (0.2 = 20% from center)
-      begin: const Alignment(-0.38, 0.0),
+      begin: const Alignment(-0.38, 0.0), //good
       // end: Alignment.centerLeft,
-      end: const Alignment(-0.82, 0.0),
+      end: const Alignment(-0.82, 0.0), //good
     ).animate(
       CurvedAnimation(
         parent: _alignAnimationControllerforicon,
@@ -412,37 +412,72 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                     ],
                                   ),
                                 ),
+
+                                //wrapping the 3 icons into a stack is more efficient since only 1 fade transition is required..wrapping with row wont work for aligntranisiton , so wrapped up with stack ,Using a Stack instead of a Row allows each widget to be independently positioned within the stack, which is necessary for AlignTransition to work correctly. In a Row, widgets are laid out horizontally, and their alignment within the row is constrained by the row's layout logic. This means AlignTransition cannot effectively position the widgets based on the animation because the Row imposes its own alignment rules.
+
                                 FadeTransition(
                                   opacity: _fadeAnimation,
-                                  child: AlignTransition(
-                                    alignment: _leftAlignAnimation,
-                                    child: const Icon(
-                                      Icons.swipe_left_alt_outlined,
-                                      size: 40,
-                                      color: Colors.white,
-                                    ),
+                                  child: Stack(
+                                    children: [
+                                      AlignTransition(
+                                        alignment: _leftAlignAnimation,
+                                        child: const Icon(
+                                          Icons.swipe_left_alt_outlined,
+                                          size: 40,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Center(
+                                        child: AnimatedIcon(
+                                          progress: _iconAnimation,
+                                          icon: AnimatedIcons.play_pause,
+                                          size: 40,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      AlignTransition(
+                                        alignment: _rightAlignAnimation,
+                                        child: const Icon(
+                                          Icons.swipe_right_alt_outlined,
+                                          size: 40,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                FadeTransition(
-                                  opacity: _fadeAnimation,
-                                  child: AlignTransition(
-                                    alignment: _rightAlignAnimation,
-                                    child: const Icon(
-                                      Icons.swipe_right_alt_outlined,
-                                      size: 40,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                                FadeTransition(
-                                  opacity: _fadeAnimation,
-                                  child: AnimatedIcon(
-                                    progress: _iconAnimation,
-                                    icon: AnimatedIcons.play_pause,
-                                    size: 40,
-                                    color: Colors.white,
-                                  ),
-                                ),
+
+                                // FadeTransition(
+                                //   opacity: _fadeAnimation,
+                                //   child: AlignTransition(
+                                //     alignment: _leftAlignAnimation,
+                                //     child: const Icon(
+                                //       Icons.swipe_left_alt_outlined,
+                                //       size: 40,
+                                //       color: Colors.white,
+                                //     ),
+                                //   ),
+                                // ),
+                                // FadeTransition(
+                                //   opacity: _fadeAnimation,
+                                //   child: AlignTransition(
+                                //     alignment: _rightAlignAnimation,
+                                //     child: const Icon(
+                                //       Icons.swipe_right_alt_outlined,
+                                //       size: 40,
+                                //       color: Colors.white,
+                                //     ),
+                                //   ),
+                                // ),
+                                // FadeTransition(
+                                //   opacity: _fadeAnimation,
+                                //   child: AnimatedIcon(
+                                //     progress: _iconAnimation,
+                                //     icon: AnimatedIcons.play_pause,
+                                //     size: 40,
+                                //     color: Colors.white,
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
