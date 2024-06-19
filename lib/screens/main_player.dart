@@ -764,7 +764,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                             shape: CircleBorder(),
                             // color: Color.fromARGB(
                             //     106, 64, 195, 255), // Circle color
-                            color: Color.fromARGB(164, 255, 255, 255),
+                            // color: Color.fromARGB(164, 255, 255, 255),
+                            color: Color.fromARGB(146, 255, 255, 255), //final
                           ),
                           padding: const EdgeInsets.all(3),
                           child: AnimatedIcon(
