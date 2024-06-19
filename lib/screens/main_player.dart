@@ -757,28 +757,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                           }
                         },
                       ),
-
-/*
-                      IconButton(
-                        iconSize: 40, // Size of the circle
-                        icon: Container(
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color.fromARGB(
-                                106, 64, 195, 255), // Circle color
-                          ),
-                          padding:
-                              EdgeInsets.all(5), // Padding inside the circle
-                          child: AnimatedIcon(
-                            icon: AnimatedIcons.play_pause,
-                            progress: _iconAnimation,
-                            color: Colors.white,
-                          ),
-                        ),
-                        onPressed: () {},
-                      ),
-*/
-                      //out of this 3 , the preferred one is this one
                       IconButton(
                         iconSize: 40, // Size of the circle
                         icon: Ink(
@@ -827,68 +805,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                           }
                         },
                       ),
-/*
-                      Ink(
-                        decoration: const ShapeDecoration(
-                          color: Color.fromARGB(106, 147, 64, 255),
-                          shape: CircleBorder(),
-                        ),
-                        padding: const EdgeInsets.all(0),
-                        child: IconButton(
-                          iconSize: 40,
-                          icon: AnimatedIcon(
-                            icon: AnimatedIcons.play_pause,
-                            progress: _iconAnimation,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {},
-                        ),
-                      ),
-*/
-
-/*
-                      //no need of selector here... because only one animated icon is here and it animation direction is controlled with _iconanimationcontroller
-                      IconButton(
-                        icon: AnimatedIcon(
-                          icon: AnimatedIcons.play_pause,
-                          progress: _iconAnimation,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                        onPressed: () {
-                          if (audioPlayerProvider.isPlaying) {
-                            audioPlayerProvider.juzoxAudioPlayerService
-                                .juzoxPause();
-                            _alignAnimationController.stop();
-
-                            _fadeAnimationControllerforicon.reverse();
-                            _alignAnimationControllerforicon.reverse();
-                            _iconAnimationController.reverse();
-                          } else {
-                            audioPlayerProvider.juzoxAudioPlayerService
-                                .juzoxPlay(currentlyPlayingSong.filePath);
-                            // _alignAnimationController.repeat(reverse: true);
-
-                            _fadeAnimationControllerforicon.forward();
-                            _alignAnimationControllerforicon.forward();
-                            _iconAnimationController.forward();
-
-                            if (_alignAnimationController.status ==
-                                AnimationStatus.reverse) {
-                              _alignAnimationController.reverse().then(
-                                (_) {
-                                  _alignAnimationController.repeat(
-                                      reverse: true);
-                                },
-                              );
-                            } else {
-                              _alignAnimationController.repeat(reverse: true);
-                            }
-                          }
-                        },
-                      ),
-
-                      */
                       IconButton(
                         iconSize: 40,
                         icon: const Icon(
@@ -908,7 +824,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                           }
                         },
                       ),
-
                       IconButton(
                         iconSize: 28,
                         icon: const Icon(
