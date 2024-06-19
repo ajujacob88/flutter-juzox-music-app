@@ -749,6 +749,61 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                         },
                       ),
 
+                      IconButton(
+                        iconSize: 40, // Size of the circle
+                        icon: Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color.fromARGB(
+                                106, 64, 195, 255), // Circle color
+                          ),
+                          padding:
+                              EdgeInsets.all(5), // Padding inside the circle
+                          child: AnimatedIcon(
+                            icon: AnimatedIcons.play_pause,
+                            progress: _iconAnimation,
+                            color: Colors.white,
+                          ),
+                        ),
+                        onPressed: () {},
+                      ),
+
+                      //out of this 3 , the preferred one is this one
+                      IconButton(
+                        iconSize: 40, // Size of the circle
+                        icon: Ink(
+                          decoration: const ShapeDecoration(
+                            shape: CircleBorder(),
+                            color: Color.fromARGB(
+                                106, 64, 255, 96), // Circle color
+                          ),
+                          padding: const EdgeInsets.all(5),
+                          child: AnimatedIcon(
+                            icon: AnimatedIcons.play_pause,
+                            progress: _iconAnimation,
+                            color: Colors.white,
+                          ),
+                        ),
+                        onPressed: () {},
+                      ),
+
+                      Ink(
+                        decoration: const ShapeDecoration(
+                          color: Color.fromARGB(106, 147, 64, 255),
+                          shape: CircleBorder(),
+                        ),
+                        padding: const EdgeInsets.all(0),
+                        child: IconButton(
+                          iconSize: 40,
+                          icon: AnimatedIcon(
+                            icon: AnimatedIcons.play_pause,
+                            progress: _iconAnimation,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {},
+                        ),
+                      ),
+
                       //no need of selector here... because only one animated icon is here and it animation direction is controlled with _iconanimationcontroller
                       IconButton(
                         icon: AnimatedIcon(
