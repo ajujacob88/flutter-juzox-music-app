@@ -733,6 +733,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                         icon: const Icon(
                           Icons.skip_previous,
                           color: Colors.white,
+                          size: 30,
                         ),
                         onPressed: () {
                           audioPlayerProvider.playPreviousSong();
@@ -754,6 +755,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                           icon: AnimatedIcons.play_pause,
                           progress: _iconAnimation,
                           color: Colors.white,
+                          size: 30,
                         ),
                         onPressed: () {
                           if (audioPlayerProvider.isPlaying) {
@@ -791,6 +793,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                         icon: const Icon(
                           Icons.skip_next,
                           color: Colors.white,
+                          size: 30,
                         ),
                         onPressed: () {
                           audioPlayerProvider.playNextSong();
