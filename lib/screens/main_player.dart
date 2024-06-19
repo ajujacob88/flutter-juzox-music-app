@@ -730,7 +730,10 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.skip_previous),
+                        icon: const Icon(
+                          Icons.skip_previous,
+                          color: Colors.white,
+                        ),
                         onPressed: () {
                           audioPlayerProvider.playPreviousSong();
                           _alignAnimationController.repeat(reverse: true);
@@ -785,7 +788,10 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                         },
                       ),
                       IconButton(
-                        icon: const Icon(Icons.skip_next),
+                        icon: const Icon(
+                          Icons.skip_next,
+                          color: Colors.white,
+                        ),
                         onPressed: () {
                           audioPlayerProvider.playNextSong();
                           _alignAnimationController.repeat(reverse: true);
