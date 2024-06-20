@@ -212,9 +212,12 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                   //     height: 1,
                   //   ),
                   // ),
+                  SizedBox(
+                    height: 10,
+                  ),
 
-                  Expanded(
-                    flex: 18,
+                  Flexible(
+                    flex: 10,
                     child: AnimatedSwitcher(
                       duration: const Duration(seconds: 1),
                       child: Row(
@@ -560,9 +563,11 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                   //     height: 1,
                   //   ),
                   // ),
-
-                  Expanded(
-                    flex: 5,
+                  const Spacer(
+                    flex: 1,
+                  ),
+                  Flexible(
+                    flex: 3,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       mainAxisSize: MainAxisSize.max,
@@ -657,11 +662,11 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                   ),
 
                   const Spacer(
-                    flex: 2,
+                    flex: 1,
                   ),
 
-                  Expanded(
-                    flex: 3,
+                  Flexible(
+                    flex: 2,
                     child: SliderTheme(
                       data: SliderTheme.of(context).copyWith(
                         trackHeight: 0.8,
@@ -758,8 +763,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                   // const Spacer(
                   //     //flex: 1,
                   //     ),
-                  Expanded(
-                    flex: 3,
+                  Flexible(
+                    flex: 2,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -871,7 +876,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                     ),
                   ),
                   const Spacer(
-                    flex: 2,
+                    flex: 1,
                   ),
                 ],
               );
