@@ -130,6 +130,10 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
   }
 
   int _keyValueCounter = 1;
+
+  static const double _sideArtworkHeight = 350;
+  static const double _mainArtworkHeight = _sideArtworkHeight * 1.086;
+
   @override
   Widget build(BuildContext context) {
     final audioPlayerProvider =
@@ -198,21 +202,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  // const SizedBox(height: 20),
-                  // SizedBox(
-                  // height: 300,
-                  // width: 300,
-
-                  // const Spacer(
-                  //   flex: 1,
-                  // ),
-                  // const Expanded(
-                  //   flex: 0,
-                  //   child: SizedBox(
-                  //     height: 1,
-                  //   ),
-                  // ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
@@ -241,7 +231,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                   type: ArtworkType.AUDIO,
                                   size: 400,
                                   quality: 80,
-                                  artworkHeight: 350,
+                                  // artworkHeight: 350,
+                                  artworkHeight: _sideArtworkHeight,
                                   // artworkWidth: 40,
 
                                   artworkBorder: const BorderRadius.only(
@@ -354,7 +345,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                           type: ArtworkType.AUDIO,
                                           size: 400, //500
                                           quality: 80, //100
-                                          artworkHeight: 380,
+                                          // artworkHeight: 380,
+                                          artworkHeight: _mainArtworkHeight,
                                           artworkWidth: 300,
 
                                           artworkBorder: const BorderRadius.all(
@@ -520,7 +512,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                   type: ArtworkType.AUDIO,
                                   size: 400,
                                   quality: 80,
-                                  artworkHeight: 350,
+                                  //artworkHeight: 350,
+                                  artworkHeight: _sideArtworkHeight,
                                   artworkBorder: const BorderRadius.only(
                                       topLeft: Radius.circular(12),
                                       bottomLeft: Radius.circular(12)),
