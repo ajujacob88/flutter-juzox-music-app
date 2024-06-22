@@ -143,7 +143,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
     double screenHeight = MediaQuery.of(context).size.height;
     print('screen height is $screenHeight ');
     bool isSmallerScreen =
-        screenHeight < 610; // found out this value by printing
+        screenHeight < 730; // found out this value by printing //610//730
 
     if (audioPlayerProvider.isPlaying) {
       _fadeAnimationControllerforicon.forward(from: 0);
