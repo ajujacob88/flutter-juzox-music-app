@@ -755,114 +755,125 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                   Flexible(
                     // flex: 2,
                     flex: !isSmallerScreen ? 2 : 3,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        IconButton(
-                          iconSize: 25,
-                          icon: const Icon(
-                            CupertinoIcons.shuffle,
-                            color: Color.fromARGB(164, 255, 255, 255),
-                          ),
-                          onPressed: () {},
-                        ),
-                        IconButton(
-                          iconSize: 40,
-                          icon: const Icon(
-                            Icons.skip_previous,
-                            color: Color.fromARGB(164, 255, 255, 255),
-                          ),
-                          onPressed: () {
-                            audioPlayerProvider.playPreviousSong();
-                            _alignAnimationController.repeat(reverse: true);
+                    child: SizedBox.fromSize(
+                      size: Size.infinite,
+                      child: Wrap(
+                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        // you can put the Wrap inside of another widget that does expand, and it will take on that size and use it. so i wraped wrap wtih SizedBox.fromSize, otherwise alignmet is taking up minimum space
 
-                            if (!audioPlayerProvider.isPlaying) {
-                              _fadeAnimationControllerforicon.forward();
-
-                              _iconAnimationController.forward();
-
-                              _alignAnimationControllerforicon.forward();
-                            }
-                          },
-                        ),
-                        IconButton(
-                          iconSize: 43, // Size of the circle
-                          icon: Ink(
-                            decoration: const ShapeDecoration(
-                              shape: CircleBorder(),
-                              // color: Color.fromARGB(
-                              //     106, 64, 195, 255), // Circle color
-                              // color: Color.fromARGB(164, 255, 255, 255),
-                              color: Color.fromARGB(146, 255, 255, 255), //final
+                        alignment: WrapAlignment.spaceEvenly,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        runAlignment: WrapAlignment.spaceEvenly,
+                        //  spacing: 20,
+                        children: [
+                          IconButton(
+                            iconSize: 25,
+                            icon: const Icon(
+                              CupertinoIcons.shuffle,
+                              color: Color.fromARGB(164, 255, 255, 255),
                             ),
-                            padding: const EdgeInsets.all(3),
-                            child: AnimatedIcon(
-                              icon: AnimatedIcons.play_pause,
-                              progress: _iconAnimation,
-                              // color: Colors.white,
-                              color: const Color.fromARGB(255, 0, 6, 11),
-                            ),
+                            onPressed: () {},
                           ),
-                          onPressed: () {
-                            if (audioPlayerProvider.isPlaying) {
-                              audioPlayerProvider.juzoxAudioPlayerService
-                                  .juzoxPause();
-                              _alignAnimationController.stop();
+                          IconButton(
+                            iconSize: 40,
+                            icon: const Icon(
+                              Icons.skip_previous,
+                              color: Color.fromARGB(164, 255, 255, 255),
+                            ),
+                            onPressed: () {
+                              audioPlayerProvider.playPreviousSong();
+                              _alignAnimationController.repeat(reverse: true);
 
-                              _fadeAnimationControllerforicon.reverse();
-                              _alignAnimationControllerforicon.reverse();
-                              _iconAnimationController.reverse();
-                            } else {
-                              audioPlayerProvider.juzoxAudioPlayerService
-                                  .juzoxPlay(currentlyPlayingSong.filePath);
-                              // _alignAnimationController.repeat(reverse: true);
+                              if (!audioPlayerProvider.isPlaying) {
+                                _fadeAnimationControllerforicon.forward();
 
-                              _fadeAnimationControllerforicon.forward();
-                              _alignAnimationControllerforicon.forward();
-                              _iconAnimationController.forward();
+                                _iconAnimationController.forward();
 
-                              if (_alignAnimationController.status ==
-                                  AnimationStatus.reverse) {
-                                _alignAnimationController.reverse().then(
-                                  (_) {
-                                    _alignAnimationController.repeat(
-                                        reverse: true);
-                                  },
-                                );
-                              } else {
-                                _alignAnimationController.repeat(reverse: true);
+                                _alignAnimationControllerforicon.forward();
                               }
-                            }
-                          },
-                        ),
-                        IconButton(
-                          iconSize: 40,
-                          icon: const Icon(
-                            Icons.skip_next,
-                            color: Color.fromARGB(164, 255, 255, 255),
+                            },
                           ),
-                          onPressed: () {
-                            audioPlayerProvider.playNextSong();
-                            _alignAnimationController.repeat(reverse: true);
+                          IconButton(
+                            iconSize: 43, // Size of the circle
+                            icon: Ink(
+                              decoration: const ShapeDecoration(
+                                shape: CircleBorder(),
+                                // color: Color.fromARGB(
+                                //     106, 64, 195, 255), // Circle color
+                                // color: Color.fromARGB(164, 255, 255, 255),
+                                color:
+                                    Color.fromARGB(146, 255, 255, 255), //final
+                              ),
+                              padding: const EdgeInsets.all(3),
+                              child: AnimatedIcon(
+                                icon: AnimatedIcons.play_pause,
+                                progress: _iconAnimation,
+                                // color: Colors.white,
+                                color: const Color.fromARGB(255, 0, 6, 11),
+                              ),
+                            ),
+                            onPressed: () {
+                              if (audioPlayerProvider.isPlaying) {
+                                audioPlayerProvider.juzoxAudioPlayerService
+                                    .juzoxPause();
+                                _alignAnimationController.stop();
 
-                            if (!audioPlayerProvider.isPlaying) {
-                              _fadeAnimationControllerforicon.forward();
+                                _fadeAnimationControllerforicon.reverse();
+                                _alignAnimationControllerforicon.reverse();
+                                _iconAnimationController.reverse();
+                              } else {
+                                audioPlayerProvider.juzoxAudioPlayerService
+                                    .juzoxPlay(currentlyPlayingSong.filePath);
+                                // _alignAnimationController.repeat(reverse: true);
 
-                              _iconAnimationController.forward();
+                                _fadeAnimationControllerforicon.forward();
+                                _alignAnimationControllerforicon.forward();
+                                _iconAnimationController.forward();
 
-                              _alignAnimationControllerforicon.forward();
-                            }
-                          },
-                        ),
-                        IconButton(
-                          iconSize: 28,
-                          icon: const Icon(
-                            Icons.repeat,
-                            color: Color.fromARGB(164, 255, 255, 255),
+                                if (_alignAnimationController.status ==
+                                    AnimationStatus.reverse) {
+                                  _alignAnimationController.reverse().then(
+                                    (_) {
+                                      _alignAnimationController.repeat(
+                                          reverse: true);
+                                    },
+                                  );
+                                } else {
+                                  _alignAnimationController.repeat(
+                                      reverse: true);
+                                }
+                              }
+                            },
                           ),
-                          onPressed: () {},
-                        ),
-                      ],
+                          IconButton(
+                            iconSize: 40,
+                            icon: const Icon(
+                              Icons.skip_next,
+                              color: Color.fromARGB(164, 255, 255, 255),
+                            ),
+                            onPressed: () {
+                              audioPlayerProvider.playNextSong();
+                              _alignAnimationController.repeat(reverse: true);
+
+                              if (!audioPlayerProvider.isPlaying) {
+                                _fadeAnimationControllerforicon.forward();
+
+                                _iconAnimationController.forward();
+
+                                _alignAnimationControllerforicon.forward();
+                              }
+                            },
+                          ),
+                          IconButton(
+                            iconSize: 28,
+                            icon: const Icon(
+                              Icons.repeat,
+                              color: Color.fromARGB(164, 255, 255, 255),
+                            ),
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
                     ),
                   ),
 
