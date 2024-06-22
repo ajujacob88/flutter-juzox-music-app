@@ -594,30 +594,51 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                             ],
                           ),
                         ),
-                        Expanded(
-                          flex: 2,
-                          //fit: FlexFit.tight,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.favorite_border),
-                                color: const Color.fromARGB(156, 64, 195, 255),
-                              ),
-                              Transform.rotate(
-                                angle: 1.5708, // Convert degrees to radians
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.tune_outlined),
-                                  color:
-                                      const Color.fromARGB(156, 64, 195, 255),
-                                  //iconSize: 24,
-                                ),
-                              ),
-                            ],
+
+                        Flexible(
+                          flex: 1,
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.favorite_border),
+                            color: const Color.fromARGB(156, 64, 195, 255),
                           ),
                         ),
+                        Flexible(
+                          flex: 1,
+                          child: Transform.rotate(
+                            angle: 1.5708, // Convert degrees to radians
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.tune_outlined),
+                              color: const Color.fromARGB(156, 64, 195, 255),
+                              //iconSize: 24,
+                            ),
+                          ),
+                        ),
+                        // Expanded(
+                        //   flex: 2,
+                        //   //fit: FlexFit.tight,
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.center,
+                        //     children: [
+                        //       IconButton(
+                        //         onPressed: () {},
+                        //         icon: const Icon(Icons.favorite_border),
+                        //         color: const Color.fromARGB(156, 64, 195, 255),
+                        //       ),
+                        //       Transform.rotate(
+                        //         angle: 1.5708, // Convert degrees to radians
+                        //         child: IconButton(
+                        //           onPressed: () {},
+                        //           icon: const Icon(Icons.tune_outlined),
+                        //           color:
+                        //               const Color.fromARGB(156, 64, 195, 255),
+                        //           //iconSize: 24,
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
