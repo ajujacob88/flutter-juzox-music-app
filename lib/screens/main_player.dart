@@ -961,17 +961,17 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                               flex: 1,
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceBetween,
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  // Spacer(
-                                  //   flex: 1,
-                                  // ),
-                                  const SizedBox(
-                                    width: 23,
+                                  const Spacer(
+                                    flex: 1,
                                   ),
+                                  // const SizedBox(
+                                  //   width: 23,
+                                  // ),
                                   Expanded(
-                                    flex: 5,
+                                    flex: 25,
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
@@ -1035,7 +1035,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                   ),
 
                                   Flexible(
-                                    flex: 1,
+                                    flex: 5,
                                     child: IconButton(
                                       onPressed: () {},
                                       icon: const Icon(Icons.favorite_border),
@@ -1043,23 +1043,9 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                           156, 64, 195, 255),
                                     ),
                                   ),
-                                  // Flexible(
-                                  //   flex: 1,
-                                  //   child: Transform.rotate(
-                                  //     angle:
-                                  //         1.5708, // Convert degrees to radians
-                                  //     child: IconButton(
-                                  //       onPressed: () {},
-                                  //       icon: const Icon(Icons.tune_outlined),
-                                  //       color: const Color.fromARGB(
-                                  //           156, 64, 195, 255),
-                                  //       //iconSize: 24,
-                                  //     ),
-                                  //   ),
-                                  // ),
 
                                   Flexible(
-                                    flex: 1,
+                                    flex: 5,
                                     child: SizedBox(
                                       width: 25,
                                       child: Selector<AudioPlayerProvider,
