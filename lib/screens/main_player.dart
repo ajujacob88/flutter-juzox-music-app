@@ -1043,19 +1043,51 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                           156, 64, 195, 255),
                                     ),
                                   ),
+                                  // Flexible(
+                                  //   flex: 1,
+                                  //   child: Transform.rotate(
+                                  //     angle:
+                                  //         1.5708, // Convert degrees to radians
+                                  //     child: IconButton(
+                                  //       onPressed: () {},
+                                  //       icon: const Icon(Icons.tune_outlined),
+                                  //       color: const Color.fromARGB(
+                                  //           156, 64, 195, 255),
+                                  //       //iconSize: 24,
+                                  //     ),
+                                  //   ),
+                                  // ),
+
                                   Flexible(
                                     flex: 1,
-                                    child: Transform.rotate(
-                                      angle:
-                                          1.5708, // Convert degrees to radians
-                                      child: IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(Icons.tune_outlined),
-                                        color: const Color.fromARGB(
-                                            156, 64, 195, 255),
-                                        //iconSize: 24,
-                                      ),
-                                    ),
+                                    child: Selector<AudioPlayerProvider, bool>(
+                                        selector:
+                                            (context, audioPlayerProvider) =>
+                                                audioPlayerProvider.isPlaying,
+                                        builder: (_, isPlaying, __) {
+                                          return AnimatedSwitcher(
+                                            duration: const Duration(
+                                                milliseconds: 500),
+                                            child: isPlaying
+                                                ? const AnimatedMusicIndicator(
+                                                    key: ValueKey('animated'),
+                                                    color: Color.fromARGB(
+                                                        156, 64, 195, 255),
+                                                    barStyle: BarStyle.solid,
+                                                    size: .06,
+                                                  )
+                                                : const Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 18.0),
+                                                    child: StaticMusicIndicator(
+                                                      key: ValueKey('static'),
+                                                      color: Color.fromARGB(
+                                                          156, 64, 195, 255),
+                                                      size: .1,
+                                                    ),
+                                                  ),
+                                          );
+                                        }),
                                   ),
                                   // Expanded(
                                   //   flex: 2,
