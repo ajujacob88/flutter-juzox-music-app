@@ -141,6 +141,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
     // final currentlyPlayingSong = audioPlayerProvider.currentlyPlayingSong;
 
     double screenHeight = MediaQuery.of(context).size.height;
+    //using layout builder is better than mediaquery,, i used mediaquery here just to learn
     print('screen height is $screenHeight ');
     bool isSmallerScreen =
         screenHeight < 730; // found out this value by printing //610//730
@@ -932,163 +933,172 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                     audioPlayerProvider.currentlyPlayingSong,
                 shouldRebuild: (previous, current) => previous != current,
                 builder: (context, currentlyPlayingSong, _) {
-                  // _fadeAnimationControllerforicon.forward(from: 0);
-                  // _iconAnimationController.forward(from: 0);
-                  // _alignAnimationControllerforicon.forward(from: 0);
+                  //  bool _verySmallerScreen = screenHeight < 292;  //using this mediaquery also works
+                  bool verySmallerScreen = constraints.maxHeight < 235;
+                  //using layout builder is better than mediaquery, so i used here
+
+                  bool ultraSmallerScreen = constraints.maxHeight < 201;
 
                   return Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      SizedBox(
-                        // height:10
-                        height: !isSmallerScreen ? 10 : 0,
-                      ),
-
-                      // const Spacer(
-                      //   flex: 1,
+                      // SizedBox(
+                      //   // height:10
+                      //   height: !isSmallerScreen ? 10 : 0,
                       // ),
-                      !isSmallerScreen
-                          ? const Spacer(
+
+                      // // const Spacer(
+                      // //   flex: 1,
+                      // // ),
+                      // !isSmallerScreen
+                      //     ? const Spacer(
+                      //         flex: 1,
+                      //       )
+                      //     : const SizedBox(),
+                      !ultraSmallerScreen
+                          ? Flexible(
                               flex: 1,
-                            )
-                          : const SizedBox(),
-                      Flexible(
-                        // flex: 3,
-                        flex: !isSmallerScreen ? 3 : 5,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            // Spacer(
-                            //   flex: 1,
-                            // ),
-                            const SizedBox(
-                              width: 23,
-                            ),
-                            Expanded(
-                              flex: 5,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  SizedBox(
-                                    height: 50,
-                                    // width: 250,
-                                    child: Marquee(
-                                      key: ValueKey(
-                                          currentlyPlayingSong!.filePath),
-                                      // Unique key based on the song's file path. To ensure that the Marquee always starts with the song title starting position when you click a song, you can utilize the key property of the Marquee widget. By changing the key whenever the song changes, the Marquee will reset and start from the beginning.
-                                      text: currentlyPlayingSong.title ??
-                                          'Unknown',
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 22,
-                                      ),
-                                      //textScaleFactor: 1.3,
-                                      // blankSpace: 40.0,
-                                      // velocity: 30,
+                                  // Spacer(
+                                  //   flex: 1,
+                                  // ),
+                                  const SizedBox(
+                                    width: 23,
+                                  ),
+                                  Expanded(
+                                    flex: 5,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        SizedBox(
+                                          height: 50,
+                                          // width: 250,
+                                          child: Marquee(
+                                            key: ValueKey(
+                                                currentlyPlayingSong!.filePath),
+                                            // Unique key based on the song's file path. To ensure that the Marquee always starts with the song title starting position when you click a song, you can utilize the key property of the Marquee widget. By changing the key whenever the song changes, the Marquee will reset and start from the beginning.
+                                            text: currentlyPlayingSong.title ??
+                                                'Unknown',
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 22,
+                                            ),
+                                            //textScaleFactor: 1.3,
+                                            // blankSpace: 40.0,
+                                            // velocity: 30,
 
-                                      blankSpace: 40.0,
-                                      velocity: 20,
-                                      pauseAfterRound:
-                                          const Duration(seconds: 1),
-                                      //startPadding: 10.0,
-                                      startPadding: 0.0,
+                                            blankSpace: 40.0,
+                                            velocity: 20,
+                                            pauseAfterRound:
+                                                const Duration(seconds: 1),
+                                            //startPadding: 10.0,
+                                            startPadding: 0.0,
+                                          ),
+                                        ),
+
+                                        // // const SizedBox(height: 20),
+                                        !verySmallerScreen
+                                            ? SizedBox(
+                                                height: 26,
+                                                //  width: 330,
+                                                child: Marquee(
+                                                  key: ValueKey(
+                                                      currentlyPlayingSong
+                                                          .filePath),
+                                                  // Unique key based on the song's file path. To ensure that the Marquee always starts with the song title starting position when you click a song, you can utilize the key property of the Marquee widget. By changing the key whenever the song changes, the Marquee will reset and start from the beginning.
+                                                  text:
+                                                      "${currentlyPlayingSong.album ?? 'Unknown Album'} - ${currentlyPlayingSong.artist ?? 'Unknown Artist'} ",
+                                                  style: const TextStyle(
+                                                    color: Colors.white38,
+                                                    fontSize: 16,
+                                                  ),
+                                                  //textScaleFactor: 1.3,
+                                                  // blankSpace: 40.0,
+                                                  // velocity: 30,
+
+                                                  blankSpace: 40.0,
+                                                  velocity: 20,
+                                                  pauseAfterRound:
+                                                      const Duration(
+                                                          seconds: 1),
+                                                  startPadding: 0.0,
+                                                ),
+                                              )
+                                            : const SizedBox()
+                                      ],
                                     ),
                                   ),
 
-                                  // // const SizedBox(height: 20),
-
-                                  SizedBox(
-                                    height: 26,
-                                    //  width: 330,
-                                    child: Marquee(
-                                      key: ValueKey(
-                                          currentlyPlayingSong.filePath),
-                                      // Unique key based on the song's file path. To ensure that the Marquee always starts with the song title starting position when you click a song, you can utilize the key property of the Marquee widget. By changing the key whenever the song changes, the Marquee will reset and start from the beginning.
-                                      text:
-                                          "${currentlyPlayingSong.album ?? 'Unknown Album'} - ${currentlyPlayingSong.artist ?? 'Unknown Artist'} ",
-                                      style: const TextStyle(
-                                        color: Colors.white38,
-                                        fontSize: 16,
-                                      ),
-                                      //textScaleFactor: 1.3,
-                                      // blankSpace: 40.0,
-                                      // velocity: 30,
-
-                                      blankSpace: 40.0,
-                                      velocity: 20,
-                                      pauseAfterRound:
-                                          const Duration(seconds: 1),
-                                      startPadding: 0.0,
+                                  Flexible(
+                                    flex: 1,
+                                    child: IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.favorite_border),
+                                      color: const Color.fromARGB(
+                                          156, 64, 195, 255),
                                     ),
                                   ),
+                                  Flexible(
+                                    flex: 1,
+                                    child: Transform.rotate(
+                                      angle:
+                                          1.5708, // Convert degrees to radians
+                                      child: IconButton(
+                                        onPressed: () {},
+                                        icon: const Icon(Icons.tune_outlined),
+                                        color: const Color.fromARGB(
+                                            156, 64, 195, 255),
+                                        //iconSize: 24,
+                                      ),
+                                    ),
+                                  ),
+                                  // Expanded(
+                                  //   flex: 2,
+                                  //   //fit: FlexFit.tight,
+                                  //   child: Row(
+                                  //     mainAxisAlignment: MainAxisAlignment.center,
+                                  //     children: [
+                                  //       IconButton(
+                                  //         onPressed: () {},
+                                  //         icon: const Icon(Icons.favorite_border),
+                                  //         color: const Color.fromARGB(156, 64, 195, 255),
+                                  //       ),
+                                  //       Transform.rotate(
+                                  //         angle: 1.5708, // Convert degrees to radians
+                                  //         child: IconButton(
+                                  //           onPressed: () {},
+                                  //           icon: const Icon(Icons.tune_outlined),
+                                  //           color:
+                                  //               const Color.fromARGB(156, 64, 195, 255),
+                                  //           //iconSize: 24,
+                                  //         ),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
                                 ],
                               ),
-                            ),
-
-                            Flexible(
-                              flex: 1,
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.favorite_border),
-                                color: const Color.fromARGB(156, 64, 195, 255),
-                              ),
-                            ),
-                            Flexible(
-                              flex: 1,
-                              child: Transform.rotate(
-                                angle: 1.5708, // Convert degrees to radians
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.tune_outlined),
-                                  color:
-                                      const Color.fromARGB(156, 64, 195, 255),
-                                  //iconSize: 24,
-                                ),
-                              ),
-                            ),
-                            // Expanded(
-                            //   flex: 2,
-                            //   //fit: FlexFit.tight,
-                            //   child: Row(
-                            //     mainAxisAlignment: MainAxisAlignment.center,
-                            //     children: [
-                            //       IconButton(
-                            //         onPressed: () {},
-                            //         icon: const Icon(Icons.favorite_border),
-                            //         color: const Color.fromARGB(156, 64, 195, 255),
-                            //       ),
-                            //       Transform.rotate(
-                            //         angle: 1.5708, // Convert degrees to radians
-                            //         child: IconButton(
-                            //           onPressed: () {},
-                            //           icon: const Icon(Icons.tune_outlined),
-                            //           color:
-                            //               const Color.fromARGB(156, 64, 195, 255),
-                            //           //iconSize: 24,
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                          ],
-                        ),
-                      ),
+                            )
+                          : const SizedBox(),
 
                       // const Spacer(
                       //   flex: 1,
                       // ),
 
-                      !isSmallerScreen
-                          ? const Spacer(
-                              flex: 1,
-                            )
-                          : const SizedBox(),
+                      // !isSmallerScreen
+                      //     ? const Spacer(
+                      //         flex: 1,
+                      //       )
+                      //     : const SizedBox(),
 
                       Flexible(
-                        //flex: 2,
-                        flex: !isSmallerScreen ? 2 : 3,
+                        flex: 1,
+                        // flex: !isSmallerScreen ? 2 : 3,
                         child: SliderTheme(
                           data: SliderTheme.of(context).copyWith(
                             trackHeight: 0.8,
@@ -1129,6 +1139,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 previous != current,
                             builder: (context, sliderValue, child) {
                               return Column(
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Slider(
                                     activeColor:
@@ -1187,8 +1198,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                       //     //flex: 1,
                       //     ),
                       Flexible(
-                        // flex: 2,
-                        flex: !isSmallerScreen ? 2 : 3,
+                        flex: 1,
+                        // flex: !isSmallerScreen ? 2 : 3,
                         child: SizedBox.fromSize(
                           size: Size.infinite,
                           child: Wrap(
@@ -1259,7 +1270,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                   } else {
                                     audioPlayerProvider.juzoxAudioPlayerService
                                         .juzoxPlay(
-                                            currentlyPlayingSong.filePath);
+                                            currentlyPlayingSong!.filePath);
                                     // _alignAnimationController.repeat(reverse: true);
 
                                     _fadeAnimationControllerforicon.forward();
@@ -1317,11 +1328,11 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                       // const Spacer(
                       //   flex: 1,
                       // ),
-                      !isSmallerScreen
-                          ? const Spacer(
-                              flex: 1,
-                            )
-                          : const SizedBox(),
+                      // !isSmallerScreen
+                      //     ? const Spacer(
+                      //         flex: 1,
+                      //       )
+                      //     : const SizedBox(),
                     ],
                   );
                 },
