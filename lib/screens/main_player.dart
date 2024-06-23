@@ -1060,35 +1060,44 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
                                   Flexible(
                                     flex: 1,
-                                    child: Selector<AudioPlayerProvider, bool>(
-                                        selector:
-                                            (context, audioPlayerProvider) =>
-                                                audioPlayerProvider.isPlaying,
-                                        builder: (_, isPlaying, __) {
-                                          return AnimatedSwitcher(
-                                            duration: const Duration(
-                                                milliseconds: 500),
-                                            child: isPlaying
-                                                ? const AnimatedMusicIndicator(
-                                                    key: ValueKey('animated'),
-                                                    color: Color.fromARGB(
-                                                        156, 64, 195, 255),
-                                                    barStyle: BarStyle.solid,
-                                                    size: .06,
-                                                  )
-                                                : const Padding(
-                                                    padding: EdgeInsets.only(
-                                                        top: 18.0),
-                                                    child: StaticMusicIndicator(
-                                                      key: ValueKey('static'),
+                                    child: SizedBox(
+                                      width: 25,
+                                      child: Selector<AudioPlayerProvider,
+                                              bool>(
+                                          selector:
+                                              (context, audioPlayerProvider) =>
+                                                  audioPlayerProvider.isPlaying,
+                                          builder: (_, isPlaying, __) {
+                                            return AnimatedSwitcher(
+                                              duration: const Duration(
+                                                  milliseconds: 500),
+                                              child: isPlaying
+                                                  ? const AnimatedMusicIndicator(
+                                                      key: ValueKey('animated'),
                                                       color: Color.fromARGB(
                                                           156, 64, 195, 255),
-                                                      size: .1,
+                                                      barStyle: BarStyle.solid,
+                                                      size: .06,
+                                                    )
+                                                  : const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          top: 18.0),
+                                                      child:
+                                                          StaticMusicIndicator(
+                                                        key: ValueKey('static'),
+                                                        color: Color.fromARGB(
+                                                            156, 64, 195, 255),
+                                                        size: .1,
+                                                      ),
                                                     ),
-                                                  ),
-                                          );
-                                        }),
+                                            );
+                                          }),
+                                    ),
                                   ),
+                                  const SizedBox(
+                                    width: 3,
+                                  )
+
                                   // Expanded(
                                   //   flex: 2,
                                   //   //fit: FlexFit.tight,
