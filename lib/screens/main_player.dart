@@ -199,6 +199,9 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
         ),
         body: LayoutBuilder(
           builder: (context, constraints) {
+            double bodyScreenHeight = constraints
+                .maxHeight; //screen height if the body, since layout builder is wrapped on body,,, layout builder will give he constraints of its parent widget..we can wrap it anywhere
+            double bodyScreenWidth = constraints.maxWidth;
             debugPrint(
                 'constraint.max screen height of the parent widget is ${constraints.maxHeight}, constraint.maxscreen width is ${constraints.maxWidth}');
             if (constraints.maxHeight > 420) {
@@ -221,7 +224,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                       ),
 
                       Flexible(
-                        //flex: 10,
+                        // flex: 10,
                         flex: !isSmallerScreen ? 10 : 8,
 
                         child: AnimatedSwitcher(
@@ -250,8 +253,9 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                       size: 400,
                                       quality: 80,
                                       // artworkHeight: 350,
-                                      artworkHeight: _sideArtworkHeight,
+                                      //artworkHeight: _sideArtworkHeight,
                                       // artworkWidth: 40,
+                                      artworkHeight: bodyScreenHeight / 2.157,
 
                                       artworkBorder: const BorderRadius.only(
                                           topRight: Radius.circular(12),
@@ -272,7 +276,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                         // Set desired width and height for the box
                                         width: 300.0, // Adjust as needed
                                         // height: 63.0, // Adjust as needed
-                                        height: 350.0,
+                                        // height: 350.0,
+                                        height: bodyScreenHeight / 2.157,
                                         child: const Icon(
                                           Icons.music_note_outlined,
                                           color:
@@ -375,11 +380,16 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                               type: ArtworkType.AUDIO,
                                               size: 400, //500
                                               quality: 80, //100
-                                              // artworkHeight: 380,
-                                              artworkHeight: _mainArtworkHeight,
+                                              //artworkHeight: 380,
+                                              // artworkHeight: _mainArtworkHeight,
                                               //  artworkWidth: 300,
+                                              // artworkHeight: 380,
+                                              // artworkWidth:
+                                              //     constraints.maxWidth * 0.73,
+                                              artworkHeight:
+                                                  bodyScreenHeight / 1.989,
                                               artworkWidth:
-                                                  constraints.maxWidth * 0.73,
+                                                  bodyScreenWidth * 0.73,
 
                                               artworkBorder:
                                                   const BorderRadius.all(
@@ -399,7 +409,9 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                                     Radius.circular(12),
                                                   ),
                                                 ),
-                                                width: 300.0,
+                                                //  width: 300.0,
+                                                width:
+                                                    constraints.maxWidth * 0.73,
                                                 height: 380.0,
                                                 child: Icon(
                                                   Icons.music_note_outlined,
@@ -523,7 +535,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                       size: 400,
                                       quality: 80,
                                       //artworkHeight: 350,
-                                      artworkHeight: _sideArtworkHeight,
+                                      //  artworkHeight: _sideArtworkHeight,
+                                      artworkHeight: bodyScreenHeight / 2.157,
                                       artworkBorder: const BorderRadius.only(
                                           topLeft: Radius.circular(12),
                                           bottomLeft: Radius.circular(12)),
@@ -539,7 +552,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                           ),
                                         ),
                                         width: 300.0,
-                                        height: 350.0,
+                                        // height: 350.0,
+                                        height: bodyScreenHeight / 2.157,
                                         child: const Icon(
                                           Icons.music_note_outlined,
                                           color:
