@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animated_music_indicator/animated_music_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -1239,7 +1241,9 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                             //  spacing: 20,
                             children: [
                               IconButton(
-                                iconSize: 25,
+                                //iconSize: 25,
+                                // iconSize: constraints.maxWidth * .07,
+                                iconSize: min(constraints.maxWidth * .07, 25),
                                 icon: const Icon(
                                   CupertinoIcons.shuffle,
                                   color: Color.fromARGB(164, 255, 255, 255),
@@ -1247,7 +1251,11 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 onPressed: () {},
                               ),
                               IconButton(
-                                iconSize: 40,
+                                //  iconSize: 40,
+                                // iconSize: constraints.maxWidth * .1,
+                                //above is ok, but when the screen size is getting too large, then icon will also gets too large
+                                iconSize: min(constraints.maxWidth * .1, 40),
+                                //by using min the iconsize will get the minimum value out of the 2
                                 icon: const Icon(
                                   Icons.skip_previous,
                                   color: Color.fromARGB(164, 255, 255, 255),
@@ -1267,7 +1275,9 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 },
                               ),
                               IconButton(
-                                iconSize: 43, // Size of the circle
+                                //iconSize: 43, // Size of the circle
+                                // iconSize: constraints.maxWidth * .11,
+                                iconSize: min(constraints.maxWidth * .11, 43),
                                 icon: Ink(
                                   decoration: const ShapeDecoration(
                                     shape: CircleBorder(),
@@ -1320,7 +1330,9 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 },
                               ),
                               IconButton(
-                                iconSize: 40,
+                                // iconSize: 40,
+                                // iconSize: constraints.maxWidth * .1,
+                                iconSize: min(constraints.maxWidth * .1, 40),
                                 icon: const Icon(
                                   Icons.skip_next,
                                   color: Color.fromARGB(164, 255, 255, 255),
@@ -1340,7 +1352,9 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 },
                               ),
                               IconButton(
-                                iconSize: 28,
+                                //iconSize: 28,
+                                // iconSize: constraints.maxWidth * .07,
+                                iconSize: min(constraints.maxWidth * .07, 28),
                                 icon: const Icon(
                                   Icons.repeat,
                                   color: Color.fromARGB(164, 255, 255, 255),
