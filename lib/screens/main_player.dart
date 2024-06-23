@@ -399,11 +399,18 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                                 ),
                                                 width: 300.0,
                                                 height: 380.0,
-                                                child: const Icon(
+                                                child: Icon(
                                                   Icons.music_note_outlined,
-                                                  color: Color.fromARGB(
+                                                  color: const Color.fromARGB(
                                                       140, 64, 195, 255),
-                                                  size: 300,
+                                                  //size: 300,
+                                                  //size: 300,
+                                                  // size: constraints.maxHeight /
+                                                  //     2.51,
+                                                  size: max(
+                                                      constraints.maxHeight /
+                                                          2.51,
+                                                      300),
                                                 ),
                                               ),
                                             ),
