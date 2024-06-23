@@ -407,7 +407,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                                   //size: 300,
                                                   // size: constraints.maxHeight /
                                                   //     2.51,
-                                                  size: max(
+                                                  size: min(
                                                       constraints.maxHeight /
                                                           2.51,
                                                       300),
