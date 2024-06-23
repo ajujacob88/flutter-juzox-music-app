@@ -200,7 +200,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
         body: LayoutBuilder(
           builder: (context, constraints) {
             debugPrint(
-                'constraint.max screen height of the parent widget is ${constraints.maxHeight}');
+                'constraint.max screen height of the parent widget is ${constraints.maxHeight}, constraint.maxscreen width is ${constraints.maxWidth}');
             if (constraints.maxHeight > 420) {
               return Selector<AudioPlayerProvider, JuzoxMusicModel?>(
                 selector: (context, audioPlayerProvider) =>
@@ -377,7 +377,9 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                               quality: 80, //100
                                               // artworkHeight: 380,
                                               artworkHeight: _mainArtworkHeight,
-                                              artworkWidth: 300,
+                                              //  artworkWidth: 300,
+                                              artworkWidth:
+                                                  constraints.maxWidth * 0.73,
 
                                               artworkBorder:
                                                   const BorderRadius.all(
