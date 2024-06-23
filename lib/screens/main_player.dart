@@ -225,7 +225,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
                       Flexible(
                         // flex: 10,
-                        flex: !isSmallerScreen ? 10 : 8,
+                        //flex: !isSmallerScreen ? 10 : 8,
+                        flex: bodyScreenHeight > 468 ? 10 : 8,
 
                         child: AnimatedSwitcher(
                           duration: const Duration(seconds: 1),
@@ -827,7 +828,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                             //  spacing: 20,
                             children: [
                               IconButton(
-                                iconSize: 25,
+                                // iconSize: 25,
+                                iconSize: min(constraints.maxWidth * .07, 25),
                                 icon: const Icon(
                                   CupertinoIcons.shuffle,
                                   color: Color.fromARGB(164, 255, 255, 255),
@@ -835,7 +837,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 onPressed: () {},
                               ),
                               IconButton(
-                                iconSize: 40,
+                                // iconSize: 40,
+                                iconSize: min(constraints.maxWidth * .1, 40),
                                 icon: const Icon(
                                   Icons.skip_previous,
                                   color: Color.fromARGB(164, 255, 255, 255),
@@ -855,7 +858,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 },
                               ),
                               IconButton(
-                                iconSize: 43, // Size of the circle
+                                //  iconSize: 43, // Size of the circle
+                                iconSize: min(constraints.maxWidth * .11, 43),
                                 icon: Ink(
                                   decoration: const ShapeDecoration(
                                     shape: CircleBorder(),
@@ -908,7 +912,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 },
                               ),
                               IconButton(
-                                iconSize: 40,
+                                // iconSize: 40,
+                                iconSize: min(constraints.maxWidth * .1, 40),
                                 icon: const Icon(
                                   Icons.skip_next,
                                   color: Color.fromARGB(164, 255, 255, 255),
@@ -928,7 +933,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 },
                               ),
                               IconButton(
-                                iconSize: 28,
+                                //  iconSize: 28,
+                                iconSize: min(constraints.maxWidth * .07, 28),
                                 icon: const Icon(
                                   Icons.repeat,
                                   color: Color.fromARGB(164, 255, 255, 255),
