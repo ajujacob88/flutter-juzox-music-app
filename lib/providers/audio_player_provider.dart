@@ -17,7 +17,9 @@ class AudioPlayerProvider extends ChangeNotifier {
   // int? _prevIndex;
 
   List<JuzoxMusicModel> _playlist = [];
-  List<JuzoxMusicModel> _defaultSongs = [];
+//  List<JuzoxMusicModel> _defaultSongs = [];
+
+  List<JuzoxMusicModel> _favoriteSongs = [];
 
   AudioPlayerProvider() {
     _juzoxAudioPlayerService.audioPlayer.positionStream.listen((duration) {
@@ -58,11 +60,7 @@ class AudioPlayerProvider extends ChangeNotifier {
   JuzoxAudioPlayerService get juzoxAudioPlayerService =>
       _juzoxAudioPlayerService;
 
-  // get playNextSong => _playNextSong();
-
-  // void playSong(String url) {
-  //   _juzoxAudioPlayerService.juzoxPlay(url);
-  // }
+  List<JuzoxMusicModel> get favoriteSongs => _favoriteSongs;
 
   void setCurrentlyPlayingSong(JuzoxMusicModel song) {
     _currentlyPlayingSong = song;
@@ -75,6 +73,7 @@ class AudioPlayerProvider extends ChangeNotifier {
     _playlist = playlist;
   }
 
+//to play previous song
   void playPreviousSong() {
     if (_currentlyPlayingSong == null || _playlist.isEmpty) return;
 
@@ -95,6 +94,7 @@ class AudioPlayerProvider extends ChangeNotifier {
     return null;
   }
 
+//to play next song
   void playNextSong() {
     if (_currentlyPlayingSong == null || _playlist.isEmpty) return;
 
@@ -113,13 +113,29 @@ class AudioPlayerProvider extends ChangeNotifier {
     return null;
   }
 
-  // Optional: Method to add default songs
-  void setDefaultSongs(List<JuzoxMusicModel> songs) {
-    _defaultSongs = songs;
-  }
-
   void playSongFromList(JuzoxMusicModel song, List<JuzoxMusicModel> playlist) {
     setPlaylist(playlist);
     setCurrentlyPlayingSong(song);
   }
+
+  //for favorites
+  void addSongToFavorites(JuzoxMusicModel song) {
+    if (!_favoriteSongs.contains(song)) {
+      _favoriteSongs.add(song);
+      notifyListeners();
+    }
+  }
+
+  void removeSongFromFavorites(JuzoxMusicModel song) {
+    if (_favoriteSongs.contains(song)) {
+      _favoriteSongs.remove(song);
+      notifyListeners();
+    }
+  }
+
+  bool isFavorite(JuzoxMusicModel song) {
+    return _favoriteSongs.contains(song);
+  }
+
+  // void addMultipleSongsToFavorite(List<JuzoxMusicModel> songs){}
 }
