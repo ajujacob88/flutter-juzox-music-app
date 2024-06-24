@@ -133,8 +133,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
   int _keyValueCounter = 1;
 
-  static const double _sideArtworkHeight = 350;
-  static const double _mainArtworkHeight = _sideArtworkHeight * 1.086;
+  // static const double _sideArtworkHeight = 350;
+  // static const double _mainArtworkHeight = _sideArtworkHeight * 1.086;
 
   @override
   Widget build(BuildContext context) {
@@ -240,51 +240,46 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 // flex: 3,
                                 //flex: 6,
                                 flex: 5,
-                                child: GestureDetector(
-                                  onTap: audioPlayerProvider.playPreviousSong,
-                                  child: Opacity(
-                                    opacity: 0.3,
-                                    child: QueryArtworkWidget(
-                                      // id: currentlyPlayingSong!.id! + 1,
+                                child: Opacity(
+                                  opacity: 0.3,
+                                  child: QueryArtworkWidget(
+                                    // id: currentlyPlayingSong!.id! + 1,
 
-                                      id: audioPlayerProvider
-                                              .previousSong?.id ??
-                                          0,
-                                      type: ArtworkType.AUDIO,
-                                      size: 400,
-                                      quality: 80,
-                                      // artworkHeight: 350,
-                                      //artworkHeight: _sideArtworkHeight,
-                                      // artworkWidth: 40,
-                                      artworkHeight: bodyScreenHeight / 2.157,
+                                    id: audioPlayerProvider.previousSong?.id ??
+                                        0,
+                                    type: ArtworkType.AUDIO,
+                                    size: 400,
+                                    quality: 80,
+                                    // artworkHeight: 350,
+                                    //artworkHeight: _sideArtworkHeight,
+                                    // artworkWidth: 40,
+                                    artworkHeight: bodyScreenHeight / 2.157,
 
-                                      artworkBorder: const BorderRadius.only(
-                                          topRight: Radius.circular(12),
-                                          bottomRight: Radius.circular(12)),
-                                      //  artworkClipBehavior: Clip.hardEdge,
+                                    artworkBorder: const BorderRadius.only(
+                                        topRight: Radius.circular(12),
+                                        bottomRight: Radius.circular(12)),
+                                    //  artworkClipBehavior: Clip.hardEdge,
 
-                                      artworkClipBehavior:
-                                          Clip.antiAliasWithSaveLayer,
-                                      artworkFit: BoxFit.cover,
-                                      nullArtworkWidget: Container(
-                                        decoration: const BoxDecoration(
-                                          color:
-                                              Color.fromARGB(70, 68, 137, 255),
-                                          borderRadius: BorderRadius.only(
-                                              topRight: Radius.circular(12),
-                                              bottomRight: Radius.circular(12)),
-                                        ),
-                                        // Set desired width and height for the box
-                                        width: 300.0, // Adjust as needed
-                                        // height: 63.0, // Adjust as needed
-                                        // height: 350.0,
-                                        height: bodyScreenHeight / 2.157,
-                                        child: const Icon(
-                                          Icons.music_note_outlined,
-                                          color:
-                                              Color.fromARGB(140, 64, 195, 255),
-                                          size: 30,
-                                        ),
+                                    artworkClipBehavior:
+                                        Clip.antiAliasWithSaveLayer,
+                                    artworkFit: BoxFit.cover,
+                                    nullArtworkWidget: Container(
+                                      decoration: const BoxDecoration(
+                                        color: Color.fromARGB(70, 68, 137, 255),
+                                        borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(12),
+                                            bottomRight: Radius.circular(12)),
+                                      ),
+                                      // Set desired width and height for the box
+                                      width: 300.0, // Adjust as needed
+                                      // height: 63.0, // Adjust as needed
+                                      // height: 350.0,
+                                      height: bodyScreenHeight / 2.157,
+                                      child: const Icon(
+                                        Icons.music_note_outlined,
+                                        color:
+                                            Color.fromARGB(140, 64, 195, 255),
+                                        size: 30,
                                       ),
                                     ),
                                   ),
@@ -536,46 +531,38 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 width: 15,
                               ),
                               Expanded(
-                                //  flex: 3,
-                                //flex: 6,
                                 flex: 5,
-                                child: GestureDetector(
-                                  onTap: audioPlayerProvider.playNextSong,
-                                  child: Opacity(
-                                    // opacity: _visible ? 0.5 : 1.0,
-                                    opacity: 0.3,
-
-                                    child: QueryArtworkWidget(
-                                      id: audioPlayerProvider.nextSong?.id ?? 0,
-                                      type: ArtworkType.AUDIO,
-                                      size: 400,
-                                      quality: 80,
-                                      //artworkHeight: 350,
-                                      //  artworkHeight: _sideArtworkHeight,
-                                      artworkHeight: bodyScreenHeight / 2.157,
-                                      artworkBorder: const BorderRadius.only(
-                                          topLeft: Radius.circular(12),
-                                          bottomLeft: Radius.circular(12)),
-                                      artworkClipBehavior:
-                                          Clip.antiAliasWithSaveLayer,
-                                      artworkFit: BoxFit.cover,
-                                      nullArtworkWidget: Container(
-                                        decoration: const BoxDecoration(
-                                          color:
-                                              Color.fromARGB(70, 68, 137, 255),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(12),
-                                          ),
+                                child: Opacity(
+                                  opacity: 0.3,
+                                  child: QueryArtworkWidget(
+                                    id: audioPlayerProvider.nextSong?.id ?? 0,
+                                    type: ArtworkType.AUDIO,
+                                    size: 400,
+                                    quality: 80,
+                                    //artworkHeight: 350,
+                                    //  artworkHeight: _sideArtworkHeight,
+                                    artworkHeight: bodyScreenHeight / 2.157,
+                                    artworkBorder: const BorderRadius.only(
+                                        topLeft: Radius.circular(12),
+                                        bottomLeft: Radius.circular(12)),
+                                    artworkClipBehavior:
+                                        Clip.antiAliasWithSaveLayer,
+                                    artworkFit: BoxFit.cover,
+                                    nullArtworkWidget: Container(
+                                      decoration: const BoxDecoration(
+                                        color: Color.fromARGB(70, 68, 137, 255),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(12),
                                         ),
-                                        width: 300.0,
-                                        // height: 350.0,
-                                        height: bodyScreenHeight / 2.157,
-                                        child: const Icon(
-                                          Icons.music_note_outlined,
-                                          color:
-                                              Color.fromARGB(140, 64, 195, 255),
-                                          size: 30,
-                                        ),
+                                      ),
+                                      width: 300.0,
+                                      // height: 350.0,
+                                      height: bodyScreenHeight / 2.157,
+                                      child: const Icon(
+                                        Icons.music_note_outlined,
+                                        color:
+                                            Color.fromARGB(140, 64, 195, 255),
+                                        size: 30,
                                       ),
                                     ),
                                   ),
