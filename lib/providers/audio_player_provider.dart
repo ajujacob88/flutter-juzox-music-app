@@ -113,6 +113,7 @@ class AudioPlayerProvider extends ChangeNotifier {
     return null;
   }
 
+//play song from a playlist/favorite/all song
   void playSongFromList(JuzoxMusicModel song, List<JuzoxMusicModel> playlist) {
     setPlaylist(playlist);
     setCurrentlyPlayingSong(song);
@@ -135,6 +136,13 @@ class AudioPlayerProvider extends ChangeNotifier {
 
   bool isFavorite(JuzoxMusicModel song) {
     return _favoriteSongs.contains(song);
+  }
+
+  //directly write the function here to call it from songs page favorite button
+  void toggleFavoriteStatusOfSong(JuzoxMusicModel song) {
+    !isFavorite(song)
+        ? addSongToFavorites(song)
+        : removeSongFromFavorites(song);
   }
 
   // void addMultipleSongsToFavorite(List<JuzoxMusicModel> songs){}

@@ -659,8 +659,33 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                             Flexible(
                               flex: 1,
                               child: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.favorite_border),
+                                // onPressed: () {
+                                //   if (audioPlayerProvider
+                                //       .isFavorite(currentlyPlayingSong)) {
+                                //     audioPlayerProvider.removeSongFromFavorites(
+                                //         currentlyPlayingSong);
+                                //   } else {
+                                //     audioPlayerProvider.addSongToFavorites(
+                                //         currentlyPlayingSong);
+                                //   }
+                                // },
+                                onPressed: () {
+                                  audioPlayerProvider
+                                      .toggleFavoriteStatusOfSong(
+                                          currentlyPlayingSong);
+                                },
+                                icon: Selector<AudioPlayerProvider, bool>(
+                                  selector: (context, audioPlayerprovider) =>
+                                      audioPlayerprovider
+                                          .isFavorite(currentlyPlayingSong),
+                                  builder: (_, isFavorite, __) {
+                                    return Icon(
+                                      isFavorite
+                                          ? Icons.favorite
+                                          : Icons.favorite_border,
+                                    );
+                                  },
+                                ),
                                 color: const Color.fromARGB(156, 64, 195, 255),
                               ),
                             ),
@@ -669,7 +694,12 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                               child: Transform.rotate(
                                 angle: 1.5708, // Convert degrees to radians
                                 child: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    //sample code written - for debugging - just to check the playlist is working or not
+                                    // audioPlayerProvider.playSongFromList(
+                                    //     audioPlayerProvider.favoriteSongs[0],
+                                    //     audioPlayerProvider.favoriteSongs);
+                                  },
                                   icon: const Icon(Icons.tune_outlined),
                                   color:
                                       const Color.fromARGB(156, 64, 195, 255),
