@@ -678,6 +678,8 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                   selector: (context, audioPlayerprovider) =>
                                       audioPlayerprovider
                                           .isFavorite(currentlyPlayingSong),
+                                  shouldRebuild: (previous, current) =>
+                                      previous != current,
                                   builder: (_, isFavorite, __) {
                                     return Icon(
                                       isFavorite
@@ -1048,9 +1050,33 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                   ),
                                   Flexible(
                                     flex: 5,
+                                    // child: IconButton(
+                                    //   onPressed: () {},
+                                    //   icon: const Icon(Icons.favorite_border),
+                                    //   color: const Color.fromARGB(
+                                    //       156, 64, 195, 255),
+                                    // ),
                                     child: IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(Icons.favorite_border),
+                                      onPressed: () {
+                                        audioPlayerProvider
+                                            .toggleFavoriteStatusOfSong(
+                                                currentlyPlayingSong);
+                                      },
+                                      icon: Selector<AudioPlayerProvider, bool>(
+                                        selector:
+                                            (context, audioPlayerprovider) =>
+                                                audioPlayerprovider.isFavorite(
+                                                    currentlyPlayingSong),
+                                        shouldRebuild: (previous, current) =>
+                                            previous != current,
+                                        builder: (_, isFavorite, __) {
+                                          return Icon(
+                                            isFavorite
+                                                ? Icons.favorite
+                                                : Icons.favorite_border,
+                                          );
+                                        },
+                                      ),
                                       color: const Color.fromARGB(
                                           156, 64, 195, 255),
                                     ),
