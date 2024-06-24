@@ -2,6 +2,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:juzox_music_app/screens/favorites_tab.dart';
 import 'package:juzox_music_app/screens/playlist_tab.dart';
 //import 'package:juzox_music_app/models/music_model.dart';
 //import 'package:on_audio_query/on_audio_query.dart';
@@ -97,7 +98,9 @@ class MusicScreen extends StatelessWidget {
             //     EdgeInsets.only(top: kToolbarHeight + kTextTabBarHeight - 15),
             child: TabBarView(
               children: [
-                const Text('Favorites'),
+                //const Text('Favorites'),
+
+                const FavoritesTab(),
 
                 const SongsTab(),
 
