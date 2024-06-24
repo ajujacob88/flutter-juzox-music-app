@@ -144,7 +144,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
 
     double screenHeight = MediaQuery.of(context).size.height;
     //using layout builder is better than mediaquery,, i used mediaquery here just to learn
-    print('screen height is $screenHeight ');
+    debugPrint('screen height is $screenHeight ');
     bool isSmallerScreen =
         screenHeight < 730; // found out this value by printing //610//730
 
@@ -690,30 +690,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 ),
                               ),
                             ),
-                            // Expanded(
-                            //   flex: 2,
-                            //   //fit: FlexFit.tight,
-                            //   child: Row(
-                            //     mainAxisAlignment: MainAxisAlignment.center,
-                            //     children: [
-                            //       IconButton(
-                            //         onPressed: () {},
-                            //         icon: const Icon(Icons.favorite_border),
-                            //         color: const Color.fromARGB(156, 64, 195, 255),
-                            //       ),
-                            //       Transform.rotate(
-                            //         angle: 1.5708, // Convert degrees to radians
-                            //         child: IconButton(
-                            //           onPressed: () {},
-                            //           icon: const Icon(Icons.tune_outlined),
-                            //           color:
-                            //               const Color.fromARGB(156, 64, 195, 255),
-                            //           //iconSize: 24,
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
                           ],
                         ),
                       ),
@@ -989,19 +965,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      // SizedBox(
-                      //   // height:10
-                      //   height: !isSmallerScreen ? 10 : 0,
-                      // ),
-
-                      // // const Spacer(
-                      // //   flex: 1,
-                      // // ),
-                      // !isSmallerScreen
-                      //     ? const Spacer(
-                      //         flex: 1,
-                      //       )
-                      //     : const SizedBox(),
                       !ultraSmallerScreen
                           ? Flexible(
                               flex: 1,
@@ -1013,9 +976,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                   const Spacer(
                                     flex: 1,
                                   ),
-                                  // const SizedBox(
-                                  //   width: 23,
-                                  // ),
                                   Expanded(
                                     flex: 25,
                                     child: Column(
@@ -1034,9 +994,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                               color: Colors.white,
                                               fontSize: 22,
                                             ),
-                                            //textScaleFactor: 1.3,
-                                            // blankSpace: 40.0,
-                                            // velocity: 30,
 
                                             blankSpace: 40.0,
                                             velocity: 20,
@@ -1046,8 +1003,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                             startPadding: 0.0,
                                           ),
                                         ),
-
-                                        // // const SizedBox(height: 20),
                                         !verySmallerScreen
                                             ? SizedBox(
                                                 height: 26,
@@ -1056,17 +1011,12 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                                   key: ValueKey(
                                                       currentlyPlayingSong
                                                           .filePath),
-                                                  // Unique key based on the song's file path. To ensure that the Marquee always starts with the song title starting position when you click a song, you can utilize the key property of the Marquee widget. By changing the key whenever the song changes, the Marquee will reset and start from the beginning.
                                                   text:
                                                       "${currentlyPlayingSong.album ?? 'Unknown Album'} - ${currentlyPlayingSong.artist ?? 'Unknown Artist'} ",
                                                   style: const TextStyle(
                                                     color: Colors.white38,
                                                     fontSize: 16,
                                                   ),
-                                                  //textScaleFactor: 1.3,
-                                                  // blankSpace: 40.0,
-                                                  // velocity: 30,
-
                                                   blankSpace: 40.0,
                                                   velocity: 20,
                                                   pauseAfterRound:
@@ -1079,7 +1029,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                       ],
                                     ),
                                   ),
-
                                   Flexible(
                                     flex: 5,
                                     child: IconButton(
@@ -1089,7 +1038,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                           156, 64, 195, 255),
                                     ),
                                   ),
-
                                   Flexible(
                                     flex: 5,
                                     child: SizedBox(
@@ -1138,46 +1086,10 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                   const SizedBox(
                                     width: 3,
                                   )
-
-                                  // Expanded(
-                                  //   flex: 2,
-                                  //   //fit: FlexFit.tight,
-                                  //   child: Row(
-                                  //     mainAxisAlignment: MainAxisAlignment.center,
-                                  //     children: [
-                                  //       IconButton(
-                                  //         onPressed: () {},
-                                  //         icon: const Icon(Icons.favorite_border),
-                                  //         color: const Color.fromARGB(156, 64, 195, 255),
-                                  //       ),
-                                  //       Transform.rotate(
-                                  //         angle: 1.5708, // Convert degrees to radians
-                                  //         child: IconButton(
-                                  //           onPressed: () {},
-                                  //           icon: const Icon(Icons.tune_outlined),
-                                  //           color:
-                                  //               const Color.fromARGB(156, 64, 195, 255),
-                                  //           //iconSize: 24,
-                                  //         ),
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  // ),
                                 ],
                               ),
                             )
                           : const SizedBox(),
-
-                      // const Spacer(
-                      //   flex: 1,
-                      // ),
-
-                      // !isSmallerScreen
-                      //     ? const Spacer(
-                      //         flex: 1,
-                      //       )
-                      //     : const SizedBox(),
-
                       Flexible(
                         flex: 1,
                         // flex: !isSmallerScreen ? 2 : 3,
@@ -1185,26 +1097,16 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                           data: SliderTheme.of(context).copyWith(
                             trackHeight: 0.8,
                             trackShape: const RoundedRectSliderTrackShape(),
-                            //  activeTrackColor: Colors.purple.shade800,
-                            //  inactiveTrackColor: Colors.purple.shade100,
                             thumbShape: const RoundSliderThumbShape(
                               enabledThumbRadius: 8.0,
                               pressedElevation: 20.0,
                             ),
-                            //     thumbColor: Colors.pinkAccent,
-                            //     overlayColor: Colors.pink.withOpacity(0.2),
                             overlayShape: const RoundSliderOverlayShape(
                                 overlayRadius: 22.0),
                             tickMarkShape: const RoundSliderTickMarkShape(),
-                            //     activeTickMarkColor: Colors.pinkAccent,
-                            //   inactiveTickMarkColor: Colors.white,
                             valueIndicatorShape:
                                 const PaddleSliderValueIndicatorShape(),
                             valueIndicatorColor: Colors.black,
-                            // valueIndicatorTextStyle: const TextStyle(
-                            //   color: Colors.white,
-                            //   fontSize: 20.0,
-                            // ),
                           ),
                           child: Selector<AudioPlayerProvider, double>(
                             selector: (context, provider) {
@@ -1252,17 +1154,11 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(formatDuration(sliderValue)),
-
                                         Text(formatDuration(context
                                             .read<AudioPlayerProvider>()
                                             .totalDuration
                                             .inSeconds
                                             .toDouble())),
-
-                                        //using the formatDuration function that i created is more efficient, because it is arithematic operation,, below one is string manipulation which is less performant compared to arithematic operation
-
-                                        // Text('${context.read<AudioPlayerProvider>().currentDuration.toString().substring(2, 7)}'),
-                                        // Text('${context.read<AudioPlayerProvider>().totalDuration.toString().substring(2, 7)}'),
                                       ],
                                     ),
                                   )
@@ -1272,13 +1168,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                           ),
                         ),
                       ),
-
-                      //SizedBox(height: 20),
-                      // Control Buttons
-
-                      // const Spacer(
-                      //     //flex: 1,
-                      //     ),
                       Flexible(
                         flex: 1,
                         // flex: !isSmallerScreen ? 2 : 3,
@@ -1334,9 +1223,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                 icon: Ink(
                                   decoration: const ShapeDecoration(
                                     shape: CircleBorder(),
-                                    // color: Color.fromARGB(
-                                    //     106, 64, 195, 255), // Circle color
-                                    // color: Color.fromARGB(164, 255, 255, 255),
+
                                     color: Color.fromARGB(
                                         146, 255, 255, 255), //final
                                   ),
@@ -1418,15 +1305,6 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                           ),
                         ),
                       ),
-
-                      // const Spacer(
-                      //   flex: 1,
-                      // ),
-                      // !isSmallerScreen
-                      //     ? const Spacer(
-                      //         flex: 1,
-                      //       )
-                      //     : const SizedBox(),
                     ],
                   );
                 },
@@ -1438,84 +1316,3 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
     );
   }
 }
-
-
-
-
-/*
-below animated musi indicator
-
-                                          Positioned(
-                                              top: 20,
-                                              right: 20,
-                                              child: SizedBox(
-                                                height: 25,
-                                                width: 25,
-                                                // alignment:
-                                                //     Alignment.bottomCenter,
-                                                //color: Colors.black,
-                                                child: Selector<
-                                                        AudioPlayerProvider,
-                                                        bool>(
-                                                    selector: (context,
-                                                            audioPlayerProvider) =>
-                                                        audioPlayerProvider
-                                                            .isPlaying,
-                                                    builder:
-                                                        (_, isPlaying, __) {
-                                                      int cnt = 1;
-                                                      return AnimatedSwitcher(
-                                                        duration:
-                                                            const Duration(
-                                                                milliseconds:
-                                                                    500),
-                                                        child: isPlaying
-                                                            ? const Align(
-                                                                key: ValueKey(
-                                                                    'animated'),
-                                                                alignment: Alignment
-                                                                    .bottomCenter,
-                                                                child:
-                                                                    const AnimatedMusicIndicator(
-                                                                  // key: ValueKey(
-                                                                  //     'animated'),
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          219,
-                                                                          255,
-                                                                          255,
-                                                                          255),
-                                                                  barStyle:
-                                                                      BarStyle
-                                                                          .solid,
-                                                                  size: .06,
-                                                                ),
-                                                              )
-                                                            : const Align(
-                                                                key: ValueKey(
-                                                                    'static'),
-                                                                alignment: Alignment
-                                                                    .bottomCenter,
-                                                                child:
-                                                                    const StaticMusicIndicator(
-                                                                  // key: ValueKey(
-                                                                  //     'static'),
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          219,
-                                                                          255,
-                                                                          255,
-                                                                          255),
-                                                                  size: .1,
-                                                                  // size: constraints
-                                                                  //         .maxWidth *
-                                                                  //     0.000243309,
-                                                                ),
-                                                              ),
-                                                      );
-                                                    }),
-                                              ),
-                                            ) 
-
-
-                  */
