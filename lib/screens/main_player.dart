@@ -1094,6 +1094,7 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                     flex: 5,
                                     child: SizedBox(
                                       width: 25,
+                                      height: 25,
                                       child: Selector<AudioPlayerProvider,
                                               bool>(
                                           selector:
@@ -1104,19 +1105,27 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                               duration: const Duration(
                                                   milliseconds: 500),
                                               child: isPlaying
-                                                  ? const AnimatedMusicIndicator(
+                                                  ? const Align(
                                                       key: ValueKey('animated'),
-                                                      color: Color.fromARGB(
-                                                          156, 64, 195, 255),
-                                                      barStyle: BarStyle.solid,
-                                                      size: .06,
+                                                      alignment: Alignment
+                                                          .bottomCenter,
+                                                      child:
+                                                          AnimatedMusicIndicator(
+                                                        // key: ValueKey('animated'),
+                                                        color: Color.fromARGB(
+                                                            156, 64, 195, 255),
+                                                        barStyle:
+                                                            BarStyle.solid,
+                                                        size: .06,
+                                                      ),
                                                     )
-                                                  : const Padding(
-                                                      padding: EdgeInsets.only(
-                                                          top: 18.0),
+                                                  : const Align(
+                                                      key: ValueKey('static'),
+                                                      alignment: Alignment
+                                                          .bottomCenter,
                                                       child:
                                                           StaticMusicIndicator(
-                                                        key: ValueKey('static'),
+                                                        // key: ValueKey('static'),
                                                         color: Color.fromARGB(
                                                             156, 64, 195, 255),
                                                         size: .1,
