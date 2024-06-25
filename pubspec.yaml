@@ -43,6 +43,7 @@ dependencies:
   extended_nested_scroll_view: ^6.2.1
   marquee: ^2.2.3
   provider: ^6.1.2
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
