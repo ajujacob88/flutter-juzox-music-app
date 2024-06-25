@@ -203,16 +203,14 @@ class AudioPlayerProvider extends ChangeNotifier {
             .map((json) => JuzoxMusicModel.fromJson(json))
             .toList()
             .cast<JuzoxMusicModel>();
-
-/*      
+        /*      
       //same as above
       _favoriteSongs = decodedData.map(
         (json) {
           return JuzoxMusicModel.fromJson(json);
         },
       ).toList().cast<JuzoxMusicModel>();
-*/
-
+      */
         notifyListeners();
         debugPrint('decoded encoded data is $decodedData');
       }

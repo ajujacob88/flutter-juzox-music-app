@@ -431,61 +431,58 @@ class _MainPlayerState extends State<MainPlayer> with TickerProviderStateMixin {
                                                 height: 25,
                                                 width: 25,
                                                 child: Selector<
-                                                        AudioPlayerProvider,
-                                                        bool>(
-                                                    selector: (context,
-                                                            audioPlayerProvider) =>
-                                                        audioPlayerProvider
-                                                            .isPlaying,
-                                                    builder:
-                                                        (_, isPlaying, __) {
-                                                      return AnimatedSwitcher(
-                                                        duration:
-                                                            const Duration(
-                                                                milliseconds:
-                                                                    500),
-                                                        child: isPlaying
-                                                            ? const Align(
-                                                                key: ValueKey(
-                                                                    'animated'),
-                                                                alignment: Alignment
-                                                                    .bottomCenter,
-                                                                child:
-                                                                    AnimatedMusicIndicator(
-                                                                  // key: ValueKey(
-                                                                  //     'animated'),
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          219,
-                                                                          255,
-                                                                          255,
-                                                                          255),
-                                                                  barStyle:
-                                                                      BarStyle
-                                                                          .solid,
-                                                                  size: .06,
-                                                                ),
-                                                              )
-                                                            : const Align(
-                                                                key: ValueKey(
-                                                                    'static'),
-                                                                alignment: Alignment
-                                                                    .bottomCenter,
-                                                                child:
-                                                                    StaticMusicIndicator(
-                                                                  // key: ValueKey(
-                                                                  //     'static'),
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          219,
-                                                                          255,
-                                                                          255,
-                                                                          255),
-                                                                  size: .1,
-                                                                ),
+                                                    AudioPlayerProvider, bool>(
+                                                  selector: (context,
+                                                          audioPlayerProvider) =>
+                                                      audioPlayerProvider
+                                                          .isPlaying,
+                                                  builder: (_, isPlaying, __) {
+                                                    return AnimatedSwitcher(
+                                                      duration: const Duration(
+                                                          milliseconds: 500),
+                                                      child: isPlaying
+                                                          ? const Align(
+                                                              key: ValueKey(
+                                                                  'animated'),
+                                                              alignment: Alignment
+                                                                  .bottomCenter,
+                                                              child:
+                                                                  AnimatedMusicIndicator(
+                                                                // key: ValueKey(
+                                                                //     'animated'),
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        219,
+                                                                        255,
+                                                                        255,
+                                                                        255),
+                                                                barStyle:
+                                                                    BarStyle
+                                                                        .solid,
+                                                                size: .06,
                                                               ),
-                                                      );
-                                                    }),
+                                                            )
+                                                          : const Align(
+                                                              key: ValueKey(
+                                                                  'static'),
+                                                              alignment: Alignment
+                                                                  .bottomCenter,
+                                                              child:
+                                                                  StaticMusicIndicator(
+                                                                // key: ValueKey(
+                                                                //     'static'),
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        219,
+                                                                        255,
+                                                                        255,
+                                                                        255),
+                                                                size: .1,
+                                                              ),
+                                                            ),
+                                                    );
+                                                  },
+                                                ),
                                               ),
                                             )
                                           ],
