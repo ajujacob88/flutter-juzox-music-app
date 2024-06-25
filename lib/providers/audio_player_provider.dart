@@ -173,6 +173,17 @@ class AudioPlayerProvider extends ChangeNotifier {
       final String encodedData = jsonEncode(
         _favoriteSongs.map((song) => song.toJson()).toList(),
       );
+
+/*
+      //this is the same one written above
+      final String encodedData2 = jsonEncode(
+        _favoriteSongs.map(
+          (song) {
+            return song.toJson();
+          },
+        ).toList(),
+      );
+*/
       debugPrint('encoded data is $encodedData');
       await prefs.setString('favoriteSongs', encodedData);
     } catch (error) {
@@ -182,19 +193,31 @@ class AudioPlayerProvider extends ChangeNotifier {
 
   // Load favorite songs from shared preferences
   Future<void> _loadFavoriteSongs() async {
-    debugPrint('decoded encoded data debug check1');
-    final prefs = await SharedPreferences.getInstance();
-    final String? encodedData = prefs.getString('favoriteSongs');
-    if (encodedData != null) {
-      final List<dynamic> decodedData = jsonDecode(encodedData);
-      _favoriteSongs = decodedData
-          .map((json) => JuzoxMusicModel.fromJson(json))
-          .toList()
-          .cast<JuzoxMusicModel>();
+    try {
+      debugPrint('decoded encoded data debug check1');
+      final prefs = await SharedPreferences.getInstance();
+      final String? encodedData = prefs.getString('favoriteSongs');
+      if (encodedData != null) {
+        final List<dynamic> decodedData = jsonDecode(encodedData);
+        _favoriteSongs = decodedData
+            .map((json) => JuzoxMusicModel.fromJson(json))
+            .toList()
+            .cast<JuzoxMusicModel>();
 
-      notifyListeners();
+/*      
+      //same as above
+      _favoriteSongs = decodedData.map(
+        (json) {
+          return JuzoxMusicModel.fromJson(json);
+        },
+      ).toList().cast<JuzoxMusicModel>();
+*/
 
-      debugPrint('decoded encoded data is $decodedData');
+        notifyListeners();
+        debugPrint('decoded encoded data is $decodedData');
+      }
+    } catch (error) {
+      debugPrint('Failed to load favorite songs: $error');
     }
   }
 }
