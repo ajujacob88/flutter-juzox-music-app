@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:juzox_music_app/models/music_model.dart';
 import 'package:juzox_music_app/services/audio_player_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AudioPlayerProvider extends ChangeNotifier {
   final JuzoxAudioPlayerService _juzoxAudioPlayerService =
@@ -44,6 +47,9 @@ class AudioPlayerProvider extends ChangeNotifier {
         playNextSong();
       }
     });
+
+    // Load favorite songs when the provider is initialized
+    _loadFavoriteSongs();
   }
 
   JuzoxMusicModel? get currentlyPlayingSong => _currentlyPlayingSong;
@@ -128,6 +134,8 @@ class AudioPlayerProvider extends ChangeNotifier {
       _favoriteSongs = List.from(_favoriteSongs)..add(song);
       // //or
       // _favoriteSongs = List.of(_favoriteSongs)..add(song);
+
+      _saveFavoriteSongs();
       notifyListeners();
     }
   }
@@ -138,6 +146,8 @@ class AudioPlayerProvider extends ChangeNotifier {
       _favoriteSongs = List.from(_favoriteSongs)..remove(song);
       // //or
       // _favoriteSongs = List.of(_favoriteSongs)..remove(song);
+
+      _saveFavoriteSongs();
       notifyListeners();
     }
   }
@@ -154,4 +164,37 @@ class AudioPlayerProvider extends ChangeNotifier {
   }
 
   // void addMultipleSongsToFavorite(List<JuzoxMusicModel> songs){}
+
+  // Save favorite songs to shared preferences
+  Future<void> _saveFavoriteSongs() async {
+    try {
+      debugPrint('encoded data debugg check1');
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String encodedData = jsonEncode(
+        _favoriteSongs.map((song) => song.toJson()).toList(),
+      );
+      debugPrint('encoded data is $encodedData');
+      await prefs.setString('favoriteSongs', encodedData);
+    } catch (error) {
+      debugPrint('Failed to save favorite songs: $error');
+    }
+  }
+
+  // Load favorite songs from shared preferences
+  Future<void> _loadFavoriteSongs() async {
+    debugPrint('decoded encoded data debug check1');
+    final prefs = await SharedPreferences.getInstance();
+    final String? encodedData = prefs.getString('favoriteSongs');
+    if (encodedData != null) {
+      final List<dynamic> decodedData = jsonDecode(encodedData);
+      _favoriteSongs = decodedData
+          .map((json) => JuzoxMusicModel.fromJson(json))
+          .toList()
+          .cast<JuzoxMusicModel>();
+
+      notifyListeners();
+
+      debugPrint('decoded encoded data is $decodedData');
+    }
+  }
 }

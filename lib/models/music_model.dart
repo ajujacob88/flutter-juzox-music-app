@@ -28,4 +28,29 @@ class JuzoxMusicModel {
       fileExtension: songInfo.fileExtension,
     );
   }
+
+//for favorites song -shared preferences
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'artist': artist,
+      'duration': duration,
+      'filepath': filePath,
+      'album': album,
+      'fileExtension': fileExtension,
+    };
+  }
+
+  static JuzoxMusicModel fromJson(Map<String, dynamic> json) {
+    return JuzoxMusicModel(
+      id: json['id'],
+      title: json['title'],
+      artist: json['artist'],
+      duration: json['duration'],
+      filePath: json['filepath'],
+      album: json['album'],
+      fileExtension: json['fileExtension'],
+    );
+  }
 }
