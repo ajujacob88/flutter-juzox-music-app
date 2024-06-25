@@ -173,8 +173,7 @@ class AudioPlayerProvider extends ChangeNotifier {
       final String encodedData = jsonEncode(
         _favoriteSongs.map((song) => song.toJson()).toList(),
       );
-
-/*
+      /*
       //this is the same one written above
       final String encodedData2 = jsonEncode(
         _favoriteSongs.map(
@@ -183,7 +182,7 @@ class AudioPlayerProvider extends ChangeNotifier {
           },
         ).toList(),
       );
-*/
+    */
       debugPrint('encoded data is $encodedData');
       await prefs.setString('favoriteSongs', encodedData);
     } catch (error) {
