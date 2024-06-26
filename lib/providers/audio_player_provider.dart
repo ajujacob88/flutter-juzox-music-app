@@ -127,29 +127,34 @@ class AudioPlayerProvider extends ChangeNotifier {
 
   //for favorites
   void addSongToFavorites(JuzoxMusicModel song) {
-    if (!_favoriteSongs.contains(song)) {
-      // _favoriteSongs.add(song);
+    // if (!_favoriteSongs.contains(song)) {
+    // _favoriteSongs.add(song);
 
-      //To ensure Selector works correctly, the list itself should be treated immutably. Instead of modifying the existing list, create a new list each time an item is added or removed. This way, the Selector can detect the change properly.
-      _favoriteSongs = List.from(_favoriteSongs)..add(song);
-      // //or
-      // _favoriteSongs = List.of(_favoriteSongs)..add(song);
+    // if (!_favoriteSongs.any((favoriteSong) => favoriteSong.id == song.id)) {
+    //To ensure Selector works correctly, the list itself should be treated immutably. Instead of modifying the existing list, create a new list each time an item is added or removed. This way, the Selector can detect the change properly.
+    _favoriteSongs = List.from(_favoriteSongs)..add(song);
+    // //or
+    // _favoriteSongs = List.of(_favoriteSongs)..add(song);
 
-      _saveFavoriteSongs();
-      notifyListeners();
-    }
+    _saveFavoriteSongs();
+    notifyListeners();
+    // }
   }
 
   void removeSongFromFavorites(JuzoxMusicModel song) {
-    if (_favoriteSongs.contains(song)) {
-      // _favoriteSongs.remove(song);
-      _favoriteSongs = List.from(_favoriteSongs)..remove(song);
-      // //or
-      // _favoriteSongs = List.of(_favoriteSongs)..remove(song);
+    // if (_favoriteSongs.contains(song)) {
+    //   // _favoriteSongs.remove(song);
 
-      _saveFavoriteSongs();
-      notifyListeners();
-    }
+    // if (_favoriteSongs.any((favoriteSong) => favoriteSong.id == song.id)) {
+    //_favoriteSongs = List.from(_favoriteSongs)..remove(song);
+    // //or
+    // _favoriteSongs = List.of(_favoriteSongs)..remove(song);
+
+    _favoriteSongs = List.from(_favoriteSongs)
+      ..removeWhere((element) => element.id == song.id);
+    _saveFavoriteSongs();
+    notifyListeners();
+    // }
   }
 
   bool isFavorite(JuzoxMusicModel song) {
