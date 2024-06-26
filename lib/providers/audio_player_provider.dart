@@ -153,7 +153,13 @@ class AudioPlayerProvider extends ChangeNotifier {
   }
 
   bool isFavorite(JuzoxMusicModel song) {
-    return _favoriteSongs.contains(song);
+    //contains wont work, since it check all the values and the hashcode of both values will be different and hence always return false
+    // return _favoriteSongs.contains(song);
+    return _favoriteSongs.any((favoriteSong) {
+      //  debugPrint(
+      //      'decoded encoded data - element is ${favoriteSong.id} -  curr pl song - ${song.id}');
+      return favoriteSong.id == song.id;
+    });
   }
 
   //directly write the function here to call it from songs page favorite button
