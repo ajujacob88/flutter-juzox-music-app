@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:animated_music_indicator/animated_music_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,12 +24,94 @@ class _FavoritesTabState extends State<FavoritesTab>
   @override
   Widget build(BuildContext context) {
     super.build(context); //to preserve the state AutomaticKeepAliveClientMixin
-    // final audioPlayerProvider =
-    //     Provider.of<AudioPlayerProvider>(context, listen: false);
-
+    final audioPlayerProvider =
+        Provider.of<AudioPlayerProvider>(context, listen: false);
+    final id = audioPlayerProvider.favoriteSongs[1].id;
     return CustomScrollView(
       key: const PageStorageKey<String>('favorites'),
       slivers: [
+        SliverAppBar(
+          floating: true,
+          pinned: true,
+          stretch: true,
+          onStretchTrigger: () {
+            // Function callback for stretch
+            return Future<void>.value();
+          },
+          expandedHeight: 200.0,
+          //  backgroundColor: Colors.transparent,
+          flexibleSpace: FlexibleSpaceBar(
+            stretchModes: const <StretchMode>[
+              StretchMode.zoomBackground,
+              StretchMode.blurBackground,
+              StretchMode.fadeTitle,
+            ],
+            centerTitle: true,
+
+            // background: QueryArtworkWidget(
+            //   id: id!,
+            //   size: 400, //500
+            //   quality: 80,
+
+            //   type: ArtworkType.AUDIO,
+            // ),
+            //  background: ColoredBox(color: Color.fromARGB(65, 1, 19, 33)),
+
+            background: Stack(
+              fit: StackFit.expand,
+              children: <Widget>[
+                const Positioned(
+                  top: 0,
+                  left: 150,
+                  child: Icon(
+                    Icons.favorite,
+                    size: 120,
+                    color: Colors.lightBlueAccent,
+                  ),
+                ),
+
+                // Image.network(
+                //   'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                //   fit: BoxFit.cover,
+                // ),
+                // QueryArtworkWidget(
+                //   id: id!,
+                //   size: 400, //500
+                //   quality: 80,
+
+                //   type: ArtworkType.AUDIO,
+                // ),
+                ImageFiltered(
+                  imageFilter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
+                  child: QueryArtworkWidget(
+                    id: id!,
+                    size: 400, //500
+                    quality: 80,
+
+                    type: ArtworkType.AUDIO,
+                  ),
+                ),
+                const DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      //begin: Alignment(0.0, 0.5),
+                      //end: Alignment.center,
+                      // begin: Alignment.topCenter,
+                      // end: Alignment.bottomCenter,
+                      colors: <Color>[
+                        Color.fromARGB(122, 68, 137, 255),
+                        Color.fromARGB(117, 64, 195, 255),
+                        // Color.fromARGB(97, 0, 0, 0),
+                        // Color.fromARGB(68, 0, 0, 0),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            title: const Text('Favorite Songs'),
+          ),
+        ),
         Selector<AudioPlayerProvider, List<JuzoxMusicModel>>(
           selector: (context, audioPlayerProvider) =>
               audioPlayerProvider.favoriteSongs,
