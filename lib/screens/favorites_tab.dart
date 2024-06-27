@@ -40,6 +40,9 @@ class _FavoritesTabState extends State<FavoritesTab>
           },
           expandedHeight: 200.0,
           //  backgroundColor: Colors.transparent,
+          title: const Text('Favorite Songs'),
+
+          centerTitle: true,
           flexibleSpace: FlexibleSpaceBar(
             stretchModes: const <StretchMode>[
               StretchMode.zoomBackground,
@@ -47,6 +50,7 @@ class _FavoritesTabState extends State<FavoritesTab>
               StretchMode.fadeTitle,
             ],
             centerTitle: true,
+            expandedTitleScale: 1.2,
 
             // background: QueryArtworkWidget(
             //   id: id!,
@@ -60,15 +64,15 @@ class _FavoritesTabState extends State<FavoritesTab>
             background: Stack(
               fit: StackFit.expand,
               children: <Widget>[
-                const Positioned(
-                  top: 0,
-                  left: 150,
-                  child: Icon(
-                    Icons.favorite,
-                    size: 120,
-                    color: Colors.lightBlueAccent,
-                  ),
-                ),
+                // const Positioned(
+                //   top: 0,
+                //   left: 150,
+                //   child: Icon(
+                //     Icons.favorite,
+                //     size: 120,
+                //     color: Colors.lightBlueAccent,
+                //   ),
+                // ),
 
                 // Image.network(
                 //   'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
@@ -109,8 +113,102 @@ class _FavoritesTabState extends State<FavoritesTab>
                 ),
               ],
             ),
-            title: const Text('Favorite Songs'),
+            //title: const Text('Favorite Songs'),
+            title: Container(
+              color: const Color.fromARGB(0, 0, 0, 0),
+              height: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  TextButton.icon(
+                    onPressed: () {
+                      // Your onPressed logic here
+                      // final audioPlayerProvider =
+                      //     Provider.of<AudioPlayerProvider>(context, listen: false);
+                      // audioPlayerProvider.playSongFromList(
+                      //     _songs.value.first, _songs.value);
+                    },
+                    icon: const Icon(
+                      Icons.play_circle,
+                      size: 32,
+                      color: Colors.lightBlueAccent,
+                    ),
+                    label: RichText(
+                      text: TextSpan(
+                        children: [
+                          const TextSpan(
+                            text: 'Play all  ',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          TextSpan(
+                            text: '(ch)',
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  const Spacer(),
+
+                  IconButton(
+                    iconSize: 20,
+                    color: Colors.white70,
+                    padding: const EdgeInsets.only(right: 8),
+                    icon: const Icon(CupertinoIcons.shuffle),
+                    onPressed: () {
+                      // Add logic for song selection (optional)
+                    },
+                  ),
+                  // Sort button
+                  DropdownButton<String>(
+                    items: [],
+                    // value:
+                    //     _selectedSortOption, // Store selected sort option state
+                    // items: _sortOptions.map((String value) {
+                    //   return DropdownMenuItem<String>(
+                    //     value: value,
+                    //     child: Text(value),
+                    //   );
+                    // }).toList(),
+                    onChanged: (value) {
+                      // setState(() {
+                      //      _selectedSortOption = value!;
+                      // Update song list based on selected sort option (replace with logic)
+                      // });
+                    },
+
+                    //  padding: EdgeInsets.only(right: 2),
+
+                    icon: const Icon(
+                      CupertinoIcons.arrow_up_arrow_down,
+                      color: Colors.white70,
+                      size: 20,
+                    ),
+                  ),
+                  // Selection button (optional) - Implement based on your needs
+                  IconButton(
+                    iconSize: 20,
+                    color: Colors.white70,
+                    icon: const Icon(Icons.checklist),
+                    onPressed: () {
+                      // Add logic for song selection (optional)
+                    },
+                  ),
+                ],
+              ),
+            ),
           ),
+          // title: Text('Aju'),
         ),
         Selector<AudioPlayerProvider, List<JuzoxMusicModel>>(
           selector: (context, audioPlayerProvider) =>
