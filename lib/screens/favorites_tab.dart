@@ -32,15 +32,16 @@ class _FavoritesTabState extends State<FavoritesTab>
       slivers: [
         SliverAppBar(
           floating: true,
-          pinned: true,
+          //  pinned: true,
           stretch: true,
           onStretchTrigger: () {
             // Function callback for stretch
             return Future<void>.value();
           },
           expandedHeight: 200.0,
+          //expandedHeight: 150.0,
           //  backgroundColor: Colors.transparent,
-          title: const Text('Favorite Songs'),
+          //  title: const Text('Favorite Songs'),
 
           centerTitle: true,
           flexibleSpace: FlexibleSpaceBar(
@@ -50,7 +51,8 @@ class _FavoritesTabState extends State<FavoritesTab>
               StretchMode.fadeTitle,
             ],
             centerTitle: true,
-            expandedTitleScale: 1.2,
+            //  expandedTitleScale: 1.2,
+            expandedTitleScale: 1.5,
 
             // background: QueryArtworkWidget(
             //   id: id!,
@@ -113,7 +115,8 @@ class _FavoritesTabState extends State<FavoritesTab>
                 ),
               ],
             ),
-            //title: const Text('Favorite Songs'),
+            title: const Text('Favorite Songs'),
+/*
             title: Container(
               color: const Color.fromARGB(0, 0, 0, 0),
               height: 50,
@@ -207,8 +210,77 @@ class _FavoritesTabState extends State<FavoritesTab>
                 ],
               ),
             ),
+            */
           ),
           // title: Text('Aju'),
+        ),
+        SliverPersistentHeader(
+          pinned: true,
+          delegate: _SliverAppBarDelegate(
+            child: Container(
+              color: Colors.transparent,
+              height: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  TextButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.play_circle,
+                      size: 32,
+                      color: Colors.lightBlueAccent,
+                    ),
+                    label: RichText(
+                      text: TextSpan(
+                        children: [
+                          const TextSpan(
+                            text: 'Play all  ',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          TextSpan(
+                            text: '(ch)',
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  IconButton(
+                    iconSize: 20,
+                    color: Colors.white70,
+                    padding: const EdgeInsets.only(right: 8),
+                    icon: const Icon(CupertinoIcons.shuffle),
+                    onPressed: () {},
+                  ),
+                  DropdownButton<String>(
+                    items: [],
+                    onChanged: (value) {},
+                    icon: const Icon(
+                      CupertinoIcons.arrow_up_arrow_down,
+                      color: Colors.white70,
+                      size: 20,
+                    ),
+                  ),
+                  IconButton(
+                    iconSize: 20,
+                    color: Colors.white70,
+                    icon: const Icon(Icons.checklist),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
         Selector<AudioPlayerProvider, List<JuzoxMusicModel>>(
           selector: (context, audioPlayerProvider) =>
@@ -334,6 +406,29 @@ class _FavoritesTabState extends State<FavoritesTab>
         ),
       ],
     );
+  }
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  final Widget child;
+
+  _SliverAppBarDelegate({required this.child});
+
+  @override
+  double get minExtent => 50.0;
+
+  @override
+  double get maxExtent => 50.0;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return child;
+  }
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return false;
   }
 }
 
