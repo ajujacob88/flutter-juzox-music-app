@@ -26,7 +26,7 @@ class _FavoritesTabState extends State<FavoritesTab>
     super.build(context); //to preserve the state AutomaticKeepAliveClientMixin
     final audioPlayerProvider =
         Provider.of<AudioPlayerProvider>(context, listen: false);
-    final id = audioPlayerProvider.favoriteSongs[1].id;
+    final id = audioPlayerProvider.favoriteSongs[0].id;
     return CustomScrollView(
       key: const PageStorageKey<String>('favorites'),
       slivers: [
@@ -66,27 +66,6 @@ class _FavoritesTabState extends State<FavoritesTab>
             background: Stack(
               fit: StackFit.expand,
               children: <Widget>[
-                // const Positioned(
-                //   top: 0,
-                //   left: 150,
-                //   child: Icon(
-                //     Icons.favorite,
-                //     size: 120,
-                //     color: Colors.lightBlueAccent,
-                //   ),
-                // ),
-
-                // Image.network(
-                //   'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
-                //   fit: BoxFit.cover,
-                // ),
-                // QueryArtworkWidget(
-                //   id: id!,
-                //   size: 400, //500
-                //   quality: 80,
-
-                //   type: ArtworkType.AUDIO,
-                // ),
                 ImageFiltered(
                   imageFilter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
                   child: QueryArtworkWidget(
@@ -116,171 +95,71 @@ class _FavoritesTabState extends State<FavoritesTab>
               ],
             ),
             title: const Text('Favorite Songs'),
-/*
-            title: Container(
-              color: const Color.fromARGB(0, 0, 0, 0),
-              height: 50,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  TextButton.icon(
-                    onPressed: () {
-                      // Your onPressed logic here
-                      // final audioPlayerProvider =
-                      //     Provider.of<AudioPlayerProvider>(context, listen: false);
-                      // audioPlayerProvider.playSongFromList(
-                      //     _songs.value.first, _songs.value);
-                    },
-                    icon: const Icon(
-                      Icons.play_circle,
-                      size: 32,
-                      color: Colors.lightBlueAccent,
-                    ),
-                    label: RichText(
-                      text: TextSpan(
-                        children: [
-                          const TextSpan(
-                            text: 'Play all  ',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextSpan(
-                            text: '(ch)',
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  const Spacer(),
-
-                  IconButton(
-                    iconSize: 20,
-                    color: Colors.white70,
-                    padding: const EdgeInsets.only(right: 8),
-                    icon: const Icon(CupertinoIcons.shuffle),
-                    onPressed: () {
-                      // Add logic for song selection (optional)
-                    },
-                  ),
-                  // Sort button
-                  DropdownButton<String>(
-                    items: [],
-                    // value:
-                    //     _selectedSortOption, // Store selected sort option state
-                    // items: _sortOptions.map((String value) {
-                    //   return DropdownMenuItem<String>(
-                    //     value: value,
-                    //     child: Text(value),
-                    //   );
-                    // }).toList(),
-                    onChanged: (value) {
-                      // setState(() {
-                      //      _selectedSortOption = value!;
-                      // Update song list based on selected sort option (replace with logic)
-                      // });
-                    },
-
-                    //  padding: EdgeInsets.only(right: 2),
-
-                    icon: const Icon(
-                      CupertinoIcons.arrow_up_arrow_down,
-                      color: Colors.white70,
-                      size: 20,
-                    ),
-                  ),
-                  // Selection button (optional) - Implement based on your needs
-                  IconButton(
-                    iconSize: 20,
-                    color: Colors.white70,
-                    icon: const Icon(Icons.checklist),
-                    onPressed: () {
-                      // Add logic for song selection (optional)
-                    },
-                  ),
-                ],
-              ),
-            ),
-            */
           ),
           // title: Text('Aju'),
         ),
-        SliverPersistentHeader(
+        SliverAppBar(
           pinned: true,
-          delegate: _SliverAppBarDelegate(
-            child: Container(
-              color: Colors.transparent,
-              height: 50,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  TextButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.play_circle,
-                      size: 32,
-                      color: Colors.lightBlueAccent,
-                    ),
-                    label: RichText(
-                      text: TextSpan(
-                        children: [
-                          const TextSpan(
-                            text: 'Play all  ',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextSpan(
-                            text: '(ch)',
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+          //floating: true,
+          // title: Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   mainAxisSize: MainAxisSize.max,
+          actions: [
+            TextButton.icon(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.play_circle,
+                size: 32,
+                color: Colors.lightBlueAccent,
+              ),
+              label: RichText(
+                text: const TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Play all  ',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    iconSize: 20,
-                    color: Colors.white70,
-                    padding: const EdgeInsets.only(right: 8),
-                    icon: const Icon(CupertinoIcons.shuffle),
-                    onPressed: () {},
-                  ),
-                  DropdownButton<String>(
-                    items: [],
-                    onChanged: (value) {},
-                    icon: const Icon(
-                      CupertinoIcons.arrow_up_arrow_down,
-                      color: Colors.white70,
-                      size: 20,
+                    TextSpan(
+                      text: '(ch)',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  IconButton(
-                    iconSize: 20,
-                    color: Colors.white70,
-                    icon: const Icon(Icons.checklist),
-                    onPressed: () {},
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
+            const Spacer(),
+            IconButton(
+              iconSize: 20,
+              color: Colors.white70,
+              padding: const EdgeInsets.only(right: 8),
+              icon: const Icon(CupertinoIcons.shuffle),
+              onPressed: () {},
+            ),
+            DropdownButton<String>(
+              items: [],
+              onChanged: (value) {},
+              icon: const Icon(
+                CupertinoIcons.arrow_up_arrow_down,
+                color: Colors.white70,
+                size: 20,
+              ),
+            ),
+            IconButton(
+              iconSize: 20,
+              color: Colors.white70,
+              icon: const Icon(Icons.checklist),
+              onPressed: () {},
+            ),
+          ],
+          // ),
         ),
         Selector<AudioPlayerProvider, List<JuzoxMusicModel>>(
           selector: (context, audioPlayerProvider) =>
@@ -391,44 +270,63 @@ class _FavoritesTabState extends State<FavoritesTab>
             },
           ),
         ),
-        const SliverToBoxAdapter(
-          child: SizedBox(
-            height: 190,
-            child: Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 100),
-                  child: Text(
-                    'This much Favorites',
-                  ),
-                )),
-          ),
-        ),
+        // const SliverToBoxAdapter(
+        //   child: SizedBox(
+        //     height: 190,
+        //     child: Align(
+        //         alignment: Alignment.center,
+        //         child: Padding(
+        //           padding: EdgeInsets.only(bottom: 100),
+        //           child: Text(
+        //             'This much Favorites',
+        //           ),
+        //         )),
+        //   ),
+        // ),
       ],
     );
   }
 }
 
 class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  _SliverAppBarDelegate({
+    required this.minHeight,
+    required this.maxHeight,
+    required this.child,
+  });
+
+  final double minHeight;
+  final double maxHeight;
   final Widget child;
 
-  _SliverAppBarDelegate({required this.child});
+  @override
+  double get minExtent => minHeight;
 
   @override
-  double get minExtent => 50.0;
+  double get maxExtent => maxHeight;
 
-  @override
-  double get maxExtent => 50.0;
+  // @override
+  // Widget build(
+  //     BuildContext context, double shrinkOffset, bool overlapsContent) {
+  //   return child;
+  // }
+
+  // @override
+  // bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+  //   return false;
+  // }
 
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return child;
+    return SizedBox.expand(child: child);
   }
 
   @override
-  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
-    return false;
+  bool shouldRebuild(covariant _SliverAppBarDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
   }
 }
 
