@@ -27,6 +27,7 @@ class _FavoritesTabState extends State<FavoritesTab>
     final audioPlayerProvider =
         Provider.of<AudioPlayerProvider>(context, listen: false);
     final favFirstSongId = audioPlayerProvider.favoriteSongs[0].id;
+    int? lastPlayedFavoriteSong;
     return CustomScrollView(
       key: const PageStorageKey<String>('favorites'),
       slivers: [
@@ -59,12 +60,30 @@ class _FavoritesTabState extends State<FavoritesTab>
               children: <Widget>[
                 ImageFiltered(
                   imageFilter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
-                  child: QueryArtworkWidget(
-                    id: favFirstSongId ?? 0,
-                    size: 200, //500
-                    quality: 40,
+                  child: Selector<AudioPlayerProvider, int?>(
+                    selector: (context, audioPlayerProvider) {
+                      // int? lastPlayedFavoriteSong;
+                      if (audioPlayerProvider.currentlyPlayingSong != null) {
+                        if (audioPlayerProvider.isFavorite(
+                            audioPlayerProvider.currentlyPlayingSong!)) {
+                          lastPlayedFavoriteSong =
+                              audioPlayerProvider.currentlyPlayingSong!.id;
+                          return audioPlayerProvider.currentlyPlayingSong!.id;
+                        }
+                        return lastPlayedFavoriteSong;
+                      }
+                      return lastPlayedFavoriteSong;
+                    },
+                    builder: (_, currentPlayingSongId, __) {
+                      return QueryArtworkWidget(
+                        //  id: favFirstSongId ??0,
+                        id: currentPlayingSongId ?? favFirstSongId ?? 0,
+                        size: 200, //500
+                        quality: 40,
 
-                    type: ArtworkType.AUDIO,
+                        type: ArtworkType.AUDIO,
+                      );
+                    },
                   ),
                 ),
                 const Positioned(
