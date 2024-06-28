@@ -131,14 +131,9 @@ class _FavoritesTabState extends State<FavoritesTab>
             TextButton.icon(
               onPressed: () {
                 if (audioPlayerProvider.favoriteSongs.isNotEmpty) {
-                  debugPrint(
-                      'isnotemptycount count is ${audioPlayerProvider.favoriteSongs.length}');
                   audioPlayerProvider.playSongFromList(
                       audioPlayerProvider.favoriteSongs[0],
                       audioPlayerProvider.favoriteSongs);
-                } else {
-                  debugPrint(
-                      'isnotemptycount false count is ${audioPlayerProvider.favoriteSongs.length}');
                 }
               },
               icon: const Icon(
@@ -297,6 +292,11 @@ class _FavoritesTabState extends State<FavoritesTab>
                       myChild!
                     ],
                   ),
+                  onTap: () {
+                    return audioPlayerProvider.playSongFromList(
+                        audioPlayerProvider.favoriteSongs[index],
+                        audioPlayerProvider.favoriteSongs);
+                  },
                 );
               },
             );
