@@ -108,6 +108,7 @@ class _FavoritesTabState extends State<FavoritesTab>
           //shadowColor: Color.fromARGB(188, 6, 102, 197),
           shadowColor: Color.fromARGB(184, 6, 82, 158),
           //backgroundColor: Colors.transparent,
+          // backgroundColor: Color.fromARGB(255, 0, 17, 42),
           actions: [
             TextButton.icon(
               onPressed: () {},
@@ -273,19 +274,19 @@ class _FavoritesTabState extends State<FavoritesTab>
             },
           ),
         ),
-        // const SliverToBoxAdapter(
-        //   child: SizedBox(
-        //     height: 190,
-        //     child: Align(
-        //         alignment: Alignment.center,
-        //         child: Padding(
-        //           padding: EdgeInsets.only(bottom: 100),
-        //           child: Text(
-        //             'This much Favorites',
-        //           ),
-        //         )),
-        //   ),
-        // ),
+        const SliverToBoxAdapter(
+          child: SizedBox(
+            height: 190,
+            child: Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 100),
+                  child: Text(
+                    'This much Favorites',
+                  ),
+                )),
+          ),
+        ),
       ],
     );
   }
