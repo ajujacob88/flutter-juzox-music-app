@@ -26,7 +26,9 @@ class _FavoritesTabState extends State<FavoritesTab>
     super.build(context); //to preserve the state AutomaticKeepAliveClientMixin
     final audioPlayerProvider =
         Provider.of<AudioPlayerProvider>(context, listen: false);
-    final favFirstSongId = audioPlayerProvider.favoriteSongs[0].id;
+    final favFirstSongId = audioPlayerProvider.favoriteSongs.isNotEmpty
+        ? audioPlayerProvider.favoriteSongs[0].id
+        : 0;
     int? lastPlayedFavoriteSong;
     return CustomScrollView(
       key: const PageStorageKey<String>('favorites'),
@@ -127,7 +129,18 @@ class _FavoritesTabState extends State<FavoritesTab>
           // backgroundColor: Color.fromARGB(255, 0, 17, 42),
           actions: [
             TextButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                if (audioPlayerProvider.favoriteSongs.isNotEmpty) {
+                  debugPrint(
+                      'isnotemptycount count is ${audioPlayerProvider.favoriteSongs.length}');
+                  audioPlayerProvider.playSongFromList(
+                      audioPlayerProvider.favoriteSongs[0],
+                      audioPlayerProvider.favoriteSongs);
+                } else {
+                  debugPrint(
+                      'isnotemptycount false count is ${audioPlayerProvider.favoriteSongs.length}');
+                }
+              },
               icon: const Icon(
                 Icons.play_circle,
                 size: 32,
