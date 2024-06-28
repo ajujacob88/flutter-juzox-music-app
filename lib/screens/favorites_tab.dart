@@ -26,7 +26,7 @@ class _FavoritesTabState extends State<FavoritesTab>
     super.build(context); //to preserve the state AutomaticKeepAliveClientMixin
     final audioPlayerProvider =
         Provider.of<AudioPlayerProvider>(context, listen: false);
-    final id = audioPlayerProvider.favoriteSongs[0].id;
+    final favFirstSongId = audioPlayerProvider.favoriteSongs[0].id;
     return CustomScrollView(
       key: const PageStorageKey<String>('favorites'),
       slivers: [
@@ -60,7 +60,7 @@ class _FavoritesTabState extends State<FavoritesTab>
                 ImageFiltered(
                   imageFilter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
                   child: QueryArtworkWidget(
-                    id: id!,
+                    id: favFirstSongId ?? 0,
                     size: 200, //500
                     quality: 40,
 
