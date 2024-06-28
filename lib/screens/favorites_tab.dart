@@ -74,6 +74,7 @@ class _FavoritesTabState extends State<FavoritesTab>
                       }
                       return lastPlayedFavoriteSong;
                     },
+                    shouldRebuild: (previous, current) => previous != current,
                     builder: (_, currentPlayingSongId, __) {
                       return QueryArtworkWidget(
                         //  id: favFirstSongId ??0,
@@ -132,27 +133,34 @@ class _FavoritesTabState extends State<FavoritesTab>
                 size: 32,
                 color: Colors.lightBlueAccent,
               ),
-              label: RichText(
-                text: const TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Play all  ',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+              label: Selector<AudioPlayerProvider, int>(
+                selector: (context, audioPlayerProvider) =>
+                    audioPlayerProvider.favoriteSongs.length,
+                shouldRebuild: (previous, current) => previous != current,
+                builder: (_, favoritelength, __) {
+                  return RichText(
+                    text: TextSpan(
+                      children: [
+                        const TextSpan(
+                          text: 'Play all  ',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(
+                          text: '($favoritelength)',
+                          style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
-                    TextSpan(
-                      text: '(ch)',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
             ),
             const Spacer(),
