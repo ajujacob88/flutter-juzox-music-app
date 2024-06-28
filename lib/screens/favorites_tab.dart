@@ -32,7 +32,7 @@ class _FavoritesTabState extends State<FavoritesTab>
       slivers: [
         SliverAppBar(
           // floating: true,
-          //  pinned: true,
+          // pinned: true,
           stretch: true,
           onStretchTrigger: () {
             // Function callback for stretch
@@ -86,8 +86,6 @@ class _FavoritesTabState extends State<FavoritesTab>
                       colors: <Color>[
                         Color.fromARGB(122, 68, 137, 255),
                         Color.fromARGB(117, 64, 195, 255),
-                        // Color.fromARGB(97, 0, 0, 0),
-                        // Color.fromARGB(68, 0, 0, 0),
                       ],
                     ),
                   ),
