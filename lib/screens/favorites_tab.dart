@@ -70,8 +70,8 @@ class _FavoritesTabState extends State<FavoritesTab>
                   imageFilter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
                   child: QueryArtworkWidget(
                     id: id!,
-                    size: 400, //500
-                    quality: 80,
+                    size: 200, //500
+                    quality: 40,
 
                     type: ArtworkType.AUDIO,
                   ),
@@ -79,10 +79,6 @@ class _FavoritesTabState extends State<FavoritesTab>
                 const DecoratedBox(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      //begin: Alignment(0.0, 0.5),
-                      //end: Alignment.center,
-                      // begin: Alignment.topCenter,
-                      // end: Alignment.bottomCenter,
                       colors: <Color>[
                         Color.fromARGB(122, 68, 137, 255),
                         Color.fromARGB(117, 64, 195, 255),
