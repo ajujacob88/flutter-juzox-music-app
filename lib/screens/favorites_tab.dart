@@ -31,7 +31,7 @@ class _FavoritesTabState extends State<FavoritesTab>
       key: const PageStorageKey<String>('favorites'),
       slivers: [
         SliverAppBar(
-          floating: true,
+          // floating: true,
           //  pinned: true,
           stretch: true,
           onStretchTrigger: () {
@@ -100,10 +100,14 @@ class _FavoritesTabState extends State<FavoritesTab>
         ),
         SliverAppBar(
           pinned: true,
-          //floating: true,
-          // title: Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   mainAxisSize: MainAxisSize.max,
+          // floating: true,
+          // snap: true,
+          forceElevated: true,
+          elevation: 200,
+          scrolledUnderElevation: 30,
+          //shadowColor: Color.fromARGB(188, 6, 102, 197),
+          shadowColor: Color.fromARGB(184, 6, 82, 158),
+          //backgroundColor: Colors.transparent,
           actions: [
             TextButton.icon(
               onPressed: () {},
@@ -159,7 +163,6 @@ class _FavoritesTabState extends State<FavoritesTab>
               onPressed: () {},
             ),
           ],
-          // ),
         ),
         Selector<AudioPlayerProvider, List<JuzoxMusicModel>>(
           selector: (context, audioPlayerProvider) =>
