@@ -54,15 +54,6 @@ class _FavoritesTabState extends State<FavoritesTab>
             //  expandedTitleScale: 1.2,
             expandedTitleScale: 1.5,
 
-            // background: QueryArtworkWidget(
-            //   id: id!,
-            //   size: 400, //500
-            //   quality: 80,
-
-            //   type: ArtworkType.AUDIO,
-            // ),
-            //  background: ColoredBox(color: Color.fromARGB(65, 1, 19, 33)),
-
             background: Stack(
               fit: StackFit.expand,
               children: <Widget>[
@@ -74,6 +65,17 @@ class _FavoritesTabState extends State<FavoritesTab>
                     quality: 40,
 
                     type: ArtworkType.AUDIO,
+                  ),
+                ),
+                const Positioned(
+                  top: 50,
+                  left: 0,
+                  right: 0,
+                  child: Icon(
+                    Icons.favorite,
+                    size: 70,
+                    // color: Color.fromARGB(63, 1, 61, 89),
+                    color: Color.fromARGB(40, 1, 61, 89),
                   ),
                 ),
                 const DecoratedBox(
