@@ -75,21 +75,6 @@ class _PlaylistTabState extends State<PlaylistTab> {
   }
 }
 
-// class CreatePlaylistButton extends StatelessWidget {
-//   const CreatePlaylistButton({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ListTile(
-//       leading: const Icon(Icons.add),
-//       title: const Text('Create Playlist'),
-//       onTap: () {
-//         // Implement the functionality to create a new playlist
-//       },
-//     );
-//   }
-// }
-
 class PlaylistTile extends StatelessWidget {
   final String playlistName;
 
@@ -99,7 +84,10 @@ class PlaylistTile extends StatelessWidget {
   Widget build(BuildContext context) {
     // Using the existing instance of AudioPlayerProvider
     final audioPlayerProvider =
-        Provider.of<AudioPlayerProvider>(context, listen: false);
+        Provider.of<AudioPlayerProvider>(context, listen: true);
+
+    final currentPlaylistSongs =
+        audioPlayerProvider.playlistSongs[playlistName];
     return ListTile(
       leading: QueryArtworkWidget(
         artworkBorder: const BorderRadius.horizontal(
@@ -109,7 +97,8 @@ class PlaylistTile extends StatelessWidget {
         //   id: 1,
         artworkWidth: 50,
         artworkHeight: 50,
-        id: audioPlayerProvider.allSongs[0].id!,
+        //  id: audioPlayerProvider.allSongs[0].id!,
+        id: currentPlaylistSongs != null ? currentPlaylistSongs[0].id ?? 0 : 0,
         //  artworkColor: Color.fromARGB(255, 1, 20, 54),
         // artworkColor: Color.fromARGB(194, 6, 49, 125).withOpacity(0.1),
         artworkColor: const Color.fromARGB(249, 7, 69, 116),
