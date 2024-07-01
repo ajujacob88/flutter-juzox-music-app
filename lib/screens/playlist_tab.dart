@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:juzox_music_app/providers/audio_player_provider.dart';
 
 import 'package:juzox_music_app/models/music_model.dart';
+import 'package:juzox_music_app/screens/playlist_songs_page.dart';
 import 'package:juzox_music_app/screens/select_songs_page.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +51,7 @@ class _PlaylistTabState extends State<PlaylistTab> {
                   ),
                 ),
                 const CreatePlaylistButton(),
-                // ...userPlaylists
+                // ...audioPlayerProvider.userPlaylists
                 //     .map((playlistName) => PlaylistTile(playlistName: playlistName)),
                 //  Text(audioPlayerProvider.userPlaylists[1]),
 
@@ -131,6 +132,11 @@ class PlaylistTile extends StatelessWidget {
       title: Text(playlistName),
       onTap: () {
         // Implement the functionality to open and play the playlist
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => PlaylistSongsPage(playlistName: playlistName),
+          ),
+        );
       },
     );
   }

@@ -18,6 +18,7 @@ class AudioPlayerProvider extends ChangeNotifier {
   ProcessingState _processingState = ProcessingState.idle;
   // List<String> _userPlaylists = ['Favoritess'];
   List<String> _userPlaylists = [];
+
   Map<String, List<JuzoxMusicModel>> _playlistSongs = {};
 
   // int? _prevIndex;
@@ -77,6 +78,8 @@ class AudioPlayerProvider extends ChangeNotifier {
   List<String> get userPlaylists => _userPlaylists;
 
   List<JuzoxMusicModel> get allSongs => _allSongs;
+
+  Map<String, List<JuzoxMusicModel>> get playlistSongs => _playlistSongs;
 
   void setCurrentlyPlayingSong(JuzoxMusicModel song) {
     _currentlyPlayingSong = song;
@@ -248,23 +251,18 @@ class AudioPlayerProvider extends ChangeNotifier {
       // _userPlaylists.add(playlistName);
       _userPlaylists = List.from(_userPlaylists)..add(playlistName);
       _playlistSongs[playlistName] = [];
+      _saveUserPlaylists();
       notifyListeners();
     }
   }
 
+/*
   Future<void> _saveUserPlaylists() async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setStringList('userPlaylists', _userPlaylists);
     } catch (error) {
       debugPrint('Failed to save user playlists: $error');
-    }
-  }
-
-  void addSongsToPlaylist(String playlistName, List<JuzoxMusicModel> songs) {
-    if (_playlistSongs.containsKey(playlistName)) {
-      _playlistSongs[playlistName]!.addAll(songs);
-      notifyListeners();
     }
   }
 
@@ -281,7 +279,52 @@ class AudioPlayerProvider extends ChangeNotifier {
       debugPrint('Failed to load user playlists: $error');
     }
   }
+*/
+  void addSongsToPlaylist(String playlistName, List<JuzoxMusicModel> songs) {
+    if (_playlistSongs.containsKey(playlistName)) {
+      _playlistSongs[playlistName]!.addAll(songs);
+      notifyListeners();
+    }
+  }
 
+  // void addSongsToPlaylist(String playlistName, JuzoxMusicModel song) {
+  //   _playlistSongs[playlistName]?.add(song);
+  //   _saveUserPlaylists();
+  //   notifyListeners();
+  // }
+
+  Future<void> _saveUserPlaylists() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String encodedPlaylists = jsonEncode(_userPlaylists);
+    final String encodedPlaylistSongs = jsonEncode(_playlistSongs.map(
+        (key, value) =>
+            MapEntry(key, value.map((song) => song.toJson()).toList())));
+
+    await prefs.setString('userPlaylists', encodedPlaylists);
+    await prefs.setString('playlistSongs', encodedPlaylistSongs);
+  }
+
+  Future<void> _loadUserPlaylists() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? encodedPlaylists = prefs.getString('userPlaylists');
+    final String? encodedPlaylistSongs = prefs.getString('playlistSongs');
+
+    if (encodedPlaylists != null) {
+      _userPlaylists = List<String>.from(jsonDecode(encodedPlaylists));
+    }
+
+    if (encodedPlaylistSongs != null) {
+      final decodedPlaylistSongs = jsonDecode(encodedPlaylistSongs);
+      _playlistSongs = decodedPlaylistSongs.map<String, List<JuzoxMusicModel>>(
+          (key, value) => MapEntry(
+              key,
+              List<JuzoxMusicModel>.from(
+                  value.map((item) => JuzoxMusicModel.fromJson(item)))));
+    }
+    notifyListeners();
+  }
+
+//to store all songs initially from the songs tab while loading the app
   void saveAllSongs(List<JuzoxMusicModel> allSongs) {
     _allSongs = allSongs;
     notifyListeners();

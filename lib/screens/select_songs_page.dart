@@ -6,10 +6,10 @@ import 'package:provider/provider.dart';
 class SelectSongsPage extends StatefulWidget {
   final String playlistName;
 
-  SelectSongsPage({required this.playlistName});
+  const SelectSongsPage({super.key, required this.playlistName});
 
   @override
-  _SelectSongsPageState createState() => _SelectSongsPageState();
+  State<SelectSongsPage> createState() => _SelectSongsPageState();
 }
 
 class _SelectSongsPageState extends State<SelectSongsPage> {
