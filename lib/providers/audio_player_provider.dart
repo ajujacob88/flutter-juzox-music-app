@@ -25,6 +25,8 @@ class AudioPlayerProvider extends ChangeNotifier {
 
   List<JuzoxMusicModel> _favoriteSongs = [];
 
+  List<JuzoxMusicModel> _allSongs = [];
+
   AudioPlayerProvider() {
     _juzoxAudioPlayerService.audioPlayer.positionStream.listen((duration) {
       _currentDuration = duration;
@@ -71,6 +73,8 @@ class AudioPlayerProvider extends ChangeNotifier {
   List<JuzoxMusicModel> get favoriteSongs => _favoriteSongs;
 
   List<String> get userPlaylists => _userPlaylists;
+
+  List<JuzoxMusicModel> get allSongs => _allSongs;
 
   void setCurrentlyPlayingSong(JuzoxMusicModel song) {
     _currentlyPlayingSong = song;
@@ -260,5 +264,9 @@ class AudioPlayerProvider extends ChangeNotifier {
     } catch (error) {
       debugPrint('Failed to load user playlists: $error');
     }
+  }
+
+  void saveAllSongs(List<JuzoxMusicModel> allSongs) {
+    _allSongs = allSongs;
   }
 }

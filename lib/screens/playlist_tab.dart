@@ -90,13 +90,17 @@ class PlaylistTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Using the existing instance of AudioPlayerProvider
+    final audioPlayerProvider =
+        Provider.of<AudioPlayerProvider>(context, listen: false);
     return ListTile(
       leading: QueryArtworkWidget(
         artworkBorder: const BorderRadius.horizontal(
             left: Radius.circular(8), right: Radius.circular(8)),
         artworkClipBehavior: Clip.hardEdge,
         //  controller: _audioQuery,
-        id: 1,
+        //   id: 1,
+        id: audioPlayerProvider.allSongs[1].id!,
         type: ArtworkType.AUDIO,
         nullArtworkWidget: Container(
           decoration: const BoxDecoration(
