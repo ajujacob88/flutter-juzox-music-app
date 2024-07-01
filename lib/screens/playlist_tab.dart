@@ -87,7 +87,7 @@ class PlaylistTile extends StatelessWidget {
         Provider.of<AudioPlayerProvider>(context, listen: true);
 
     final currentPlaylistSongs =
-        audioPlayerProvider.playlistSongs[playlistName];
+        audioPlayerProvider.userPlaylistSongs[playlistName];
     return ListTile(
       leading: QueryArtworkWidget(
         artworkBorder: const BorderRadius.horizontal(
@@ -109,10 +109,10 @@ class PlaylistTile extends StatelessWidget {
               color: Color.fromARGB(22, 68, 137, 255),
               borderRadius: BorderRadius.horizontal(
                   left: Radius.circular(8), right: Radius.circular(8))),
-          width: 40.0,
-          height: 40.0,
+          width: 50.0,
+          height: 50.0,
           child: const Icon(
-            Icons.music_note_outlined,
+            Icons.music_off,
             color: Color.fromARGB(140, 64, 195, 255),
             size: 30,
           ),
@@ -138,8 +138,10 @@ class SuggestedPlaylistTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final audioPlayerProvider =
+        Provider.of<AudioPlayerProvider>(context, listen: true);
     return ListTile(
-      title: Text(playlistName),
+      title: Text('$playlistName (${audioPlayerProvider.userPlaylists})'),
       onTap: () {
         // Implement the functionality to open and play the suggested playlist
       },

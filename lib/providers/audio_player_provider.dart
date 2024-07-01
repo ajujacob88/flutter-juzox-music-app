@@ -19,7 +19,7 @@ class AudioPlayerProvider extends ChangeNotifier {
   // List<String> _userPlaylists = ['Favoritess'];
   List<String> _userPlaylists = [];
 
-  Map<String, List<JuzoxMusicModel>> _playlistSongs = {};
+  Map<String, List<JuzoxMusicModel>> _userplaylistSongs = {};
 
   // int? _prevIndex;
 
@@ -79,7 +79,8 @@ class AudioPlayerProvider extends ChangeNotifier {
 
   List<JuzoxMusicModel> get allSongs => _allSongs;
 
-  Map<String, List<JuzoxMusicModel>> get playlistSongs => _playlistSongs;
+  Map<String, List<JuzoxMusicModel>> get userPlaylistSongs =>
+      _userplaylistSongs;
 
   void setCurrentlyPlayingSong(JuzoxMusicModel song) {
     _currentlyPlayingSong = song;
@@ -250,7 +251,7 @@ class AudioPlayerProvider extends ChangeNotifier {
     if (!_userPlaylists.contains(playlistName)) {
       // _userPlaylists.add(playlistName);
       _userPlaylists = List.from(_userPlaylists)..add(playlistName);
-      _playlistSongs[playlistName] = [];
+      _userplaylistSongs[playlistName] = [];
       _saveUserPlaylists();
       notifyListeners();
     }
@@ -281,8 +282,8 @@ class AudioPlayerProvider extends ChangeNotifier {
   }
 */
   void addSongsToPlaylist(String playlistName, List<JuzoxMusicModel> songs) {
-    if (_playlistSongs.containsKey(playlistName)) {
-      _playlistSongs[playlistName]!.addAll(songs);
+    if (_userplaylistSongs.containsKey(playlistName)) {
+      _userplaylistSongs[playlistName]!.addAll(songs);
       notifyListeners();
     }
   }
@@ -296,7 +297,7 @@ class AudioPlayerProvider extends ChangeNotifier {
   Future<void> _saveUserPlaylists() async {
     final prefs = await SharedPreferences.getInstance();
     final String encodedPlaylists = jsonEncode(_userPlaylists);
-    final String encodedPlaylistSongs = jsonEncode(_playlistSongs.map(
+    final String encodedPlaylistSongs = jsonEncode(_userplaylistSongs.map(
         (key, value) =>
             MapEntry(key, value.map((song) => song.toJson()).toList())));
 
@@ -315,8 +316,8 @@ class AudioPlayerProvider extends ChangeNotifier {
 
     if (encodedPlaylistSongs != null) {
       final decodedPlaylistSongs = jsonDecode(encodedPlaylistSongs);
-      _playlistSongs = decodedPlaylistSongs.map<String, List<JuzoxMusicModel>>(
-          (key, value) => MapEntry(
+      _userplaylistSongs = decodedPlaylistSongs
+          .map<String, List<JuzoxMusicModel>>((key, value) => MapEntry(
               key,
               List<JuzoxMusicModel>.from(
                   value.map((item) => JuzoxMusicModel.fromJson(item)))));

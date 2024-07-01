@@ -11,7 +11,8 @@ class PlaylistSongsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final audioPlayerProvider = Provider.of<AudioPlayerProvider>(context);
-    final playlistSongs = audioPlayerProvider.playlistSongs[playlistName] ?? [];
+    final playlistSongs =
+        audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
 
     return Scaffold(
       appBar: AppBar(
