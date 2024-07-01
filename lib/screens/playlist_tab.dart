@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:juzox_music_app/providers/audio_player_provider.dart';
 
 import 'package:juzox_music_app/models/music_model.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
 
 class PlaylistTab extends StatefulWidget {
@@ -90,18 +91,24 @@ class PlaylistTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Container(
-        width: 40.0, // Set the width of the square box
-        height: 40.0, // Set the height of the square box
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0), // Rounded corners
-          gradient: LinearGradient(
-            colors: [
-              Colors.blue,
-              Colors.green
-            ], // Define your gradient colors here
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+      leading: QueryArtworkWidget(
+        artworkBorder: const BorderRadius.horizontal(
+            left: Radius.circular(8), right: Radius.circular(8)),
+        artworkClipBehavior: Clip.hardEdge,
+        //  controller: _audioQuery,
+        id: 1,
+        type: ArtworkType.AUDIO,
+        nullArtworkWidget: Container(
+          decoration: const BoxDecoration(
+              color: Color.fromARGB(22, 68, 137, 255),
+              borderRadius: BorderRadius.horizontal(
+                  left: Radius.circular(8), right: Radius.circular(8))),
+          width: 40.0,
+          height: 40.0,
+          child: const Icon(
+            Icons.music_note_outlined,
+            color: Color.fromARGB(140, 64, 195, 255),
+            size: 30,
           ),
         ),
       ),
