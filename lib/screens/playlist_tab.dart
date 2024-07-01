@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:juzox_music_app/providers/audio_player_provider.dart';
 
 import 'package:juzox_music_app/models/music_model.dart';
+import 'package:juzox_music_app/screens/select_songs_page.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
 
@@ -110,7 +111,7 @@ class PlaylistTile extends StatelessWidget {
         id: audioPlayerProvider.allSongs[0].id!,
         //  artworkColor: Color.fromARGB(255, 1, 20, 54),
         // artworkColor: Color.fromARGB(194, 6, 49, 125).withOpacity(0.1),
-        artworkColor: Color.fromARGB(249, 7, 69, 116),
+        artworkColor: const Color.fromARGB(249, 7, 69, 116),
         artworkBlendMode: BlendMode.screen,
         type: ArtworkType.AUDIO,
         nullArtworkWidget: Container(
@@ -216,6 +217,13 @@ class CreatePlaylistButton extends StatelessWidget {
                   Provider.of<AudioPlayerProvider>(context, listen: false)
                       .addUserPlaylist(playlistName);
                   Navigator.of(context).pop();
+
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          SelectSongsPage(playlistName: playlistName),
+                    ),
+                  );
                 }
               },
               child: const Text('Create'),

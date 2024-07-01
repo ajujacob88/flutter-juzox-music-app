@@ -16,7 +16,9 @@ class AudioPlayerProvider extends ChangeNotifier {
   Duration _totalDuration = Duration.zero;
   //for swaping pause button when finished playing a song
   ProcessingState _processingState = ProcessingState.idle;
-  List<String> _userPlaylists = ['Favoritess'];
+  // List<String> _userPlaylists = ['Favoritess'];
+  List<String> _userPlaylists = [];
+  Map<String, List<JuzoxMusicModel>> _playlistSongs = {};
 
   // int? _prevIndex;
 
@@ -238,9 +240,16 @@ class AudioPlayerProvider extends ChangeNotifier {
   }
 
   void addUserPlaylist(String playlistName) {
-    _userPlaylists = List.from(_userPlaylists)..add(playlistName);
-    _saveUserPlaylists();
-    notifyListeners();
+    // _userPlaylists = List.from(_userPlaylists)..add(playlistName);
+    // _saveUserPlaylists();
+    // notifyListeners();
+
+    if (!_userPlaylists.contains(playlistName)) {
+      // _userPlaylists.add(playlistName);
+      _userPlaylists = List.from(_userPlaylists)..add(playlistName);
+      _playlistSongs[playlistName] = [];
+      notifyListeners();
+    }
   }
 
   Future<void> _saveUserPlaylists() async {
@@ -249,6 +258,13 @@ class AudioPlayerProvider extends ChangeNotifier {
       await prefs.setStringList('userPlaylists', _userPlaylists);
     } catch (error) {
       debugPrint('Failed to save user playlists: $error');
+    }
+  }
+
+  void addSongsToPlaylist(String playlistName, List<JuzoxMusicModel> songs) {
+    if (_playlistSongs.containsKey(playlistName)) {
+      _playlistSongs[playlistName]!.addAll(songs);
+      notifyListeners();
     }
   }
 
