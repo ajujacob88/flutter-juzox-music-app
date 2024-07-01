@@ -105,7 +105,13 @@ class PlaylistTile extends StatelessWidget {
         artworkClipBehavior: Clip.hardEdge,
         //  controller: _audioQuery,
         //   id: 1,
+        artworkWidth: 50,
+        artworkHeight: 50,
         id: audioPlayerProvider.allSongs[0].id!,
+        //  artworkColor: Color.fromARGB(255, 1, 20, 54),
+        // artworkColor: Color.fromARGB(194, 6, 49, 125).withOpacity(0.1),
+        artworkColor: Color.fromARGB(249, 7, 69, 116),
+        artworkBlendMode: BlendMode.screen,
         type: ArtworkType.AUDIO,
         nullArtworkWidget: Container(
           decoration: const BoxDecoration(
@@ -153,8 +159,8 @@ class CreatePlaylistButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Container(
-        // width: 40.0,
-        // height: 40.0,
+        width: 50.0,
+        height: 50.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           //shape: BoxShape.rectangle,
