@@ -90,6 +90,21 @@ class PlaylistTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      leading: Container(
+        width: 40.0, // Set the width of the square box
+        height: 40.0, // Set the height of the square box
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.0), // Rounded corners
+          gradient: LinearGradient(
+            colors: [
+              Colors.blue,
+              Colors.green
+            ], // Define your gradient colors here
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+      ),
       title: Text(playlistName),
       onTap: () {
         // Implement the functionality to open and play the playlist
@@ -121,22 +136,35 @@ class CreatePlaylistButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const Icon(Icons.add),
-      title: const Text('Create Playlist'),
+      leading: Container(
+        // width: 40.0,
+        // height: 40.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          //shape: BoxShape.rectangle,
+          gradient: const LinearGradient(
+            colors: [
+              Colors.blue,
+              Colors.green
+            ], // Define your gradient colors here
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+
+        padding: const EdgeInsets.all(8.0), // Adding some padding
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+          // size: 28,
+        ),
+      ),
+      title: const Text('New Playlist'),
       onTap: () {
         _showCreatePlaylistDialog(context);
       },
     );
   }
-
-  // void _showCreatePlaylistDialog(BuildContext context) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) {
-  //       return CreatePlaylistDialog();
-  //     },
-  //   );
-  // }
 
   void _showCreatePlaylistDialog(BuildContext context) {
     final TextEditingController _controller = TextEditingController();
@@ -176,8 +204,6 @@ class CreatePlaylistButton extends StatelessWidget {
     );
   }
 }
-
-
 
 /*
 class CreatePlaylistDialog extends StatefulWidget {
