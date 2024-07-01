@@ -100,7 +100,7 @@ class PlaylistTile extends StatelessWidget {
         artworkClipBehavior: Clip.hardEdge,
         //  controller: _audioQuery,
         //   id: 1,
-        id: audioPlayerProvider.allSongs[1].id!,
+        id: audioPlayerProvider.allSongs[0].id!,
         type: ArtworkType.AUDIO,
         nullArtworkWidget: Container(
           decoration: const BoxDecoration(

@@ -87,9 +87,11 @@ class _SongsTabState extends State<SongsTab>
 
     //final audioPlayerProvider = AudioPlayerProvider();
     // Using the existing instance of AudioPlayerProvider
-    final audioPlayerProvider =
-        Provider.of<AudioPlayerProvider>(context, listen: false);
-    audioPlayerProvider.saveAllSongs(_songs.value);
+    if (mounted) {
+      final audioPlayerProvider =
+          Provider.of<AudioPlayerProvider>(context, listen: false);
+      audioPlayerProvider.saveAllSongs(_songs.value);
+    }
   }
 
   @override
