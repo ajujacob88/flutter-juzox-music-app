@@ -34,36 +34,41 @@ class _PlaylistTabState extends State<PlaylistTab> {
         Provider.of<AudioPlayerProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Consumer<AudioPlayerProvider>(builder: (context, provider, child) {
-        return ListView(
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'My Playlist',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            const CreatePlaylistButton(),
-            // ...userPlaylists
-            //     .map((playlistName) => PlaylistTile(playlistName: playlistName)),
-            //  Text(audioPlayerProvider.userPlaylists[1]),
+      body: Selector<AudioPlayerProvider, List<String>>(
+          selector: (context, audioPlayerProvider) =>
+              audioPlayerProvider.userPlaylists,
+          shouldRebuild: (previous, next) => previous != next,
+          builder: (_, userPlayList, __) {
+            return ListView(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'My Playlist',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const CreatePlaylistButton(),
+                // ...userPlaylists
+                //     .map((playlistName) => PlaylistTile(playlistName: playlistName)),
+                //  Text(audioPlayerProvider.userPlaylists[1]),
 
-            ...provider.userPlaylists.map(
-                (playlistName) => PlaylistTile(playlistName: playlistName)),
+                ...userPlayList.map(
+                  (playlistName) => PlaylistTile(playlistName: playlistName),
+                ),
 
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'Suggested Playlists',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            ...suggestedPlaylists.map((playlistName) =>
-                SuggestedPlaylistTile(playlistName: playlistName)),
-          ],
-        );
-      }),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Suggested Playlists',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                ...suggestedPlaylists.map((playlistName) =>
+                    SuggestedPlaylistTile(playlistName: playlistName)),
+              ],
+            );
+          }),
     );
   }
 }
