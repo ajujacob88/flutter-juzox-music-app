@@ -268,5 +268,6 @@ class AudioPlayerProvider extends ChangeNotifier {
 
   void saveAllSongs(List<JuzoxMusicModel> allSongs) {
     _allSongs = allSongs;
+    notifyListeners();
   }
 }
