@@ -16,6 +16,7 @@ class AudioPlayerProvider extends ChangeNotifier {
   Duration _totalDuration = Duration.zero;
   //for swaping pause button when finished playing a song
   ProcessingState _processingState = ProcessingState.idle;
+  List<String> _userPlaylists = ['Favoritess'];
 
   // int? _prevIndex;
 
@@ -50,6 +51,7 @@ class AudioPlayerProvider extends ChangeNotifier {
 
     // Load favorite songs when the provider is initialized
     _loadFavoriteSongs();
+    _loadUserPlaylists();
   }
 
   JuzoxMusicModel? get currentlyPlayingSong => _currentlyPlayingSong;
@@ -67,6 +69,8 @@ class AudioPlayerProvider extends ChangeNotifier {
       _juzoxAudioPlayerService;
 
   List<JuzoxMusicModel> get favoriteSongs => _favoriteSongs;
+
+  List<String> get userPlaylists => _userPlaylists;
 
   void setCurrentlyPlayingSong(JuzoxMusicModel song) {
     _currentlyPlayingSong = song;
@@ -226,6 +230,35 @@ class AudioPlayerProvider extends ChangeNotifier {
       }
     } catch (error) {
       debugPrint('Failed to load favorite songs: $error');
+    }
+  }
+
+  void addUserPlaylist(String playlistName) {
+    _userPlaylists = List.from(_userPlaylists)..add(playlistName);
+    _saveUserPlaylists();
+    notifyListeners();
+  }
+
+  Future<void> _saveUserPlaylists() async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setStringList('userPlaylists', _userPlaylists);
+    } catch (error) {
+      debugPrint('Failed to save user playlists: $error');
+    }
+  }
+
+  Future<void> _loadUserPlaylists() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final List<String>? loadedPlaylists =
+          prefs.getStringList('userPlaylists');
+      if (loadedPlaylists != null) {
+        _userPlaylists = loadedPlaylists;
+        notifyListeners();
+      }
+    } catch (error) {
+      debugPrint('Failed to load user playlists: $error');
     }
   }
 }
