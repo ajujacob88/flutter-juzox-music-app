@@ -87,7 +87,7 @@ class PlaylistTile extends StatelessWidget {
         Provider.of<AudioPlayerProvider>(context, listen: true);
 
     final currentPlaylistSongs =
-        audioPlayerProvider.userPlaylistSongs[playlistName];
+        audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
     return ListTile(
       leading: QueryArtworkWidget(
         artworkBorder: const BorderRadius.horizontal(
@@ -98,7 +98,11 @@ class PlaylistTile extends StatelessWidget {
         artworkWidth: 50,
         artworkHeight: 50,
         //  id: audioPlayerProvider.allSongs[0].id!,
-        id: currentPlaylistSongs != null ? currentPlaylistSongs[0].id ?? 0 : 0,
+        id: currentPlaylistSongs.isNotEmpty
+            ? currentPlaylistSongs[0].id ?? 0
+            : 0,
+
+        // id: 0,
         //  artworkColor: Color.fromARGB(255, 1, 20, 54),
         // artworkColor: Color.fromARGB(194, 6, 49, 125).withOpacity(0.1),
         artworkColor: const Color.fromARGB(249, 7, 69, 116),
@@ -118,7 +122,8 @@ class PlaylistTile extends StatelessWidget {
           ),
         ),
       ),
-      title: Text(playlistName),
+      title: Text(
+          '$playlistName (${currentPlaylistSongs != null ? currentPlaylistSongs.length : 0})'),
       onTap: () {
         // Implement the functionality to open and play the playlist
         Navigator.of(context).push(
@@ -138,10 +143,10 @@ class SuggestedPlaylistTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final audioPlayerProvider =
-        Provider.of<AudioPlayerProvider>(context, listen: true);
+    // final audioPlayerProvider =
+    //     Provider.of<AudioPlayerProvider>(context, listen: true);
     return ListTile(
-      title: Text('$playlistName (${audioPlayerProvider.userPlaylists})'),
+      title: Text(playlistName),
       onTap: () {
         // Implement the functionality to open and play the suggested playlist
       },

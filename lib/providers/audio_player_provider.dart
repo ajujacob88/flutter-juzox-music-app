@@ -301,6 +301,9 @@ class AudioPlayerProvider extends ChangeNotifier {
         (key, value) =>
             MapEntry(key, value.map((song) => song.toJson()).toList())));
 
+    debugPrint(
+        'saveuserplaylist encodedplaylist $encodedPlaylists and songs $encodedPlaylistSongs');
+
     await prefs.setString('userPlaylists', encodedPlaylists);
     await prefs.setString('playlistSongs', encodedPlaylistSongs);
   }
@@ -310,18 +313,30 @@ class AudioPlayerProvider extends ChangeNotifier {
     final String? encodedPlaylists = prefs.getString('userPlaylists');
     final String? encodedPlaylistSongs = prefs.getString('playlistSongs');
 
+    debugPrint(
+        'saveuserplaylist initially $encodedPlaylists and songs $encodedPlaylistSongs');
     if (encodedPlaylists != null) {
       _userPlaylists = List<String>.from(jsonDecode(encodedPlaylists));
+      debugPrint('saveuserplaylist first if $_userPlaylists');
     }
 
     if (encodedPlaylistSongs != null) {
-      final decodedPlaylistSongs = jsonDecode(encodedPlaylistSongs);
+      final Map<String, dynamic> decodedPlaylistSongs =
+          jsonDecode(encodedPlaylistSongs);
       _userplaylistSongs = decodedPlaylistSongs
           .map<String, List<JuzoxMusicModel>>((key, value) => MapEntry(
               key,
               List<JuzoxMusicModel>.from(
                   value.map((item) => JuzoxMusicModel.fromJson(item)))));
+
+      debugPrint('saveuserplaylist second if $_userplaylistSongs ');
     }
+
+    debugPrint(
+        'saveuserplaylist initially2 $encodedPlaylists and songs $encodedPlaylistSongs');
+
+    debugPrint(
+        'saveuserplaylist decodedplaylist $_userPlaylists and songs $_userplaylistSongs');
     notifyListeners();
   }
 
