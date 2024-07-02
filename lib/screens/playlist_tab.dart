@@ -99,12 +99,22 @@ class PlaylistTile extends StatelessWidget {
     // final currentPlaylistSongs =
     //     audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
 
-    List<JuzoxMusicModel> currentPlaylistSongs =
-        audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
+    // List<JuzoxMusicModel> currentPlaylistSongs =
+    //     audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
 
+    // if (playlistName == 'Favorites') {
+    //   currentPlaylistSongs = audioPlayerProvider.favoriteSongs;
+    // }
+
+    // Retrieve the correct playlist songs
+    List<JuzoxMusicModel> currentPlaylistSongs;
     if (playlistName == 'Favorites') {
       currentPlaylistSongs = audioPlayerProvider.favoriteSongs;
+    } else {
+      currentPlaylistSongs =
+          audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
     }
+
     return Card(
       color: Colors.transparent,
       shadowColor: const Color.fromARGB(95, 0, 0, 0),
