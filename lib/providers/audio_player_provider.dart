@@ -54,6 +54,11 @@ class AudioPlayerProvider extends ChangeNotifier {
       }
     });
 
+    // Ensure "Favorites" is always included
+    // if (!_userPlaylists.contains('Favorites')) {
+    //   _userPlaylists.insert(0, 'Favorites');
+    // }
+
     // Load favorite songs when the provider is initialized
     _loadFavoriteSongs();
     _loadUserPlaylists();
@@ -284,6 +289,8 @@ class AudioPlayerProvider extends ChangeNotifier {
   void addSongsToPlaylist(String playlistName, List<JuzoxMusicModel> songs) {
     if (_userplaylistSongs.containsKey(playlistName)) {
       _userplaylistSongs[playlistName]!.addAll(songs);
+      _saveUserPlaylists();
+
       notifyListeners();
     }
   }
@@ -297,9 +304,18 @@ class AudioPlayerProvider extends ChangeNotifier {
   Future<void> _saveUserPlaylists() async {
     final prefs = await SharedPreferences.getInstance();
     final String encodedPlaylists = jsonEncode(_userPlaylists);
-    final String encodedPlaylistSongs = jsonEncode(_userplaylistSongs.map(
-        (key, value) =>
-            MapEntry(key, value.map((song) => song.toJson()).toList())));
+    final String encodedPlaylistSongs = jsonEncode(
+      _userplaylistSongs.map(
+        (key, value) => MapEntry(
+          key,
+          value.map((song) {
+            debugPrint(
+                'saveuserplaylist inside map key is $key and value is $value');
+            return song.toJson();
+          }).toList(),
+        ),
+      ),
+    );
 
     debugPrint(
         'saveuserplaylist encodedplaylist $encodedPlaylists and songs $encodedPlaylistSongs');
