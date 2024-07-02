@@ -66,8 +66,8 @@ class _PlaylistTabState extends State<PlaylistTab> {
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
-                ...suggestedPlaylists.map((playlistName) =>
-                    SuggestedPlaylistTile(playlistName: playlistName)),
+                ...suggestedPlaylists.map(
+                    (playlistName) => PlaylistTile(playlistName: playlistName)),
               ],
             );
           }),
@@ -88,69 +88,58 @@ class PlaylistTile extends StatelessWidget {
 
     final currentPlaylistSongs =
         audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
-    return ListTile(
-      leading: QueryArtworkWidget(
-        artworkBorder: const BorderRadius.horizontal(
-            left: Radius.circular(8), right: Radius.circular(8)),
-        artworkClipBehavior: Clip.hardEdge,
-        //  controller: _audioQuery,
-        //   id: 1,
-        artworkWidth: 50,
-        artworkHeight: 50,
-        //  id: audioPlayerProvider.allSongs[0].id!,
-        id: currentPlaylistSongs.isNotEmpty
-            ? currentPlaylistSongs[0].id ?? 0
-            : 0,
+    return Card(
+      color: Colors.transparent,
+      shadowColor: const Color.fromARGB(95, 0, 0, 0),
+      surfaceTintColor: const Color.fromARGB(255, 6, 62, 88),
+      elevation: 20,
+      child: ListTile(
+        leading: QueryArtworkWidget(
+          artworkBorder: const BorderRadius.horizontal(
+              left: Radius.circular(8), right: Radius.circular(8)),
+          artworkClipBehavior: Clip.hardEdge,
+          //  controller: _audioQuery,
+          //   id: 1,
+          artworkWidth: 50,
+          artworkHeight: 50,
+          //  id: audioPlayerProvider.allSongs[0].id!,
+          id: currentPlaylistSongs.isNotEmpty
+              ? currentPlaylistSongs[0].id ?? 0
+              : 0,
 
-        // id: 0,
-        //  artworkColor: Color.fromARGB(255, 1, 20, 54),
-        // artworkColor: Color.fromARGB(194, 6, 49, 125).withOpacity(0.1),
-        artworkColor: const Color.fromARGB(249, 7, 69, 116),
-        artworkBlendMode: BlendMode.screen,
-        type: ArtworkType.AUDIO,
-        nullArtworkWidget: Container(
-          decoration: const BoxDecoration(
-              color: Color.fromARGB(22, 68, 137, 255),
-              borderRadius: BorderRadius.horizontal(
-                  left: Radius.circular(8), right: Radius.circular(8))),
-          width: 50.0,
-          height: 50.0,
-          child: const Icon(
-            Icons.music_off,
-            color: Color.fromARGB(140, 64, 195, 255),
-            size: 30,
+          // id: 0,
+          //  artworkColor: Color.fromARGB(255, 1, 20, 54),
+          // artworkColor: Color.fromARGB(194, 6, 49, 125).withOpacity(0.1),
+          artworkColor: const Color.fromARGB(249, 7, 69, 116),
+          artworkBlendMode: BlendMode.screen,
+          type: ArtworkType.AUDIO,
+          nullArtworkWidget: Container(
+            decoration: const BoxDecoration(
+                color: Color.fromARGB(22, 68, 137, 255),
+                borderRadius: BorderRadius.horizontal(
+                    left: Radius.circular(8), right: Radius.circular(8))),
+            width: 50.0,
+            height: 50.0,
+            child: const Icon(
+              Icons.music_off,
+              color: Color.fromARGB(140, 64, 195, 255),
+              size: 30,
+            ),
           ),
         ),
+        title: Text(playlistName),
+        subtitle: Text(
+            '${currentPlaylistSongs != null ? currentPlaylistSongs.length : 0} songs'),
+        onTap: () {
+          // Implement the functionality to open and play the playlist
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) =>
+                  PlaylistSongsPage(playlistName: playlistName),
+            ),
+          );
+        },
       ),
-      title: Text(playlistName),
-      subtitle: Text(
-          '${currentPlaylistSongs != null ? currentPlaylistSongs.length : 0} songs'),
-      onTap: () {
-        // Implement the functionality to open and play the playlist
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => PlaylistSongsPage(playlistName: playlistName),
-          ),
-        );
-      },
-    );
-  }
-}
-
-class SuggestedPlaylistTile extends StatelessWidget {
-  final String playlistName;
-
-  const SuggestedPlaylistTile({super.key, required this.playlistName});
-
-  @override
-  Widget build(BuildContext context) {
-    // final audioPlayerProvider =
-    //     Provider.of<AudioPlayerProvider>(context, listen: true);
-    return ListTile(
-      title: Text(playlistName),
-      onTap: () {
-        // Implement the functionality to open and play the suggested playlist
-      },
     );
   }
 }
@@ -161,34 +150,45 @@ class CreatePlaylistButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Container(
-        width: 50.0,
-        height: 50.0,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          //shape: BoxShape.rectangle,
-          gradient: const LinearGradient(
-            colors: [
-              Colors.blue,
-              Colors.green
-            ], // Define your gradient colors here
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+    return Card(
+      color: Colors.transparent,
+      shadowColor: const Color.fromARGB(95, 0, 0, 0),
+      surfaceTintColor: const Color.fromARGB(255, 6, 62, 88),
+      elevation: 20,
+      child: ListTile(
+        //subtitle: const Text(''),
+        minTileHeight: 75,
+        leading: Container(
+          width: 50.0,
+          height: 50.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            //shape: BoxShape.rectangle,
+            gradient: const LinearGradient(
+              colors: [
+                Colors.blue,
+                Colors.green
+              ], // Define your gradient colors here
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+
+          padding: const EdgeInsets.all(8.0), // Adding some padding
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+            // size: 28,
           ),
         ),
-
-        padding: const EdgeInsets.all(8.0), // Adding some padding
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-          // size: 28,
+        title: const Text(
+          'New Playlist',
+          style: TextStyle(fontSize: 16),
         ),
+        onTap: () {
+          _showCreatePlaylistDialog(context);
+        },
       ),
-      title: const Text('New Playlist'),
-      onTap: () {
-        _showCreatePlaylistDialog(context);
-      },
     );
   }
 
@@ -220,36 +220,40 @@ class CreatePlaylistButton extends StatelessWidget {
             ),
           ),
           actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              style:
-                  TextButton.styleFrom(foregroundColor: Colors.lightBlueAccent),
-              child: const Text('Cancel'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style: TextButton.styleFrom(
+                      foregroundColor: Colors.lightBlueAccent),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    final playlistName = _controller.text;
+                    if (playlistName.isNotEmpty) {
+                      Provider.of<AudioPlayerProvider>(context, listen: false)
+                          .addUserPlaylist(playlistName);
+                      Navigator.of(context).pop();
+
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              SelectSongsPage(playlistName: playlistName),
+                        ),
+                      );
+                    }
+                  },
+                  style: TextButton.styleFrom(
+                      foregroundColor: Colors.lightBlueAccent),
+                  child: const Text('Create'),
+                ),
+              ],
             ),
             // Adds space between buttons
-
-            TextButton(
-              onPressed: () {
-                final playlistName = _controller.text;
-                if (playlistName.isNotEmpty) {
-                  Provider.of<AudioPlayerProvider>(context, listen: false)
-                      .addUserPlaylist(playlistName);
-                  Navigator.of(context).pop();
-
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          SelectSongsPage(playlistName: playlistName),
-                    ),
-                  );
-                }
-              },
-              style:
-                  TextButton.styleFrom(foregroundColor: Colors.lightBlueAccent),
-              child: const Text('Create'),
-            ),
           ],
         );
       },
