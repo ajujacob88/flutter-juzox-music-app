@@ -55,9 +55,9 @@ class AudioPlayerProvider extends ChangeNotifier {
     });
 
     // Ensure "Favorites" is always included
-    // if (!_userPlaylists.contains('Favorites')) {
-    //   _userPlaylists.insert(0, 'Favorites');
-    // }
+    if (!_userPlaylists.contains('Favorites')) {
+      _userPlaylists.insert(0, 'Favorites');
+    }
 
     // Load favorite songs when the provider is initialized
     _loadFavoriteSongs();

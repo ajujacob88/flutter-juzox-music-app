@@ -42,6 +42,11 @@ class _PlaylistTabState extends State<PlaylistTab> {
               audioPlayerProvider.userPlaylists,
           shouldRebuild: (previous, next) => previous != next,
           builder: (_, userPlayList, __) {
+            // Ensure "Favorites" is always the first item
+            final playlists = [
+              'Favorites',
+              ...userPlayList.where((playlist) => playlist != 'Favorites')
+            ];
             return ListView(
               children: [
                 const Padding(
@@ -56,7 +61,11 @@ class _PlaylistTabState extends State<PlaylistTab> {
                 //     .map((playlistName) => PlaylistTile(playlistName: playlistName)),
                 //  Text(audioPlayerProvider.userPlaylists[1]),
 
-                ...userPlayList.map(
+                // ...userPlayList.map(
+                //   (playlistName) => PlaylistTile(playlistName: playlistName),
+                // ),
+
+                ...playlists.map(
                   (playlistName) => PlaylistTile(playlistName: playlistName),
                 ),
 
@@ -87,8 +96,15 @@ class PlaylistTile extends StatelessWidget {
     final audioPlayerProvider =
         Provider.of<AudioPlayerProvider>(context, listen: true);
 
-    final currentPlaylistSongs =
+    // final currentPlaylistSongs =
+    //     audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
+
+    List<JuzoxMusicModel> currentPlaylistSongs =
         audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
+
+    if (playlistName == 'Favorites') {
+      currentPlaylistSongs = audioPlayerProvider.favoriteSongs;
+    }
     return Card(
       color: Colors.transparent,
       shadowColor: const Color.fromARGB(95, 0, 0, 0),
