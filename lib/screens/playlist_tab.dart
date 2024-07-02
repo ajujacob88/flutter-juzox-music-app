@@ -33,8 +33,8 @@ class _PlaylistTabState extends State<PlaylistTab> {
 
   @override
   Widget build(BuildContext context) {
-    final audioPlayerProvider =
-        Provider.of<AudioPlayerProvider>(context, listen: false);
+    // final audioPlayerProvider =
+    //     Provider.of<AudioPlayerProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Selector<AudioPlayerProvider, List<String>>(
@@ -93,8 +93,8 @@ class PlaylistTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Using the existing instance of AudioPlayerProvider
-    final audioPlayerProvider =
-        Provider.of<AudioPlayerProvider>(context, listen: true);
+    // final audioPlayerProvider =
+    //     Provider.of<AudioPlayerProvider>(context, listen: false);
 
     // final currentPlaylistSongs =
     //     audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
@@ -107,69 +107,150 @@ class PlaylistTile extends StatelessWidget {
     // }
 
     // Retrieve the correct playlist songs
-    List<JuzoxMusicModel> currentPlaylistSongs;
-    if (playlistName == 'Favorites') {
-      currentPlaylistSongs = audioPlayerProvider.favoriteSongs;
-    } else {
-      currentPlaylistSongs =
-          audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
-    }
+    //List<JuzoxMusicModel> currentPlaylistSongs;
+    // if (playlistName == 'Favorites') {
+    //   currentPlaylistSongs = audioPlayerProvider.favoriteSongs;
+    // } else {
+    //   currentPlaylistSongs =
+    //       audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
+    // }
 
-    return Card(
-      color: Colors.transparent,
-      shadowColor: const Color.fromARGB(95, 0, 0, 0),
-      surfaceTintColor: const Color.fromARGB(255, 6, 62, 88),
-      //surfaceTintColor: Color.fromARGB(255, 13, 79, 110),
-
-      elevation: 20,
-      child: ListTile(
-        leading: QueryArtworkWidget(
-          artworkBorder: const BorderRadius.horizontal(
-              left: Radius.circular(8), right: Radius.circular(8)),
-          artworkClipBehavior: Clip.hardEdge,
-          //  controller: _audioQuery,
-          //   id: 1,
-          artworkWidth: 50,
-          artworkHeight: 50,
-          //  id: audioPlayerProvider.allSongs[0].id!,
-          id: currentPlaylistSongs.isNotEmpty
-              ? currentPlaylistSongs[0].id ?? 0
-              : 0,
-
-          // id: 0,
-          //  artworkColor: Color.fromARGB(255, 1, 20, 54),
-          // artworkColor: Color.fromARGB(194, 6, 49, 125).withOpacity(0.1),
-          artworkColor: const Color.fromARGB(249, 7, 69, 116),
-          artworkBlendMode: BlendMode.screen,
-          type: ArtworkType.AUDIO,
-          nullArtworkWidget: Container(
-            decoration: const BoxDecoration(
-                color: Color.fromARGB(22, 68, 137, 255),
-                borderRadius: BorderRadius.horizontal(
-                    left: Radius.circular(8), right: Radius.circular(8))),
-            width: 50.0,
-            height: 50.0,
-            child: const Icon(
-              Icons.music_off,
-              color: Color.fromARGB(140, 64, 195, 255),
-              size: 30,
-            ),
-          ),
-        ),
-        title: Text(playlistName),
-        subtitle: Text(
-            '${currentPlaylistSongs != null ? currentPlaylistSongs.length : 0} songs'),
-        onTap: () {
-          // Implement the functionality to open and play the playlist
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) =>
-                  PlaylistSongsPage(playlistName: playlistName),
-            ),
-          );
-        },
+    return Selector<
+        AudioPlayerProvider,
+        ({
+          List<JuzoxMusicModel> favoSongs,
+          Map<String, List<JuzoxMusicModel>> userPlaylistSongss
+        })>(
+      selector: (_, audioPlayerProvider) => (
+        favoSongs: audioPlayerProvider.favoriteSongs,
+        userPlaylistSongss: audioPlayerProvider.userPlaylistSongs,
       ),
+      builder: (_, data, __) {
+        List<JuzoxMusicModel> currentPlaylistSongs;
+        if (playlistName == 'Favorites') {
+          currentPlaylistSongs = data.favoSongs;
+        } else {
+          currentPlaylistSongs = data.userPlaylistSongss[playlistName] ?? [];
+        }
+        return Card(
+          color: Colors.transparent,
+          shadowColor: const Color.fromARGB(95, 0, 0, 0),
+          surfaceTintColor: const Color.fromARGB(255, 6, 62, 88),
+          //surfaceTintColor: Color.fromARGB(255, 13, 79, 110),
+
+          elevation: 20,
+          child: ListTile(
+            leading: QueryArtworkWidget(
+              artworkBorder: const BorderRadius.horizontal(
+                  left: Radius.circular(8), right: Radius.circular(8)),
+              artworkClipBehavior: Clip.hardEdge,
+              //  controller: _audioQuery,
+              //   id: 1,
+              artworkWidth: 50,
+              artworkHeight: 50,
+              //  id: audioPlayerProvider.allSongs[0].id!,
+              id: currentPlaylistSongs.isNotEmpty
+                  ? currentPlaylistSongs[0].id ?? 0
+                  : 0,
+
+              // id: 0,
+              //  artworkColor: Color.fromARGB(255, 1, 20, 54),
+              // artworkColor: Color.fromARGB(194, 6, 49, 125).withOpacity(0.1),
+              artworkColor: const Color.fromARGB(249, 7, 69, 116),
+              artworkBlendMode: BlendMode.screen,
+              type: ArtworkType.AUDIO,
+              nullArtworkWidget: Container(
+                decoration: const BoxDecoration(
+                    color: Color.fromARGB(22, 68, 137, 255),
+                    borderRadius: BorderRadius.horizontal(
+                        left: Radius.circular(8), right: Radius.circular(8))),
+                width: 50.0,
+                height: 50.0,
+                child: const Icon(
+                  Icons.music_off,
+                  color: Color.fromARGB(140, 64, 195, 255),
+                  size: 30,
+                ),
+              ),
+            ),
+            title: Text(playlistName),
+            subtitle: Text(
+                '${currentPlaylistSongs != null ? currentPlaylistSongs.length : 0} songs'),
+            onTap: () {
+              // Implement the functionality to open and play the playlist
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) =>
+                      PlaylistSongsPage(playlistName: playlistName),
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
+    // if (playlistName == 'Favorites') {
+    //   currentPlaylistSongs = audioPlayerProvider.favoriteSongs;
+    // } else {
+    //   currentPlaylistSongs =
+    //       audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
+    // }
+
+    // return Card(
+    //   color: Colors.transparent,
+    //   shadowColor: const Color.fromARGB(95, 0, 0, 0),
+    //   surfaceTintColor: const Color.fromARGB(255, 6, 62, 88),
+    //   //surfaceTintColor: Color.fromARGB(255, 13, 79, 110),
+
+    //   elevation: 20,
+    //   child: ListTile(
+    //     leading: QueryArtworkWidget(
+    //       artworkBorder: const BorderRadius.horizontal(
+    //           left: Radius.circular(8), right: Radius.circular(8)),
+    //       artworkClipBehavior: Clip.hardEdge,
+    //       //  controller: _audioQuery,
+    //       //   id: 1,
+    //       artworkWidth: 50,
+    //       artworkHeight: 50,
+    //       //  id: audioPlayerProvider.allSongs[0].id!,
+    //       id: currentPlaylistSongs.isNotEmpty
+    //           ? currentPlaylistSongs[0].id ?? 0
+    //           : 0,
+
+    //       // id: 0,
+    //       //  artworkColor: Color.fromARGB(255, 1, 20, 54),
+    //       // artworkColor: Color.fromARGB(194, 6, 49, 125).withOpacity(0.1),
+    //       artworkColor: const Color.fromARGB(249, 7, 69, 116),
+    //       artworkBlendMode: BlendMode.screen,
+    //       type: ArtworkType.AUDIO,
+    //       nullArtworkWidget: Container(
+    //         decoration: const BoxDecoration(
+    //             color: Color.fromARGB(22, 68, 137, 255),
+    //             borderRadius: BorderRadius.horizontal(
+    //                 left: Radius.circular(8), right: Radius.circular(8))),
+    //         width: 50.0,
+    //         height: 50.0,
+    //         child: const Icon(
+    //           Icons.music_off,
+    //           color: Color.fromARGB(140, 64, 195, 255),
+    //           size: 30,
+    //         ),
+    //       ),
+    //     ),
+    //     title: Text(playlistName),
+    //     subtitle: Text(
+    //         '${currentPlaylistSongs != null ? currentPlaylistSongs.length : 0} songs'),
+    //     onTap: () {
+    //       // Implement the functionality to open and play the playlist
+    //       Navigator.of(context).push(
+    //         MaterialPageRoute(
+    //           builder: (context) =>
+    //               PlaylistSongsPage(playlistName: playlistName),
+    //         ),
+    //       );
+    //     },
+    //   ),
+    // );
   }
 }
 
