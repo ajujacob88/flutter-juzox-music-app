@@ -196,14 +196,27 @@ class CreatePlaylistButton extends StatelessWidget {
     final TextEditingController _controller = TextEditingController();
 
     showDialog(
+      // barrierColor: Colors.blue,
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Create New Playlist'),
-          content: TextField(
-            controller: _controller,
-            decoration: const InputDecoration(
-              hintText: 'Playlist Name',
+          // alignment: Alignment.bottomCenter,
+          // insetPadding: EdgeInsets.all(0),
+          backgroundColor: Color.fromARGB(255, 2, 30, 55),
+          title: const Text(
+            'Create New Playlist',
+            style: TextStyle(color: Colors.white70),
+          ),
+          content: SizedBox(
+            width:
+                MediaQuery.of(context).size.width, // Set width to screen width
+
+            child: TextField(
+              controller: _controller,
+              decoration: const InputDecoration(
+                hintText: 'Playlist Name',
+                hintStyle: TextStyle(color: Color.fromARGB(97, 255, 255, 255)),
+              ),
             ),
           ),
           actions: [
@@ -211,8 +224,12 @@ class CreatePlaylistButton extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop();
               },
+              style:
+                  TextButton.styleFrom(foregroundColor: Colors.lightBlueAccent),
               child: const Text('Cancel'),
             ),
+            // Adds space between buttons
+
             TextButton(
               onPressed: () {
                 final playlistName = _controller.text;
@@ -229,6 +246,8 @@ class CreatePlaylistButton extends StatelessWidget {
                   );
                 }
               },
+              style:
+                  TextButton.styleFrom(foregroundColor: Colors.lightBlueAccent),
               child: const Text('Create'),
             ),
           ],
