@@ -60,7 +60,7 @@ class _PlaylistTabState extends State<PlaylistTab> {
                 ),
 
                 const Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.only(top: 18.0, bottom: 8, left: 8),
                   child: Text(
                     'Suggested Playlists',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -183,7 +183,7 @@ class CreatePlaylistButton extends StatelessWidget {
         ),
         title: const Text(
           'New Playlist',
-          style: TextStyle(fontSize: 16),
+          // style: TextStyle(fontSize: 16),
         ),
         onTap: () {
           _showCreatePlaylistDialog(context);
