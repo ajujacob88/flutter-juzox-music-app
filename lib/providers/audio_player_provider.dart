@@ -249,10 +249,6 @@ class AudioPlayerProvider extends ChangeNotifier {
   }
 
   void addUserPlaylist(String playlistName) {
-    // _userPlaylists = List.from(_userPlaylists)..add(playlistName);
-    // _saveUserPlaylists();
-    // notifyListeners();
-
     if (!_userPlaylists.contains(playlistName)) {
       // _userPlaylists.add(playlistName);
       _userPlaylists = List.from(_userPlaylists)..add(playlistName);
@@ -304,6 +300,11 @@ class AudioPlayerProvider extends ChangeNotifier {
   Future<void> _saveUserPlaylists() async {
     final prefs = await SharedPreferences.getInstance();
     final String encodedPlaylists = jsonEncode(_userPlaylists);
+
+    // final String encodedPlaylistSongs = jsonEncode(_userplaylistSongs.map(
+    //     (key, value) =>
+    //         MapEntry(key, value.map((song) => song.toJson()).toList())));
+
     final String encodedPlaylistSongs = jsonEncode(
       _userplaylistSongs.map(
         (key, value) => MapEntry(
