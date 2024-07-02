@@ -92,6 +92,8 @@ class PlaylistTile extends StatelessWidget {
       color: Colors.transparent,
       shadowColor: const Color.fromARGB(95, 0, 0, 0),
       surfaceTintColor: const Color.fromARGB(255, 6, 62, 88),
+      //surfaceTintColor: Color.fromARGB(255, 13, 79, 110),
+
       elevation: 20,
       child: ListTile(
         leading: QueryArtworkWidget(
