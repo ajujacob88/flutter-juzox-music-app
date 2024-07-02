@@ -122,8 +122,9 @@ class PlaylistTile extends StatelessWidget {
           ),
         ),
       ),
-      title: Text(
-          '$playlistName (${currentPlaylistSongs != null ? currentPlaylistSongs.length : 0})'),
+      title: Text(playlistName),
+      subtitle: Text(
+          '${currentPlaylistSongs != null ? currentPlaylistSongs.length : 0} songs'),
       onTap: () {
         // Implement the functionality to open and play the playlist
         Navigator.of(context).push(
