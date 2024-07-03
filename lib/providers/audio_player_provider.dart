@@ -299,9 +299,12 @@ class AudioPlayerProvider extends ChangeNotifier {
       //     List.from(_userplaylistSongs[playlistName]!)..addAll(songs);
 
       // Create a new list for the specific playlist inorder to solve the problem of immutability in selector
-      final updatedPlaylistSongs =
-          List<JuzoxMusicModel>.from(_userplaylistSongs[playlistName]!)
-            ..addAll(songs);
+      // final updatedPlaylistSongs =
+      //     List<JuzoxMusicModel>.from(_userplaylistSongs[playlistName]!)
+      //       ..addAll(songs);
+
+      // above causes the already added songs to add again, so this is enough
+      final updatedPlaylistSongs = songs;
 
       // Create a new map and update the specific playlist with the new list
       _userplaylistSongs =

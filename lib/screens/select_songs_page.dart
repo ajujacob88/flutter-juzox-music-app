@@ -44,8 +44,8 @@ class _SelectSongsPageState extends State<SelectSongsPage> {
           // final isSelected = _selectedSongs.contains(song);
           final isSelected =
               _selectedSongs.any((element) => element.id == song.id);
-          debugPrint(
-              'debug selected songs isSelected $_selectedSongs name is ${_selectedSongs[0].title} and bool $isSelected and song is ${song.title}');
+          // debugPrint(
+          //     'debug selected songs isSelected $_selectedSongs name is ${_selectedSongs[0].title} and bool $isSelected and song is ${song.title}');
           return ListTile(
             title: Text(song.title ??
                 'Unknown Title'), // Adjust based on your music model
