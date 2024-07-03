@@ -258,6 +258,15 @@ class AudioPlayerProvider extends ChangeNotifier {
     }
   }
 
+  // Method to delete a playlist
+  void deleteUserPlaylist(String playlistName) {
+    // _userPlaylists.remove(playlistName);
+    _userPlaylists = List.from(_userPlaylists)..remove(playlistName);
+    _userplaylistSongs.remove(playlistName);
+    _saveUserPlaylists();
+    notifyListeners();
+  }
+
 /*
   Future<void> _saveUserPlaylists() async {
     try {

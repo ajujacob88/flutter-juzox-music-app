@@ -92,9 +92,9 @@ class PlaylistTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Using the existing instance of AudioPlayerProvider
-    // final audioPlayerProvider =
-    //     Provider.of<AudioPlayerProvider>(context, listen: false);
+    //Using the existing instance of AudioPlayerProvider
+    final audioPlayerProvider =
+        Provider.of<AudioPlayerProvider>(context, listen: false);
 
     // final currentPlaylistSongs =
     //     audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
@@ -178,7 +178,9 @@ class PlaylistTile extends StatelessWidget {
                 '${currentPlaylistSongs != null ? currentPlaylistSongs.length : 0} songs'),
             trailing: IconButton(
               icon: const Icon(Icons.more_vert),
-              onPressed: () {},
+              onPressed: () {
+                audioPlayerProvider.deleteUserPlaylist(playlistName);
+              },
             ),
             contentPadding: const EdgeInsets.only(left: 16, right: 0),
             onTap: () {
