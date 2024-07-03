@@ -191,12 +191,16 @@ class PlaylistTile extends StatelessWidget {
               icon: const Icon(Icons.more_vert),
               onSelected: (String value) {
                 switch (value) {
-                  case 'delete':
-                    Provider.of<AudioPlayerProvider>(context, listen: false)
-                        .deleteUserPlaylist(playlistName);
-                    break;
                   case 'add_songs':
                     // Implement the functionality to add songs to the playlist
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            SelectSongsPage(playlistName: playlistName),
+                      ),
+                    );
+                    break;
+                  case 'remove_songs':
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) =>
@@ -207,21 +211,40 @@ class PlaylistTile extends StatelessWidget {
                   case 'rename':
                     _showRenamePlaylistDialog(context, playlistName);
                     break;
+
+                  case 'delete':
+                    Provider.of<AudioPlayerProvider>(context, listen: false)
+                        .deleteUserPlaylist(playlistName);
+                    break;
                 }
               },
               itemBuilder: (BuildContext context) {
                 return [
                   const PopupMenuItem(
-                    value: 'delete',
-                    child: Text('Delete Playlist'),
+                    value: 'add_songs',
+                    //child: Text('Add Songs to Playlist'),
+                    child: ListTile(
+                        leading: Icon(Icons.playlist_add_outlined),
+                        title: Text('Add Songs')),
                   ),
                   const PopupMenuItem(
-                    value: 'add_songs',
-                    child: Text('Add Songs to Playlist'),
+                    value: 'remove_songs',
+                    child: ListTile(
+                        leading: Icon(Icons.playlist_remove_outlined),
+                        title: Text('Remove Songs')),
                   ),
                   const PopupMenuItem(
                     value: 'rename',
-                    child: Text('Rename Playlist'),
+                    child: ListTile(
+                        leading: Icon(Icons.drive_file_rename_outline_outlined),
+                        title: Text('Rename Playlist')),
+                  ),
+                  const PopupMenuDivider(),
+                  const PopupMenuItem(
+                    value: 'delete',
+                    child: ListTile(
+                        leading: Icon(Icons.delete_sweep),
+                        title: Text('Delete Playlist')),
                   ),
                 ];
               },
