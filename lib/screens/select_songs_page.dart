@@ -25,6 +25,8 @@ class _SelectSongsPageState extends State<SelectSongsPage> {
                 .userPlaylistSongs[widget.playlistName] ??
             [];
     _selectedSongs = List.from(existingSongs);
+    debugPrint(
+        'debug selected songs $_selectedSongs name is ${_selectedSongs[0].title}');
   }
 
   @override
@@ -39,8 +41,11 @@ class _SelectSongsPageState extends State<SelectSongsPage> {
         itemCount: songs.length,
         itemBuilder: (context, index) {
           final song = songs[index];
-          final isSelected = _selectedSongs.contains(song);
-
+          // final isSelected = _selectedSongs.contains(song);
+          final isSelected =
+              _selectedSongs.any((element) => element.id == song.id);
+          debugPrint(
+              'debug selected songs isSelected $_selectedSongs name is ${_selectedSongs[0].title} and bool $isSelected and song is ${song.title}');
           return ListTile(
             title: Text(song.title ??
                 'Unknown Title'), // Adjust based on your music model
