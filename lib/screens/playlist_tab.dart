@@ -188,6 +188,10 @@ class PlaylistTile extends StatelessWidget {
                 curve: Easing.emphasizedAccelerate,
                 duration: const Duration(milliseconds: 500),
               ),
+              color: const Color.fromARGB(255, 2, 30, 55),
+              //shadowColor: const Color.fromARGB(95, 0, 0, 0),
+              //surfaceTintColor: const Color.fromARGB(255, 6, 62, 88),
+              iconColor: Colors.white54,
               icon: const Icon(Icons.more_vert),
               onSelected: (String value) {
                 switch (value) {
@@ -224,25 +228,34 @@ class PlaylistTile extends StatelessWidget {
                     value: 'add_songs',
                     //child: Text('Add Songs to Playlist'),
                     child: ListTile(
+                        iconColor: Color.fromARGB(193, 255, 255, 255),
+                        textColor: Color.fromARGB(193, 255, 255, 255),
                         leading: Icon(Icons.playlist_add_outlined),
                         title: Text('Add Songs')),
                   ),
                   const PopupMenuItem(
                     value: 'remove_songs',
                     child: ListTile(
+                        iconColor: Color.fromARGB(193, 255, 255, 255),
+                        textColor: Color.fromARGB(193, 255, 255, 255),
                         leading: Icon(Icons.playlist_remove_outlined),
                         title: Text('Remove Songs')),
                   ),
                   const PopupMenuItem(
                     value: 'rename',
                     child: ListTile(
+                        iconColor: Color.fromARGB(193, 255, 255, 255),
+                        textColor: Color.fromARGB(193, 255, 255, 255),
                         leading: Icon(Icons.drive_file_rename_outline_outlined),
                         title: Text('Rename Playlist')),
                   ),
                   const PopupMenuDivider(),
+                  //the popupmenu divider color is changed from themedata in main file,, only from theme data this color can be changed
                   const PopupMenuItem(
                     value: 'delete',
                     child: ListTile(
+                        iconColor: Color.fromARGB(193, 255, 255, 255),
+                        textColor: Color.fromARGB(193, 255, 255, 255),
                         leading: Icon(Icons.delete_sweep),
                         title: Text('Delete Playlist')),
                   ),
@@ -426,7 +439,7 @@ class CreatePlaylistButton extends StatelessWidget {
         return AlertDialog(
           // alignment: Alignment.bottomCenter,
           // insetPadding: EdgeInsets.all(0),
-          backgroundColor: Color.fromARGB(255, 2, 30, 55),
+          backgroundColor: const Color.fromARGB(255, 2, 30, 55),
           title: const Text(
             'Create New Playlist',
             style: TextStyle(color: Colors.white70),

@@ -40,6 +40,9 @@ class MyApp extends StatelessWidget {
           foregroundColor: kColorScheme.primaryContainer,
           // foregroundColor: Color.fromARGB(255, 121, 157, 174),
         ),
+        dividerTheme: DividerThemeData(
+          color: Color.fromARGB(172, 64, 195, 255),
+        ),
         scaffoldBackgroundColor: kColorScheme.onPrimaryContainer,
         textTheme: ThemeData().textTheme.copyWith(
               bodyLarge: TextStyle(color: kColorScheme.background),
