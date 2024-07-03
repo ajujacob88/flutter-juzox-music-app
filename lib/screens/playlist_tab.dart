@@ -176,6 +176,11 @@ class PlaylistTile extends StatelessWidget {
             title: Text(playlistName),
             subtitle: Text(
                 '${currentPlaylistSongs != null ? currentPlaylistSongs.length : 0} songs'),
+            trailing: IconButton(
+              icon: const Icon(Icons.more_vert),
+              onPressed: () {},
+            ),
+            contentPadding: const EdgeInsets.only(left: 16, right: 0),
             onTap: () {
               // Implement the functionality to open and play the playlist
               Navigator.of(context).push(
