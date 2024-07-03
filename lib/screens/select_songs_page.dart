@@ -25,8 +25,6 @@ class _SelectSongsPageState extends State<SelectSongsPage> {
                 .userPlaylistSongs[widget.playlistName] ??
             [];
     _selectedSongs = List.from(existingSongs);
-    debugPrint(
-        'debug selected songs $_selectedSongs name is ${_selectedSongs[0].title}');
   }
 
   @override
