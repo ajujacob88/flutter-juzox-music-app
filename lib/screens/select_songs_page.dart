@@ -16,9 +16,20 @@ class _SelectSongsPageState extends State<SelectSongsPage> {
   List<JuzoxMusicModel> _selectedSongs = [];
 
   @override
+  void initState() {
+    super.initState();
+
+    // Initialize _selectedSongs with the songs already in the playlist
+    final existingSongs =
+        Provider.of<AudioPlayerProvider>(context, listen: false)
+                .userPlaylistSongs[widget.playlistName] ??
+            [];
+    _selectedSongs = List.from(existingSongs);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final songs = Provider.of<AudioPlayerProvider>(context)
-        .allSongs; // Replace 'allSongs' with your song list provider method
+    final songs = Provider.of<AudioPlayerProvider>(context).allSongs;
 
     return Scaffold(
       appBar: AppBar(
@@ -31,7 +42,8 @@ class _SelectSongsPageState extends State<SelectSongsPage> {
           final isSelected = _selectedSongs.contains(song);
 
           return ListTile(
-            title: Text(song.title!), // Adjust based on your music model
+            title: Text(song.title ??
+                'Unknown Title'), // Adjust based on your music model
             trailing: Icon(
               isSelected ? Icons.check_box : Icons.check_box_outline_blank,
               color: isSelected ? Colors.green : null,

@@ -298,7 +298,7 @@ class AudioPlayerProvider extends ChangeNotifier {
       // _userplaylistSongs[playlistName] =
       //     List.from(_userplaylistSongs[playlistName]!)..addAll(songs);
 
-// Create a new list for the specific playlist
+      // Create a new list for the specific playlist inorder to solve the problem of immutability in selector
       final updatedPlaylistSongs =
           List<JuzoxMusicModel>.from(_userplaylistSongs[playlistName]!)
             ..addAll(songs);
