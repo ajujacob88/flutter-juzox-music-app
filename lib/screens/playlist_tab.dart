@@ -176,12 +176,57 @@ class PlaylistTile extends StatelessWidget {
             title: Text(playlistName),
             subtitle: Text(
                 '${currentPlaylistSongs != null ? currentPlaylistSongs.length : 0} songs'),
-            trailing: IconButton(
+            // trailing: IconButton(
+            //   icon: const Icon(Icons.more_vert),
+            //   onPressed: () {
+            //     audioPlayerProvider.deleteUserPlaylist(playlistName);
+            //   },
+            // ),
+
+            trailing: PopupMenuButton<String>(
+              popUpAnimationStyle: AnimationStyle(
+                curve: Easing.emphasizedAccelerate,
+                duration: const Duration(milliseconds: 500),
+              ),
               icon: const Icon(Icons.more_vert),
-              onPressed: () {
-                audioPlayerProvider.deleteUserPlaylist(playlistName);
+              onSelected: (String value) {
+                switch (value) {
+                  case 'delete':
+                    Provider.of<AudioPlayerProvider>(context, listen: false)
+                        .deleteUserPlaylist(playlistName);
+                    break;
+                  case 'add_songs':
+                    // Implement the functionality to add songs to the playlist
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            SelectSongsPage(playlistName: playlistName),
+                      ),
+                    );
+                    break;
+                  case 'rename':
+                    _showRenamePlaylistDialog(context, playlistName);
+                    break;
+                }
+              },
+              itemBuilder: (BuildContext context) {
+                return [
+                  const PopupMenuItem(
+                    value: 'delete',
+                    child: Text('Delete Playlist'),
+                  ),
+                  const PopupMenuItem(
+                    value: 'add_songs',
+                    child: Text('Add Songs to Playlist'),
+                  ),
+                  const PopupMenuItem(
+                    value: 'rename',
+                    child: Text('Rename Playlist'),
+                  ),
+                ];
               },
             ),
+
             contentPadding: const EdgeInsets.only(left: 16, right: 0),
             onTap: () {
               // Implement the functionality to open and play the playlist
@@ -258,6 +303,45 @@ class PlaylistTile extends StatelessWidget {
     //     },
     //   ),
     // );
+  }
+
+  void _showRenamePlaylistDialog(BuildContext context, String playlistName) {
+    final TextEditingController _controller = TextEditingController();
+    _controller.text = playlistName;
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Rename Playlist'),
+          content: TextField(
+            controller: _controller,
+            decoration: const InputDecoration(
+              hintText: 'New Playlist Name',
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                final newPlaylistName = _controller.text;
+                if (newPlaylistName.isNotEmpty) {
+                  // Provider.of<AudioPlayerProvider>(context, listen: false)
+                  //     .renamePlaylist(playlistName, newPlaylistName);
+                  Navigator.of(context).pop();
+                }
+              },
+              child: const Text('Rename'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
