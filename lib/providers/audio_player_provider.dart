@@ -294,6 +294,7 @@ class AudioPlayerProvider extends ChangeNotifier {
   void addSongsToPlaylist(String playlistName, List<JuzoxMusicModel> songs) {
     if (_userplaylistSongs.containsKey(playlistName)) {
       _userplaylistSongs[playlistName]!.addAll(songs);
+
       _saveUserPlaylists();
 
       notifyListeners();
@@ -370,7 +371,10 @@ class AudioPlayerProvider extends ChangeNotifier {
   void renamePlaylist(String oldName, String newName) {
     if (_userPlaylists.contains(oldName)) {
       final int index = _userPlaylists.indexOf(oldName);
-      _userPlaylists[index] = newName;
+      // _userPlaylists[index] = newName;
+
+// Create a new list with the updated playlist name
+      _userPlaylists = List.from(_userPlaylists)..[index] = newName;
 
       final List<JuzoxMusicModel>? songs = _userplaylistSongs.remove(oldName);
       if (songs != null) {
