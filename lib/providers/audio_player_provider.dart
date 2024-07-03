@@ -295,8 +295,18 @@ class AudioPlayerProvider extends ChangeNotifier {
     if (_userplaylistSongs.containsKey(playlistName)) {
       //_userplaylistSongs[playlistName]!.addAll(songs);
 
-      _userplaylistSongs[playlistName] =
-          List.from(_userplaylistSongs[playlistName]!)..addAll(songs);
+      // _userplaylistSongs[playlistName] =
+      //     List.from(_userplaylistSongs[playlistName]!)..addAll(songs);
+
+// Create a new list for the specific playlist
+      final updatedPlaylistSongs =
+          List<JuzoxMusicModel>.from(_userplaylistSongs[playlistName]!)
+            ..addAll(songs);
+
+      // Create a new map and update the specific playlist with the new list
+      _userplaylistSongs =
+          Map<String, List<JuzoxMusicModel>>.from(_userplaylistSongs)
+            ..[playlistName] = updatedPlaylistSongs;
 
       _saveUserPlaylists();
       notifyListeners();
