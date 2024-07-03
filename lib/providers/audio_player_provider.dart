@@ -366,6 +366,22 @@ class AudioPlayerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Method to rename a playlist
+  void renamePlaylist(String oldName, String newName) {
+    if (_userPlaylists.contains(oldName)) {
+      final int index = _userPlaylists.indexOf(oldName);
+      _userPlaylists[index] = newName;
+
+      final List<JuzoxMusicModel>? songs = _userplaylistSongs.remove(oldName);
+      if (songs != null) {
+        _userplaylistSongs[newName] = songs;
+      }
+
+      _saveUserPlaylists();
+      notifyListeners();
+    }
+  }
+
 //to store all songs initially from the songs tab while loading the app
   void saveAllSongs(List<JuzoxMusicModel> allSongs) {
     _allSongs = allSongs;

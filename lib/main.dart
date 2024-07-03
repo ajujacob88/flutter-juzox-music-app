@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
           foregroundColor: kColorScheme.primaryContainer,
           // foregroundColor: Color.fromARGB(255, 121, 157, 174),
         ),
-        dividerTheme: DividerThemeData(
+        dividerTheme: const DividerThemeData(
           color: Color.fromARGB(172, 64, 195, 255),
         ),
         scaffoldBackgroundColor: kColorScheme.onPrimaryContainer,
