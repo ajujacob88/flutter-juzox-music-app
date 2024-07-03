@@ -293,10 +293,12 @@ class AudioPlayerProvider extends ChangeNotifier {
 */
   void addSongsToPlaylist(String playlistName, List<JuzoxMusicModel> songs) {
     if (_userplaylistSongs.containsKey(playlistName)) {
-      _userplaylistSongs[playlistName]!.addAll(songs);
+      //_userplaylistSongs[playlistName]!.addAll(songs);
+
+      _userplaylistSongs[playlistName] =
+          List.from(_userplaylistSongs[playlistName]!)..addAll(songs);
 
       _saveUserPlaylists();
-
       notifyListeners();
     }
   }

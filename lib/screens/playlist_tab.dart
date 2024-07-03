@@ -93,8 +93,8 @@ class PlaylistTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Using the existing instance of AudioPlayerProvider
-    final audioPlayerProvider =
-        Provider.of<AudioPlayerProvider>(context, listen: false);
+    // final audioPlayerProvider =
+    //     Provider.of<AudioPlayerProvider>(context, listen: false);
 
     return Selector<
         AudioPlayerProvider,
@@ -155,8 +155,12 @@ class PlaylistTile extends StatelessWidget {
               ),
             ),
             title: Text(playlistName),
-            subtitle: Text(
-                '${currentPlaylistSongs != null ? currentPlaylistSongs.length : 0} songs'),
+
+            // subtitle: Text(
+            //     '${currentPlaylistSongs != null ? currentPlaylistSongs.length : 0} songs'),
+            // subtitle: Text('${currentPlaylistSongs.length} songs'),
+
+            subtitle: Text('${currentPlaylistSongs.length} songs'),
             // trailing: IconButton(
             //   icon: const Icon(Icons.more_vert),
             //   onPressed: () {
