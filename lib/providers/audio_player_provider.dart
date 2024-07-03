@@ -304,12 +304,35 @@ class AudioPlayerProvider extends ChangeNotifier {
       //       ..addAll(songs);
 
       // above causes the already added songs to add again, so this is enough
-      final updatedPlaylistSongs = songs;
+      //  final updatedPlaylistSongs = songs;
 
+/*
+      //anothe method using set
+      final existingSongs = _userplaylistSongs[playlistName] ?? [];
+
+      // Create a set of song IDs to quickly check for duplicates
+      final existingSongIds = existingSongs.map((song) => song.id).toSet();
+
+      // Filter out songs that are already in the playlist
+      final newSongs =
+          songs.where((song) => !existingSongIds.contains(song.id)).toList();
+
+      // Create the updated playlist by adding new songs to the existing ones
+      final updatedPlaylistSongs = List<JuzoxMusicModel>.from(existingSongs)
+        ..addAll(newSongs);
+*/
       // Create a new map and update the specific playlist with the new list
+      // _userplaylistSongs =
+      //     Map<String, List<JuzoxMusicModel>>.from(_userplaylistSongs)
+      //       ..[playlistName] = updatedPlaylistSongs;
+
+      // _userplaylistSongs =
+      //     Map<String, List<JuzoxMusicModel>>.from(_userplaylistSongs)
+      //       ..[playlistName] = songs;
+
       _userplaylistSongs =
           Map<String, List<JuzoxMusicModel>>.from(_userplaylistSongs)
-            ..[playlistName] = updatedPlaylistSongs;
+            ..[playlistName] = List.from(songs);
 
       _saveUserPlaylists();
       notifyListeners();
