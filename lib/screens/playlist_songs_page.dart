@@ -237,21 +237,21 @@ class PlaylistSongsPage extends StatelessWidget {
             //     "current.length is  ${current.length} and current $current");
             return previous != current;
           },
-          builder: (_, favoriteSongs, myChild) {
+          builder: (_, playlistSongs, myChild) {
             return SliverList.builder(
               key: const PageStorageKey<String>('allfavoriteSongs'),
-              itemCount: favoriteSongs.length,
+              itemCount: playlistSongs.length,
               itemBuilder: (_, index) {
                 //  return Text(audioPlayerProvider.favoriteSongs[index].album!);
                 return ListTile(
                   contentPadding: const EdgeInsets.only(left: 18, right: 4),
                   title: Text(
-                    favoriteSongs[index].title!,
+                    playlistSongs[index].title!,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
                   subtitle: Text(
-                    '${favoriteSongs[index].artist!} - ${favoriteSongs[index].album}',
+                    '${playlistSongs[index].artist!} - ${playlistSongs[index].album}',
                     overflow: TextOverflow.ellipsis,
                   ),
                   leading: QueryArtworkWidget(
@@ -259,7 +259,7 @@ class PlaylistSongsPage extends StatelessWidget {
                         left: Radius.circular(8), right: Radius.circular(8)),
                     artworkClipBehavior: Clip.hardEdge,
                     //  controller: _audioQuery,
-                    id: favoriteSongs[index].id!,
+                    id: playlistSongs[index].id!,
                     type: ArtworkType.AUDIO,
                     nullArtworkWidget: Container(
                       decoration: const BoxDecoration(
@@ -287,7 +287,7 @@ class PlaylistSongsPage extends StatelessWidget {
                           item2: audioplayerprovider.isPlaying
                         ),
                         builder: (context, data, child) {
-                          return data.item1 == favoriteSongs[index].id
+                          return data.item1 == playlistSongs[index].id
                               ? data.item2
                                   ? const AnimatedMusicIndicator(
                                       color: Colors.lightBlueAccent,
@@ -301,10 +301,6 @@ class PlaylistSongsPage extends StatelessWidget {
                                         size: .1,
                                       ),
                                     )
-                              // : const AnimatedMusicIndicator(
-                              //     animate: false,
-                              //     size: .06,
-                              //   );
                               : const StaticMusicIndicator(
                                   color: Colors.lightBlueAccent,
                                   size: 0,
