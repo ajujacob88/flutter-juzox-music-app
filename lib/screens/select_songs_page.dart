@@ -67,10 +67,11 @@ class _SelectSongsPageState extends State<SelectSongsPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (_selectedSongs.isNotEmpty) {
-            Provider.of<AudioPlayerProvider>(context, listen: false)
-                .addSongsToPlaylist(widget.playlistName, _selectedSongs);
-          }
+          //  if (_selectedSongs.isNotEmpty) {
+          debugPrint('debug selected songg 2 is $_selectedSongs');
+          Provider.of<AudioPlayerProvider>(context, listen: false)
+              .addSongsToPlaylist(widget.playlistName, _selectedSongs);
+          //  }
           Navigator.of(context).pop();
         },
         child: const Icon(Icons.done),
