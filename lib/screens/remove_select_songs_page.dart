@@ -52,7 +52,10 @@ class _RemoveSelectSongsPageState extends State<RemoveSelectSongsPage> {
                 title: Text(song.title ??
                     'Unknown Title'), // Adjust based on your music model
                 trailing: Icon(
-                  isSelected ? Icons.check_box : Icons.check_box_outline_blank,
+                  // isSelected ? Icons.check_box : Icons.check_box_outline_blank,
+                  isSelected
+                      ? Icons.remove_circle
+                      : Icons.check_box_outline_blank,
                   color: isSelected ? Colors.green : null,
                 ),
                 onTap: () {
@@ -62,7 +65,7 @@ class _RemoveSelectSongsPageState extends State<RemoveSelectSongsPage> {
                       _selectedSongs
                           .removeWhere((element) => element.id == song.id);
                     } else {
-                    //  _selectedSongs.add(song);
+                      //  _selectedSongs.add(song);
                     }
                   });
                 },
@@ -84,4 +87,3 @@ class _RemoveSelectSongsPageState extends State<RemoveSelectSongsPage> {
     );
   }
 }
-
