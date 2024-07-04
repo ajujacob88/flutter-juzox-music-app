@@ -14,7 +14,7 @@ class RemoveSelectSongsPage extends StatefulWidget {
 
 class _RemoveSelectSongsPageState extends State<RemoveSelectSongsPage> {
   List<JuzoxMusicModel> _selectedSongs = [];
-  Set<JuzoxMusicModel> _markedForRemoval = {};
+  final Set<JuzoxMusicModel> _markedForRemoval = {};
 
   @override
   void initState() {
@@ -75,7 +75,9 @@ class _RemoveSelectSongsPageState extends State<RemoveSelectSongsPage> {
 
           Navigator.of(context).pop();
         },
-        child: const Icon(Icons.done),
+        child: const Icon(
+          Icons.done,
+        ),
       ),
     );
   }
