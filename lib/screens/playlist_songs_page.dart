@@ -319,9 +319,16 @@ class PlaylistSongsPage extends StatelessWidget {
                     ],
                   ),
                   onTap: () {
-                    return audioPlayerProvider.playSongFromList(
-                        audioPlayerProvider.favoriteSongs[index],
-                        audioPlayerProvider.favoriteSongs);
+                    if (isFavoritePlaylist) {
+                      return audioPlayerProvider.playSongFromList(
+                          audioPlayerProvider.favoriteSongs[index],
+                          audioPlayerProvider.favoriteSongs);
+                    } else {
+                      return audioPlayerProvider.playSongFromList(
+                          audioPlayerProvider
+                              .userPlaylistSongs[playlistName]![index],
+                          audioPlayerProvider.userPlaylistSongs[playlistName]!);
+                    }
                   },
                 );
               },
