@@ -42,8 +42,8 @@ class _SelectSongsPageState extends State<SelectSongsPage> {
           // final isSelected = _selectedSongs.contains(song);
           final isSelected =
               _selectedSongs.any((element) => element.id == song.id);
-          debugPrint(
-              'debug selected songg isSelected $_selectedSongs and bool $isSelected ');
+          // debugPrint(
+          //     'debug selected songg isSelected $_selectedSongs and bool $isSelected ');
           return ListTile(
             title: Text(song.title ??
                 'Unknown Title'), // Adjust based on your music model
@@ -68,7 +68,6 @@ class _SelectSongsPageState extends State<SelectSongsPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           //  if (_selectedSongs.isNotEmpty) {
-          debugPrint('debug selected songg 2 is $_selectedSongs');
           Provider.of<AudioPlayerProvider>(context, listen: false)
               .addSongsToPlaylist(widget.playlistName, _selectedSongs);
           //  }
