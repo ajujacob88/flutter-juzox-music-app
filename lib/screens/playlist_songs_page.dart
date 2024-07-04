@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:juzox_music_app/models/music_model.dart';
 import 'package:juzox_music_app/providers/audio_player_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:on_audio_query/on_audio_query.dart'; // Ensure this import is correct
@@ -10,9 +11,16 @@ class PlaylistSongsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isFavoritePlaylist = playlistName == 'Favorites';
+    final List<JuzoxMusicModel> playlistSongs;
+
     final audioPlayerProvider = Provider.of<AudioPlayerProvider>(context);
-    final playlistSongs =
-        audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
+
+    if (!isFavoritePlaylist) {
+      playlistSongs = audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
+    } else {
+      playlistSongs = audioPlayerProvider.favoriteSongs;
+    }
 
     return Scaffold(
       appBar: AppBar(
