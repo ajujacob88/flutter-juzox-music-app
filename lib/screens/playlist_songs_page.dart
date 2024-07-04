@@ -72,16 +72,33 @@ class PlaylistSongsPage extends StatelessWidget {
                   child: Selector<AudioPlayerProvider, int?>(
                     selector: (context, audioPlayerProvider) {
                       // int? lastPlayedFavoriteSong;
-                      if (audioPlayerProvider.currentlyPlayingSong != null) {
-                        if (audioPlayerProvider.isFavorite(
-                            audioPlayerProvider.currentlyPlayingSong!)) {
-                          lastPlayedFavoriteSong =
-                              audioPlayerProvider.currentlyPlayingSong!.id;
-                          return audioPlayerProvider.currentlyPlayingSong!.id;
+                      if (isFavoritePlaylist) {
+                        if (audioPlayerProvider.currentlyPlayingSong != null) {
+                          if (audioPlayerProvider.isFavorite(
+                              audioPlayerProvider.currentlyPlayingSong!)) {
+                            lastPlayedFavoriteSong =
+                                audioPlayerProvider.currentlyPlayingSong!.id;
+                            return audioPlayerProvider.currentlyPlayingSong!.id;
+                          }
+                          return lastPlayedFavoriteSong;
+                        }
+                        return lastPlayedFavoriteSong;
+                      } else {
+                        if (audioPlayerProvider.currentlyPlayingSong != null) {
+                          if (audioPlayerProvider
+                              .userPlaylistSongs[playlistName]!
+                              .any((element) =>
+                                  element.id ==
+                                  audioPlayerProvider
+                                      .currentlyPlayingSong!.id)) {
+                            lastPlayedFavoriteSong =
+                                audioPlayerProvider.currentlyPlayingSong!.id;
+                            return audioPlayerProvider.currentlyPlayingSong!.id;
+                          }
+                          return lastPlayedFavoriteSong;
                         }
                         return lastPlayedFavoriteSong;
                       }
-                      return lastPlayedFavoriteSong;
                     },
                     shouldRebuild: (previous, current) => previous != current,
                     builder: (_, currentPlayingSongId, __) {
