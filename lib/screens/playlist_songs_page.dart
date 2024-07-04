@@ -222,8 +222,13 @@ class PlaylistSongsPage extends StatelessWidget {
           ],
         ),
         Selector<AudioPlayerProvider, List<JuzoxMusicModel>>(
-          selector: (context, audioPlayerProvider) =>
-              audioPlayerProvider.favoriteSongs,
+          selector: (context, audioPlayerProvider) {
+            if (isFavoritePlaylist) {
+              return audioPlayerProvider.favoriteSongs;
+            } else {
+              return audioPlayerProvider.userPlaylistSongs[playlistName]!;
+            }
+          },
           shouldRebuild: (previous, current) {
             //The selected value must be immutable, or otherwise Selector may think nothing changed and not call builder again... so _favoriteSongs.remove(song); in audioProvider is mutable, so selector wont notify the changes and hence ui wont update.. so change it to immutable by creating new list every time like this  _favoriteSongs = List.from(_favoriteSongs)..remove(song);  To ensure Selector works correctly, the list itself should be treated immutably. Instead of modifying the existing list, create a new list each time an item is added or removed. This way, the Selector can detect the change properly.
             // debugPrint(
