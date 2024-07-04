@@ -15,17 +15,27 @@ class RemoveSelectSongsPage extends StatefulWidget {
 class _RemoveSelectSongsPageState extends State<RemoveSelectSongsPage> {
   List<JuzoxMusicModel> _selectedSongs = [];
   final Set<JuzoxMusicModel> _markedForRemoval = {};
+  late bool _isFavoritePlaylist;
 
   @override
   void initState() {
     super.initState();
+    _isFavoritePlaylist = widget.playlistName == 'Favorites';
 
-    // Initialize _selectedSongs with the songs already in the playlist
-    final existingSongs =
-        Provider.of<AudioPlayerProvider>(context, listen: false)
-                .userPlaylistSongs[widget.playlistName] ??
-            [];
-    _selectedSongs = List.from(existingSongs);
+    if (!_isFavoritePlaylist) {
+      // Initialize _selectedSongs with the songs already in the playlist
+      final existingSongs =
+          Provider.of<AudioPlayerProvider>(context, listen: false)
+                  .userPlaylistSongs[widget.playlistName] ??
+              [];
+
+      _selectedSongs = List.from(existingSongs);
+    } else {
+      final existingSongs =
+          Provider.of<AudioPlayerProvider>(context, listen: false)
+              .favoriteSongs;
+      _selectedSongs = List.from(existingSongs);
+    }
   }
 
   @override
@@ -69,9 +79,11 @@ class _RemoveSelectSongsPageState extends State<RemoveSelectSongsPage> {
           _selectedSongs
               .removeWhere((song) => _markedForRemoval.contains(song));
 
-          // Update the provider with the new playlist
-          Provider.of<AudioPlayerProvider>(context, listen: false)
-              .addSongsToPlaylist(widget.playlistName, _selectedSongs);
+          !_isFavoritePlaylist
+              ? Provider.of<AudioPlayerProvider>(context, listen: false)
+                  .addSongsToPlaylist(widget.playlistName, _selectedSongs)
+              : Provider.of<AudioPlayerProvider>(context, listen: false)
+                  .addMultipleSongsToFavorite(_selectedSongs);
 
           Navigator.of(context).pop();
         },
@@ -82,8 +94,6 @@ class _RemoveSelectSongsPageState extends State<RemoveSelectSongsPage> {
     );
   }
 }
-
-
 
 /*
 import 'package:flutter/material.dart';

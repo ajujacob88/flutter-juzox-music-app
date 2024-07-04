@@ -14,15 +14,15 @@ class SelectSongsPage extends StatefulWidget {
 
 class _SelectSongsPageState extends State<SelectSongsPage> {
   List<JuzoxMusicModel> _selectedSongs = [];
-  late bool isFavoritePlaylist;
+  late bool _isFavoritePlaylist;
 
   @override
   void initState() {
     super.initState();
-    isFavoritePlaylist = widget.playlistName == 'Favorites';
+    _isFavoritePlaylist = widget.playlistName == 'Favorites';
 
     // if (widget.playlistName != 'Favorites') {
-    if (!isFavoritePlaylist) {
+    if (!_isFavoritePlaylist) {
       // Initialize _selectedSongs with the songs already in the playlist
       final existingSongs =
           Provider.of<AudioPlayerProvider>(context, listen: false)
@@ -83,7 +83,7 @@ class _SelectSongsPageState extends State<SelectSongsPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          !isFavoritePlaylist
+          !_isFavoritePlaylist
               ? Provider.of<AudioPlayerProvider>(context, listen: false)
                   .addSongsToPlaylist(widget.playlistName, _selectedSongs)
               : Provider.of<AudioPlayerProvider>(context, listen: false)
