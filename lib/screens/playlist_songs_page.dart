@@ -140,10 +140,19 @@ class PlaylistSongsPage extends StatelessWidget {
           actions: [
             TextButton.icon(
               onPressed: () {
-                if (audioPlayerProvider.favoriteSongs.isNotEmpty) {
-                  audioPlayerProvider.playSongFromList(
-                      audioPlayerProvider.favoriteSongs[0],
-                      audioPlayerProvider.favoriteSongs);
+                if (isFavoritePlaylist) {
+                  if (audioPlayerProvider.favoriteSongs.isNotEmpty) {
+                    audioPlayerProvider.playSongFromList(
+                        audioPlayerProvider.favoriteSongs[0],
+                        audioPlayerProvider.favoriteSongs);
+                  }
+                } else {
+                  if (audioPlayerProvider
+                      .userPlaylistSongs[playlistName]!.isNotEmpty) {
+                    audioPlayerProvider.playSongFromList(
+                        audioPlayerProvider.userPlaylistSongs[playlistName]![0],
+                        audioPlayerProvider.userPlaylistSongs[playlistName]!);
+                  }
                 }
               },
               icon: const Icon(
