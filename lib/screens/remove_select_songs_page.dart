@@ -53,10 +53,14 @@ class _RemoveSelectSongsPageState extends State<RemoveSelectSongsPage> {
                     'Unknown Title'), // Adjust based on your music model
                 trailing: Icon(
                   // isSelected ? Icons.check_box : Icons.check_box_outline_blank,
-                  isSelected
-                      ? Icons.remove_circle
-                      : Icons.check_box_outline_blank,
-                  color: isSelected ? Colors.green : null,
+                  // isSelected
+                  //     ? Icons.remove_circle_outlined
+                  //     : Icons.check_box_outline_blank,
+                  // //color: isSelected ? Colors.green : null,
+                  // color: isSelected ? Colors.red[300] : null,
+
+                  Icons.remove_circle_outlined,
+                  color: Colors.red[300],
                 ),
                 onTap: () {
                   setState(() {
