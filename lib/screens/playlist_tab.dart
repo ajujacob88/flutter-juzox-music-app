@@ -6,6 +6,7 @@ import 'package:juzox_music_app/providers/audio_player_provider.dart';
 import 'package:juzox_music_app/models/music_model.dart';
 import 'package:juzox_music_app/screens/favorites_tab.dart';
 import 'package:juzox_music_app/screens/playlist_songs_page.dart';
+import 'package:juzox_music_app/screens/remove_select_songs_page';
 import 'package:juzox_music_app/screens/select_songs_page.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
@@ -193,7 +194,7 @@ class PlaylistTile extends StatelessWidget {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) =>
-                            SelectSongsPage(playlistName: playlistName),
+                            RemoveSelectSongsPage(playlistName: playlistName),
                       ),
                     );
                     break;
