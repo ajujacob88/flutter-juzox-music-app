@@ -248,6 +248,20 @@ class AudioPlayerProvider extends ChangeNotifier {
     }
   }
 
+  void addMultipleSongsToFavorite(List<JuzoxMusicModel> songs) {
+    // if (_userplaylistSongs.containsKey(playlistName)) {
+
+    //   _userplaylistSongs =
+    //       Map<String, List<JuzoxMusicModel>>.from(_userplaylistSongs)
+    //         ..[playlistName] = List.from(songs);
+
+    _favoriteSongs = List.from(songs);
+
+    _saveFavoriteSongs();
+    notifyListeners();
+    //}
+  }
+
   void addUserPlaylist(String playlistName) {
     if (!_userPlaylists.contains(playlistName)) {
       // _userPlaylists.add(playlistName);

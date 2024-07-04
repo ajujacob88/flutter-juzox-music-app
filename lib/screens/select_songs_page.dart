@@ -14,17 +14,27 @@ class SelectSongsPage extends StatefulWidget {
 
 class _SelectSongsPageState extends State<SelectSongsPage> {
   List<JuzoxMusicModel> _selectedSongs = [];
+  late bool isFavoritePlaylist;
 
   @override
   void initState() {
     super.initState();
+    isFavoritePlaylist = widget.playlistName == 'Favorites';
 
-    // Initialize _selectedSongs with the songs already in the playlist
-    final existingSongs =
-        Provider.of<AudioPlayerProvider>(context, listen: false)
-                .userPlaylistSongs[widget.playlistName] ??
-            [];
-    _selectedSongs = List.from(existingSongs);
+    // if (widget.playlistName != 'Favorites') {
+    if (!isFavoritePlaylist) {
+      // Initialize _selectedSongs with the songs already in the playlist
+      final existingSongs =
+          Provider.of<AudioPlayerProvider>(context, listen: false)
+                  .userPlaylistSongs[widget.playlistName] ??
+              [];
+      _selectedSongs = List.from(existingSongs);
+    } else {
+      final existingSongs =
+          Provider.of<AudioPlayerProvider>(context, listen: false)
+              .favoriteSongs;
+      _selectedSongs = List.from(existingSongs);
+    }
   }
 
   @override
@@ -73,10 +83,12 @@ class _SelectSongsPageState extends State<SelectSongsPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          //  if (_selectedSongs.isNotEmpty) {
-          Provider.of<AudioPlayerProvider>(context, listen: false)
-              .addSongsToPlaylist(widget.playlistName, _selectedSongs);
-          //  }
+          !isFavoritePlaylist
+              ? Provider.of<AudioPlayerProvider>(context, listen: false)
+                  .addSongsToPlaylist(widget.playlistName, _selectedSongs)
+              : Provider.of<AudioPlayerProvider>(context, listen: false)
+                  .addMultipleSongsToFavorite(_selectedSongs);
+
           Navigator.of(context).pop();
         },
         child: const Icon(Icons.done),
