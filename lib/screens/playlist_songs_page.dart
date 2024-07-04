@@ -32,6 +32,7 @@ class PlaylistSongsPage extends StatelessWidget {
         ? audioPlayerProvider.favoriteSongs[0].id
         : 0;
     int? lastPlayedFavoriteSong;
+    int? lastPlayedPlaylistSong;
 
     return Scaffold(
         // appBar: AppBar(
@@ -91,13 +92,19 @@ class PlaylistSongsPage extends StatelessWidget {
                                   element.id ==
                                   audioPlayerProvider
                                       .currentlyPlayingSong!.id)) {
-                            lastPlayedFavoriteSong =
+                            lastPlayedPlaylistSong =
                                 audioPlayerProvider.currentlyPlayingSong!.id;
                             return audioPlayerProvider.currentlyPlayingSong!.id;
                           }
-                          return lastPlayedFavoriteSong;
+                          // return lastPlayedPlaylistSong;
                         }
-                        return lastPlayedFavoriteSong;
+                        if (audioPlayerProvider
+                            .userPlaylistSongs[playlistName]!.isNotEmpty) {
+                          return audioPlayerProvider
+                              .userPlaylistSongs[playlistName]![0].id;
+                        } else {
+                          return 0;
+                        }
                       }
                     },
                     shouldRebuild: (previous, current) => previous != current,
