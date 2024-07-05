@@ -469,14 +469,22 @@ class AudioPlayerProvider extends ChangeNotifier {
     // notifyListeners();
 
 //To ensure the Selector properly detects changes and triggers a rebuild, modify shufflePlaylistSongs to create a completely new map with shuffled songs:
-    if (_userplaylistSongs.containsKey(playlistName)) {
+    if (playlistName != 'Favorites') {
+      if (_userplaylistSongs.containsKey(playlistName)) {
+        final List<JuzoxMusicModel> shuffledSongs =
+            List.from(_userplaylistSongs[playlistName]!);
+        shuffledSongs.shuffle(Random());
+        final newPlaylistSongs =
+            Map<String, List<JuzoxMusicModel>>.from(_userplaylistSongs);
+        newPlaylistSongs[playlistName] = shuffledSongs;
+        _userplaylistSongs = newPlaylistSongs;
+        notifyListeners();
+      }
+    } else {
       final List<JuzoxMusicModel> shuffledSongs =
-          List.from(_userplaylistSongs[playlistName]!);
+          List<JuzoxMusicModel>.from(_favoriteSongs);
       shuffledSongs.shuffle(Random());
-      final newPlaylistSongs =
-          Map<String, List<JuzoxMusicModel>>.from(_userplaylistSongs);
-      newPlaylistSongs[playlistName] = shuffledSongs;
-      _userplaylistSongs = newPlaylistSongs;
+      _favoriteSongs = shuffledSongs;
       notifyListeners();
     }
   }
