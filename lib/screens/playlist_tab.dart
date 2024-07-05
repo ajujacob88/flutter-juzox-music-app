@@ -263,7 +263,7 @@ class PlaylistTile extends StatelessWidget {
                       child: ListTile(
                           iconColor: Color.fromARGB(193, 255, 255, 255),
                           textColor: Color.fromARGB(193, 255, 255, 255),
-                          leading: Icon(Icons.play_circle),
+                          leading: Icon(Icons.play_circle_outline_outlined),
                           title: Text('Play All')),
                     ),
                     const PopupMenuDivider(),
@@ -295,7 +295,15 @@ class PlaylistTile extends StatelessWidget {
                           textColor: Color.fromARGB(193, 255, 255, 255),
                           leading: Icon(Icons.playlist_remove_outlined),
                           title: Text('Remove Songs')),
-                    )
+                    ),
+                    const PopupMenuItem(
+                      value: 'play',
+                      child: ListTile(
+                          iconColor: Color.fromARGB(193, 255, 255, 255),
+                          textColor: Color.fromARGB(193, 255, 255, 255),
+                          leading: Icon(Icons.play_circle_outline_outlined),
+                          title: Text('Play All')),
+                    ),
                   ];
                 }
               },
