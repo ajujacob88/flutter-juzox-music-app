@@ -378,15 +378,15 @@ class PlaylistSongsPage extends StatelessWidget {
             },
           ),
         ),
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: SizedBox(
             height: 190,
             child: Align(
                 alignment: Alignment.center,
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: 100),
+                  padding: const EdgeInsets.only(bottom: 100),
                   child: Text(
-                    'This much Favorites',
+                    'This much $playlistName',
                   ),
                 )),
           ),
