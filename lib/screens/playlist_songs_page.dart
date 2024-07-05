@@ -190,7 +190,8 @@ class PlaylistSongsPage extends StatelessWidget {
                     return audioPlayerProvider.favoriteSongs.length;
                   } else {
                     return audioPlayerProvider
-                        .userPlaylistSongs[playlistName]!.length;
+                            .userPlaylistSongs[playlistName]?.length ??
+                        0;
                   }
                 },
                 shouldRebuild: (previous, current) => previous != current,
@@ -250,7 +251,7 @@ class PlaylistSongsPage extends StatelessWidget {
             if (isFavoritePlaylist) {
               return audioPlayerProvider.favoriteSongs;
             } else {
-              return audioPlayerProvider.userPlaylistSongs[playlistName]!;
+              return audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
             }
           },
           shouldRebuild: (previous, current) {
@@ -270,12 +271,12 @@ class PlaylistSongsPage extends StatelessWidget {
                 return ListTile(
                   contentPadding: const EdgeInsets.only(left: 18, right: 4),
                   title: Text(
-                    playlistSongs[index].title!,
+                    playlistSongs[index].title ?? 'Unknown Title',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
                   subtitle: Text(
-                    '${playlistSongs[index].artist!} - ${playlistSongs[index].album}',
+                    '${playlistSongs[index].artist ?? 'Unknown artist'} - ${playlistSongs[index].album}',
                     overflow: TextOverflow.ellipsis,
                   ),
                   leading: QueryArtworkWidget(
