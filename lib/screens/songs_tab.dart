@@ -157,8 +157,7 @@ class _SongsTabState extends State<SongsTab>
                 padding: const EdgeInsets.only(right: 8),
                 icon: const Icon(CupertinoIcons.shuffle),
                 onPressed: () {
-                  return audioPlayerProvider
-                      .shufflePlaylistSongs('allSongssss');
+                  return audioPlayerProvider.shufflePlaylistSongs('allSongs');
                 },
               ),
               // Sort button

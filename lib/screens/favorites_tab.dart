@@ -177,7 +177,9 @@ class _FavoritesTabState extends State<FavoritesTab>
               color: Colors.white70,
               padding: const EdgeInsets.only(right: 8),
               icon: const Icon(CupertinoIcons.shuffle),
-              onPressed: () {},
+              onPressed: () {
+                return audioPlayerProvider.shufflePlaylistSongs('Favorites');
+              },
             ),
             DropdownButton<String>(
               items: [],
