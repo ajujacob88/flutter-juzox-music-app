@@ -209,43 +209,66 @@ class PlaylistTile extends StatelessWidget {
                 }
               },
               itemBuilder: (BuildContext context) {
-                return [
-                  const PopupMenuItem(
-                    value: 'add_songs',
-                    //child: Text('Add Songs to Playlist'),
-                    child: ListTile(
-                        iconColor: Color.fromARGB(193, 255, 255, 255),
-                        textColor: Color.fromARGB(193, 255, 255, 255),
-                        leading: Icon(Icons.playlist_add_outlined),
-                        title: Text('Add Songs')),
-                  ),
-                  const PopupMenuItem(
-                    value: 'remove_songs',
-                    child: ListTile(
-                        iconColor: Color.fromARGB(193, 255, 255, 255),
-                        textColor: Color.fromARGB(193, 255, 255, 255),
-                        leading: Icon(Icons.playlist_remove_outlined),
-                        title: Text('Remove Songs')),
-                  ),
-                  const PopupMenuItem(
-                    value: 'rename',
-                    child: ListTile(
-                        iconColor: Color.fromARGB(193, 255, 255, 255),
-                        textColor: Color.fromARGB(193, 255, 255, 255),
-                        leading: Icon(Icons.drive_file_rename_outline_outlined),
-                        title: Text('Rename Playlist')),
-                  ),
-                  const PopupMenuDivider(),
-                  //the popupmenu divider color is changed from themedata in main file,, only from theme data this color can be changed
-                  const PopupMenuItem(
-                    value: 'delete',
-                    child: ListTile(
-                        iconColor: Color.fromARGB(193, 255, 255, 255),
-                        textColor: Color.fromARGB(193, 255, 255, 255),
-                        leading: Icon(Icons.delete_sweep),
-                        title: Text('Delete Playlist')),
-                  ),
-                ];
+                if (playlistName != 'Favorites') {
+                  return [
+                    const PopupMenuItem(
+                      value: 'add_songs',
+                      //child: Text('Add Songs to Playlist'),
+                      child: ListTile(
+                          iconColor: Color.fromARGB(193, 255, 255, 255),
+                          textColor: Color.fromARGB(193, 255, 255, 255),
+                          leading: Icon(Icons.playlist_add_outlined),
+                          title: Text('Add Songs')),
+                    ),
+                    const PopupMenuItem(
+                      value: 'remove_songs',
+                      child: ListTile(
+                          iconColor: Color.fromARGB(193, 255, 255, 255),
+                          textColor: Color.fromARGB(193, 255, 255, 255),
+                          leading: Icon(Icons.playlist_remove_outlined),
+                          title: Text('Remove Songs')),
+                    ),
+                    const PopupMenuItem(
+                      value: 'rename',
+                      child: ListTile(
+                          iconColor: Color.fromARGB(193, 255, 255, 255),
+                          textColor: Color.fromARGB(193, 255, 255, 255),
+                          leading:
+                              Icon(Icons.drive_file_rename_outline_outlined),
+                          title: Text('Rename Playlist')),
+                    ),
+                    const PopupMenuDivider(),
+                    //the popupmenu divider color is changed from themedata in main file,, only from theme data this color can be changed
+                    const PopupMenuItem(
+                      value: 'delete',
+                      child: ListTile(
+                          iconColor: Color.fromARGB(193, 255, 255, 255),
+                          textColor: Color.fromARGB(193, 255, 255, 255),
+                          leading: Icon(Icons.delete_sweep),
+                          title: Text('Delete Playlist')),
+                    ),
+                  ];
+                } else {
+                  return [
+                    const PopupMenuItem(
+                      value: 'add_songs',
+                      //child: Text('Add Songs to Playlist'),
+                      child: ListTile(
+                          iconColor: Color.fromARGB(193, 255, 255, 255),
+                          textColor: Color.fromARGB(193, 255, 255, 255),
+                          leading: Icon(Icons.playlist_add_outlined),
+                          title: Text('Add Songs')),
+                    ),
+                    const PopupMenuItem(
+                      value: 'remove_songs',
+                      child: ListTile(
+                          iconColor: Color.fromARGB(193, 255, 255, 255),
+                          textColor: Color.fromARGB(193, 255, 255, 255),
+                          leading: Icon(Icons.playlist_remove_outlined),
+                          title: Text('Remove Songs')),
+                    )
+                  ];
+                }
               },
             ),
 
