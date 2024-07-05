@@ -43,12 +43,12 @@ class PlaylistSongsPage extends StatelessWidget {
       // ),
       // bottomSheet: ColoredBox(color: Colors.white),
       extendBody: true,
-      bottomNavigationBar: JuzoxBottomNavigationBar(
-        onCurrentPageChanged: (newIndex) {
-          //   _currentPageIndexNotifier.value = newIndex;
-          //   print('debug check 1 currentpageindex = $newIndex');
-        },
-      ),
+      // bottomNavigationBar: JuzoxBottomNavigationBar(
+      //   onCurrentPageChanged: (newIndex) {
+      //     //   _currentPageIndexNotifier.value = newIndex;
+      //     //   print('debug check 1 currentpageindex = $newIndex');
+      //   },
+      // ),
 
       // bottomNavigationBar: Selector<AudioPlayerProvider, JuzoxMusicModel?>(
       //   selector: (context, provider) => provider.currentlyPlayingSong,
@@ -448,7 +448,7 @@ class PlaylistSongsPage extends StatelessWidget {
             builder: (context, song, child) {
               if (song != null) {
                 return Positioned(
-                  bottom: 54,
+                  bottom: 0,
                   left: 45,
                   child: MiniPlayer(
                     song: song,
