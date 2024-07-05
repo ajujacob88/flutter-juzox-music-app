@@ -97,7 +97,8 @@ class _SongsTabState extends State<SongsTab>
   @override
   Widget build(BuildContext context) {
     super.build(context); //to preserve the state AutomaticKeepAliveClientMixin
-
+    final audioPlayerProvider =
+        Provider.of<AudioPlayerProvider>(context, listen: false);
     return Stack(
       children: [
         Container(
@@ -156,7 +157,8 @@ class _SongsTabState extends State<SongsTab>
                 padding: const EdgeInsets.only(right: 8),
                 icon: const Icon(CupertinoIcons.shuffle),
                 onPressed: () {
-                  // Add logic for song selection (optional)
+                  return audioPlayerProvider
+                      .shufflePlaylistSongs('allSongssss');
                 },
               ),
               // Sort button

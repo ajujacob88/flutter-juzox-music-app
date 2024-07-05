@@ -469,8 +469,17 @@ class AudioPlayerProvider extends ChangeNotifier {
     // notifyListeners();
 
 //To ensure the Selector properly detects changes and triggers a rebuild, modify shufflePlaylistSongs to create a completely new map with shuffled songs:
-    if (playlistName != 'Favorites') {
+    debugPrint('checkingggg 1 $playlistName');
+    if (playlistName == 'allSongssss') {
+      debugPrint('checkingggg 4');
+      final List<JuzoxMusicModel> shuffledSongs =
+          List<JuzoxMusicModel>.from(_allSongs);
+      shuffledSongs.shuffle(Random());
+      _allSongs = shuffledSongs;
+      notifyListeners();
+    } else if (playlistName != 'Favorites') {
       if (_userplaylistSongs.containsKey(playlistName)) {
+        debugPrint('checkingggg 2');
         final List<JuzoxMusicModel> shuffledSongs =
             List.from(_userplaylistSongs[playlistName]!);
         shuffledSongs.shuffle(Random());
@@ -480,7 +489,8 @@ class AudioPlayerProvider extends ChangeNotifier {
         _userplaylistSongs = newPlaylistSongs;
         notifyListeners();
       }
-    } else {
+    } else if (playlistName == 'Favorites') {
+      debugPrint('checkingggg 3');
       final List<JuzoxMusicModel> shuffledSongs =
           List<JuzoxMusicModel>.from(_favoriteSongs);
       shuffledSongs.shuffle(Random());
