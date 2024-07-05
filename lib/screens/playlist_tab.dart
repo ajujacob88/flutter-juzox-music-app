@@ -333,31 +333,48 @@ class PlaylistTile extends StatelessWidget {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Rename Playlist'),
-          content: TextField(
-            controller: _controller,
-            decoration: const InputDecoration(
-              hintText: 'New Playlist Name',
+          title: const Text(
+            'Rename Playlist',
+            style: TextStyle(color: Colors.white70),
+          ),
+          backgroundColor: const Color.fromARGB(255, 2, 30, 55),
+          content: SizedBox(
+            width:
+                MediaQuery.of(context).size.width, // Set width to screen width
+            child: TextField(
+              controller: _controller,
+              decoration: const InputDecoration(
+                hintText: 'New Playlist Name',
+                hintStyle: TextStyle(
+                  color: Color.fromARGB(97, 255, 255, 255),
+                ),
+              ),
             ),
           ),
           actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                final newPlaylistName = _controller.text;
-                if (newPlaylistName.isNotEmpty) {
-                  Provider.of<AudioPlayerProvider>(context, listen: false)
-                      .renamePlaylist(playlistName, newPlaylistName);
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              TextButton(
+                onPressed: () {
                   Navigator.of(context).pop();
-                }
-              },
-              child: const Text('Rename'),
-            ),
+                },
+                style: TextButton.styleFrom(
+                    foregroundColor: Colors.lightBlueAccent),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  final newPlaylistName = _controller.text;
+                  if (newPlaylistName.isNotEmpty) {
+                    Provider.of<AudioPlayerProvider>(context, listen: false)
+                        .renamePlaylist(playlistName, newPlaylistName);
+                    Navigator.of(context).pop();
+                  }
+                },
+                style: TextButton.styleFrom(
+                    foregroundColor: Colors.lightBlueAccent),
+                child: const Text('Rename'),
+              ),
+            ])
           ],
         );
       },
@@ -436,7 +453,9 @@ class CreatePlaylistButton extends StatelessWidget {
               controller: _controller,
               decoration: const InputDecoration(
                 hintText: 'Playlist Name',
-                hintStyle: TextStyle(color: Color.fromARGB(97, 255, 255, 255)),
+                hintStyle: TextStyle(
+                  color: Color.fromARGB(97, 255, 255, 255),
+                ),
               ),
             ),
           ),
