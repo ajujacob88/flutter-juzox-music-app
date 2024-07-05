@@ -42,6 +42,7 @@ class PlaylistSongsPage extends StatelessWidget {
       //   title: Text(playlistName),
       // ),
       // bottomSheet: ColoredBox(color: Colors.white),
+      extendBody: true,
       bottomNavigationBar: JuzoxBottomNavigationBar(
         onCurrentPageChanged: (newIndex) {
           //   _currentPageIndexNotifier.value = newIndex;
@@ -447,7 +448,7 @@ class PlaylistSongsPage extends StatelessWidget {
             builder: (context, song, child) {
               if (song != null) {
                 return Positioned(
-                  bottom: 0,
+                  bottom: 54,
                   left: 45,
                   child: MiniPlayer(
                     song: song,
