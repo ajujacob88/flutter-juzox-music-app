@@ -26,7 +26,7 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  final ValueNotifier<int> _currentPageIndexNotifier = ValueNotifier<int>(0);
+  final ValueNotifier<int> _currentPageIndexNotifier = ValueNotifier<int>(1);
 
   @override
   void initState() {

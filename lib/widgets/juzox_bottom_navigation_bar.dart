@@ -11,7 +11,7 @@ class JuzoxBottomNavigationBar extends StatefulWidget {
 }
 
 class _JuzoxBottomNavigationBarState extends State<JuzoxBottomNavigationBar> {
-  int currentPageIndex = 0;
+  int currentPageIndex = 1;
 
   @override
   Widget build(BuildContext context) {
