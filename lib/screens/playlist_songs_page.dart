@@ -17,22 +17,22 @@ class PlaylistSongsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isFavoritePlaylist = playlistName == 'Favorites';
-    final List<JuzoxMusicModel> playlistSongs;
+    // final List<JuzoxMusicModel> playlistSongs;
 
     final audioPlayerProvider =
         Provider.of<AudioPlayerProvider>(context, listen: false);
 
-    if (!isFavoritePlaylist) {
-      playlistSongs = audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
-    } else {
-      playlistSongs = audioPlayerProvider.favoriteSongs;
-    }
+    // if (!isFavoritePlaylist) {
+    //   playlistSongs = audioPlayerProvider.userPlaylistSongs[playlistName] ?? [];
+    // } else {
+    //   playlistSongs = audioPlayerProvider.favoriteSongs;
+    // }
 
     final favFirstSongId = audioPlayerProvider.favoriteSongs.isNotEmpty
         ? audioPlayerProvider.favoriteSongs[0].id
         : 0;
     int? lastPlayedFavoriteSong;
-    int? lastPlayedPlaylistSong;
+    //  int? lastPlayedPlaylistSong;
 
     return Scaffold(
         // appBar: AppBar(
@@ -92,8 +92,8 @@ class PlaylistSongsPage extends StatelessWidget {
                                   element.id ==
                                   audioPlayerProvider
                                       .currentlyPlayingSong!.id)) {
-                            lastPlayedPlaylistSong =
-                                audioPlayerProvider.currentlyPlayingSong!.id;
+                            // lastPlayedPlaylistSong =
+                            //     audioPlayerProvider.currentlyPlayingSong!.id;
                             return audioPlayerProvider.currentlyPlayingSong!.id;
                           }
                           // return lastPlayedPlaylistSong;
