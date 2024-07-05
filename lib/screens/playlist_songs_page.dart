@@ -74,8 +74,8 @@ class PlaylistSongsPage extends StatelessWidget {
             key: const PageStorageKey<String>('favorites'),
             slivers: [
               SliverAppBar(
-                // floating: true,
-                // pinned: true,
+                floating: true,
+                pinned: true,
                 stretch: true,
                 onStretchTrigger: () {
                   // Function callback for stretch
