@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -442,5 +443,41 @@ class AudioPlayerProvider extends ChangeNotifier {
   void saveAllSongs(List<JuzoxMusicModel> allSongs) {
     _allSongs = allSongs;
     notifyListeners();
+  }
+
+  // Shuffle songs in a specific playlist
+  void shufflePlaylistSongs(String playlistName) {
+    // final playlistSongs = userPlaylistSongs[playlistName];
+    // List<JuzoxMusicModel>? playlistSongs = userPlaylistSongs[playlistName];
+    // if (playlistSongs != null && playlistSongs.isNotEmpty) {
+    //   playlistSongs.shuffle(Random());
+    // playlistSongs = List<JuzoxMusicModel>.from(playlistSongs)
+    //   ..shuffle(Random());
+
+    // userPlaylistSongs[playlistName]!.shuffle(Random());
+
+    // _userplaylistSongs =
+    //     Map<String, List<JuzoxMusicModel>>.from(_userplaylistSongs)
+    //       ..[playlistName]!.shuffle(Random());
+    //userPlaylistSongs[playlistName]?.shuffle();
+    //notifyListeners();
+
+    // final newPlaylistSongs =
+    //     Map<String, List<JuzoxMusicModel>>.from(_userplaylistSongs);
+    // newPlaylistSongs[playlistName]?.shuffle(Random());
+    // _userplaylistSongs = newPlaylistSongs;
+    // notifyListeners();
+
+//To ensure the Selector properly detects changes and triggers a rebuild, modify shufflePlaylistSongs to create a completely new map with shuffled songs:
+    if (_userplaylistSongs.containsKey(playlistName)) {
+      final List<JuzoxMusicModel> shuffledSongs =
+          List.from(_userplaylistSongs[playlistName]!);
+      shuffledSongs.shuffle(Random());
+      final newPlaylistSongs =
+          Map<String, List<JuzoxMusicModel>>.from(_userplaylistSongs);
+      newPlaylistSongs[playlistName] = shuffledSongs;
+      _userplaylistSongs = newPlaylistSongs;
+      notifyListeners();
+    }
   }
 }

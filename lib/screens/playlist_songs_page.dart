@@ -279,7 +279,10 @@ class PlaylistSongsPage extends StatelessWidget {
                     color: Colors.white70,
                     padding: const EdgeInsets.only(right: 8),
                     icon: const Icon(CupertinoIcons.shuffle),
-                    onPressed: () {},
+                    onPressed: () {
+                      return audioPlayerProvider
+                          .shufflePlaylistSongs(playlistName);
+                    },
                   ),
                   DropdownButton<String>(
                     items: [],
