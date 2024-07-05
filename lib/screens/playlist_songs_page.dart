@@ -198,7 +198,7 @@ class PlaylistSongsPage extends StatelessWidget {
                 // title: Text('Aju'),
               ),
               SliverAppBar(
-                // primary: false,
+                primary: false,
                 // excludeHeaderSemantics: true,
                 automaticallyImplyLeading: false,
                 pinned: true,
