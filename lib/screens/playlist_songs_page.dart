@@ -120,17 +120,27 @@ class PlaylistSongsPage extends StatelessWidget {
                     },
                   ),
                 ),
-                const Positioned(
-                  top: 50,
-                  left: 0,
-                  right: 0,
-                  child: Icon(
-                    Icons.favorite,
-                    size: 70,
-                    // color: Color.fromARGB(63, 1, 61, 89),
-                    color: Color.fromARGB(40, 1, 61, 89),
-                  ),
-                ),
+                Positioned(
+                    top: 80, //50
+                    left: 0,
+                    right: 0,
+                    child: isFavoritePlaylist
+                        ? const Icon(
+                            Icons.favorite,
+                            // Icons.playlist_play_rounded,
+
+                            size: 70,
+                            // color: Color.fromARGB(63, 1, 61, 89),
+                            color: Color.fromARGB(40, 1, 61, 89),
+                          )
+                        : const Icon(
+                            //Icons.favorite,
+                            Icons.playlist_play_rounded,
+
+                            size: 85,
+                            // color: Color.fromARGB(63, 1, 61, 89),
+                            color: Color.fromARGB(40, 1, 61, 89),
+                          )),
                 const DecoratedBox(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
