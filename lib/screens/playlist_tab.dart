@@ -94,8 +94,8 @@ class PlaylistTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Using the existing instance of AudioPlayerProvider
-    // final audioPlayerProvider =
-    //     Provider.of<AudioPlayerProvider>(context, listen: false);
+    final audioPlayerProvider =
+        Provider.of<AudioPlayerProvider>(context, listen: false);
 
     return Selector<
         AudioPlayerProvider,
@@ -198,8 +198,28 @@ class PlaylistTile extends StatelessWidget {
                       ),
                     );
                     break;
+
                   case 'rename':
                     _showRenamePlaylistDialog(context, playlistName);
+                    break;
+
+                  case 'play':
+                    if (playlistName == 'Favorites') {
+                      if (audioPlayerProvider.favoriteSongs.isNotEmpty) {
+                        audioPlayerProvider.playSongFromList(
+                            audioPlayerProvider.favoriteSongs[0],
+                            audioPlayerProvider.favoriteSongs);
+                      }
+                    } else {
+                      if (audioPlayerProvider
+                          .userPlaylistSongs[playlistName]!.isNotEmpty) {
+                        audioPlayerProvider.playSongFromList(
+                            audioPlayerProvider
+                                .userPlaylistSongs[playlistName]![0],
+                            audioPlayerProvider
+                                .userPlaylistSongs[playlistName]!);
+                      }
+                    }
                     break;
 
                   case 'delete':
@@ -236,6 +256,15 @@ class PlaylistTile extends StatelessWidget {
                           leading:
                               Icon(Icons.drive_file_rename_outline_outlined),
                           title: Text('Rename Playlist')),
+                    ),
+
+                    const PopupMenuItem(
+                      value: 'play',
+                      child: ListTile(
+                          iconColor: Color.fromARGB(193, 255, 255, 255),
+                          textColor: Color.fromARGB(193, 255, 255, 255),
+                          leading: Icon(Icons.play_circle),
+                          title: Text('Play All')),
                     ),
                     const PopupMenuDivider(),
                     //the popupmenu divider color is changed from themedata in main file,, only from theme data this color can be changed
