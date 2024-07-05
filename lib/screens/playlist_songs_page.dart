@@ -210,7 +210,7 @@ class PlaylistSongsPage extends StatelessWidget {
                 //shadowColor: Color.fromARGB(188, 6, 102, 197),
                 shadowColor: const Color.fromARGB(184, 6, 82, 158),
                 //backgroundColor: Colors.transparent,
-                // backgroundColor: Color.fromARGB(255, 0, 17, 42),
+                backgroundColor: Color.fromARGB(255, 2, 23, 51),
                 actions: [
                   TextButton.icon(
                     onPressed: () {
