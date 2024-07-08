@@ -3,6 +3,7 @@ import 'package:juzox_music_app/providers/audio_player_provider.dart';
 import 'package:juzox_music_app/screens/tabs_screen.dart';
 import 'package:juzox_music_app/widgets/gradient_background.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
   seedColor: const Color(0xFF004277), //this finalised
@@ -17,10 +18,28 @@ const kGradient = LinearGradient(
     Color.fromARGB(163, 1, 0, 6), //this
   ],
 );
-void main() {
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings(
+          'app_icon'); // Replace 'app_icon' with your app's icon image
+
+  final InitializationSettings initializationSettings =
+      InitializationSettings(android: initializationSettingsAndroid);
+
+  await flutterLocalNotificationsPlugin.initialize(
+    initializationSettings,
+    onDidReceiveNotificationResponse: (NotificationResponse response) async {
+      // Handle notification tap here
+    },
+  );
+
   runApp(
     ChangeNotifierProvider(
-      create: (context) => AudioPlayerProvider(),
+      create: (context) => AudioPlayerProvider(flutterLocalNotificationsPlugin),
       child: const MyApp(),
     ),
   );

@@ -6,10 +6,10 @@ import 'package:just_audio/just_audio.dart';
 import 'package:juzox_music_app/models/music_model.dart';
 import 'package:juzox_music_app/services/audio_player_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class AudioPlayerProvider extends ChangeNotifier {
-  final JuzoxAudioPlayerService _juzoxAudioPlayerService =
-      JuzoxAudioPlayerService();
+  final JuzoxAudioPlayerService _juzoxAudioPlayerService;
 
   JuzoxMusicModel? _currentlyPlayingSong;
   bool _isPlaying = false;
@@ -31,7 +31,10 @@ class AudioPlayerProvider extends ChangeNotifier {
 
   List<JuzoxMusicModel> _allSongs = [];
 
-  AudioPlayerProvider() {
+  AudioPlayerProvider(
+      FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin)
+      : _juzoxAudioPlayerService =
+            JuzoxAudioPlayerService(flutterLocalNotificationsPlugin) {
     _juzoxAudioPlayerService.audioPlayer.positionStream.listen((duration) {
       _currentDuration = duration;
       notifyListeners();
