@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:juzox_music_app/providers/audio_player_provider.dart';
 import 'package:juzox_music_app/screens/tabs_screen.dart';
 import 'package:juzox_music_app/widgets/gradient_background.dart';
@@ -17,7 +18,12 @@ const kGradient = LinearGradient(
     Color.fromARGB(163, 1, 0, 6), //this
   ],
 );
-void main() {
+Future<void> main() async {
+  await JustAudioBackground.init(
+    androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
+    androidNotificationChannelName: 'Audio playback',
+    androidNotificationOngoing: true,
+  );
   runApp(
     ChangeNotifierProvider(
       create: (context) => AudioPlayerProvider(),

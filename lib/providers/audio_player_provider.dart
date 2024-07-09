@@ -92,6 +92,13 @@ class AudioPlayerProvider extends ChangeNotifier {
     _currentlyPlayingSong = song;
     // playSong(song.filePath);
     _juzoxAudioPlayerService.juzoxPlay(song.filePath);
+    _juzoxAudioPlayerService.playForNotification(
+        song.filePath,
+        song.id.toString(),
+        song.title ?? 'unknown',
+        song.artist ?? 'unknown',
+        song.album ?? 'unknown',
+        song.filePath);
     notifyListeners();
   }
 
