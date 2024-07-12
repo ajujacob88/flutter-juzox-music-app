@@ -55,6 +55,36 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones
   flutter_lints: ^4.0.0
+  flutter_native_splash: ^2.4.1
+
+
+flutter_native_splash:
+    image: assets/images/juzox-splash-icon.png
+   # color: "052549"
+    background_image: "assets/images/splashscreenbackground.png"
+    android: true # Enable splash screen for Android
+    ios: true # Enable splash screen for iOS
+    fullscreen: true # Optional: enable fullscreen mode
+   # android_gravity: fill_horizontal
+    branding: assets/images/brand-image-till-android-11.png
+
+    android_12:
+      image: assets/images/juzox-splash-icon.png
+      #color: "031E3B"
+      color: "021224" #final color
+      #color: "021F3A"
+      # android12 onwards doesnt support background image    
+      fullscreen: true # Optional: enable fullscreen mode      
+      branding: assets/images/brand-image-from-android-12.png
+
+    web: false
+
+  #after adding flutter_native_splash/ modify it, run the following commands
+  #flutter clean
+  #flutter pub get
+  #dart run flutter_native_splash:create
+
+
 
 
 
