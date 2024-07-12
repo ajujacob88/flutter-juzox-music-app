@@ -49,7 +49,7 @@
 
         android:label="juzox_music_app"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">        
+        android:icon="@mipmap/launcher_icon">        
        <!-- <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> -->
         <activity
             android:name=".MainActivity"

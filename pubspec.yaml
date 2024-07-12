@@ -56,6 +56,7 @@ dev_dependencies:
   # rules and activating additional ones
   flutter_lints: ^4.0.0
   flutter_native_splash: ^2.4.1
+  flutter_launcher_icons: "^0.13.1"
 
 
 flutter_native_splash:
@@ -83,6 +84,20 @@ flutter_native_splash:
   #flutter clean
   #flutter pub get
   #dart run flutter_native_splash:create
+
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
+  adaptive_icon_background: "#031E3B"
+  adaptive_icon_foreground: "assets/icon/icon.png"
+  
+  
+# after adding run the code below
+# flutter pub get
+# dart run flutter_launcher_icons
 
 
 
